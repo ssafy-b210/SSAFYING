@@ -10,4 +10,5 @@ public class SsafyingApplication {
 		SpringApplication.run(SsafyingApplication.class, args);
 	}
 
+
 }
