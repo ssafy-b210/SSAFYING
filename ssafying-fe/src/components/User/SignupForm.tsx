@@ -1,10 +1,14 @@
 import styled from "styled-components";
+import backarrow from "../../assets/img/backarrow.svg";
 
 function SignUpForm() {
   return (
     <div>
-      <h1>회원가입</h1>
-      <div>
+      <Header>
+        <img src={backarrow} />
+      </Header>
+      <Form>
+        <h1>회원가입</h1>
         <div>
           <div>이름을 입력하세요</div>
           <input type="text" />
@@ -62,9 +66,27 @@ function SignUpForm() {
         전공자
         <input type="radio" name="isMajor" />
         비전공자
-      </div>
+      </Form>
       <button>관심태그 선택하러 가기</button>
     </div>
   );
 }
 export default SignUpForm;
+
+const Header = styled.header`
+  display: flex;
+  align-items: center;
+
+  img {
+    height: 30px;
+    margin-right: 10px;
+    margin-top: 30px;
+  }
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`;
