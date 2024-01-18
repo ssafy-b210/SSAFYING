@@ -7,8 +7,8 @@ import kakaoIcon from "../../assets/SocialLoginIcons/kakaoIcon.png";
 function UserLogin() {
   return (
     <div>
-      <h1>ssafying</h1>
-      <h4>우리는 여전히 싸피중</h4>
+      <p>ssafying</p>
+      <p>우리는 여전히 싸피중</p>
       <form>
         <input type="email" placeholder="이메일을 입력하세요"></input> <br />
         <input type="password" placeholder="비밀번호를 입력하세요"></input>

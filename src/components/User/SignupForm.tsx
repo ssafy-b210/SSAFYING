@@ -3,7 +3,7 @@ import styled from "styled-components";
 function SignUpForm() {
   return (
     <div>
-      <h1>회원가입</h1>
+      <p>회원가입</p>
       <div>
         <div>
           <div>이름을 입력하세요</div>
