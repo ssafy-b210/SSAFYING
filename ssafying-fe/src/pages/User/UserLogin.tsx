@@ -1,7 +1,8 @@
+import logo from "../../assets/logo1.png";
 function UserLogin() {
   return (
     <div>
-      <h1>ssafying</h1>
+      <img src={logo} alt="ssafying"></img>
       <h4>우리는 여전히 싸피중</h4>
       <form>
         <input type="email" placeholder="이메일을 입력하세요"></input> <br />
