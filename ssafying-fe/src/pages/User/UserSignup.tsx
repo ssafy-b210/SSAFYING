@@ -1,9 +1,10 @@
-function About() {
+import SignUpForm from "../../components/User/SignupForm";
+
+function UserSignup() {
   return (
     <div>
-      <h1>회원가입</h1>
-      <form></form>
+      <SignUpForm />
     </div>
   );
 }
-export default About;
+export default UserSignup;
