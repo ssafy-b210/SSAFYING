@@ -7,7 +7,6 @@ import kakaoIcon from "../../assets/SocialLoginIcons/kakaoIcon.png";
 
 const SocialLoginBox = styled.div`
   display: flex;
-  justify-content: space-evenly;
   margin-top: 10px;
 `;
 
