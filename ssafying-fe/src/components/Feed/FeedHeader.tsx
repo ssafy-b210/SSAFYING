@@ -27,7 +27,6 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: gray;
 `;
 
 const Img = styled.img`
