@@ -1,4 +1,4 @@
-import logo from "../../assets/logo1.png";
+import logo from "../../assets/img/logo1.svg";
 function UserLogin() {
   return (
     <div>
