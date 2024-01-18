@@ -1,4 +1,9 @@
+import FeedListItem from "./FeedListItem";
 function FeedList() {
-  return <div></div>;
+  return (
+    <div>
+      <FeedListItem />
+    </div>
+  );
 }
 export default FeedList;

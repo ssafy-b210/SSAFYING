@@ -1,4 +1,9 @@
+import FeedListItemUser from "./FeedListItemUser";
 function FeedListItem() {
-  return <div></div>;
+  return (
+    <div>
+      <FeedListItemUser />
+    </div>
+  );
 }
 export default FeedListItem;
