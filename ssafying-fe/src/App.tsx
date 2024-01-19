@@ -3,12 +3,13 @@ import UserLogin from "./pages/User/UserLogin";
 import UserSignup from "./pages/User/UserSignup";
 import ProfileMain from "./pages/Profile/ProfileMain";
 import styled from "styled-components";
+import FeedMain from "./pages/Feed/FeedMain";
 
 function App() {
   return (
     <Wrapper>
       <Routes>
-        <Route path="/" element={<UserLogin />} />
+        <Route path="/" element={<FeedMain />} />
         <Route path="/signup" element={<UserSignup />} />
         <Route path="/profile" element={<ProfileMain />} />
       </Routes>

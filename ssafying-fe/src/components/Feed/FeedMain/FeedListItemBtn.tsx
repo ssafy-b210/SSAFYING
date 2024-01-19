@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import likeBtn from "../../../assets/img/like.svg";
-import saveBtn from "../../../assets/img/save.svg";
-import commentBtn from "../../../assets/img/comment.svg";
+import likeBtn from "../../../assets/img/imgBtn/like.svg";
+import saveBtn from "../../../assets/img/imgBtn/save.svg";
+import commentBtn from "../../../assets/img/imgBtn/comment.svg";
+import FeedLikeCnt from "./FeedLikeCnt";
 
 function FeedListItemBtn() {
   return (
@@ -9,10 +10,9 @@ function FeedListItemBtn() {
       <div>
         <Img src={likeBtn} />
         <Img src={commentBtn} />
-      </div>
-      <div>
         <Img src={saveBtn} />
       </div>
+      <FeedLikeCnt />
     </BtnWrapper>
   );
 }
@@ -20,12 +20,18 @@ function FeedListItemBtn() {
 export default FeedListItemBtn;
 
 const Img = styled.img`
-  margin: 2px 5px;
+  margin: 3px 7px;
+  height: 22px;
 `;
 
 const BtnWrapper = styled.div`
-  padding: 5px;
+  padding: 2px 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  div {
+    display: flex;
+    align-items: center;
+  }
 `;

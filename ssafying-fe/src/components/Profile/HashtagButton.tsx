@@ -1,10 +1,10 @@
 import { styled } from "styled-components";
 
-function HashtagButton() {
+function HashtagButton(props) {
   return (
     <StyledHashTagButton>
       <a href="#!">
-        <div className="text">#TEXT</div>
+        <div className="text">{props.text}</div>
       </a>
     </StyledHashTagButton>
   );

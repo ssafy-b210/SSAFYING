@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import userImage from "../../../assets/img/user.svg";
-import more from "../../../assets/img/more.svg";
+import userImage from "../../../assets/img/testImg/user.svg";
+import more from "../../../assets/img/imgBtn/more.svg";
 
 function FeedListItemUser() {
   return (

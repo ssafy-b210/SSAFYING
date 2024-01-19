@@ -1,7 +1,7 @@
 import FeedListItemUser from "./FeedListItemUser";
 import FeedListItemImg from "./FeedListItemImg";
 import FeedListItemBtn from "./FeedListItemBtn";
-import FeedLikeCnt from "./FeedLikeCnt";
+import FeedContent from "./FeedContent";
 
 function FeedListItem() {
   return (
@@ -9,7 +9,7 @@ function FeedListItem() {
       <FeedListItemUser />
       <FeedListItemImg />
       <FeedListItemBtn />
-      <FeedLikeCnt />
+      <FeedContent />
     </div>
   );
 }
