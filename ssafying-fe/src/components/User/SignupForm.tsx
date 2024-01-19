@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import backarrow from "../../assets/img/backarrow.svg";
+import ToggleBtn from "./ToggleBtn";
 
 function SignUpForm() {
   return (
@@ -41,11 +42,8 @@ function SignUpForm() {
           <input type="number" id="level" placeholder=" " />
           <label htmlFor="level">기수</label>
         </SignUpInput>
-        <SignUpInput className="isMajor">
-          <input type="radio" name="isMajor" />
-          전공
-          <input type="radio" name="isMajor" />
-          비전공
+        <SignUpInput>
+          <ToggleBtn></ToggleBtn>
         </SignUpInput>
       </Form>
 
