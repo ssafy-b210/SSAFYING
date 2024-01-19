@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import ssafying from "../../assets/ssafying.png";
+
 import logo from "../../assets/img/logo1.svg";
 
 import googleIcon from "../../assets/img/socialLoginIcons/googleIcon.png";
@@ -12,8 +14,7 @@ function LoginForm() {
   return (
     <div>
       <Header>
-        <img src={logo} alt="ssafying" />
-        <h4>우리는 여전히 싸피중</h4>
+        <img src={ssafying} />
       </Header>
       <Form>
         <div className="user-box">
@@ -75,17 +76,11 @@ const Header = styled.header`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 14vh;
+  padding: 13vh;
 
   img {
-    margin-bottom: 10px;
-    height: 30px;
-  }
-
-  p {
-    font-size: 15px;
-    text-align: center;
-    margin: 0;
+    margin-bottom: 5px;
+    height: 100px;
   }
 `;
 
