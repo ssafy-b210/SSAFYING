@@ -1,12 +1,13 @@
 package com.ssafying.domain.user.entity;
 
 import com.ssafying.domain.board.entity.Board;
+import com.ssafying.domain.chat.entity.ChatMessage;
+import com.ssafying.domain.chat.entity.ChatRoomUser;
 import com.ssafying.domain.shuttle.entity.Campus;
 import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -53,10 +54,14 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserStatus status; //회원 상태
 
+    /* board entity */
     @Column(name = "is_major")
     private boolean isMajor; //전공 유무
 
+    /* chat entity */
     @OneToMany(mappedBy = "user")
-    private List<Board> boards = new ArrayList<>();
+    private List<ChatMessage> chatMessages = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<ChatRoomUser> chatRoomUsers = new ArrayList<>();
 }
