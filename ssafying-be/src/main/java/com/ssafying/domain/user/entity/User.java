@@ -1,11 +1,14 @@
 package com.ssafying.domain.user.entity;
 
+import com.ssafying.domain.board.entity.Board;
 import com.ssafying.domain.shuttle.entity.Campus;
 import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -53,5 +56,7 @@ public class User {
     @Column(name = "is_major")
     private boolean isMajor; //전공 유무
 
+    @OneToMany(mappedBy = "user")
+    private List<Board> boards = new ArrayList<>();
 
 }

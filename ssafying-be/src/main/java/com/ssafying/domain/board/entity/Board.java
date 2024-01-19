@@ -1,5 +1,6 @@
 package com.ssafying.domain.board.entity;
 
+import com.ssafying.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -14,9 +15,9 @@ public class Board {
     @Column(name="board_id")
     private int id; //자유게시판 게시글 id
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
-//    private User user; //게시물 등록 회원
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user; //게시물 등록 회원
 
     @Enumerated(EnumType.STRING)
     private CategoryStatus category; //카테고리
