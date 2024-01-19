@@ -25,7 +25,7 @@ const Img = styled.img`
 `;
 
 const UserWrapper = styled.div`
-  padding: 2vh;
+  padding: 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -9,7 +9,7 @@ function FeedHeader() {
   return (
     <Header>
       <div>
-        <img src={logo} alt="ssafying" />
+        <Img src={logo} alt="ssafying" />
       </div>
       <div>
         <Img src={search} alt="search" />
@@ -23,7 +23,7 @@ function FeedHeader() {
 export default FeedHeader;
 
 const Header = styled.header`
-  padding: 2vh;
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
