@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 public class ChatMessage {
 
+    @Id
     @GeneratedValue
     @Column(name = "chat_message_id")
     private int id; //채팅메시지 id
