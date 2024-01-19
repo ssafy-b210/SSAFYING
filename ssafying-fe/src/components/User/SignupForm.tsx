@@ -6,9 +6,9 @@ function SignUpForm() {
     <div>
       <Header>
         <img src={backarrow} />
+        <h1>회원가입</h1>
       </Header>
       <Form>
-        <h1>회원가입</h1>
         <div>
           <div>이름을 입력하세요</div>
           <input type="text" />
