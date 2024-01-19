@@ -122,7 +122,6 @@ const Input = styled.input`
   padding-left: 30px;
   margin-bottom: 15px;
 `;
-
 const SubmitButton = styled.input`
   width: 300px;
   height: 30px;
