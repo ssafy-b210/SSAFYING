@@ -1,5 +1,6 @@
 package com.ssafying.domain.chat.entity;
 
+import com.ssafying.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -10,7 +11,6 @@ import java.time.LocalDateTime;
 @Getter
 public class ChatMessage {
 
-    @Id
     @GeneratedValue
     @Column(name = "chat_message_id")
     private int id; //채팅메시지 id
@@ -27,7 +27,7 @@ public class ChatMessage {
     @JoinColumn(name = "chat_room_id")
     private ChatRoom chatRoom; // 채팅방
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
-//    private User user; // 유저
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user; // 유저
 }
