@@ -2,13 +2,12 @@ import { Route, Routes } from "react-router-dom";
 import UserLogin from "./pages/User/UserLogin";
 import UserSignup from "./pages/User/UserSignup";
 import styled from "styled-components";
-import FeedMain from "./pages/Feed/FeedMain";
 
 function App() {
   return (
     <Wrapper>
       <Routes>
-        <Route path="/" element={<FeedMain />} />
+        <Route path="/" element={<UserLogin />} />
         <Route path="/signup" element={<UserSignup />} />
       </Routes>
     </Wrapper>

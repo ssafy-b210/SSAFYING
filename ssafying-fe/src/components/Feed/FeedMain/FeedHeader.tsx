@@ -1,8 +1,8 @@
-import logo from "../../assets/img/logo1.svg";
-import search from "../../assets/img/search.svg";
-import add from "../../assets/img/add.svg";
-import alarm from "../../assets/img/alarm.svg";
-import dm from "../../assets/img/dm.svg";
+import logo from "../../../assets/img/logo1.svg";
+import search from "../../../assets/img/search.svg";
+import add from "../../../assets/img/add.svg";
+import alarm from "../../../assets/img/alarm.svg";
+import dm from "../../../assets/img/dm.svg";
 import styled from "styled-components";
 
 function FeedHeader() {

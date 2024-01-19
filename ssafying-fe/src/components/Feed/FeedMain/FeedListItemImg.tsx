@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
-import userImg from "../../assets/img/user.svg";
-import userImg2 from "../../assets/img/user2.svg";
+import userImg from "../../../assets/img/user.svg";
+import userImg2 from "../../../assets/img/user2.svg";
 
 const Img = styled.img`
   width: 100%;
@@ -12,7 +12,7 @@ const Img = styled.img`
 
 function FeedListItemImg() {
   return (
-    <Carousel showArrows>
+    <Carousel showArrows showThumbs={false}>
       <div>
         <Img src={userImg} alt="User 1" />
       </div>

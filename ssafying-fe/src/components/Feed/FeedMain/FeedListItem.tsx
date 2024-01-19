@@ -1,13 +1,15 @@
 import FeedListItemUser from "./FeedListItemUser";
-import userImage from "../../assets/img/user.svg";
-import styled from "styled-components";
 import FeedListItemImg from "./FeedListItemImg";
+import FeedListItemBtn from "./FeedListItemBtn";
+import FeedLikeCnt from "./FeedLikeCnt";
 
 function FeedListItem() {
   return (
     <div>
       <FeedListItemUser />
       <FeedListItemImg />
+      <FeedListItemBtn />
+      <FeedLikeCnt />
     </div>
   );
 }
