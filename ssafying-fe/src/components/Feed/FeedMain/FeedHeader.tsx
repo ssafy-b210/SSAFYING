@@ -1,15 +1,15 @@
-import logo from "../../assets/img/logo1.svg";
-import search from "../../assets/img/search.svg";
-import add from "../../assets/img/add.svg";
-import alarm from "../../assets/img/alarm.svg";
-import dm from "../../assets/img/dm.svg";
+import logo from "../../../assets/img/logo1.svg";
+import search from "../../../assets/img/search.svg";
+import add from "../../../assets/img/add.svg";
+import alarm from "../../../assets/img/alarm.svg";
+import dm from "../../../assets/img/dm.svg";
 import styled from "styled-components";
 
 function FeedHeader() {
   return (
     <Header>
       <div>
-        <img src={logo} alt="ssafying" />
+        <Img src={logo} alt="ssafying" />
       </div>
       <div>
         <Img src={search} alt="search" />
@@ -23,11 +23,10 @@ function FeedHeader() {
 export default FeedHeader;
 
 const Header = styled.header`
-  padding: 2vh;
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: gray;
 `;
 
 const Img = styled.img`
