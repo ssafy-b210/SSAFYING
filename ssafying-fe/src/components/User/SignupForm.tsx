@@ -1,79 +1,12 @@
 import styled from "styled-components";
 import backarrow from "../../assets/img/backarrow.svg";
-<<<<<<< HEAD
-=======
 import ToggleBtn from "./ToggleBtn";
->>>>>>> 6527e64e722567336e2c6ecc88f56c504ce6608a
 
 function SignUpForm() {
   return (
     <div>
       <Header>
         <img src={backarrow} />
-<<<<<<< HEAD
-      </Header>
-      <Form>
-        <h1>회원가입</h1>
-        <div>
-          <div>이름을 입력하세요</div>
-          <input type="text" />
-        </div>
-        <div>
-          <div>닉네임을 입력하세요</div>
-          <input type="text" />
-        </div>
-        <div>
-          <div>이메일을 입력하세요</div>
-          <input type="email"></input>
-        </div>
-        <div>
-          <div>비밀번호를 입력하세요</div>
-          <input type="password" />
-        </div>
-        <div>
-          <div>비밀번호를 다시 입력하세요</div>
-          <input type="password" />
-        </div>
-        <div>
-          <div>전화번호를 입력하세요</div>
-          <input type="text" />
-        </div>
-        <div>
-          <span>생일</span>
-          <select id="birth-year">
-            <option disabled selected>
-              출생 연도
-            </option>
-          </select>
-          <select id="birth-month">
-            <option disabled selected>
-              월
-            </option>
-          </select>
-          <select id="birth-day">
-            <option disabled selected>
-              일
-            </option>
-          </select>
-        </div>
-        <span>캠퍼스</span>
-        <select>
-          <option>서울</option>
-          <option>대전</option>
-          <option>구미</option>
-          <option>광주</option>
-          <option>부울경</option>
-        </select>
-        <span>기수</span>
-        <input type="number" />
-        <br />
-        <input type="radio" name="isMajor" />
-        전공자
-        <input type="radio" name="isMajor" />
-        비전공자
-      </Form>
-      <button>관심태그 선택하러 가기</button>
-=======
         <h2>회원가입</h2>
       </Header>
       <Form>
@@ -115,7 +48,6 @@ function SignUpForm() {
       </Form>
 
       <SubmitButton type="submit" value="회원가입하러가기"></SubmitButton>
->>>>>>> 6527e64e722567336e2c6ecc88f56c504ce6608a
     </div>
   );
 }
@@ -124,25 +56,12 @@ export default SignUpForm;
 const Header = styled.header`
   display: flex;
   align-items: center;
-<<<<<<< HEAD
-
-=======
   text-align: center;
->>>>>>> 6527e64e722567336e2c6ecc88f56c504ce6608a
   img {
     height: 30px;
     margin-right: 10px;
     margin-top: 30px;
   }
-<<<<<<< HEAD
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-=======
   h2 {
     margin: 0;
   }
@@ -195,5 +114,4 @@ const SubmitButton = styled.input`
   background-color: #b6cdbd;
   border: none;
   color: white;
->>>>>>> 6527e64e722567336e2c6ecc88f56c504ce6608a
 `;
