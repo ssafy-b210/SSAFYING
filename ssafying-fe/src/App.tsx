@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import UserLogin from "./pages/User/UserLogin";
 import UserSignup from "./pages/User/UserSignup";
 import ProfileMain from "./pages/Profile/ProfileMain";
-import UserSelectTag from "./pages/User/UserSelectTag";
 import FeedMain from "./pages/Feed/FeedMain";
 import styled from "styled-components";
 

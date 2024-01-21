@@ -29,6 +29,8 @@ function FeedContent() {
         힘들어여? #기획 #웹개발 #공통프로젝트
       </Content>
       <HashtagButton text="기획"></HashtagButton>
+      <HashtagButton text="웹개발"></HashtagButton>
+      <HashtagButton text="공통프로젝트"></HashtagButton>
     </ContentWrapper>
   );
 }
