@@ -1,14 +1,11 @@
 import styled from "styled-components";
-import backarrow from "../../assets/img/backarrow.svg";
-import ToggleBtn from "./ToggleBtn";
+
+import SignupHeader from "./SignupHeader";
 
 function SignUpForm() {
   return (
     <div>
-      <Header>
-        <img src={backarrow} />
-        <h2>회원가입</h2>
-      </Header>
+      <SignupHeader></SignupHeader>
       <Form>
         <SignUpInput className="input-area">
           <input type="text" id="name" placeholder=" " />
@@ -27,8 +24,8 @@ function SignUpForm() {
           <label htmlFor="password">비밀번호을 입력해주세요</label>
         </SignUpInput>
         <SignUpInput className="input-area">
-          <input type="password" id="password" placeholder=" " />
-          <label htmlFor="password">비밀번호를 다시 입력해주세요</label>
+          <input type="password" id="password2" placeholder=" " />
+          <label htmlFor="password2">비밀번호를 다시 입력해주세요</label>
         </SignUpInput>
         <SignUpInput className="input-area">
           <input type="tel" id="tel" placeholder=" " />
@@ -49,26 +46,12 @@ function SignUpForm() {
 }
 export default SignUpForm;
 
-const Header = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  img {
-    height: 30px;
-    margin-right: 10px;
-    margin-top: 30px;
-  }
-  h2 {
-    margin: 0;
-  }
-`;
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: realtive;
+  position: relative;
   padding-right: 3rem;
   padding-left: 3rem;
 `;
