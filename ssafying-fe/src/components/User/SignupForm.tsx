@@ -42,12 +42,8 @@ function SignUpForm() {
           <input type="number" id="level" placeholder=" " />
           <label htmlFor="level">기수</label>
         </SignUpInput>
-        <SignUpInput>
-          <ToggleBtn></ToggleBtn>
-        </SignUpInput>
+        <SubmitButton>회원가입 하러가기</SubmitButton>
       </Form>
-
-      <SubmitButton type="submit" value="회원가입하러가기"></SubmitButton>
     </div>
   );
 }
@@ -56,6 +52,7 @@ export default SignUpForm;
 const Header = styled.header`
   display: flex;
   align-items: center;
+  justify-content: center;
   text-align: center;
   img {
     height: 30px;
@@ -70,12 +67,16 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   position: realtive;
+  padding-right: 3rem;
+  padding-left: 3rem;
 `;
 const SignUpInput = styled.div`
   position: relative;
   margin-top: 1.5em;
   margin-bottom: 1em;
+
   .input-area {
     width: 70%;
     position: relative;
@@ -106,7 +107,7 @@ const SignUpInput = styled.div`
     transform: translateY(-150%);
   }
 `;
-const SubmitButton = styled.input`
+const SubmitButton = styled.button`
   width: 300px;
   height: 30px;
   border-radius: 10px;
