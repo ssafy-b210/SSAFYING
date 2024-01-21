@@ -26,9 +26,10 @@ const StyledProfileInfo = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-right: 10px;
     padding: 10px;
-    font-size: 1.1rem;
     font-weight: bold;
+    box-sizing: border-box;
   }
 `;
 

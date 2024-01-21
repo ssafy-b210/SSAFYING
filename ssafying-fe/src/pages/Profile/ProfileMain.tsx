@@ -9,15 +9,16 @@ function ProfileMain() {
     <ProfileLayout>
       <ProfileHeader />
       <ProfileContent />
+      {/*
       <HashtagList />
-      <MyFeedList />
+      <MyFeedList /> */}
     </ProfileLayout>
   );
 }
 
 const ProfileLayout = styled.div`
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
 `;
 
 export default ProfileMain;

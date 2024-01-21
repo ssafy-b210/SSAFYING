@@ -2,26 +2,52 @@ import styled from "styled-components";
 import ProfileImage from "./ProfileImage";
 import ProfileInfo from "./ProfileInfo";
 import ProfileIntroduction from "./ProfileIntroduction";
+import ProfileUserButton from "./ProfileUserButton";
+import ProfileCancelButton from "./ProfileCancelButton";
 
 function ProfileContent() {
   return (
-    <div>
+    <StyledProfileContent>
       <ProfileUserContainer>
         <ProfileImage />
         <ProfileInfo />
       </ProfileUserContainer>
       <ProfileIntroduction />
-      <button>회원정보</button>
-      <button>로그아웃</button>
-    </div>
+      <ProfileButtonContainer>
+        <ProfileUserButton />
+        <ProfileCancelButton />
+      </ProfileButtonContainer>
+    </StyledProfileContent>
   );
 }
+
+const StyledProfileContent = styled.div`
+  position: relative;
+  padding: 0 16px;
+  color: #262626;
+  background-color: #fafafa;
+  height: 280px;
+  border-bottom: 1px solid #d8d8d8;
+`;
 
 const ProfileUserContainer = styled.div`
   position: relative;
   display: flex;
-  // justify-content: center;
   align-items: center;
+  margin: 16px 0;
+`;
+
+const ProfileButtonContainer = styled.div`
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 16px 0;
+
+  button {
+    margin: 0 16px;
+  }
 `;
 
 export default ProfileContent;

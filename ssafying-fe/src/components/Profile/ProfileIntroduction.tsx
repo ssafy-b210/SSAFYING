@@ -7,6 +7,7 @@ function ProfileIntroduction() {
 }
 
 const StyledProfileIntroduction = styled.div`
+  margin: 16px 0;
   white-space: pre-wrap;
 `;
 

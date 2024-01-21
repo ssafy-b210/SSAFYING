@@ -5,7 +5,9 @@ function ProfileHeader() {
   return (
     <StyledProfileHeader>
       <div>aeong123</div>
-      <img src={hamburger} alt="hamburger menu" />
+      <button>
+        <img src={hamburger} alt="hamburger menu" />
+      </button>
     </StyledProfileHeader>
   );
 }
@@ -15,13 +17,20 @@ const StyledProfileHeader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 16px 10px;
+  height: 45px;
+  padding: 0 16px;
+  color: #262626;
+  font-weight: bold;
+  background-color: #fafafa;
 
-  img {
+  button {
+    display: flex;
     position: absolute;
-    right: 1em;
+    right: 16px;
     top: 50%;
     transform: translateY(-50%);
+    background: transparent;
+    border: none;
     cursor: pointer;
   }
 `;
