@@ -1,6 +1,15 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import UserLogin from "./pages/User/UserLogin";
 import UserSignup from "./pages/User/UserSignup";
+<<<<<<< HEAD
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<UserLogin />} />
+      <Route path="/signup" element={<UserSignup />} />
+    </Routes>
+=======
 import ProfileMain from "./pages/Profile/ProfileMain";
 import UserSelectTag from "./pages/User/UserSelectTag";
 import FeedMain from "./pages/Feed/FeedMain";
@@ -16,16 +25,8 @@ function App() {
         <Route path="/profile" element={<ProfileMain />} />
       </Routes>
     </Wrapper>
+>>>>>>> 1137695d5a93dc7e907948bdcf6eaf2fba081377
   );
 }
 
 export default App;
-
-const Wrapper = styled.div`
-  max-width: 560px;
-  height: 100vh;
-  margin: 0 auto;
-  @supports (-webkit-touch-callout: none) {
-    height: -webkit-fill-available;
-  }
-`;
