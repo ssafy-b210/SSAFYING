@@ -1,11 +1,8 @@
 import styled from "styled-components";
 
-import SignupHeader from "./SignupHeader";
-
 function SignUpForm() {
   return (
     <div>
-      <SignupHeader></SignupHeader>
       <Form>
         <SignUpInput className="input-area">
           <input type="text" id="name" placeholder=" " />
