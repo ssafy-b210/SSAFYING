@@ -1,12 +1,15 @@
 import styled from "styled-components";
+import Hashtag from "../../Feed/utils/HashTag";
 
 function OptionsBtn() {
   return (
     <div>
       <Options>
-        <Btn>#백엔드</Btn>
-        <Btn>#프론트</Btn>
-        <Btn>#대전</Btn>
+        <div>
+          <Hashtag text="프론트" />
+          <Hashtag text="대전" />
+          <Hashtag text="공통프로젝트" />
+        </div>
       </Options>
     </div>
   );

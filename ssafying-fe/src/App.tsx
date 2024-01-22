@@ -11,7 +11,7 @@ function App() {
   return (
     <Wrapper>
       <Routes>
-        <Route path="/" element={<UserDetail />} />
+        <Route path="/" element={<UserSelectTag />} />
         <Route path="/signup" element={<UserSignup />} />
 
         <Route path="/profile" element={<ProfileMain />} />

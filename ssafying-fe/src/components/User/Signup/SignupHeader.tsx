@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import backarrow from "../../assets/img/backarrow.svg";
+import backarrow from "../../../assets/img/backarrow.svg";
 
 function SignupHeader() {
   return (
