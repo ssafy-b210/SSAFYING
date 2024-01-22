@@ -7,6 +7,7 @@ import styled from "styled-components";
 import SsafyAuth from "./pages/User/UserAuth";
 import UserDetail from "./pages/User/UserDetail";
 import UserUpdate from "./pages/User/UserUpdate";
+import AllMenu from "./pages/All/AllMenu";
 
 function App() {
   return (
