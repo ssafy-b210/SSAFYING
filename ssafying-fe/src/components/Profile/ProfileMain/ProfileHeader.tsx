@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import hamburger from "../../assets/img/hamburger.svg";
+import hamburger from "../../../assets/img/hamburger.svg";
 
 function ProfileHeader() {
   return (

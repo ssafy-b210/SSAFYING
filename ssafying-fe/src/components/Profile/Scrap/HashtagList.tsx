@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import HashtagButton from "../../components/Profile/HashtagButton";
+import HashtagButton from "../../../components/Profile/Scrap/HashtagButton";
 
 function HashtagList() {
   return (
