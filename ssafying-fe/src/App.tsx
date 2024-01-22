@@ -2,14 +2,15 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import UserLogin from "./pages/User/UserLogin";
 import UserSignup from "./pages/User/UserSignup";
 import ProfileMain from "./pages/Profile/ProfileMain";
-import FeedMain from "./pages/Feed/FeedMain";
+import UserSelectTag from "./pages/User/UserSelectTag";
 import styled from "styled-components";
+import SsafyAuth from "./pages/User/UserAuth";
 
 function App() {
   return (
     <Wrapper>
       <Routes>
-        <Route path="/" element={<UserLogin />} />
+        <Route path="/" element={<SsafyAuth />} />
         <Route path="/signup" element={<UserSignup />} />
 
         <Route path="/profile" element={<ProfileMain />} />

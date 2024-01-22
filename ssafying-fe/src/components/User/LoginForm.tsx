@@ -1,32 +1,48 @@
 import styled from "styled-components";
 
-import logo from "../../assets/img/logo/logo1.svg";
+import ssafying from "../../assets/img/Logo/ssafying.svg";
 
-import googleIcon from "../../assets/img/socialLoginIcons/googleIcon.png";
-import githubIcon from "../../assets/img/socialLoginIcons/githubIcon.png";
-import kakaoIcon from "../../assets/img/socialLoginIcons/kakaoIcon.png";
+import googleIcon from "../../assets/img/socialLoginIcons/googleIcon.svg";
+import githubIcon from "../../assets/img/socialLoginIcons/githubIcon.svg";
+import kakaoIcon from "../../assets/img/socialLoginIcons/kakaoIcon.svg";
+import profile from "../../assets/img/userLoginIcons/profile.svg";
+import lock from "../../assets/img/userLoginIcons/lock.svg";
 
 function LoginForm() {
   return (
     <div>
       <Header>
-        <img src={logo} alt="ssafying" />
-        <p>우리는 여전히 싸피다</p>
+        <img src={ssafying} />
       </Header>
       <Form>
         <div className="user-box">
           <label>이메일을 입력하세요</label>
           <br />
-          <Input type="email"></Input>
+          <div className="input-bar">
+            <img src={profile} className="input-icon" />
+            <Input type="email" placeholder="Uname@mail.com"></Input>
+          </div>
         </div>
         <div className="user-box">
           <label>비밀번호를 입력하세요</label>
           <br />
-          <Input type="password"></Input>
+          <div className="input-bar">
+            <img src={lock} className="input-icon" />
+            <Input type="password" placeholder="Password"></Input>
+          </div>
         </div>
-        <Input type="checkbox"></Input>
-        <span></span>
-        <Input type="submit" value="로그인"></Input>
+        <div className="etc-container">
+          <div className="auto-login">
+            <input type="checkbox"></input>
+            <p>자동로그인</p>
+          </div>
+          <p>비밀번호를 잃어버리셨나요?</p>
+        </div>
+        <SubmitButton
+          type="submit"
+          value="로그인"
+          className="login-btn"
+        ></SubmitButton>
       </Form>
       <br />
 
@@ -44,7 +60,9 @@ function LoginForm() {
       <Signup>
         <hr />
         <p>등록된 계정이 없다면</p>
-        <button>회원가입</button>
+        <div className="signup-btn">
+          <SubmitButton type="submit" value="회원가입"></SubmitButton>
+        </div>
       </Signup>
     </div>
   );
@@ -56,17 +74,11 @@ const Header = styled.header`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 17vh;
+  padding: 13vh;
 
   img {
-    margin-bottom: 10px;
-    height: 30px;
-  }
-
-  p {
-    font-size: 15px;
-    text-align: center;
-    margin: 0;
+    margin-bottom: 5px;
+    height: 100px;
   }
 `;
 
@@ -75,15 +87,50 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   width: 100%;
+
+  .user-box {
+    width: 300px;
+  }
+
+  .auto-login {
+    display: flex;
+    flex-direction: row;
+    margin-right: 30px;
+  }
+
+  .input-bar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+  }
+  .input-icon {
+    position: absolute;
+    left: 10px;
+    margin-bottom: 11px;
+  }
+  .etc-container {
+    display: flex;
+  }
 `;
 
 const Input = styled.input`
-  width: 80%;
+  width: calc(100% - 30px);
+  height: 30px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding-left: 30px;
+  margin-bottom: 15px;
+`;
+const SubmitButton = styled.input`
+  width: 300px;
   height: 30px;
   border: 1px solid gray;
   border-radius: 10px;
   margin-bottom: 15px;
-  }
+  background-color: #b6cdbd;
+  border: none;
+  color: white;
 `;
 const SocialLoginBox = styled.div`
   display: flex;
@@ -105,12 +152,9 @@ const Signup = styled.div`
   hr {
     width: 70%;
   }
-  p {
+  p,
+  .signup-btn {
     display: flex;
     justify-content: center;
-  }
-  button {
-    margin: 0 auto;
-    display: block;
   }
 `;
