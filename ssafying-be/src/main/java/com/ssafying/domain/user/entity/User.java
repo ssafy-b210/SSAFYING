@@ -10,6 +10,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "user")
