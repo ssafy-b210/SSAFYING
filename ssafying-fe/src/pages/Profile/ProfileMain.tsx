@@ -1,19 +1,18 @@
 import { styled } from "styled-components";
-import HashtagList from "../../components/Profile/HashtagList";
-import MyFeedList from "../../components/Profile/MyFeedList";
+import ProfileHeader from "../../components/Profile/ProfileMain/ProfileHeader";
+import ProfileContent from "../../components/Profile/ProfileMain/ProfileContent";
+import ScrapContent from "../../components/Profile/Scrap/ScrapContent";
 
 function ProfileMain() {
   return (
     <ProfileLayout>
-      <HashtagList />
-      <MyFeedList />
+      <ProfileHeader />
+      <ProfileContent />
+      <ScrapContent />
     </ProfileLayout>
   );
 }
 
-const ProfileLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+const ProfileLayout = styled.div``;
 
 export default ProfileMain;
