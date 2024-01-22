@@ -4,6 +4,7 @@ import ProfileInfo from "./ProfileInfo";
 import ProfileIntroduction from "./ProfileIntroduction";
 import ProfileUserButton from "./ProfileUserButton";
 import ProfileCancelButton from "./ProfileCancelButton";
+import ScrapTap from "../Scrap/ScrapTap";
 
 function ProfileContent() {
   return (
@@ -17,6 +18,7 @@ function ProfileContent() {
         <ProfileUserButton />
         <ProfileCancelButton />
       </ProfileButtonContainer>
+      <ScrapTap />
     </StyledProfileContent>
   );
 }
@@ -26,7 +28,6 @@ const StyledProfileContent = styled.div`
   padding: 0 16px;
   color: #262626;
   background-color: #fafafa;
-  height: 280px;
   border-bottom: 1px solid #d8d8d8;
 `;
 
