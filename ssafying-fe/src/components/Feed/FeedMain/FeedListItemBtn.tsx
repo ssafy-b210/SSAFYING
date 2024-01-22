@@ -3,14 +3,27 @@ import likeBtn from "../../../assets/img/imgBtn/like.svg";
 import saveBtn from "../../../assets/img/imgBtn/save.svg";
 import commentBtn from "../../../assets/img/imgBtn/comment.svg";
 import FeedLikeCnt from "./FeedLikeCnt";
+import ImgBtn from "../utils/ImgBtn";
+import React, { useState, useRef } from "react";
 
 function FeedListItemBtn() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const modalBackground = useRef();
+
+  function clickLikeBtn() {}
+
+  function openComment() {
+    setModalOpen(true);
+  }
+
+  function clickSaveBtn() {}
+
   return (
     <BtnWrapper>
       <div>
-        <Img src={likeBtn} />
-        <Img src={commentBtn} />
-        <Img src={saveBtn} />
+        <ImgBtn src={likeBtn} onClick={clickLikeBtn} />
+        <ImgBtn src={commentBtn} onClick={openComment} />
+        <ImgBtn src={saveBtn} onClick={clickSaveBtn} />
       </div>
       <FeedLikeCnt />
     </BtnWrapper>

@@ -25,5 +25,7 @@ export default FeedListItemImg;
 
 const Img = styled.img`
   width: 100%;
+  margin: 5px auto;
+  border-radius: 5px;
   height: auto;
 `;

@@ -7,9 +7,9 @@ function FeedListItem() {
   return (
     <div>
       <FeedListItemUser />
+      <FeedContent />
       <FeedListItemImg />
       <FeedListItemBtn />
-      <FeedContent />
     </div>
   );
 }

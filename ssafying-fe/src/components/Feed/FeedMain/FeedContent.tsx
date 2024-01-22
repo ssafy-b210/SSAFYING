@@ -1,17 +1,28 @@
 import React from "react";
 import styled from "styled-components";
-import HashtagButton from "../../Profile/HashtagButton";
+import Hashtag from "../utils/HashTag";
+
+function FeedContent() {
+  return (
+    <ContentWrapper>
+      <Content>
+        오늘은 우리 팀제주도를 위해 기획 잘 하는 법을 배웠다.. 기획 나만
+        힘들어여?
+      </Content>
+      <div>
+        <Hashtag text="기획" />
+        <Hashtag text="웹개발" />
+        <Hashtag text="공통프로젝트" />
+      </div>
+    </ContentWrapper>
+  );
+}
+
+export default FeedContent;
 
 const ContentWrapper = styled.div`
   padding: 0 10px;
   line-height: 1;
-`;
-
-const UserId = styled.span`
-  font-size: 13px;
-  font-weight: bold;
-  margin-right: 5px;
-  vertical-align: middle;
 `;
 
 const Content = styled.span`
@@ -19,20 +30,3 @@ const Content = styled.span`
   font-weight: regular;
   vertical-align: middle;
 `;
-
-function FeedContent() {
-  return (
-    <ContentWrapper>
-      <UserId>aeong123</UserId>
-      <Content>
-        오늘은 우리 팀제주도를 위해 기획 잘 하는 법을 배웠다.. 기획 나만
-        힘들어여? #기획 #웹개발 #공통프로젝트
-      </Content>
-      <HashtagButton text="기획"></HashtagButton>
-      <HashtagButton text="웹개발"></HashtagButton>
-      <HashtagButton text="공통프로젝트"></HashtagButton>
-    </ContentWrapper>
-  );
-}
-
-export default FeedContent;

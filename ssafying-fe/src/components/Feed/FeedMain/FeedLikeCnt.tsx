@@ -5,7 +5,7 @@ function FeedLikeCnt() {
   return (
     <BtnWrapper>
       <Img src={likeFill} />
-      <div>440</div>
+      <LikeCnt>440</LikeCnt>
     </BtnWrapper>
   );
 }
@@ -15,6 +15,10 @@ export default FeedLikeCnt;
 const Img = styled.img`
   margin: 0 5px;
   width: 20px;
+`;
+
+const LikeCnt = styled.div`
+  margin: 0 5px;
 `;
 
 const BtnWrapper = styled.div`

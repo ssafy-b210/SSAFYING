@@ -1,5 +1,5 @@
 import FeedHeader from "../../components/Feed/FeedMain/FeedHeader";
-import FeedList from "../../components/Feed/FeedMain/FeedList";
+import FeedList from "../../components/Feed/FeedList";
 function FeedMain() {
   return (
     <div>
