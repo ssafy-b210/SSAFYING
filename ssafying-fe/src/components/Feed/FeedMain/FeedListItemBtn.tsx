@@ -3,32 +3,38 @@ import likeBtn from "../../../assets/img/imgBtn/like.svg";
 import saveBtn from "../../../assets/img/imgBtn/save.svg";
 import commentBtn from "../../../assets/img/imgBtn/comment.svg";
 import FeedLikeCnt from "./FeedLikeCnt";
-// import ImgBtn from "../utils/ImgBtn";
-import React, { useState, useRef } from "react";
+import ImgBtn from "../utils/ImgBtn";
+import CommentModal from "../Comment/CommentModal";
+import React, { useState } from "react";
 
-function FeedListItemBtn() {
+const FeedListItemBtn: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const modalBackground = useRef();
 
-  function clickLikeBtn() {}
+  const clickLikeBtn = () => {};
 
-  function openComment() {
+  const openComment = () => {
     setModalOpen(true);
-  }
+  };
 
-  function clickSaveBtn() {}
+  const closeComment = () => {
+    setModalOpen(false);
+  };
+
+  const clickSaveBtn = () => {};
 
   return (
     <BtnWrapper>
       <div>
-        {/* <ImgBtn src={likeBtn} onClick={clickLikeBtn} />
+        {/* Assume ImgBtn component receives and forwards the onClick prop */}
+        <ImgBtn src={likeBtn} onClick={clickLikeBtn} />
         <ImgBtn src={commentBtn} onClick={openComment} />
-        <ImgBtn src={saveBtn} onClick={clickSaveBtn} /> */}
+        <ImgBtn src={saveBtn} onClick={clickSaveBtn} />
       </div>
       <FeedLikeCnt />
+      {modalOpen && <CommentModal onClose={closeComment} />}
     </BtnWrapper>
   );
-}
+};
 
 export default FeedListItemBtn;
 

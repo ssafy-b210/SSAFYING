@@ -2,6 +2,7 @@ import React from "react";
 import { styled } from "styled-components";
 import FollowBtn from "../utils/FollowBtn";
 import userImg from "../../../assets/img/testImg/user5.svg";
+import RoundImg from "../utils/RoundImg";
 
 interface Props {
   id: string;
@@ -10,7 +11,7 @@ interface Props {
 function UserRecommendListItem({ id }: Props) {
   return (
     <UserItem>
-      <Img src={userImg} />
+      <RoundImg src={userImg} size="50px" />
       {id}
       <FollowBtn />
     </UserItem>
@@ -26,11 +27,6 @@ const UserItem = styled.div`
   padding: 10px;
   margin: 5px;
   text-align: center;
-`;
-
-const Img = styled.img`
-  width: 50px;
-  border-radius: 50%;
 `;
 
 export default UserRecommendListItem;

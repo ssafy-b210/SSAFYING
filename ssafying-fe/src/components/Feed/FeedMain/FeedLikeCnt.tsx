@@ -13,7 +13,7 @@ function FeedLikeCnt() {
 export default FeedLikeCnt;
 
 const Img = styled.img`
-  margin: 0 5px;
+  margin: 0 2px;
   width: 20px;
 `;
 
@@ -23,5 +23,5 @@ const LikeCnt = styled.div`
 
 const BtnWrapper = styled.div`
   padding: 5px;
-  font-size: 8px;
+  font-size: 10px;
 `;

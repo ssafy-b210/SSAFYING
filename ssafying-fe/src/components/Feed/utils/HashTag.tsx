@@ -16,14 +16,14 @@ function Hashtag({ text }: HashtagProps) {
 const StyledHashTagButton = styled.span`
   a {
     display: inline-block;
-    padding: 2px 7px;
+    padding: 3px 7px 4px;
     background-color: #fff;
     border-radius: 30px;
     border: 1px solid #b6cdbd;
     box-sizing: border-box;
     color: black;
     text-decoration: none;
-    margin: 7px 5px 5px 0;
+    margin: 10px 5px 5px 0;
     font-size: 12px;
   }
 
