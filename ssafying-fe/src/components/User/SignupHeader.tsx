@@ -22,7 +22,6 @@ const Header = styled.header`
   img {
     height: 30px;
     margin-right: 10px;
-    margin-top: 30px;
   }
   h2 {
     margin: 0;

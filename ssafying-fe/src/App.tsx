@@ -4,14 +4,15 @@ import UserSignup from "./pages/User/UserSignup";
 import ProfileMain from "./pages/Profile/ProfileMain";
 import UserSelectTag from "./pages/User/UserSelectTag";
 import styled from "styled-components";
+import UserLeave from "./components/User/UserLeave";
+import SsafyAuth from "./components/User/SsafyAuth";
 
 function App() {
   return (
     <Wrapper>
       <Routes>
-        <Route path="/" element={<UserSelectTag />} />
+        <Route path="/" element={<SsafyAuth />} />
         <Route path="/signup" element={<UserSignup />} />
-
         <Route path="/profile" element={<ProfileMain />} />
       </Routes>
     </Wrapper>

@@ -10,7 +10,9 @@ function SelectTagForm() {
         <p>나의 관심사</p>
       </Selected>
       <Btn></Btn>
-      <SubmitButton>싸피 인증하러 가기</SubmitButton>
+      <BtnContainer>
+        <SubmitButton>싸피 인증하러 가기</SubmitButton>
+      </BtnContainer>
     </div>
   );
 }
@@ -38,4 +40,8 @@ const SubmitButton = styled.button`
   color: white;
   margin-top: 80%;
   color: black;
+`;
+const BtnContainer = styled.div`
+  display: flex;
+  justify-content: center;
 `;

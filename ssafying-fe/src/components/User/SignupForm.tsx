@@ -33,9 +33,19 @@ function SignUpForm() {
           <label htmlFor="birthday">생년월일을 입력해주세요</label>
         </SignUpInput>
         <SignUpInput className="input-area">
+          <input type="text" id="campus" placeholder=" " />
+          <label htmlFor="campus">캠퍼스</label>
+        </SignUpInput>
+        <SignUpInput className="input-area">
           <input type="number" id="level" placeholder=" " />
           <label htmlFor="level">기수</label>
         </SignUpInput>
+        <div className="isMajor">
+          <input type="radio" name="isMajor" />
+          전공자
+          <input type="radio" name="isMajor" />
+          비전공자
+        </div>
         <SubmitButton>회원가입 하러가기</SubmitButton>
       </Form>
     </div>
@@ -51,6 +61,11 @@ const Form = styled.form`
   position: relative;
   padding-right: 3rem;
   padding-left: 3rem;
+
+  .isMajor {
+    margin-top: 3em;
+    margin-bottom: 5em;
+  }
 `;
 const SignUpInput = styled.div`
   position: relative;
@@ -96,3 +111,4 @@ const SubmitButton = styled.button`
   border: none;
   color: white;
 `;
+const isMajor = styled.div``;
