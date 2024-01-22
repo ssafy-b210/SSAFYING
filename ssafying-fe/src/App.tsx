@@ -5,12 +5,13 @@ import ProfileMain from "./pages/Profile/ProfileMain";
 import UserSelectTag from "./pages/User/UserSelectTag";
 import styled from "styled-components";
 import SsafyAuth from "./pages/User/UserAuth";
+import UserDetail from "./pages/User/UserDetail";
 
 function App() {
   return (
     <Wrapper>
       <Routes>
-        <Route path="/" element={<SsafyAuth />} />
+        <Route path="/" element={<UserDetail />} />
         <Route path="/signup" element={<UserSignup />} />
 
         <Route path="/profile" element={<ProfileMain />} />
