@@ -11,7 +11,7 @@ function UserProfile() {
           </div>
         </ProfileImg>
         <MyIntroduction>
-          <h3>aeong123</h3>
+          <h3>이예원</h3>
           <p>youremail@domain.com</p>
         </MyIntroduction>
       </Profile>

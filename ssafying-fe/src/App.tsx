@@ -6,12 +6,13 @@ import UserSelectTag from "./pages/User/UserSelectTag";
 import styled from "styled-components";
 import SsafyAuth from "./pages/User/UserAuth";
 import UserDetail from "./pages/User/UserDetail";
+import UserUpdate from "./pages/User/UserUpdate";
 
 function App() {
   return (
     <Wrapper>
       <Routes>
-        <Route path="/" element={<UserDetail />} />
+        <Route path="/" element={<UserUpdate />} />
         <Route path="/signup" element={<UserSignup />} />
 
         <Route path="/profile" element={<ProfileMain />} />

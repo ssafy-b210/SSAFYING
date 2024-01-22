@@ -1,18 +1,18 @@
 import styled from "styled-components";
 import backarrow from "../../../assets/img/backarrow.svg";
 
-function SignupHeader() {
+function UserUpdateHeader() {
   return (
     <div>
       <Header>
         <img src={backarrow} />
-        <h2>회원가입</h2>
+        <h2>회원정보 수정</h2>
       </Header>
     </div>
   );
 }
 
-export default SignupHeader;
+export default UserUpdateHeader;
 
 const Header = styled.header`
   display: flex;
