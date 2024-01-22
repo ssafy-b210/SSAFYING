@@ -4,8 +4,7 @@ import UserSignup from "./pages/User/UserSignup";
 import ProfileMain from "./pages/Profile/ProfileMain";
 import UserSelectTag from "./pages/User/UserSelectTag";
 import styled from "styled-components";
-import UserLeave from "./components/User/UserLeave";
-import SsafyAuth from "./components/User/SsafyAuth";
+import SsafyAuth from "./pages/User/UserAuth";
 
 function App() {
   return (
