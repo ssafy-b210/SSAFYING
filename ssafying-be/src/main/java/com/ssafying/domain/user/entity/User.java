@@ -6,6 +6,7 @@ import com.ssafying.domain.chat.entity.ChatRoomUser;
 import com.ssafying.domain.shuttle.entity.Campus;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-@Getter
+@Getter @Setter
 public class User {
 
     @Id
