@@ -1,10 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import UserLogin from "./pages/User/UserLogin";
 import UserSignup from "./pages/User/UserSignup";
 import ProfileMain from "./pages/Profile/ProfileMain";
-import UserSelectTag from "./pages/User/UserSelectTag";
 import styled from "styled-components";
 import SsafyAuth from "./pages/User/UserAuth";
+import ContentFeedSection from "./components/Profile/MyContents/ContentFeedSection";
 
 function App() {
   return (
@@ -13,7 +12,9 @@ function App() {
         <Route path="/" element={<SsafyAuth />} />
         <Route path="/signup" element={<UserSignup />} />
 
-        <Route path="/profile" element={<ProfileMain />} />
+        <Route path="/profile" element={<ProfileMain />}>
+          <Route path="" element={<ContentFeedSection />} />
+        </Route>
       </Routes>
     </Wrapper>
   );

@@ -1,18 +1,13 @@
-import { styled } from "styled-components";
-import ProfileHeader from "../../components/Profile/ProfileMain/ProfileHeader";
-import ProfileContent from "../../components/Profile/ProfileMain/ProfileContent";
-import ScrapContent from "../../components/Profile/Scrap/ScrapContent";
+import MyContentsContainer from "../../components/Profile/MyContents/MyContentsContainer";
+import ProflieContainer from "../../components/Profile/ProfileMain/ProfileContainer";
 
 function ProfileMain() {
   return (
-    <ProfileLayout>
-      <ProfileHeader />
-      <ProfileContent />
-      <ScrapContent />
-    </ProfileLayout>
+    <div>
+      <ProflieContainer />
+      <MyContentsContainer />
+    </div>
   );
 }
-
-const ProfileLayout = styled.div``;
 
 export default ProfileMain;
