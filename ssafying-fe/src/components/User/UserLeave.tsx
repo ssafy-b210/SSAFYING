@@ -17,9 +17,9 @@ const UserLeaveMsg = styled.div`
   flex-direction: column;
   text-align: center;
   align-items: center;
-  margin-top: 50%;
 
   img {
+    margin-top: 15em;
     width: 100px;
     margin-bottom: 3em;
   }

@@ -6,7 +6,7 @@ function UserInformation() {
       <BigContainer>
         <UserInfoContainer>
           <div className="category">닉네임</div>
-          <div className="content">Sid</div>
+          <div className="content">aeong123</div>
           <div className="category">전화번호</div>
           <div className="content">010-0000-0000</div>
           <div className="category">비밀번호</div>
@@ -34,7 +34,7 @@ const UserInfoContainer = styled.div`
     padding-top: 1em;
   }
   .content {
-    padding-top: 1em;
+    padding-top: 0.5em;
     padding-left: 1em;
   }
 `;

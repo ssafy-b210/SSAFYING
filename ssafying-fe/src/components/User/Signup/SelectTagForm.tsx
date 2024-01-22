@@ -27,6 +27,8 @@ const Selected = styled.div`
   height: 100px;
   border: 1px solid gray;
   border-radius: 10px;
+  margin-right: 1em;
+  margin-left: 1em;
   p {
     margin-left: 1em;
   }

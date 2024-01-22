@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-import ssafying from "../../assets/img/Logo/ssafying.svg";
+import ssafying from "../../../assets/img/Logo/ssafying.svg";
 
-import googleIcon from "../../assets/img/socialLoginIcons/googleIcon.svg";
-import githubIcon from "../../assets/img/socialLoginIcons/githubIcon.svg";
-import kakaoIcon from "../../assets/img/socialLoginIcons/kakaoIcon.svg";
-import profile from "../../assets/img/userLoginIcons/profile.svg";
-import lock from "../../assets/img/userLoginIcons/lock.svg";
+import googleIcon from "../../../assets/img/socialLoginIcons/googleIcon.svg";
+import githubIcon from "../../../assets/img/socialLoginIcons/githubIcon.svg";
+import kakaoIcon from "../../../assets/img/socialLoginIcons/kakaoIcon.svg";
+import profile from "../../../assets/img/userLoginIcons/profile.svg";
+import lock from "../../../assets/img/userLoginIcons/lock.svg";
 
 function LoginForm() {
   return (
