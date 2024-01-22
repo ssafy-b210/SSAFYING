@@ -1,6 +1,6 @@
 import UserBtn from "../../components/User/UserBtn";
-import UserProfile from "../../components/User/UserProfile";
-import UserInformation from "../../components/User/UserInformation";
+import UserProfile from "../../components/User/UserInfo/UserProfile";
+import UserInformation from "../../components/User/UserInfo/UserInformation";
 
 function UserDetail() {
   return (

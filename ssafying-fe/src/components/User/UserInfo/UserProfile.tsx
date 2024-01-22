@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import UserDefaultImg from "../../assets/img/userIcons/userProfileImg.svg";
+import UserDefaultImg from "../../../assets/img/userIcons/userProfileImg.svg";
 function UserProfile() {
   return (
     <div>
@@ -20,16 +20,8 @@ function UserProfile() {
 }
 export default UserProfile;
 
-const Background = styled.div`
-  display: flex;
-  justify-content: center;
-  item-align: center;
-  position: absolute;
-  overflow: hidden;
-  width: 560px;
-`;
-
 const Profile = styled.div`
+  margin-top: 1em;
   position: relative;
 `;
 const ProfileImg = styled.div`
