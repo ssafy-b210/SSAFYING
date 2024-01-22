@@ -2,27 +2,28 @@ import React from "react";
 import styled from "styled-components";
 import userImage from "../../../assets/img/testImg/user.svg";
 import more from "../../../assets/img/imgBtn/more.svg";
+import RoundImg from "../utils/RoundImg";
+import ImgBtn from "../utils/ImgBtn";
 
 function FeedListItemUser() {
+  function clickMoreBtn() {
+    console.log("clickMoreBtn");
+  }
+
   return (
     <UserWrapper>
       <div>
-        <Img src={userImage} />
+        <RoundImg src={userImage} size="30px" />
         <UserId>aeong123</UserId>
       </div>
       <div>
-        <Img src={more} />
+        <ImgBtn src={more} onClick={clickMoreBtn} />
       </div>
     </UserWrapper>
   );
 }
 
 export default FeedListItemUser;
-
-const Img = styled.img`
-  margin: 5px;
-  border-radius: 50%;
-`;
 
 const UserWrapper = styled.div`
   padding: 5px;

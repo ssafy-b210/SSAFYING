@@ -4,7 +4,7 @@ import UserRecommendListItem from "./UserRecommendListItem";
 function UserRecommendList() {
   return (
     <RecommendWrapper>
-      <Title>친구추천</Title>
+      <Title>회원님을 위한 추천</Title>
       <RecommendList>
         <UserRecommendListItem id="yes.h" />
         <UserRecommendListItem id="yes.h" />
@@ -20,11 +20,22 @@ function UserRecommendList() {
 export default UserRecommendList;
 
 const RecommendWrapper = styled.div`
-  margin: 5px;
+  padding: 5px;
+  margin: 5px 0;
+
+  div {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  div::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
 `;
 
 const Title = styled.div`
   font-size: 11px;
+  margin-left: 10px;
+  color: gray;
 `;
 
 const RecommendList = styled.div`

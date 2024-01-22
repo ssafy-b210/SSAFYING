@@ -26,7 +26,7 @@ const ContentWrapper = styled.div`
 `;
 
 const Content = styled.span`
-  font-size: 10px;
+  font-size: 13px;
   font-weight: regular;
   vertical-align: middle;
 `;
