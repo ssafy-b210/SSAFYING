@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import logo from "../../assets/img/logo1.svg";
+import logo from "../../assets/img/logo/logo1.svg";
 
 import googleIcon from "../../assets/img/socialLoginIcons/googleIcon.png";
 import githubIcon from "../../assets/img/socialLoginIcons/githubIcon.png";
