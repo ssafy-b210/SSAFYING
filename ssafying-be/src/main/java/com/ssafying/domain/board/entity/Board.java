@@ -2,6 +2,7 @@ package com.ssafying.domain.board.entity;
 
 import com.ssafying.domain.user.entity.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "board") //자유게시판
 @Getter
+
 public class Board {
 
     @Id @GeneratedValue
@@ -34,5 +36,12 @@ public class Board {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt; //수정일자
+
+    @Builder
+    public Board(){
+
+    }
+
+
 
 }
