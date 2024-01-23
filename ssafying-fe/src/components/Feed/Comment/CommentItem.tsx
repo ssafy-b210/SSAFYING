@@ -28,9 +28,11 @@ function CommentItem({ commentId, userId, content }: commentProps) {
           <TextBtn>답글달기</TextBtn>
         </div>
       </Comment>
-      <div>
-        <ImgBtn src={deleteBtn} onClick={clickDeleteBtn} size="15px" />
-      </div>
+      {commentId === userId && (
+        <div>
+          <ImgBtn src={deleteBtn} onClick={clickDeleteBtn} size="15px" />
+        </div>
+      )}
     </UserWrapper>
   );
 }
