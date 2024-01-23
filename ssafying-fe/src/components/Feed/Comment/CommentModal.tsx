@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import CommentList from "./CommentList";
 
 interface CommentModalProps {
   onClose: () => void;
@@ -6,9 +7,7 @@ interface CommentModalProps {
 
 const CommentModal: React.FC<CommentModalProps> = ({ onClose }) => {
   const handleCommentSubmit = (comment: string) => {
-    // Your logic to handle comment submission
     console.log("Comment submitted:", comment);
-    // Close the modal after handling the comment
     onClose();
   };
 
@@ -16,6 +15,7 @@ const CommentModal: React.FC<CommentModalProps> = ({ onClose }) => {
     <ModalOverlay>
       <ModalContent>
         <CloseButton onClick={onClose}>&times;</CloseButton>
+        <CommentList />
       </ModalContent>
     </ModalOverlay>
   );
@@ -38,7 +38,7 @@ const ModalOverlay = styled.div`
 const ModalContent = styled.div`
   background: white;
   height: 90%;
-  padding: 30px;
+  padding: 10px;
   border-radius: 10px;
   width: 100%;
   max-width: 560px;

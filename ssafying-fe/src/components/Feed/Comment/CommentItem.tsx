@@ -1,34 +1,35 @@
 import React from "react";
 import styled from "styled-components";
 import userImage from "../../../assets/img/testImg/user.svg";
-import more from "../../../assets/img/imgBtn/more.svg";
+import deleteBtn from "../../../assets/img/imgBtn/deleteBtn.svg";
 import RoundImg from "../utils/RoundImg";
 import ImgBtn from "../utils/ImgBtn";
 
 // 아이디 받기, 댓글 아이디랑 똑같으면 삭제버튼 보이게
 
 interface commentProps {
-  id: string;
+  commentId: string;
   userId: string;
-  comment: string;
+  content: string;
 }
 
-function CommentItem({ id, userId, comment }: commentProps) {
+function CommentItem({ commentId, userId, content }: commentProps) {
   function clickDeleteBtn() {
     console.log("delete comment");
   }
 
   return (
     <UserWrapper>
-      <div>
-        <RoundImg src={userImage} size="30px" />
+      <Comment>
+        <RoundImg src={userImage} size="40px" />
         <div>
-          <UserId>{userId}</UserId>
-          <div>ㅋㅋㅋㅋㅋ</div>
+          <UserId>{commentId}</UserId>
+          <Content>{content}</Content>
+          <TextBtn>답글달기</TextBtn>
         </div>
-      </div>
+      </Comment>
       <div>
-        <ImgBtn src={more} onClick={clickDeleteBtn} />
+        <ImgBtn src={deleteBtn} onClick={clickDeleteBtn} size="15px" />
       </div>
     </UserWrapper>
   );
@@ -41,15 +42,27 @@ const UserWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
 
+const UserId = styled.div`
+  margin-left: 5px; // Adjust the margin as needed
+  font-weight: bold;
+`;
+
+const Comment = styled.div`
+  display: flex;
+  align-items: center;
   div {
-    display: flex;
-    align-items: center;
+    margin-left: 3px;
   }
 `;
 
-const UserId = styled.span`
-  margin-left: 5px; // Adjust the margin as needed
-  font-family: "Inter", sans-serif; /* Apply Inter font */
+const Content = styled.div`
+  font-size: 12px;
+`;
+
+const TextBtn = styled.div`
+  font-size: 9px;
   font-weight: bold;
+  color: gray;
 `;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import userImg from "../../../assets/img/testImg/user5.svg";
 import userImg2 from "../../../assets/img/testImg/user4.svg";
 import userImg3 from "../../../assets/img/testImg/user3.svg";

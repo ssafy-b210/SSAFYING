@@ -14,5 +14,5 @@ export default RoundImg;
 const Img = styled.img`
   margin: 0 5px;
   border-radius: 50%;
-  border: 2px solid lightgray;
+  border: 1px solid lightgray;
 `;
