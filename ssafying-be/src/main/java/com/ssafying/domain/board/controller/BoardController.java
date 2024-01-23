@@ -1,6 +1,7 @@
 package com.ssafying.domain.board.controller;
 
 import com.ssafying.domain.board.service.BoardService;
+import com.ssafying.global.result.ResultResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,12 @@ public class BoardController {
     /**
      * 5.1 게시판 게시글 작성
      */
-//    @PostMapping("createArticle")
+//    @PostMapping("board/article")
+//    public ResponseEntity<ResultResponse> createArticle() {
+//
+//
+//    }
+
 
 
 
