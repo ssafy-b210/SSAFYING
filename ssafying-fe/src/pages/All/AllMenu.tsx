@@ -1,5 +1,5 @@
-import BoardHeader from "../../components/All/Board/BoardHeader";
-import MenuBar from "../../components/All/MenuBar";
+import BoardHeader from "../../components/All/Board/BoardMenu/MenuHeader";
+import MenuBar from "../../components/All/Board/BoardMenu/MenuBar";
 
 function AllMenu() {
   return (
