@@ -4,6 +4,7 @@ import ProfileMain from "./pages/Profile/ProfileMain";
 import styled from "styled-components";
 import SsafyAuth from "./pages/User/UserAuth";
 import ContentFeedSection from "./components/Profile/MyContents/ContentFeedSection";
+import ContentPortfolioSection from "./components/Profile/MyContents/ContentPortfolioSection";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
 
         <Route path="/profile" element={<ProfileMain />}>
           <Route path="" element={<ContentFeedSection />} />
+          <Route path="portfolio" element={<ContentPortfolioSection />} />
         </Route>
       </Routes>
     </Wrapper>
