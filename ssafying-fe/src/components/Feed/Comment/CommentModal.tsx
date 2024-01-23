@@ -31,7 +31,7 @@ const ModalOverlay = styled.div`
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center;
+  align-items: end;
   justify-content: center;
 `;
 
@@ -45,9 +45,6 @@ const ModalContent = styled.div`
 `;
 
 const CloseButton = styled.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
   background: none;
   border: none;
   font-size: 30px;
