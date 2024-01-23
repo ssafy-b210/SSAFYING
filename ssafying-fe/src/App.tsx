@@ -15,7 +15,7 @@ function App() {
   return (
     <Wrapper>
       <Routes>
-        <Route path="/" element={<AllMenu />} />
+        <Route path="/" element={<UserUpdate />} />
         <Route path="/signup" element={<UserSignup />} />
 
         <Route path="/profile" element={<ProfileMain />} />

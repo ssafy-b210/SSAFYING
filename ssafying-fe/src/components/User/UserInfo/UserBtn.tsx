@@ -18,8 +18,8 @@ const UserButton = styled.button`
   border-radius: 10px;
   border: none;
   color: white;
-  margin-right: 1em;
-  margin-left: 1em;
+  margin-right: 15px;
+  margin-left: 15px;
   padding: 8px;
 `;
 
@@ -30,5 +30,5 @@ const UserButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 1em;
+  margin-top: 15px;
 `;

@@ -26,16 +26,16 @@ export default UserInformation;
 const UserInfoContainer = styled.div`
   border: 1px solid gray;
   border-radius: 20px;
-  height: 30em;
+  height: 500px;
   width: 80%;
   padding: 20px;
   .category {
     color: gray;
-    padding-top: 1em;
+    padding-top: 15px;
   }
   .content {
-    padding-top: 0.5em;
-    padding-left: 1em;
+    padding-top: 10px;
+    padding-left: 15px;
   }
 `;
 

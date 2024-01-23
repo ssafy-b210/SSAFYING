@@ -27,10 +27,10 @@ const Selected = styled.div`
   height: 100px;
   border: 1px solid gray;
   border-radius: 10px;
-  margin-right: 1em;
-  margin-left: 1em;
+  margin-right: 15px;
+  margin-left: 15px;
   p {
-    margin-left: 1em;
+    margin-left: 15px;
   }
 `;
 const SubmitButton = styled.button`

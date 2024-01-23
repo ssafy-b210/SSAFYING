@@ -6,19 +6,21 @@ function MenuBar() {
     <div>
       <MenuContainer>
         <MenuOne>
-          <h2>게시판</h2>
+          <h2>셔틀버스 위치공유</h2>
           <hr />
-          <div className="board-text">자유, 취업, 개발 정보 자유롭게 공유</div>
+          <div className="board-text">
+            광역 캠퍼스만 제공, 오전 9시 전까지만 제공
+          </div>
         </MenuOne>
         <MenuOne>
-          <h2>사람 구하기</h2>
+          <h2>식단표</h2>
           <hr />
-          <div className="board-text">스터디, 프로젝트, 모임 등</div>
+          <div className="board-text">오점뭐</div>
         </MenuOne>
         <MenuOne>
-          <h2>취업공고</h2>
+          <h2>중고 거래 장터</h2>
           <hr />
-          <div className="board-text">원하는 공고만 저장</div>
+          <div className="board-text">당신 근처의 소중한 거래</div>
         </MenuOne>
       </MenuContainer>
     </div>

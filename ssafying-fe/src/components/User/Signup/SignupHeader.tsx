@@ -24,6 +24,6 @@ const Header = styled.header`
     margin-right: 10px;
   }
   h2 {
-    margin-top: 1em;
+    margin-top: 15px;
   }
 `;

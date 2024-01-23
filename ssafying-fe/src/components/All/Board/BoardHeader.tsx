@@ -14,7 +14,7 @@ export default BoardHeader;
 
 const Header = styled.header`
   h2 {
-    margin-top: 4em;
-    margin-left: 2em;
+    margin-top: 50px;
+    margin-left: 50px;
   }
 `;
