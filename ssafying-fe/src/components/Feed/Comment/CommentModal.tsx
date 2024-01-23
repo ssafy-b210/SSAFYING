@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import CommentList from "./CommentList";
+import CommentInput from "./CommentInput";
 
 interface CommentModalProps {
   onClose: () => void;
@@ -16,6 +17,7 @@ const CommentModal: React.FC<CommentModalProps> = ({ onClose }) => {
       <ModalContent>
         <CloseButton onClick={onClose}>&times;</CloseButton>
         <CommentList />
+        <CommentInput onSubmit={handleCommentSubmit} />
       </ModalContent>
     </ModalOverlay>
   );

@@ -4,12 +4,14 @@ import userImage from "../../../assets/img/testImg/user.svg";
 import deleteBtn from "../../../assets/img/imgBtn/deleteBtn.svg";
 import RoundImg from "../utils/RoundImg";
 import ImgBtn from "../utils/ImgBtn";
+import RecommentItem from "./RecommentItem";
 
-interface commentProps {
+interface CommentProps {
   commentId: string;
   userId: string;
   content: string;
   isHighlighted: boolean;
+  onClick: () => void;
 }
 
 function CommentItem({
@@ -17,31 +19,38 @@ function CommentItem({
   userId,
   content,
   isHighlighted,
-}: commentProps) {
+  onClick,
+}: CommentProps) {
   function clickDeleteBtn() {
     console.log("delete comment");
   }
 
-  function clickRecommentBtn() {
-    // Toggle the highlight state
-    setIsHighlighted(!isHighlighted);
-  }
-
   return (
-    <UserWrapper isHighlighted={isHighlighted}>
-      <Comment>
-        <RoundImg src={userImage} size="40px" />
-        <div>
-          <UserId>{commentId}</UserId>
-          <Content>{content}</Content>
-          <TextBtn onClick={clickRecommentBtn}>답글달기</TextBtn>
-        </div>
-      </Comment>
-      {commentId === userId && (
-        <div>
+    <UserWrapper isHighlighted={isHighlighted} onClick={onClick}>
+      <RoundImg src={userImage} size="32px" />
+      <CommentContent>
+        <UserId>{commentId}</UserId>
+        <Content>{content}</Content>
+      </CommentContent>
+      <ButtonsWrapper>
+        <TextBtn onClick={onClick}>답글달기</TextBtn>
+        {commentId === userId && (
           <ImgBtn src={deleteBtn} onClick={clickDeleteBtn} size="15px" />
-        </div>
-      )}
+        )}
+      </ButtonsWrapper>
+
+      <RecommentList>
+        {/* You can map through your replies and render RecommentItem components */}
+        {/* For example, assuming you have a 'replies' array */}
+        {replies.map((reply) => (
+          <RecommentItem
+            key={reply.replyId}
+            userId={reply.userId}
+            content={reply.content}
+            onClickDelete={() => handleDeleteReply(reply.replyId)}
+          />
+        ))}
+      </RecommentList>
     </UserWrapper>
   );
 }
@@ -49,35 +58,39 @@ function CommentItem({
 export default CommentItem;
 
 const UserWrapper = styled.div<{ isHighlighted: boolean }>`
-  padding: 5px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  padding: 8px;
   background-color: ${(props) =>
-    props.isHighlighted ? "lightyellow" : "transparent"};
+    props.isHighlighted ? "rgba(0, 0, 0, 0.05)" : "transparent"};
+`;
+
+const CommentContent = styled.div`
+  margin-left: 8px;
 `;
 
 const UserId = styled.div`
-  margin-left: 5px;
   font-weight: bold;
-  line-height: 1.1;
-`;
-
-const Comment = styled.div`
-  display: flex;
-  align-items: center;
-  div {
-    margin-left: 3px;
-  }
 `;
 
 const Content = styled.div`
-  font-size: 12px;
+  font-size: 14px;
+`;
+
+const ButtonsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: auto;
 `;
 
 const TextBtn = styled.div`
-  font-size: 9px;
-  font-weight: bold;
-  color: gray;
-  cursor: pointer; // Add this to show it's clickable
+  font-size: 12px;
+  color: #385185;
+  cursor: pointer;
+  margin-right: 10px;
+`;
+
+const RecommentList = styled.div`
+  margin-top: 8px;
+  padding-left: 40px; /* Adjust the indentation based on your design */
 `;
