@@ -20,9 +20,6 @@ public class ChatRoom {
     @Column(name = "created_at")
     private LocalDateTime createdAt; //생성일자
 
-    @OneToMany(mappedBy = "chatRoom"/*, cascade = CascadeType.ALL*/)
-    private List<ChatMessage> chatMessages = new ArrayList<>(); //채팅
-
     @OneToMany(mappedBy = "chatRoom")
     private List<ChatRoomUser> chatRoomUsers; // 채팅방 입장 유저
 
