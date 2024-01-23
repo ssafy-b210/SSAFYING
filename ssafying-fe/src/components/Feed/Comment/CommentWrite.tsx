@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import userImage from "../../../assets/img/testImg/user.svg";
 import deleteBtn from "../../../assets/img/imgBtn/deleteBtn.svg";
@@ -9,32 +9,21 @@ interface commentProps {
   commentId: string;
   userId: string;
   content: string;
-  isHighlighted: boolean;
 }
 
-function CommentItem({
-  commentId,
-  userId,
-  content,
-  isHighlighted,
-}: commentProps) {
+function CommentItem({ commentId, userId, content }: commentProps) {
   function clickDeleteBtn() {
     console.log("delete comment");
   }
 
-  function clickRecommentBtn() {
-    // Toggle the highlight state
-    setIsHighlighted(!isHighlighted);
-  }
-
   return (
-    <UserWrapper isHighlighted={isHighlighted}>
+    <UserWrapper>
       <Comment>
         <RoundImg src={userImage} size="40px" />
         <div>
           <UserId>{commentId}</UserId>
           <Content>{content}</Content>
-          <TextBtn onClick={clickRecommentBtn}>답글달기</TextBtn>
+          <TextBtn>답글달기</TextBtn>
         </div>
       </Comment>
       {commentId === userId && (
@@ -48,19 +37,16 @@ function CommentItem({
 
 export default CommentItem;
 
-const UserWrapper = styled.div<{ isHighlighted: boolean }>`
+const UserWrapper = styled.div`
   padding: 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: ${(props) =>
-    props.isHighlighted ? "lightyellow" : "transparent"};
 `;
 
 const UserId = styled.div`
-  margin-left: 5px;
+  margin-left: 5px; // Adjust the margin as needed
   font-weight: bold;
-  line-height: 1.1;
 `;
 
 const Comment = styled.div`
@@ -79,5 +65,4 @@ const TextBtn = styled.div`
   font-size: 9px;
   font-weight: bold;
   color: gray;
-  cursor: pointer; // Add this to show it's clickable
 `;
