@@ -9,12 +9,13 @@ import UserLeave from "./components/User/UserLeave";
 import UserDetail from "./pages/User/UserDetail";
 import UserAuth from "./pages/User/UserAuth";
 import UserUpdate from "./pages/User/UserUpdate";
+import AllMenu from "./pages/All/AllMenu";
 
 function App() {
   return (
     <Wrapper>
       <Routes>
-        <Route path="/" element={<UserUpdate />} />
+        <Route path="/" element={<AllMenu />} />
         <Route path="/signup" element={<UserSignup />} />
 
         <Route path="/profile" element={<ProfileMain />} />
