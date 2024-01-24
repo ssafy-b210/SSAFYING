@@ -21,10 +21,10 @@ public class ChatRoomRepository {
         return em.find(ChatRoom.class, id);
     }
 
-    public List<ChatRoom> findById(int id) {
+    public ChatRoom findById(int id) {
         return em.createQuery("select c from ChatRoom c where c.id = :id", ChatRoom.class)
                 .setParameter("id", id)
-                .getResultList();
+                .getSingleResult();
     }
 
 
