@@ -24,7 +24,7 @@ function SearchBar() {
         <Option>충북</Option>
         <Option>제주</Option>
       </DropdownContent>
-      <SearchBox value="검색어를 입력해주세요"></SearchBox>
+      <SearchBox type="text" placeholder="검색어를 입력해주세요"></SearchBox>
     </LocationContainer>
   );
 }

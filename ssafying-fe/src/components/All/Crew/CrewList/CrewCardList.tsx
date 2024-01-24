@@ -12,6 +12,9 @@ function CrewCardList() {
       nickname: "yes.hs",
       isRecruiting: false,
     },
+    { title: "cs 스터디 구해요", nickname: "yes.hs", isRecruiting: true },
+    { title: "알고리즘 스터디 구해요", nickname: "yes.hs", isRecruiting: true },
+    { title: "자바 스터디 구해요", nickname: "yes.hs", isRecruiting: true },
   ]);
 
   type CardsProps = {

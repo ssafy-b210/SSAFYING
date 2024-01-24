@@ -1,3 +1,4 @@
+import PlusBtn from "../../../components/All/Board/PlusBtn";
 import BoardHeader from "../../../components/All/Crew/CrewList/BoardHeader";
 import CrewCardList from "../../../components/All/Crew/CrewList/CrewCardList";
 import CrewSortTab from "../../../components/All/Crew/CrewList/CrewSortTab";
@@ -10,6 +11,7 @@ function CrewList() {
       <CrewSortTab></CrewSortTab>
       <SearchBar></SearchBar>
       <CrewCardList></CrewCardList>
+      <PlusBtn></PlusBtn>
     </div>
   );
 }
