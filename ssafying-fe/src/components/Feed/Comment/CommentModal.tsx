@@ -44,6 +44,7 @@ const ModalContent = styled.div`
   border-radius: 10px;
   width: 100%;
   max-width: 560px;
+  overflow-y: scroll;
 `;
 
 const CloseButton = styled.button`

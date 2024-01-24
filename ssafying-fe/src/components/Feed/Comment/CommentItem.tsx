@@ -32,24 +32,26 @@ function CommentItem({
   ];
 
   return (
-    <UserWrapper isHighlighted={isHighlighted} onClick={onClick}>
-      <RoundImg src={userImage} size="32px" />
-      <CommentContent>
-        <UserId>{commentId}</UserId>
-        <Content>{content}</Content>
-      </CommentContent>
-      <ButtonsWrapper>
-        <TextBtn onClick={onClick}>답글달기</TextBtn>
-        {commentId === userId && (
-          <ImgBtn src={deleteBtn} onClick={clickDeleteBtn} size="15px" />
-        )}
-      </ButtonsWrapper>
-
+    <>
+      <UserWrapper isHighlighted={isHighlighted} onClick={onClick}>
+        <RoundImg src={userImage} size="32px" />
+        <CommentContent>
+          <UserId>{commentId}</UserId>
+          <Content>{content}</Content>
+        </CommentContent>
+        <ButtonsWrapper>
+          <TextBtn onClick={onClick}>답글달기</TextBtn>
+          {commentId === userId && (
+            <ImgBtn src={deleteBtn} onClick={clickDeleteBtn} size="15px" />
+          )}
+        </ButtonsWrapper>
+      </UserWrapper>
       {replies.length > 0 && (
         <RecommentList>
           {replies.map((reply) => (
             <RecommentItem
               key={reply.replyId}
+              commentId={reply.commentId}
               userId={reply.userId}
               content={reply.content}
               onClickDelete={() => clickDeleteBtn()}
@@ -57,7 +59,7 @@ function CommentItem({
           ))}
         </RecommentList>
       )}
-    </UserWrapper>
+    </>
   );
 }
 

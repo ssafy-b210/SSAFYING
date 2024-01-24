@@ -6,19 +6,27 @@ import deleteBtn from "../../../assets/img/imgBtn/deleteBtn.svg";
 
 interface RecommentProps {
   userId: string;
+  commentId: string;
   content: string;
   onClickDelete: () => void;
 }
 
-function RecommentItem({ userId, content, onClickDelete }: RecommentProps) {
+function RecommentItem({
+  userId,
+  commentId,
+  content,
+  onClickDelete,
+}: RecommentProps) {
   return (
     <RecommentWrapper>
       <RoundImg src={userImage} size="28px" />
       <RecommentContent>
-        <UserId>{userId}</UserId>
+        <UserId>{commentId}</UserId>
         <Content>{content}</Content>
       </RecommentContent>
-      <ImgBtn src={deleteBtn} onClick={onClickDelete} size="12px" />
+      {commentId === userId && (
+        <ImgBtn src={deleteBtn} onClick={onClickDelete} size="12px" />
+      )}
     </RecommentWrapper>
   );
 }
