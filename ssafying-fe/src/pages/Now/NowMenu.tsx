@@ -10,4 +10,4 @@ function NowMenu() {
   );
 }
 
-export default AllMenu;
+export default NowMenu;

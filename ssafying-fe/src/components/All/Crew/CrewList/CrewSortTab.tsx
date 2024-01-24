@@ -3,17 +3,16 @@ import styled from "styled-components";
 function CrewSortTab() {
   return (
     <StyledTab>
-      <div></div>
-      <SortTabButton href="!#" className="active">
+      <SortTabButton className="active">
         <span>스터디</span>
       </SortTabButton>
-      <SortTabButton href="!#">
+      <SortTabButton>
         <span>프로젝트</span>
       </SortTabButton>
-      <SortTabButton href="!#">
+      <SortTabButton>
         <span>모임</span>
       </SortTabButton>
-      <SortTabButton href="!#">
+      <SortTabButton>
         <span>챌린지</span>
       </SortTabButton>
     </StyledTab>

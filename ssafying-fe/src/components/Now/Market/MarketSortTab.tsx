@@ -3,14 +3,13 @@ import styled from "styled-components";
 function MarketSortTab() {
   return (
     <StyledTab>
-      <div></div>
-      <SortTabButton href="!#" className="active">
+      <SortTabButton className="active">
         <span>팝니다</span>
       </SortTabButton>
-      <SortTabButton href="!#">
+      <SortTabButton>
         <span>삽니다</span>
       </SortTabButton>
-      <SortTabButton href="!#">
+      <SortTabButton>
         <span>나눔합니다</span>
       </SortTabButton>
     </StyledTab>
