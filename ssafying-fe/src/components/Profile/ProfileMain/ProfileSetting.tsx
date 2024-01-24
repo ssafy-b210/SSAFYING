@@ -4,7 +4,7 @@ function ProflieSetting() {
   return (
     <StyledProfileSetting>
       <Button onClick={() => alert("회원정보 페이지로 이동")}>회원정보</Button>
-      <Button className="logout" onClick={() => alert("로그아웃")}>
+      <Button className="danger" onClick={() => alert("로그아웃")}>
         로그아웃
       </Button>
     </StyledProfileSetting>
@@ -20,6 +20,7 @@ const StyledProfileSetting = styled.div`
 `;
 
 const Button = styled.button`
+  margin: 0 16px;
   padding: 8px 30px;
   font-size: 14px;
   color: #000;
@@ -27,9 +28,8 @@ const Button = styled.button`
   border-radius: 6px;
   background-color: #fff;
   cursor: pointer;
-  margin: 0 16px;
 
-  &.logout {
+  &.danger {
     color: #fff;
     border: none;
     background-color: #ff4a4a;
