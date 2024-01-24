@@ -24,9 +24,11 @@ function RecommentItem({
         <UserId>{commentId}</UserId>
         <Content>{content}</Content>
       </RecommentContent>
-      {commentId === userId && (
-        <ImgBtn src={deleteBtn} onClick={onClickDelete} size="12px" />
-      )}
+      <ButtonsWrapper>
+        {commentId === userId && (
+          <ImgBtn src={deleteBtn} onClick={onClickDelete} size="12px" />
+        )}
+      </ButtonsWrapper>
     </RecommentWrapper>
   );
 }
@@ -53,4 +55,10 @@ const UserId = styled.div`
 const Content = styled.div`
   font-size: 12px;
   color: #333;
+`;
+
+const ButtonsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: auto;
 `;

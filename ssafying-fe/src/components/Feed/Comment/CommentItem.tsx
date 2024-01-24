@@ -4,32 +4,32 @@ import userImage from "../../../assets/img/testImg/user.svg";
 import deleteBtn from "../../../assets/img/imgBtn/deleteBtn.svg";
 import RoundImg from "../utils/RoundImg";
 import ImgBtn from "../utils/ImgBtn";
-import RecommentItem from "./RecommentItem";
+import RecommentList from "./RecommentList";
 
 interface CommentProps {
   commentId: string;
-  userId: string;
   content: string;
   isHighlighted: boolean;
   onClick: () => void;
+  replies: {
+    replyId: number;
+    commentId: string;
+    content: string;
+  }[];
 }
 
 function CommentItem({
   commentId,
-  userId,
   content,
   isHighlighted,
   onClick,
+  replies,
 }: CommentProps) {
+  const userId = "aeong";
+
   function clickDeleteBtn() {
     console.log("delete comment");
   }
-
-  const replies = [
-    { replyId: 1, commentId: "aeong", userId: "aeong", content: "ㅎㅎㅎㅎ" },
-    { replyId: 2, commentId: "yes", userId: "aeong", content: "뭐야" },
-    { replyId: 3, commentId: "yes.hh", userId: "aeong", content: "안녕" },
-  ];
 
   return (
     <>
@@ -47,17 +47,7 @@ function CommentItem({
         </ButtonsWrapper>
       </UserWrapper>
       {replies.length > 0 && (
-        <RecommentList>
-          {replies.map((reply) => (
-            <RecommentItem
-              key={reply.replyId}
-              commentId={reply.commentId}
-              userId={reply.userId}
-              content={reply.content}
-              onClickDelete={() => clickDeleteBtn()}
-            />
-          ))}
-        </RecommentList>
+        <RecommentList onClick={clickDeleteBtn} replies={replies} />
       )}
     </>
   );
@@ -69,8 +59,10 @@ const UserWrapper = styled.div<{ isHighlighted: boolean }>`
   display: flex;
   align-items: center;
   padding: 8px;
+  margin-top: 5px;
+  border-radius: 8px;
   background-color: ${(props) =>
-    props.isHighlighted ? "rgba(0, 0, 0, 0.05)" : "transparent"};
+    props.isHighlighted ? "#f2f9f1" : "transparent"};
 `;
 
 const CommentContent = styled.div`
@@ -96,9 +88,4 @@ const TextBtn = styled.div`
   color: #385185;
   cursor: pointer;
   margin-right: 10px;
-`;
-
-const RecommentList = styled.div`
-  margin-top: 8px;
-  padding-left: 40px;
 `;

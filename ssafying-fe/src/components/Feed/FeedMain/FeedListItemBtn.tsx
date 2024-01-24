@@ -17,7 +17,9 @@ const FeedListItemBtn: React.FC = () => {
   };
 
   const closeComment = () => {
-    setModalOpen(false);
+    setTimeout(() => {
+      setModalOpen(false);
+    }, 700);
   };
 
   const clickSaveBtn = () => {};

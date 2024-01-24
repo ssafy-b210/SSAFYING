@@ -2,18 +2,39 @@ import { useState } from "react";
 import CommentItem from "./CommentItem";
 
 function CommentList() {
-  const [highlightedCommentId, setHighlightedCommentId] = useState<string | null>(
-    null
-  );
+  const [highlightedCommentId, setHighlightedCommentId] = useState<
+    string | null
+  >(null);
 
   const comments = [
-    { commentId: "aeong", userId: "aeong", content: "ㅋㅋㅋㅋㅋ" },
-    { commentId: "yes", userId: "aeong", content: "ㅋㅋㅋㅋㅋ" },
-    { commentId: "yes.hh", userId: "aeong", content: "안녕ㅎㅎ" },
+    {
+      commentId: "aeong",
+      content: "ㅋㅋㅋㅋㅋ",
+      replies: [
+        { replyId: 1, commentId: "aeong", content: "ㅎㅎㅎㅎ" },
+        { replyId: 2, commentId: "yes", content: "뭐야" },
+        { replyId: 2, commentId: "yes", content: "뭐야" },
+        { replyId: 2, commentId: "yes", content: "뭐야" },
+        { replyId: 2, commentId: "yes", content: "뭐야" },
+      ],
+    },
+    {
+      commentId: "yes",
+      content: "ㅋㅋㅋㅋㅋ",
+      replies: [
+        { replyId: 1, commentId: "yes.hh", content: "안녕" },
+        { replyId: 2, commentId: "yes", content: "뭐야" },
+        { replyId: 2, commentId: "yes", content: "뭐야" },
+        { replyId: 2, commentId: "yes", content: "뭐야" },
+      ],
+    },
+    { commentId: "yes.hh", content: "안녕ㅎㅎ", replies: [] },
   ];
 
   const handleCommentClick = (commentId: string) => {
-    setHighlightedCommentId(commentId === highlightedCommentId ? null : commentId);
+    setHighlightedCommentId(
+      commentId === highlightedCommentId ? null : commentId
+    );
   };
 
   return (
@@ -22,10 +43,10 @@ function CommentList() {
         <CommentItem
           key={comment.commentId}
           commentId={comment.commentId}
-          userId={comment.userId}
           content={comment.content}
           isHighlighted={comment.commentId === highlightedCommentId}
           onClick={() => handleCommentClick(comment.commentId)}
+          replies={comment.replies}
         />
       ))}
     </div>

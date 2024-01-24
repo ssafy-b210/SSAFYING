@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-
 interface CommentInputProps {
   onSubmit: (comment: string) => void;
 }
@@ -15,19 +14,14 @@ const CommentInput: React.FC<CommentInputProps> = ({ onSubmit }) => {
   const handleSubmit = () => {
     if (comment.trim() !== "") {
       onSubmit(comment);
-      setComment(""); // Clear the input after submission
+      setComment("");
     }
   };
 
   return (
     <CommentInputContainer>
-      <Input
-        type="text"
-        placeholder="Type your comment here..."
-        value={comment}
-        onChange={handleChange}
-      />
-      <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
+      <Input type="text" value={comment} onChange={handleChange} />
+      <SubmitButton onClick={handleSubmit}>등록</SubmitButton>
     </CommentInputContainer>
   );
 };
@@ -35,7 +29,8 @@ const CommentInput: React.FC<CommentInputProps> = ({ onSubmit }) => {
 const CommentInputContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  margin: 10px;
+  background-color: white;
 `;
 
 const Input = styled.input`
@@ -43,15 +38,17 @@ const Input = styled.input`
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  margin: 0 5px;
 `;
 
 const SubmitButton = styled.button`
-  background-color: #007bff;
+  background-color: #616161;
   color: white;
   padding: 8px 15px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin: 0 5px;
 `;
 
 export default CommentInput;
