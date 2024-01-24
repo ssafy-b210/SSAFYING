@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import back from "../../../assets/img/Btn/BackBtn.svg";
+import back from "../../../../assets/img/Btn/BackBtn.svg";
 
 function BoardHeader() {
   return (

@@ -10,6 +10,8 @@ function MarketCardList() {
     { title: "싸피 블랙 후드 집업 나눔해요", price: 25000, isSelling: true },
     { title: "덕명동 집 나눔해요", price: 25000, isSelling: true },
     { title: "김수은 빌려드려요", price: 25000, isSelling: true },
+    { title: "김혜진 빌려드려요", price: 25000, isSelling: true },
+    { title: "이애옹 팀장님 빌려드려요", price: 25000, isSelling: true },
   ]);
 
   type CardsProps = {

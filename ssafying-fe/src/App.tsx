@@ -12,12 +12,13 @@ import UserUpdate from "./pages/User/UserUpdate";
 import AllMenu from "./pages/All/AllMenu";
 import CrewList from "./pages/All/Crew/CrewList";
 import MarketList from "./pages/Now/Market/MarketList";
+import BoardList from "./pages/All/Board/BoardList";
 
 function App() {
   return (
     <Wrapper>
       <Routes>
-        <Route path="/" element={<MarketList />} />
+        <Route path="/" element={<BoardList />} />
         <Route path="/signup" element={<UserSignup />} />
 
         <Route path="/profile" element={<ProfileMain />} />
