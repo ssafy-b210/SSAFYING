@@ -5,6 +5,7 @@ import styled from "styled-components";
 import SsafyAuth from "./pages/User/UserAuth";
 import ContentFeedSection from "./components/Profile/MyContents/ContentFeedSection";
 import ContentPortfolioSection from "./components/Profile/MyContents/ContentPortfolioSection";
+import ContentSavedSection from "./components/Profile/MyContents/ContentSavedSection";
 
 function App() {
   return (
@@ -16,6 +17,11 @@ function App() {
         <Route path="/profile" element={<ProfileMain />}>
           <Route path="" element={<ContentFeedSection />} />
           <Route path="portfolio" element={<ContentPortfolioSection />} />
+          <Route path="saved" element={<ContentSavedSection />}>
+            <Route path="" element={<ContentFeedSection />} />
+            <Route path="board" element={<ContentFeedSection />} />
+            <Route path="recruiting" element={<ContentFeedSection />} />
+          </Route>
         </Route>
       </Routes>
     </Wrapper>
