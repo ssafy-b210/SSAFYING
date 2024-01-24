@@ -25,6 +25,12 @@ function CommentItem({
     console.log("delete comment");
   }
 
+  const replies = [
+    { replyId: 1, commentId: "aeong", userId: "aeong", content: "ㅎㅎㅎㅎ" },
+    { replyId: 2, commentId: "yes", userId: "aeong", content: "뭐야" },
+    { replyId: 3, commentId: "yes.hh", userId: "aeong", content: "안녕" },
+  ];
+
   return (
     <UserWrapper isHighlighted={isHighlighted} onClick={onClick}>
       <RoundImg src={userImage} size="32px" />
@@ -39,18 +45,18 @@ function CommentItem({
         )}
       </ButtonsWrapper>
 
-      <RecommentList>
-        {/* You can map through your replies and render RecommentItem components */}
-        {/* For example, assuming you have a 'replies' array */}
-        {replies.map((reply) => (
-          <RecommentItem
-            key={reply.replyId}
-            userId={reply.userId}
-            content={reply.content}
-            onClickDelete={() => handleDeleteReply(reply.replyId)}
-          />
-        ))}
-      </RecommentList>
+      {replies.length > 0 && (
+        <RecommentList>
+          {replies.map((reply) => (
+            <RecommentItem
+              key={reply.replyId}
+              userId={reply.userId}
+              content={reply.content}
+              onClickDelete={() => clickDeleteBtn()}
+            />
+          ))}
+        </RecommentList>
+      )}
     </UserWrapper>
   );
 }
@@ -92,5 +98,5 @@ const TextBtn = styled.div`
 
 const RecommentList = styled.div`
   margin-top: 8px;
-  padding-left: 40px; /* Adjust the indentation based on your design */
+  padding-left: 40px;
 `;
