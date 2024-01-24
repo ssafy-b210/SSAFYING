@@ -6,6 +6,7 @@ import com.ssafying.domain.chat.entity.ChatRoomUser;
 import com.ssafying.domain.shuttle.entity.Campus;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,8 +15,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 @Entity
-@Table(name = "user")
-@Getter
+@Table(name = "users")
+@Getter @Setter
 public class User {
 
     @Id
@@ -23,9 +24,9 @@ public class User {
     @Column(name = "user_id")
     private int id; //회원 id
 
-//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @Column(name = "campus_id")
-//    private Campus campusId; //캠퍼스 id
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "campus_id")
+    private Campus campusId; //캠퍼스 id
 
     private String email; //이메일
 
