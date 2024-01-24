@@ -4,7 +4,7 @@ import React from "react";
 function BoardCardList() {
   const [cardInfo, setCardInfo] = React.useState<BoardCardList[]>([
     { title: "유온역 맛집 추천받아요", nickname: "su00" },
-    { title: "우리집 후추 보고가세요", nickname: "su00" },
+    { title: "우리집 소금이2 보고가세요", nickname: "su00" },
   ]);
 
   type CardsProps = {
