@@ -4,16 +4,16 @@ function CrewSortTab() {
   return (
     <StyledTab>
       <div></div>
-      <SortTabButton href="!#" className="active">
+      <SortTabButton className="active">
         <span>자유</span>
       </SortTabButton>
-      <SortTabButton href="!#">
+      <SortTabButton>
         <span>취업</span>
       </SortTabButton>
-      <SortTabButton href="!#">
+      <SortTabButton>
         <span>정보</span>
       </SortTabButton>
-      <SortTabButton href="!#">
+      <SortTabButton>
         <span>개발</span>
       </SortTabButton>
     </StyledTab>
