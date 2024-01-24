@@ -6,12 +6,13 @@ import UserSelectTag from "./pages/User/UserSelectTag";
 import styled from "styled-components";
 import SsafyAuth from "./pages/User/UserAuth";
 import FeedMain from "./pages/Feed/FeedMain";
+import FeedSearch from "./pages/Feed/FeedSearch";
 
 function App() {
   return (
     <Wrapper>
       <Routes>
-        <Route path="/" element={<FeedMain />} />
+        <Route path="/" element={<FeedSearch />} />
         <Route path="/signup" element={<UserSignup />} />
 
         <Route path="/profile" element={<ProfileMain />} />
