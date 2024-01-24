@@ -1,6 +1,7 @@
 package com.ssafying.domain.chat.service;
 
 import com.ssafying.domain.chat.dto.ChatRoomCreateRequest;
+import com.ssafying.domain.chat.dto.ChatRoomInviteRequest;
 import com.ssafying.domain.chat.dto.ChattingRequest;
 import com.ssafying.domain.chat.entity.ChatMessage;
 import com.ssafying.domain.chat.entity.ChatRoom;
@@ -29,7 +30,7 @@ public class ChatMessageService {
     private final ChatRoomRepository chatRoomRepository;
     private final ChatRoomUserRepository chatRoomUserRepository;
 
-    // 방 생성 (초대 : 다중 초대 가능)
+    // 방 생성 (생성과 동시에 초대 : 다중 초대 가능)
     @Transactional
     public void create(ChatRoomCreateRequest chatRoomCreateRequest) {
         ChatRoom chatRoom = new ChatRoom();
@@ -52,14 +53,32 @@ public class ChatMessageService {
 
     }
 
+    // 방 초대 (단톡방에서만 가능)
+    public void invite(ChatRoomInviteRequest chatRoomInviteRequest) {
+        List<User> users = chatRoomInviteRequest.getUsers();
+        ChatRoom chatRoom = chatRoomRepository.findOne(chatRoomInviteRequest.getChatRoomId()); // 초대한 방
+        for (User user : users) {
+            ChatRoomUser chatRoomUser = ChatRoomUser.builder()
+                    .user(user)
+                    .chatRoom(chatRoom)
+                    .type(RoomType.GROUP)
+                    .build();
+            chatRoomUserRepository.save(chatRoomUser);
+        }
+    }
+
     // 방 조회 (입장)
     public ChatRoom findChatRoom(int id) {
         return chatRoomRepository.findOne(id);
     }
 
-    // 방 나가기 (삭제아님)
-    public void exitChatRoom() {
+    // 방 나가기 (남은유저 0명이면 삭제)
+    public void exitChatRoom(int id) {
+        ChatRoom chatRoom = chatRoomRepository.findOne(chatRoomUserRepository.findOne(id).getChatRoom().getId());
+        chatRoomUserRepository.deleteById(id);
 
+        List<ChatRoomUser> chatRoomUsers = chatRoomUserRepository.findChatRoomUserByRoom(chatRoom);
+        if(chatRoomUsers == null) chatRoomRepository.deleteById(chatRoom.getId());
     }
 
     // 채팅 전송 (저장)

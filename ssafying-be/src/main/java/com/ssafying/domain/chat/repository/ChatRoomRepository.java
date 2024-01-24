@@ -28,6 +28,10 @@ public class ChatRoomRepository {
                 .getSingleResult();
     }
 
+    public void deleteById(int id){
+        em.createQuery("delete from ChatRoom c where c.id = :id", ChatRoom.class)
+                .setParameter("id", id);
+    }
 
 
 }

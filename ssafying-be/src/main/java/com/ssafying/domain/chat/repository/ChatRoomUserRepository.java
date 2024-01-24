@@ -1,5 +1,6 @@
 package com.ssafying.domain.chat.repository;
 
+import com.ssafying.domain.chat.entity.ChatRoom;
 import com.ssafying.domain.chat.entity.ChatRoomUser;
 import com.ssafying.domain.user.entity.User;
 import jakarta.persistence.EntityManager;
@@ -31,6 +32,17 @@ public class ChatRoomUserRepository {
         return em.createQuery("select c from ChatRoomUser c where c.user = :user", ChatRoomUser.class)
                 .setParameter("user", user)
                 .getResultList();
+    }
+
+    public List<ChatRoomUser> findChatRoomUserByRoom(ChatRoom chatRoom) {
+        return em.createQuery("select c from ChatRoomUser c where c.chatRoom = :chatRoom", ChatRoomUser.class)
+                .setParameter("chatRoom", chatRoom)
+                .getResultList();
+    }
+
+    public void deleteById(int id) {
+        em.createQuery("delete from ChatRoomUser c where c.id = :id")
+                .setParameter("id", id);
     }
 
 }

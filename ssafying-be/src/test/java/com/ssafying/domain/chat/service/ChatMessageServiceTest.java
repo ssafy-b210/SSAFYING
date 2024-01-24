@@ -34,7 +34,7 @@ class ChatMessageServiceTest {
     ChatMessageService chatMessageService;
 
     @Test
-    public void 채팅방_초대() throws Exception {
+    public void 채팅방_생성() throws Exception {
         // given
         User user1 = new User();
         User user2 = new User();
@@ -62,6 +62,15 @@ class ChatMessageServiceTest {
         for (ChatRoomUser chatRoomUser : chatRoomUsers) {
             assertEquals(createdChatRoom.getId(), chatRoomUser.getChatRoom().getId());
         }
+    }
+
+    @Test
+    public void 채팅방_초대() throws Exception {
+        // given
+
+        // when
+
+        // then
     }
 
 }
