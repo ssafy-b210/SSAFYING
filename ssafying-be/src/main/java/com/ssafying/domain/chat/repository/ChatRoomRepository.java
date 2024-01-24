@@ -13,8 +13,9 @@ public class ChatRoomRepository {
 
     private final EntityManager em;
 
-    public void save(ChatRoom chatRoom){
+    public ChatRoom save(ChatRoom chatRoom){
         em.persist(chatRoom);
+        return chatRoom;
     }
 
     public ChatRoom findOne(int id){
