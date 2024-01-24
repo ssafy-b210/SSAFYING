@@ -1,30 +1,25 @@
 import styled from "styled-components";
-import userImage from "../../../assets/img/testImg/user.svg";
-import RoundImg from "../utils/RoundImg";
+import UserItem from "../utils/UserItem";
 
 interface userProps {
-  userId: string;
+  userList: {
+    userId: string;
+    userImage: string;
+  }[];
 }
 
-function UserItemList({ userId }: userProps) {
+function UserItemList({ userList }: userProps) {
   return (
-    <UserWrapper>
-      <RoundImg src={userImage} size="30px" />
-      <UserId>{userId}</UserId>
-    </UserWrapper>
+    <>
+      {userList.map((user) => (
+        <UserItem
+          key={user.userId}
+          userId={user.userId}
+          userImage={user.userImage}
+        />
+      ))}
+    </>
   );
 }
 
 export default UserItemList;
-
-const UserWrapper = styled.div`
-  padding: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const UserId = styled.span`
-  margin-left: 5px; // Adjust the margin as needed
-  font-weight: bold;
-`;

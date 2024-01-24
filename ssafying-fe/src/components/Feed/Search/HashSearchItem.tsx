@@ -1,21 +1,21 @@
 import styled from "styled-components";
+import hashSearch from "../../../assets/img/imgBtn/hashSearch.svg";
 import RoundImg from "../utils/RoundImg";
 
-interface userProps {
-  userId: string;
-  userImage: string;
+interface hashProps {
+  hashTag: string;
 }
 
-function UserItem({ userId, userImage }: userProps) {
+function HashSearchItem({ hashTag }: hashProps) {
   return (
     <UserWrapper>
-      <RoundImg src={userImage} size="30px" />
-      <UserId>{userId}</UserId>
+      <RoundImg src={hashSearch} size="30px" />
+      <UserId>#{hashTag}</UserId>
     </UserWrapper>
   );
 }
 
-export default UserItem;
+export default HashSearchItem;
 
 const UserWrapper = styled.div`
   padding: 10px 5px;

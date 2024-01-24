@@ -6,7 +6,7 @@ interface ImgProps {
 }
 
 function RoundImg({ src, size }: ImgProps) {
-  return <Img src={src} width={size} />;
+  return <Img src={src} width={size} height={size} />;
 }
 
 export default RoundImg;

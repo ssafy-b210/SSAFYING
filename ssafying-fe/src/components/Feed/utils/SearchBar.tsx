@@ -3,26 +3,6 @@ import backArrow from "../../../assets/img/imgBtn/backBtn.svg";
 import ImgBtn from "./ImgBtn";
 import styled from "styled-components";
 
-const SearchBarWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border-radius: 8px;
-  width: 100%;
-  max-width: 540px;
-  margin: 0 auto;
-
-  input {
-    flex: 1; /* Take up remaining available space */
-    width: 100%; /* Allow the input to expand within its container */
-    background-color: lightgray;
-    border-radius: 10px;
-    padding: 10px;
-    border: none;
-    margin: 0 5px;
-  }
-`;
-
 function SearchBar() {
   function clickBackBtn() {
     console.log("back");
@@ -45,3 +25,22 @@ function SearchBar() {
 }
 
 export default SearchBar;
+
+const SearchBarWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 560px;
+  margin: 0 auto;
+
+  input {
+    flex: 1;
+    width: 100%;
+    background-color: lightgray;
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+    margin: 0 5px;
+  }
+`;
