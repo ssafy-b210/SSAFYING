@@ -36,12 +36,4 @@ public class Board {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt; //수정일자
-
-    @Builder
-    public Board(){
-
-    }
-
-
-
 }
