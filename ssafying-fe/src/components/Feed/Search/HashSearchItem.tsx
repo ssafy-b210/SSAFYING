@@ -25,5 +25,6 @@ const UserWrapper = styled.div`
 
 const UserId = styled.span`
   margin-left: 5px; // Adjust the margin as needed
-  font-weight: bold;
+  font-weight: 500;
+  font-size: 14px;
 `;
