@@ -22,7 +22,7 @@ const UserItem = styled.div`
   border: 1px solid lightgray;
   border-radius: 10px;
   width: 70px;
-  height: 100px;
+  min-height: 100px;
   display: inline-block;
   padding: 10px;
   margin: 5px;

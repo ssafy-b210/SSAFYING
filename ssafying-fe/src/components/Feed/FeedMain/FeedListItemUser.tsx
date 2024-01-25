@@ -17,7 +17,7 @@ function FeedListItemUser() {
         <UserId>aeong123</UserId>
       </div>
       <div>
-        <ImgBtn src={more} onClick={clickMoreBtn} />
+        <ImgBtn src={more} onClick={clickMoreBtn} size="20px" />
       </div>
     </UserWrapper>
   );
@@ -39,6 +39,5 @@ const UserWrapper = styled.div`
 
 const UserId = styled.span`
   margin-left: 5px; // Adjust the margin as needed
-  font-family: "Inter", sans-serif; /* Apply Inter font */
   font-weight: bold;
 `;

@@ -4,18 +4,35 @@ import add from "../../../assets/img/imgBtn/add.svg";
 import alarm from "../../../assets/img/imgBtn/alarm.svg";
 import dm from "../../../assets/img/imgBtn/dm.svg";
 import styled from "styled-components";
+import ImgBtn from "../utils/ImgBtn";
 
 function FeedHeader() {
+  function clickSearchBtn() {
+    console.log("search");
+  }
+
+  function clickAddBtn() {
+    console.log("add");
+  }
+
+  function clickAlarmBtn() {
+    console.log("alarm");
+  }
+
+  function clickDmBtn() {
+    console.log("dm");
+  }
+
   return (
     <Header>
       <div>
         <Img src={logo} alt="ssafying" height="18px" />
       </div>
       <div>
-        <Img src={search} alt="search" height="21px" />
-        <Img src={add} alt="add" height="21px" />
-        <Img src={alarm} alt="alarm" height="21px" />
-        <Img src={dm} alt="dm" height="21px" />
+        <ImgBtn src={search} size="21px" onClick={clickSearchBtn} />
+        <ImgBtn src={add} size="21px" onClick={clickAddBtn} />
+        <ImgBtn src={alarm} size="21px" onClick={clickAlarmBtn} />
+        <ImgBtn src={dm} size="21px" onClick={clickDmBtn} />
       </div>
     </Header>
   );

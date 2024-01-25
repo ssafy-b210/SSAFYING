@@ -6,12 +6,13 @@ import UserSelectTag from "./pages/User/UserSelectTag";
 import styled from "styled-components";
 import SsafyAuth from "./pages/User/UserAuth";
 import FeedMain from "./pages/Feed/FeedMain";
+import FeedSearch from "./pages/Feed/FeedSearch";
 
 function App() {
   return (
     <Wrapper>
       <Routes>
-        <Route path="/" element={<FeedMain />} />
+        <Route path="/" element={<FeedSearch />} />
         <Route path="/signup" element={<UserSignup />} />
 
         <Route path="/profile" element={<ProfileMain />} />
@@ -23,6 +24,7 @@ function App() {
 export default App;
 
 const Wrapper = styled.div`
+  width: 100vw;
   max-width: 560px;
   min-height: 100vh;
   margin: 0 auto;

@@ -17,22 +17,26 @@ const FeedListItemBtn: React.FC = () => {
   };
 
   const closeComment = () => {
-    setModalOpen(false);
+    setTimeout(() => {
+      setModalOpen(false);
+    }, 700);
   };
 
   const clickSaveBtn = () => {};
 
   return (
-    <BtnWrapper>
-      <div>
-        {/* Assume ImgBtn component receives and forwards the onClick prop */}
-        <ImgBtn src={likeBtn} onClick={clickLikeBtn} />
-        <ImgBtn src={commentBtn} onClick={openComment} />
-        <ImgBtn src={saveBtn} onClick={clickSaveBtn} />
-      </div>
-      <FeedLikeCnt />
+    <>
+      <BtnWrapper>
+        <div>
+          {/* Assume ImgBtn component receives and forwards the onClick prop */}
+          <ImgBtn src={likeBtn} onClick={clickLikeBtn} size="20px" />
+          <ImgBtn src={commentBtn} onClick={openComment} size="20px" />
+          <ImgBtn src={saveBtn} onClick={clickSaveBtn} size="20px" />
+        </div>
+        <FeedLikeCnt />
+      </BtnWrapper>
       {modalOpen && <CommentModal onClose={closeComment} />}
-    </BtnWrapper>
+    </>
   );
 };
 
