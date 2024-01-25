@@ -1,10 +1,11 @@
-import logo from "../../../assets/img/Logo/logo1.svg";
+import logo from "../../../assets/img/logo/logo1.svg";
 import search from "../../../assets/img/imgBtn/search.svg";
 import add from "../../../assets/img/imgBtn/add.svg";
 import alarm from "../../../assets/img/imgBtn/alarm.svg";
 import dm from "../../../assets/img/imgBtn/dm.svg";
 import styled from "styled-components";
 import ImgBtn from "../utils/ImgBtn";
+import { Link } from "react-router-dom";
 
 function FeedHeader() {
   function clickSearchBtn() {
@@ -29,8 +30,12 @@ function FeedHeader() {
         <Img src={logo} alt="ssafying" height="18px" />
       </div>
       <div>
-        <ImgBtn src={search} size="21px" onClick={clickSearchBtn} />
-        <ImgBtn src={add} size="21px" onClick={clickAddBtn} />
+        <Link to="/search" className="search">
+          <ImgBtn src={search} size="21px" onClick={clickSearchBtn} />
+        </Link>
+        <Link to="/feedwrite" className="search">
+          <ImgBtn src={add} size="21px" onClick={clickAddBtn} />
+        </Link>
         <ImgBtn src={alarm} size="21px" onClick={clickAlarmBtn} />
         <ImgBtn src={dm} size="21px" onClick={clickDmBtn} />
       </div>

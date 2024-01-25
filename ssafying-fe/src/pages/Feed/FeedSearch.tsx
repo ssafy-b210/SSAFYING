@@ -1,6 +1,7 @@
 import SearchBar from "../../components/Feed/utils/SearchBar";
 import UserItemList from "../../components/Feed/Search/UserItemList";
 import userImage from "../../../assets/img/testImg/user.svg";
+import HashSearchList from "../../components/Feed/Search/HashSearchList";
 
 function FeedSearch() {
   return (
@@ -18,6 +19,12 @@ function FeedSearch() {
             userImage:
               "https://image.utoimage.com/preview/cp872722/2018/06/201806010732_206.jpg",
           },
+        ]}
+      />
+      <HashSearchList
+        hashList={[
+          { hashId: "1", hashTag: "대전" },
+          { hashId: "2", hashTag: "점심" },
         ]}
       />
     </div>
