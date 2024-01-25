@@ -5,34 +5,27 @@ function ProfileHeader() {
   return (
     <StyledProfileHeader>
       <div>aeong123</div>
-      <button>
+      <ProfileMenuBtn onClick={() => alert("Menu Opened")}>
         <img src={hamburger} alt="hamburger menu" />
-      </button>
+      </ProfileMenuBtn>
     </StyledProfileHeader>
   );
 }
 
-const StyledProfileHeader = styled.div`
+export default ProfileHeader;
+
+const StyledProfileHeader = styled.header`
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 45px;
-  padding: 0 16px;
-  color: #262626;
-  font-weight: bold;
-  background-color: #fafafa;
-
-  button {
-    display: flex;
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: transparent;
-    border: none;
-    cursor: pointer;
-  }
+  height: 50px;
 `;
 
-export default ProfileHeader;
+const ProfileMenuBtn = styled.div`
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+`;

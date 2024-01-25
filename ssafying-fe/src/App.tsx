@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import UserLogin from "./pages/User/UserLogin";
 import UserSignup from "./pages/User/UserSignup";
 import ProfileMain from "./pages/Profile/ProfileMain";
 import styled from "styled-components";
@@ -13,6 +12,10 @@ import AllMenu from "./pages/All/AllMenu";
 import CrewList from "./pages/All/Crew/CrewList";
 import MarketList from "./pages/Now/Market/MarketList";
 import BoardList from "./pages/All/Board/BoardList";
+import SsafyAuth from "./pages/User/UserAuth";
+import ContentFeedSection from "./components/Profile/MyContents/ContentFeedSection";
+import ContentPortfolioSection from "./components/Profile/MyContents/ContentPortfolioSection";
+import ContentSavedSection from "./components/Profile/MyContents/ContentSavedSection";
 
 function App() {
   return (
@@ -21,7 +24,15 @@ function App() {
         <Route path="/" element={<BoardList />} />
         <Route path="/signup" element={<UserSignup />} />
 
-        <Route path="/profile" element={<ProfileMain />} />
+        <Route path="/profile" element={<ProfileMain />}>
+          <Route path="" element={<ContentFeedSection />} />
+          <Route path="portfolio" element={<ContentPortfolioSection />} />
+          <Route path="saved" element={<ContentSavedSection />}>
+            <Route path="" element={<ContentFeedSection />} />
+            <Route path="board" element={<ContentFeedSection />} />
+            <Route path="recruiting" element={<ContentFeedSection />} />
+          </Route>
+        </Route>
       </Routes>
     </Wrapper>
   );
