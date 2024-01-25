@@ -18,12 +18,14 @@ import SsafyAuth from "./pages/User/UserAuth";
 import ContentFeedSection from "./components/Profile/MyContents/ContentFeedSection";
 import ContentPortfolioSection from "./components/Profile/MyContents/ContentPortfolioSection";
 import ContentSavedSection from "./components/Profile/MyContents/ContentSavedSection";
+import BoardCreate from "./pages/All/Board/BoardCreate";
 
 function App() {
   return (
     <Wrapper>
       <Routes>
-        <Route path="/" element={<BoardList />} />
+        {/* <Route path="/" element={<BoardList />} /> */}
+        <Route path="/" element={<BoardCreate />} />
         <Route path="/signup" element={<UserSignup />} />
 
         <Route path="/feedhome" element={<FeedMain />} />
