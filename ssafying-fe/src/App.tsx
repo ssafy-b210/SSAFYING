@@ -18,6 +18,7 @@ import SsafyAuth from "./pages/User/UserAuth";
 import ContentFeedSection from "./components/Profile/MyContents/ContentFeedSection";
 import ContentPortfolioSection from "./components/Profile/MyContents/ContentPortfolioSection";
 import ContentSavedSection from "./components/Profile/MyContents/ContentSavedSection";
+import BottomNavBar from "./components/Common/BottomNavBar";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
+      <BottomNavBar />
     </Wrapper>
   );
 }
