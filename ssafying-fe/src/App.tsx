@@ -16,6 +16,8 @@ import SsafyAuth from "./pages/User/UserAuth";
 import ContentFeedSection from "./components/Profile/MyContents/ContentFeedSection";
 import ContentPortfolioSection from "./components/Profile/MyContents/ContentPortfolioSection";
 import ContentSavedSection from "./components/Profile/MyContents/ContentSavedSection";
+import FollowingList from "./pages/Profile/FollowingList";
+import FollowerList from "./pages/Profile/FollowerList";
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
             <Route path="recruiting" element={<ContentFeedSection />} />
           </Route>
         </Route>
+        <Route path="/profile/following" element={<FollowingList />} />
+        <Route path="/profile/follower" element={<FollowerList />} />
       </Routes>
     </Wrapper>
   );

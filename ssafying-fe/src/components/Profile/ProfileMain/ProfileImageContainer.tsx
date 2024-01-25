@@ -14,19 +14,13 @@ function ProfileImageContainer() {
           <div>게시물</div>
         </ProfileInfoItem>
         <ProfileInfoItem>
-          <Link
-            to="profile/follower"
-            onClick={() => alert("팔로워 리스트로 이동")}
-          >
+          <Link to="follower">
             <div>834</div>
             <div>팔로워</div>
           </Link>
         </ProfileInfoItem>
         <ProfileInfoItem>
-          <Link
-            to="profile/following"
-            onClick={() => alert("팔로잉 리스트로 이동")}
-          >
+          <Link to="following">
             <div>162</div>
             <div>팔로잉</div>
           </Link>
