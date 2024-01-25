@@ -23,7 +23,6 @@ function App() {
       <Routes>
         <Route path="/" element={<BoardList />} />
         <Route path="/signup" element={<UserSignup />} />
-
         <Route path="/profile" element={<ProfileMain />}>
           <Route path="" element={<ContentFeedSection />} />
           <Route path="portfolio" element={<ContentPortfolioSection />} />
