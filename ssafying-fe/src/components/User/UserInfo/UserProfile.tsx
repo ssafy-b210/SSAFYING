@@ -21,7 +21,7 @@ function UserProfile() {
 export default UserProfile;
 
 const Profile = styled.div`
-  margin-top: 1em;
+  margin-top: 15px;
   position: relative;
 `;
 const ProfileImg = styled.div`

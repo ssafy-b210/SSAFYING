@@ -9,6 +9,11 @@ function OptionsBtn() {
           <Hashtag text="프론트" />
           <Hashtag text="대전" />
           <Hashtag text="공통프로젝트" />
+          <Hashtag text="맛집" />
+          <Hashtag text="클라이밍" />
+          <Hashtag text="부울경캠퍼스" />
+          <Hashtag text="네카라쿠배" />
+          <Hashtag text="카카오" />
         </div>
       </Options>
     </div>
@@ -16,16 +21,9 @@ function OptionsBtn() {
 }
 export default OptionsBtn;
 
-const Btn = styled.div`
-  height: 40px;
-  width: 100px;
-  border: none;
-  border-radius: 20px;
-  background-color: #d9d9d9;
-  margin: 10px;
-  text-align: center;
-`;
 const Options = styled.div`
   display: flex;
   flex-direction: row;
+  margin-left: 1em;
+  margin-right: 1em;
 `;

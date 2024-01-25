@@ -34,7 +34,7 @@ export default SsafyAuth;
 
 const Header = styled.header`
   text-align: center;
-  margin-top: 3em;
+  margin-top: 50px;
 `;
 
 const Form = styled.form`
@@ -43,19 +43,19 @@ const Form = styled.form`
   justify-content: center;
   align-items: center;
   position: realtive;
-  padding-right: 3rem;
-  padding-left: 3rem;
+  padding-right: 15px;
+  padding-left: 15px;
 `;
 
 const Input = styled.div`
   position: relative;
-  margin-top: 1.5em;
-  margin-bottom: 1em;
+  margin-top: 30px;
+  margin-bottom: 20px;
 
   .input-area {
     width: 70%;
     position: relative;
-    font-size: 18px;
+    font-size: 100%;
     margin-top: 20px;
   }
 
@@ -85,9 +85,9 @@ const Input = styled.div`
 const AuthMsg = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 3em;
+  margin-top: 50px;
   img {
-    margin: 1em;
+    margin: 15px;
   }
 `;
 const SubmitButton = styled.button`

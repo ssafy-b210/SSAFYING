@@ -59,18 +59,18 @@ const Form = styled.form`
   justify-content: center;
   align-items: center;
   position: relative;
-  padding-right: 3rem;
-  padding-left: 3rem;
+  padding-right: 45px;
+  padding-left: 45px;
 
   .isMajor {
-    margin-top: 3em;
-    margin-bottom: 5em;
+    margin-top: 45px;
+    margin-bottom: 75px;
   }
 `;
 const SignUpInput = styled.div`
   position: relative;
-  margin-top: 1.5em;
-  margin-bottom: 1em;
+  margin-top: 20px;
+  margin-bottom: 15px;
 
   .input-area {
     width: 70%;

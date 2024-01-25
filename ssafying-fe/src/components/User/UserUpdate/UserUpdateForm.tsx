@@ -42,23 +42,23 @@ const Form = styled.form`
   justify-content: center;
   align-items: center;
   position: relative;
-  padding-right: 3rem;
-  padding-left: 3rem;
+  padding-right: 45px;
+  padding-left: 45px;
 
   .isMajor {
-    margin-top: 3em;
-    margin-bottom: 5em;
+    margin-top: 45px;
+    margin-bottom: 75px;
   }
 `;
 const SignUpInput = styled.div`
   position: relative;
-  margin-top: 1.5em;
-  margin-bottom: 1em;
+  margin-top: 25px;
+  margin-bottom: 15px;
 
   .input-area {
     width: 70%;
     position: relative;
-    font-size: 18px;
+    font-size: 100%;
     margin-top: 20px;
   }
 
@@ -69,7 +69,7 @@ const SignUpInput = styled.div`
     border-bottom: 2px solid #ddd;
     outline: none;
     min-width: 60vmin;
-    font-size: 18px;
+    font-size: 100%;
     padding-bottom: 5px;
   }
   label {
@@ -93,4 +93,5 @@ const SubmitButton = styled.button`
   background-color: #b6cdbd;
   border: none;
   color: white;
+  margin-top: 45px;
 `;
