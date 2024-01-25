@@ -3,6 +3,8 @@ import UserSignup from "./pages/User/UserSignup";
 import ProfileMain from "./pages/Profile/ProfileMain";
 import styled from "styled-components";
 import FeedMain from "./pages/Feed/FeedMain";
+import FeedSearch from "./pages/Feed/FeedSearch";
+import FeedCreate from "./pages/Feed/FeedCreate";
 import UserSelectTag from "./pages/User/UserSelectTag";
 import UserLeave from "./components/User/UserLeave";
 import UserDetail from "./pages/User/UserDetail";
@@ -23,6 +25,10 @@ function App() {
       <Routes>
         <Route path="/" element={<BoardList />} />
         <Route path="/signup" element={<UserSignup />} />
+
+        <Route path="/feedhome" element={<FeedMain />} />
+        <Route path="/search" element={<FeedSearch />} />
+        <Route path="/feedwrite" element={<FeedCreate />} />
 
         <Route path="/profile" element={<ProfileMain />}>
           <Route path="" element={<ContentFeedSection />} />

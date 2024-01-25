@@ -1,20 +1,22 @@
 import styled from "styled-components";
 import back from "../../../../assets/img/Btn/BackBtn.svg";
+import PlusBtn from "../../Board/PlusBtn";
 
-function BoardHeader() {
+//gerrit
+function CrewHeader() {
   return (
-    <div>
-      <Header>
-        <img src={back}></img>
-        <h2>사람 구하기</h2>
-      </Header>
-    </div>
+    <Header>
+      <img src={back}></img>
+      <h2>사람 구해요</h2>
+      <PlusBtn></PlusBtn>
+    </Header>
   );
 }
-export default BoardHeader;
+export default CrewHeader;
 
 const Header = styled.div`
   display: flex;
+  justify-content: space-between;
   h2 {
     margin-left: 20px;
   }

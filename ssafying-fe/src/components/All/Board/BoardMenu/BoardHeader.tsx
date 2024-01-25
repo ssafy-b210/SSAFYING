@@ -1,21 +1,21 @@
 import styled from "styled-components";
 import back from "../../../../assets/img/Btn/BackBtn.svg";
+import PlusBtn from "../PlusBtn";
 
-//gerrit
 function BoardHeader() {
   return (
-    <div>
-      <Header>
-        <img src={back}></img>
-        <h2>게시판</h2>
-      </Header>
-    </div>
+    <Header>
+      <img src={back}></img>
+      <h2>게시판</h2>
+      <PlusBtn></PlusBtn>
+    </Header>
   );
 }
 export default BoardHeader;
 
 const Header = styled.div`
   display: flex;
+  justify-content: space-between;
   h2 {
     margin-left: 20px;
   }
