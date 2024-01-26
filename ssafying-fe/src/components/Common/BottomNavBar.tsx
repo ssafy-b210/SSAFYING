@@ -124,20 +124,3 @@ const TabBarWrapper = styled.div<{ visible: boolean }>`
     animation-name: rubberBand;
   }
 `;
-
-const Button = styled.div`
-  position: relative;
-  overflow: hidden;
-  display: block;
-  text-align: center;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  padding: 0;
-  text-style: none;
-`;

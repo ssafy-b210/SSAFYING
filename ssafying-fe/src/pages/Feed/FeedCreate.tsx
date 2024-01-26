@@ -3,8 +3,8 @@ import ImgUploader from "../../components/Feed/FeedCreate/ImgUploader";
 
 function FeedCreate() {
   const handleImageUpload = (croppedImages: string[]) => {
-    // Perform actions with the uploaded and cropped image
-    console.log("Cropped image:", croppedImages);
+    // Perform actions with the uploaded and cropped images
+    console.log("Cropped images:", croppedImages);
   };
 
   return (
