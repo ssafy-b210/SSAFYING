@@ -19,6 +19,7 @@ import ContentFeedSection from "./components/Profile/MyContents/ContentFeedSecti
 import ContentPortfolioSection from "./components/Profile/MyContents/ContentPortfolioSection";
 import ContentSavedSection from "./components/Profile/MyContents/ContentSavedSection";
 import BoardCreate from "./pages/All/Board/BoardCreate";
+import MarketCreate from "./pages/Now/Market/MarketCreate";
 
 function App() {
   return (

@@ -7,7 +7,7 @@ import SearchBarOnly from "../../../components/All/Board/BoardList/SearchBarOnly
 function BoardList() {
   return (
     <div>
-      <BoardHeader></BoardHeader>
+      <BoardHeader header="게시판"></BoardHeader>
       <BoardSortTab></BoardSortTab>
       <SearchBarOnly></SearchBarOnly>
       <BoardCardList></BoardCardList>

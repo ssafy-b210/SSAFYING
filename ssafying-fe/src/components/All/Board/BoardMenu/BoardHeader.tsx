@@ -2,11 +2,16 @@ import styled from "styled-components";
 import back from "../../../../assets/img/Btn/BackBtn.svg";
 import PlusBtn from "../PlusBtn";
 
-function BoardHeader() {
+interface BoardHeaderProps {
+  header: string;
+}
+
+function BoardHeader(props: BoardHeaderProps) {
+  const header = props.header;
   return (
     <Header>
       <img src={back}></img>
-      <h2>게시판</h2>
+      <h2>{header}</h2>
       <PlusBtn></PlusBtn>
     </Header>
   );
