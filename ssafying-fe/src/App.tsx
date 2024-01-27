@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React from "react";
+
 import UserSignup from "./pages/User/UserSignup";
 import ProfileMain from "./pages/Profile/ProfileMain";
 import styled from "styled-components";
@@ -21,13 +23,16 @@ import ContentSavedSection from "./components/Profile/MyContents/ContentSavedSec
 import BoardCreate from "./pages/All/Board/BoardCreate";
 import MarketCreate from "./pages/Now/Market/MarketCreate";
 import CrewCreate from "./pages/All/Crew/CrewCreate";
+import renderMarketDetail from "./pages/Now/Market/MarketDetail";
+import MarketDetail from "./pages/Now/Market/MarketDetail";
 
 function App() {
   return (
     <Wrapper>
       <Routes>
-        {/* <Route path="/" element={<BoardList />} /> */}
-        <Route path="/" element={<MarketCreate />} />
+        <Route path="/" element={<CrewCreate />} />
+        {/* <Route path="/" element={<MarketDetail />} /> */}
+        {/* {renderMarketDetail()} */}
         <Route path="/signup" element={<UserSignup />} />
 
         <Route path="/feedhome" element={<FeedMain />} />

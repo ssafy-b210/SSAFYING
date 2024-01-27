@@ -20,9 +20,6 @@ export default BoardHeaderWithoutPlus;
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  h2 {
-    margin-left: 20px;
-  }
   img {
     margin-left: 20px;
     margin-top: 5px;

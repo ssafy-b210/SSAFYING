@@ -17,6 +17,7 @@ const bigcategory: Option[] = [
 const isSold: Option[] = [
   { value: "1", label: "판매중" },
   { value: "2", label: "판매완료" },
+  { value: "3", label: "예약중" },
 ];
 
 function MarketCreate() {

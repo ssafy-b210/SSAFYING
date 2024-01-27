@@ -14,14 +14,10 @@ function SearchBar() {
         <Option value="대전">대전</Option>
         <Option value="대구">대구</Option>
         <Option value="울산">울산</Option>
-        <Option value="세종">세종</Option>
         <Option value="강원">강원</Option>
-        <Option value="경남">경남</Option>
-        <Option value="경북">경북</Option>
-        <Option value="전남">전남</Option>
-        <Option value="전북">전북</Option>
-        <Option value="충남">충남</Option>
-        <Option value="충북">충북</Option>
+        <Option value="경상">경상</Option>
+        <Option value="전라">전라</Option>
+        <Option value="충청">충청</Option>
         <Option value="제주">제주</Option>
       </DropdownContent>
       <SearchBox type="text" placeholder="검색어를 입력해주세요"></SearchBox>

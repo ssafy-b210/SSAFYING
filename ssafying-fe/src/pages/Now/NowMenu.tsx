@@ -1,10 +1,10 @@
-import BoardHeader from "../../components/Now/BoardMenu/BoardHeader";
-import MenuBar from "../../components/Now/BoardMenu/MenuBar";
+import MenuBar from "../../components/All/Board/BoardMenu/MenuBar";
+import MenuHeader from "../../components/All/Board/BoardMenu/MenuHeader";
 
 function NowMenu() {
   return (
     <div>
-      <BoardHeader></BoardHeader>
+      <MenuHeader header="For Now"></MenuHeader>
       <MenuBar></MenuBar>
     </div>
   );

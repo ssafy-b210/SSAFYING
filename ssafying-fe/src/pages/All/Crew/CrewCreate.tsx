@@ -5,6 +5,7 @@ import SelectCategory, {
   Option,
 } from "../../../components/All/Board/BoardCreate/SelectCategory";
 import BoardHeaderWithoutPlus from "../../../components/All/Board/BoardMenu/BoardHeaderWithoutPlus";
+import ToggleBtn from "../../../components/All/Crew/ToggleBtn";
 
 const category: Option[] = [
   { value: "1", label: "스터디" },
@@ -26,15 +27,11 @@ const location: Option[] = [
   { value: "7", label: "광주" },
   { value: "8", label: "대전" },
   { value: "9", label: "울산" },
-  { value: "10", label: "세종" },
-  { value: "11", label: "강원" },
-  { value: "12", label: "경남" },
-  { value: "13", label: "경북" },
-  { value: "14", label: "전남" },
-  { value: "15", label: "전북" },
-  { value: "16", label: "충남" },
-  { value: "17", label: "충북" },
-  { value: "18", label: "제주" },
+  { value: "10", label: "강원" },
+  { value: "11", label: "경상" },
+  { value: "12", label: "전라" },
+  { value: "13", label: "충청" },
+  { value: "14", label: "제주" },
 ];
 
 function CrewCreate() {
@@ -51,6 +48,7 @@ function CrewCreate() {
         options={category}
         defaultValue="1"
       ></SelectCategory>
+      <ToggleBtn></ToggleBtn>
       <CreateTitle></CreateTitle>
       <CreateContent></CreateContent>
       <CreateBtn></CreateBtn>
