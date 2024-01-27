@@ -9,11 +9,13 @@ export interface Option {
 interface SelectCategoryProps {
   options: Option[];
   defaultValue: string;
+  category: string;
 }
 
 const SelectCategory: React.FC<SelectCategoryProps> = ({
   options,
   defaultValue,
+  category,
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>(defaultValue);
 
@@ -23,7 +25,7 @@ const SelectCategory: React.FC<SelectCategoryProps> = ({
 
   return (
     <Category>
-      <h5>카테고리</h5>
+      <h5>{category}</h5>
       <CategoryContainer
         className="select-box"
         value={selectedOption}

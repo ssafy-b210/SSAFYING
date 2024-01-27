@@ -25,7 +25,7 @@ const ContentContainer = styled.div`
 `;
 const StyledInput = styled.textarea`
   width: 500px;
-  height: 500px;
+  height: 300px;
   border: 0;
   border-radius: 15px;
   outline: none;

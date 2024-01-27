@@ -20,13 +20,14 @@ import ContentPortfolioSection from "./components/Profile/MyContents/ContentPort
 import ContentSavedSection from "./components/Profile/MyContents/ContentSavedSection";
 import BoardCreate from "./pages/All/Board/BoardCreate";
 import MarketCreate from "./pages/Now/Market/MarketCreate";
+import CrewCreate from "./pages/All/Crew/CrewCreate";
 
 function App() {
   return (
     <Wrapper>
       <Routes>
         {/* <Route path="/" element={<BoardList />} /> */}
-        <Route path="/" element={<BoardCreate />} />
+        <Route path="/" element={<MarketCreate />} />
         <Route path="/signup" element={<UserSignup />} />
 
         <Route path="/feedhome" element={<FeedMain />} />

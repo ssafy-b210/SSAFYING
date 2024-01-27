@@ -20,8 +20,12 @@ const options: Option[] = [
 function BoardCreate() {
   return (
     <div>
-      <BoardHeaderWithoutPlus></BoardHeaderWithoutPlus>
-      <SelectCategory options={options} defaultValue="1"></SelectCategory>
+      <BoardHeaderWithoutPlus header="게시판"></BoardHeaderWithoutPlus>
+      <SelectCategory
+        category="카테고리"
+        options={options}
+        defaultValue="1"
+      ></SelectCategory>
       <IsAnonymous></IsAnonymous>
       <CreateTitle></CreateTitle>
       <CreateContent></CreateContent>
