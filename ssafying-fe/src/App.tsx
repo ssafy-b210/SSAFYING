@@ -18,6 +18,7 @@ import ContentPortfolioSection from "./components/Profile/MyContents/ContentPort
 import ContentSavedSection from "./components/Profile/MyContents/ContentSavedSection";
 import FollowingList from "./pages/Profile/FollowingList";
 import FollowerList from "./pages/Profile/FollowerList";
+import DirectMessage from "./pages/DirectMessage/DirectMessageList";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Routes>
         <Route path="/" element={<BoardList />} />
         <Route path="/signup" element={<UserSignup />} />
+
         <Route path="/profile" element={<ProfileMain />}>
           <Route path="" element={<ContentFeedSection />} />
           <Route path="portfolio" element={<ContentPortfolioSection />} />
@@ -36,6 +38,8 @@ function App() {
         </Route>
         <Route path="/profile/following" element={<FollowingList />} />
         <Route path="/profile/follower" element={<FollowerList />} />
+
+        <Route path="/direct" element={<DirectMessage />} />
       </Routes>
     </Wrapper>
   );
