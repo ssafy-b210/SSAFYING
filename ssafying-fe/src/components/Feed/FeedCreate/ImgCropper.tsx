@@ -118,7 +118,6 @@ const ImgCropper: React.FC<ImgCropperProps> = ({
 export default ImgCropper;
 
 const CropperContainer = styled.div`
-  position: relative;
 `;
 
 const ButtonContainer = styled.div`
