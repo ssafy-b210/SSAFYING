@@ -27,13 +27,14 @@ import renderMarketDetail from "./pages/Now/Market/MarketDetail";
 import MarketDetail from "./pages/Now/Market/MarketDetail";
 import BoardDetail from "./pages/All/Board/BoardDetail";
 import CrewDetail from "./pages/All/Crew/CrewDetail";
+import CrewCardList from "./components/All/Crew/CrewList/CrewCardList";
 
 function App() {
   return (
     <Wrapper>
       <Routes>
         {/* <Route path="/" element={<CrewCreate />} /> */}
-        <Route path="/" element={<CrewDetail />} />
+        <Route path="/" element={<CrewList />} />
         <Route path="/signup" element={<UserSignup />} />
 
         <Route path="/feedhome" element={<FeedMain />} />
