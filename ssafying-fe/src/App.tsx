@@ -25,14 +25,15 @@ import MarketCreate from "./pages/Now/Market/MarketCreate";
 import CrewCreate from "./pages/All/Crew/CrewCreate";
 import renderMarketDetail from "./pages/Now/Market/MarketDetail";
 import MarketDetail from "./pages/Now/Market/MarketDetail";
+import BoardDetail from "./pages/All/Board/BoardDetail";
+import CrewDetail from "./pages/All/Crew/CrewDetail";
 
 function App() {
   return (
     <Wrapper>
       <Routes>
-        <Route path="/" element={<CrewCreate />} />
-        {/* <Route path="/" element={<MarketDetail />} /> */}
-        {/* {renderMarketDetail()} */}
+        {/* <Route path="/" element={<CrewCreate />} /> */}
+        <Route path="/" element={<CrewDetail />} />
         <Route path="/signup" element={<UserSignup />} />
 
         <Route path="/feedhome" element={<FeedMain />} />
