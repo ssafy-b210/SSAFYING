@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -23,11 +25,12 @@ public class BoardService {
      * @return
      */
     @Transactional
-    public int createBoard(CreateBoardRequest request) {
+    public int addBoard(CreateBoardRequest request) {
 
         //유저가 있는지 확인한 후, 유저가 없다면 익셉션을 발생시킴
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
+
 
         //디비에 저장할 Board 준비
         Board board = Board.createBoard(
@@ -47,6 +50,16 @@ public class BoardService {
     /**
      * 5.2 게시판 게시글 조회
      */
+    public List<Board> findBoard(int pageNo, String searchCategory, String searchWord) {
 
+        //searchCategory 검사하기
+        //searchCategory 가 enum 값 중에서 없다면? 에러
+
+//        boardRepository.
+
+
+
+        return null;
+    }
 
 }
