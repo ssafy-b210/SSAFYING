@@ -21,15 +21,17 @@ const ImgUploader: React.FC<ImgUploaderProps> = ({ onUpload }) => {
   }, []);
 
   const handleUpload = () => {
-    // Perform actions with the uploaded images
     onUpload(selectedImages);
-    // Reset the state for the next batch of images
     setSelectedImages([]);
     setCurrentImageIndex(0);
   };
 
   const handleNext = () => {
-    setCurrentImageIndex((prevIndex) => prevIndex + 1);
+    if (currentImageIndex < selectedImages.length - 1) {
+      setCurrentImageIndex((prevIndex) => prevIndex + 1);
+    } else {
+      handleUpload();
+    }
   };
 
   const handlePrev = () => {
@@ -50,9 +52,12 @@ const ImgUploader: React.FC<ImgUploaderProps> = ({ onUpload }) => {
       {selectedImages.length > 0 &&
         currentImageIndex < selectedImages.length && (
           <ImgCropper
-            image={selectedImages[currentImageIndex]}
+            images={selectedImages}
             onCancel={() => setSelectedImages([])}
-            onUpload={() => handleNext()}
+            onUpload={(croppedImages) => {
+              onUpload(croppedImages);
+              handleNext();
+            }}
           />
         )}
 

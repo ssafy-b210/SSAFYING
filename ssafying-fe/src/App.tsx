@@ -28,30 +28,38 @@ import MarketDetail from "./pages/Now/Market/MarketDetail";
 import BoardDetail from "./pages/All/Board/BoardDetail";
 import CrewDetail from "./pages/All/Crew/CrewDetail";
 import CrewCardList from "./components/All/Crew/CrewList/CrewCardList";
+import BottomNavBar from "./components/Common/BottomNavBar";
+import FeedHeader from "./components/Feed/FeedMain/FeedHeader";
+import AlarmDetail from "./pages/Feed/AlarmDetail";
 
 function App() {
   return (
-    <Wrapper>
-      <Routes>
-        {/* <Route path="/" element={<CrewCreate />} /> */}
-        <Route path="/" element={<CrewList />} />
-        <Route path="/signup" element={<UserSignup />} />
+    <>
+      <FeedHeader />
+      <Wrapper>
+        <Routes>
+          {/* <Route path="/" element={<CrewCreate />} /> */}
+          <Route path="/" element={<CrewList />} />
+          <Route path="/signup" element={<UserSignup />} />
 
-        <Route path="/feedhome" element={<FeedMain />} />
-        <Route path="/search" element={<FeedSearch />} />
-        <Route path="/feedwrite" element={<FeedCreate />} />
+          <Route path="/feedhome" element={<FeedMain />} />
+          <Route path="/search" element={<FeedSearch />} />
+          <Route path="/feedwrite" element={<FeedCreate />} />
+          <Route path="/alarmdetail" element={<AlarmDetail />} />
 
-        <Route path="/profile" element={<ProfileMain />}>
-          <Route path="" element={<ContentFeedSection />} />
-          <Route path="portfolio" element={<ContentPortfolioSection />} />
-          <Route path="saved" element={<ContentSavedSection />}>
+          <Route path="/profile" element={<ProfileMain />}>
             <Route path="" element={<ContentFeedSection />} />
-            <Route path="board" element={<ContentFeedSection />} />
-            <Route path="recruiting" element={<ContentFeedSection />} />
+            <Route path="portfolio" element={<ContentPortfolioSection />} />
+            <Route path="saved" element={<ContentSavedSection />}>
+              <Route path="" element={<ContentFeedSection />} />
+              <Route path="board" element={<ContentFeedSection />} />
+              <Route path="recruiting" element={<ContentFeedSection />} />
+            </Route>
           </Route>
-        </Route>
-      </Routes>
-    </Wrapper>
+        </Routes>
+        <BottomNavBar />
+      </Wrapper>
+    </>
   );
 }
 
@@ -62,7 +70,6 @@ const Wrapper = styled.div`
   max-width: 560px;
   min-height: 100vh;
   margin: 0 auto;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   @supports (-webkit-touch-callout: none) {
     height: -webkit-fill-available;
   }
