@@ -33,6 +33,7 @@ import FeedHeader from "./components/Feed/FeedMain/FeedHeader";
 import AlarmDetail from "./pages/Feed/AlarmDetail";
 import FollowingList from "./pages/Profile/FollowingList";
 import FollowerList from "./pages/Profile/FollowerList";
+import UserLogin from "./pages/User/UserLogin";
 
 function App() {
   return (
@@ -41,7 +42,7 @@ function App() {
       <Wrapper>
         <Routes>
           {/* <Route path="/" element={<CrewCreate />} /> */}
-          <Route path="/" element={<CrewList />} />
+          <Route path="/" element={<UserLogin />} />
           <Route path="/signup" element={<UserSignup />} />
 
           <Route path="/feedhome" element={<FeedMain />} />
