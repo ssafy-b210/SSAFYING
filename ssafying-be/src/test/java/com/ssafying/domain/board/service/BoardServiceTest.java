@@ -2,6 +2,7 @@ package com.ssafying.domain.board.service;
 
 import com.ssafying.domain.board.dto.request.CreateBoardRequest;
 import com.ssafying.domain.board.entity.Board;
+import com.ssafying.domain.board.entity.CategoryStatus;
 import com.ssafying.domain.board.repository.jdbc.BoardRepository;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
@@ -9,6 +10,7 @@ import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
 import java.util.Optional;
 
@@ -24,6 +26,7 @@ public class BoardServiceTest {
     UserRepository userRepository;
 
     @Test
+//    @Rollback(false) // rollback 되지 않도록 설정
     public void 게시글작성() throws Exception {
         //Given
         User user = new User();
@@ -34,12 +37,12 @@ public class BoardServiceTest {
                 .userId(user.getId())
                 .title("title")
                 .content("content")
-                .category("FREEDOM")
+                .category(CategoryStatus.FREEDOM)
                 .isAnonymous(false)
                 .build();
 
         //When
-        int boardId = boardService.createBoard(req);
+        int boardId = boardService.addBoard(req);
 
         Optional<Board> find = boardRepository.findById(boardId);
 
@@ -48,6 +51,4 @@ public class BoardServiceTest {
         assertThat(board.getTitle()).isEqualTo("title");
         assertThat(board.getContent()).isEqualTo("content");
     }
-
-
 }
