@@ -1,6 +1,8 @@
 package com.ssafying.domain.board.controller;
 
 import com.ssafying.domain.board.dto.request.CreateBoardRequest;
+import com.ssafying.domain.board.dto.request.ScrapBoardRequest;
+import com.ssafying.domain.board.entity.CategoryStatus;
 import com.ssafying.domain.board.service.BoardService;
 import com.ssafying.global.result.ResultResponse;
 import jakarta.validation.Valid;
@@ -38,9 +40,22 @@ public class BoardController {
             @RequestParam(required = false) String searchWord //검색어가 있는 경우
     ) {
         boardService.findBoard(pageNo, searchCategory, searchWord);
+        CategoryStatus employment = CategoryStatus.valueOf("EMPLOYMENT");
+
         return null;
     }
 
+    /**
+     * 5.3 게시판 게시글 스크랩
+     */
+    @PostMapping("/scrap")
+    public ResponseEntity<ResultResponse> boardScrap(
+            @RequestBody @Valid ScrapBoardRequest request
+    ) {
+        boardService.scrapBoard(request);
+
+        return null;
+    }
 
 
 }
