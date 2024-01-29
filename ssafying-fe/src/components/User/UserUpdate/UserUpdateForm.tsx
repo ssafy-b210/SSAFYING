@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface InputItem {
+  id: Number;
+  title: string;
+}
 function UserUpdateForm() {
   return (
     <div>

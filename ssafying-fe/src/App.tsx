@@ -42,7 +42,7 @@ function App() {
       <Wrapper>
         <Routes>
           {/* <Route path="/" element={<CrewCreate />} /> */}
-          <Route path="/" element={<UserLogin />} />
+          <Route path="/" element={<UserUpdate />} />
           <Route path="/signup" element={<UserSignup />} />
 
           <Route path="/feedhome" element={<FeedMain />} />
