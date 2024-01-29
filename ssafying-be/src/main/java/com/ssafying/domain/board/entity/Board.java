@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 @Getter
 public class Board extends BaseTimeEntity {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="board_id")
     private int id; //자유게시판 게시글 id
 
@@ -39,7 +40,7 @@ public class Board extends BaseTimeEntity {
     public static Board createBoard(
         String title,
         String content,
-        String category,
+        CategoryStatus category,
         boolean isAnonymous,
         User user
     ){
@@ -48,7 +49,8 @@ public class Board extends BaseTimeEntity {
         //파라미터로 넘어온 값 세팅
         board.title = title;
         board.content = content;
-        board.category = CategoryStatus.valueOf(category);
+//        board.category = CategoryStatus.valueOf(category);
+        board.category = category;
         board.isAnonymous = isAnonymous;
         board.user = user;
 
