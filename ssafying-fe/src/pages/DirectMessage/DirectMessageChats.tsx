@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import RoundImg from "../../components/Feed/utils/RoundImg";
+import { Link } from "react-router-dom";
 
 function DirectMessageChats() {
   const [chatList, setChatList] = useState([
@@ -30,13 +31,15 @@ function DirectMessageChats() {
     <div>
       {chatList.map((chat, index) => (
         <ProfileListItem key={index}>
-          <ProfileImg>
-            <RoundImg size="54px" src={chat.img} />
-          </ProfileImg>
-          <div>
-            <div>{chat.name}</div>
-            <div className="preview-text">{chat.message}</div>
-          </div>
+          <Link to={`chat/${index}`}>
+            <ProfileImg>
+              <RoundImg size="54px" src={chat.img} />
+            </ProfileImg>
+            <div>
+              <div>{chat.name}</div>
+              <div className="preview-text">{chat.message}</div>
+            </div>
+          </Link>
         </ProfileListItem>
       ))}
     </div>
@@ -46,10 +49,17 @@ function DirectMessageChats() {
 export default DirectMessageChats;
 
 const ProfileListItem = styled.div`
-  display: flex;
   margin-bottom: 16px;
 
+  a {
+    display: flex;
+    color: #000;
+    text-decoration: none;
+  }
+
   .preview-text {
+    line-height: 24px;
+    font-size: 14px;
     color: #9c9c9c;
   }
 `;

@@ -33,7 +33,8 @@ import FeedHeader from "./components/Feed/FeedMain/FeedHeader";
 import AlarmDetail from "./pages/Feed/AlarmDetail";
 import FollowingList from "./pages/Profile/FollowingList";
 import FollowerList from "./pages/Profile/FollowerList";
-import DirectMessage from "./pages/DirectMessage/DirectMessage";
+import DirectMessageList from "./pages/DirectMessage/DirectMessageList";
+import ChatWrapper from "./components/DirectMessage/ChatWrapper";
 
 function App() {
   return (
@@ -59,7 +60,8 @@ function App() {
         </Route>
         <Route path="/profile/following" element={<FollowingList />} />
         <Route path="/profile/follower" element={<FollowerList />} />
-        <Route path="/direct" element={<DirectMessage />} />
+        <Route path="/direct" element={<DirectMessageList />} />
+        <Route path="/direct/chat/:id" element={<ChatWrapper />} />
       </Routes>
       <BottomNavBar />
     </Wrapper>
