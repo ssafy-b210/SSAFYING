@@ -20,6 +20,7 @@ import ContentPortfolioSection from "./components/Profile/MyContents/ContentPort
 import ContentSavedSection from "./components/Profile/MyContents/ContentSavedSection";
 import BottomNavBar from "./components/Common/BottomNavBar";
 import FeedHeader from "./components/Feed/FeedMain/FeedHeader";
+import AlarmDetail from "./pages/Feed/AlarmDetail";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/feedhome" element={<FeedMain />} />
           <Route path="/search" element={<FeedSearch />} />
           <Route path="/feedwrite" element={<FeedCreate />} />
+          <Route path="/alarmdetail" element={<AlarmDetail />} />
 
           <Route path="/profile" element={<ProfileMain />}>
             <Route path="" element={<ContentFeedSection />} />

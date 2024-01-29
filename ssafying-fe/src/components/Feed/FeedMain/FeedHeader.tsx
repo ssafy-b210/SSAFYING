@@ -33,10 +33,12 @@ function FeedHeader() {
         <Link to="/search" className="search">
           <ImgBtn src={search} size="21px" onClick={clickSearchBtn} />
         </Link>
-        <Link to="/feedwrite" className="search">
+        <Link to="/feedwrite" className="write">
           <ImgBtn src={add} size="21px" onClick={clickAddBtn} />
         </Link>
-        <ImgBtn src={alarm} size="21px" onClick={clickAlarmBtn} />
+        <Link to="/alarmdetail" className="alarm">
+          <ImgBtn src={alarm} size="21px" onClick={clickAlarmBtn} />
+        </Link>
         <ImgBtn src={dm} size="21px" onClick={clickDmBtn} />
       </div>
     </Header>
