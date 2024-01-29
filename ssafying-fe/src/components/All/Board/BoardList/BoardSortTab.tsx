@@ -1,45 +1,77 @@
+import React, { useState } from "react";
 import styled from "styled-components";
 
-function CrewSortTab() {
+interface BoardSortTab {}
+
+function BoardSortTab({}: BoardSortTab) {
+  const [activeButton, setActiveButton] = useState<number | null>(null);
+
+  const handleButtonClick = (index: number) => {
+    setActiveButton(index);
+  };
+
   return (
     <StyledTab>
-      <div></div>
-      <SortTabButton className="active">
-        <span>자유</span>
-      </SortTabButton>
-      <SortTabButton>
-        <span>취업</span>
-      </SortTabButton>
-      <SortTabButton>
-        <span>정보</span>
-      </SortTabButton>
-      <SortTabButton>
-        <span>개발</span>
-      </SortTabButton>
+      {tabButtons.map((label, index) => (
+        <SortTabButton
+          key={index}
+          active={index === activeButton}
+          onClick={() => handleButtonClick(index)}
+        >
+          <span>{label}</span>
+        </SortTabButton>
+      ))}
     </StyledTab>
   );
 }
 
-export default CrewSortTab;
+export default BoardSortTab;
 
-const StyledTab = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 16px 0;
-`;
+const tabButtons = ["자유", "취업", "정보", "개발", "싸피꿀팁", "생활", "홍보"];
 
-const SortTabButton = styled.a`
+interface SortTabButtonProps {
+  active: boolean;
+}
+
+const SortTabButton = styled.a<SortTabButtonProps>`
   display: inline-block;
   margin: 0 16px;
   padding: 10px 16px;
   border-radius: 30px;
   text-decoration: none;
-  background-color: #fff;
-  color: #262626;
+  background-color: ${({ active }) => (active ? "#616161" : "#fff")};
+  color: ${({ active }) => (active ? "#fff" : "#262626")};
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+`;
 
-  &.active {
-    background-color: #616161;
-    color: #fff;
+const StyledTab = styled.div`
+  display: flex;
+  margin: 16px 0;
+  padding: 20px;
+  overflow-x: auto;
+  overflow-x: scroll;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+
+  > ${SortTabButton} {
+    white-space: nowrap;
   }
 `;

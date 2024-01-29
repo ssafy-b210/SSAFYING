@@ -1,8 +1,12 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React from "react";
+
 import UserSignup from "./pages/User/UserSignup";
 import ProfileMain from "./pages/Profile/ProfileMain";
 import styled from "styled-components";
 import FeedMain from "./pages/Feed/FeedMain";
+import FeedSearch from "./pages/Feed/FeedSearch";
+import FeedCreate from "./pages/Feed/FeedCreate";
 import UserSelectTag from "./pages/User/UserSelectTag";
 import UserLeave from "./components/User/UserLeave";
 import UserDetail from "./pages/User/UserDetail";
@@ -16,6 +20,17 @@ import SsafyAuth from "./pages/User/UserAuth";
 import ContentFeedSection from "./components/Profile/MyContents/ContentFeedSection";
 import ContentPortfolioSection from "./components/Profile/MyContents/ContentPortfolioSection";
 import ContentSavedSection from "./components/Profile/MyContents/ContentSavedSection";
+import BoardCreate from "./pages/All/Board/BoardCreate";
+import MarketCreate from "./pages/Now/Market/MarketCreate";
+import CrewCreate from "./pages/All/Crew/CrewCreate";
+import renderMarketDetail from "./pages/Now/Market/MarketDetail";
+import MarketDetail from "./pages/Now/Market/MarketDetail";
+import BoardDetail from "./pages/All/Board/BoardDetail";
+import CrewDetail from "./pages/All/Crew/CrewDetail";
+import CrewCardList from "./components/All/Crew/CrewList/CrewCardList";
+import BottomNavBar from "./components/Common/BottomNavBar";
+import FeedHeader from "./components/Feed/FeedMain/FeedHeader";
+import AlarmDetail from "./pages/Feed/AlarmDetail";
 import FollowingList from "./pages/Profile/FollowingList";
 import FollowerList from "./pages/Profile/FollowerList";
 import DirectMessage from "./pages/DirectMessage/DirectMessageList";
@@ -23,10 +38,16 @@ import DirectMessage from "./pages/DirectMessage/DirectMessageList";
 function App() {
   return (
     <Wrapper>
+      <FeedHeader />
       <Routes>
-        <Route path="/" element={<BoardList />} />
+        {/* <Route path="/" element={<CrewCreate />} /> */}
+        <Route path="/" element={<CrewList />} />
         <Route path="/signup" element={<UserSignup />} />
 
+        <Route path="/feedhome" element={<FeedMain />} />
+        <Route path="/search" element={<FeedSearch />} />
+        <Route path="/feedwrite" element={<FeedCreate />} />
+        <Route path="/alarmdetail" element={<AlarmDetail />} />
         <Route path="/profile" element={<ProfileMain />}>
           <Route path="" element={<ContentFeedSection />} />
           <Route path="portfolio" element={<ContentPortfolioSection />} />
@@ -38,9 +59,8 @@ function App() {
         </Route>
         <Route path="/profile/following" element={<FollowingList />} />
         <Route path="/profile/follower" element={<FollowerList />} />
-
-        <Route path="/direct" element={<DirectMessage />} />
       </Routes>
+      <BottomNavBar />
     </Wrapper>
   );
 }
@@ -52,7 +72,6 @@ const Wrapper = styled.div`
   max-width: 560px;
   min-height: 100vh;
   margin: 0 auto;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   @supports (-webkit-touch-callout: none) {
     height: -webkit-fill-available;
   }

@@ -5,24 +5,20 @@ function SearchBar() {
     <LocationContainer>
       <DropdownContent>
         <Option selected>지역</Option>
-        <Option>전국</Option>
-        <Option>서울</Option>
-        <Option>경기</Option>
-        <Option>인천</Option>
-        <Option>부산</Option>
-        <Option>광주</Option>
-        <Option>대전</Option>
-        <Option>대구</Option>
-        <Option>울산</Option>
-        <Option>세종</Option>
-        <Option>강원</Option>
-        <Option>경남</Option>
-        <Option>경북</Option>
-        <Option>전남</Option>
-        <Option>전북</Option>
-        <Option>충남</Option>
-        <Option>충북</Option>
-        <Option>제주</Option>
+        <Option value="전국">전국</Option>
+        <Option value="서울">서울</Option>
+        <Option value="경기">경기</Option>
+        <Option value="인천">인천</Option>
+        <Option value="부산">부산</Option>
+        <Option value="광주">광주</Option>
+        <Option value="대전">대전</Option>
+        <Option value="대구">대구</Option>
+        <Option value="울산">울산</Option>
+        <Option value="강원">강원</Option>
+        <Option value="경상">경상</Option>
+        <Option value="전라">전라</Option>
+        <Option value="충청">충청</Option>
+        <Option value="제주">제주</Option>
       </DropdownContent>
       <SearchBox type="text" placeholder="검색어를 입력해주세요"></SearchBox>
     </LocationContainer>
