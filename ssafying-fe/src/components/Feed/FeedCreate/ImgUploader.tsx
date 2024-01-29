@@ -1,77 +1,47 @@
-import React, { useState, ChangeEvent, useCallback } from "react";
-import ImgCropper from "./ImgCropper";
+import React, { useState, useRef } from "react";
 
 interface ImgUploaderProps {
-  onUpload: (croppedImages: string[]) => void;
+  onCrop: (image: string) => void;
+  aspectRatio: number;
+  children: React.ReactNode;
 }
 
-const ImgUploader: React.FC<ImgUploaderProps> = ({ onUpload }) => {
-  const [selectedImages, setSelectedImages] = useState<string[]>([]);
-  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+const ImgUploader: React.FC<ImgUploaderProps> = ({
+  onCrop,
+  aspectRatio,
+  children,
+}) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [image, setImage] = useState<null | string>(null);
 
-  const handleImageChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+  const handleChildrenClick = () => {
+    if (inputRef.current) inputRef.current.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
     const files = e.target.files;
 
-    if (files && files.length > 0) {
-      const newImages = Array.from(files).map((file) =>
-        URL.createObjectURL(file)
-      );
-      setSelectedImages(newImages);
-    }
-  }, []);
+    if (!files) return;
 
-  const handleUpload = () => {
-    onUpload(selectedImages);
-    setSelectedImages([]);
-    setCurrentImageIndex(0);
-  };
-
-  const handleNext = () => {
-    if (currentImageIndex < selectedImages.length - 1) {
-      setCurrentImageIndex((prevIndex) => prevIndex + 1);
-    } else {
-      handleUpload();
-    }
-  };
-
-  const handlePrev = () => {
-    setCurrentImageIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImage(reader.result as string);
+    };
+    reader.readAsDataURL(files[0]);
   };
 
   return (
-    <div>
-      {selectedImages.length === 0 && (
-        <input
-          type="file"
-          onChange={handleImageChange}
-          accept="image/*"
-          multiple
-        />
-      )}
-
-      {selectedImages.length > 0 &&
-        currentImageIndex < selectedImages.length && (
-          <ImgCropper
-            images={selectedImages}
-            onCancel={() => setSelectedImages([])}
-            onUpload={(croppedImages) => {
-              onUpload(croppedImages);
-              handleNext();
-            }}
-          />
-        )}
-
-      {currentImageIndex === selectedImages.length && (
-        <>
-          <button onClick={handlePrev} disabled={currentImageIndex === 0}>
-            Previous
-          </button>
-          <button onClick={handleUpload} disabled={selectedImages.length === 0}>
-            Upload Images
-          </button>
-        </>
-      )}
-    </div>
+    <>
+      <input
+        type="file"
+        ref={inputRef}
+        style={{ display: "none" }}
+        onChange={handleFileChange}
+      />
+      <span onClick={handleChildrenClick}>{children}</span>
+    </>
   );
 };
 
