@@ -31,6 +31,8 @@ import CrewCardList from "./components/All/Crew/CrewList/CrewCardList";
 import BottomNavBar from "./components/Common/BottomNavBar";
 import FeedHeader from "./components/Feed/FeedMain/FeedHeader";
 import AlarmDetail from "./pages/Feed/AlarmDetail";
+import FollowingList from "./pages/Profile/FollowingList";
+import FollowerList from "./pages/Profile/FollowerList";
 
 function App() {
   return (
@@ -46,7 +48,6 @@ function App() {
           <Route path="/search" element={<FeedSearch />} />
           <Route path="/feedwrite" element={<FeedCreate />} />
           <Route path="/alarmdetail" element={<AlarmDetail />} />
-
           <Route path="/profile" element={<ProfileMain />}>
             <Route path="" element={<ContentFeedSection />} />
             <Route path="portfolio" element={<ContentPortfolioSection />} />
@@ -56,6 +57,8 @@ function App() {
               <Route path="recruiting" element={<ContentFeedSection />} />
             </Route>
           </Route>
+          <Route path="/profile/following" element={<FollowingList />} />
+          <Route path="/profile/follower" element={<FollowerList />} />
         </Routes>
         <BottomNavBar />
       </Wrapper>

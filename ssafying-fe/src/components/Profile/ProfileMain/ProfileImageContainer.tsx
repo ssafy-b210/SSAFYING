@@ -1,10 +1,12 @@
 import styled from "styled-components";
+import userImage from "../../../assets/img/testImg/user.svg";
+import { Link } from "react-router-dom";
 
 function ProfileImageContainer() {
   return (
     <StyledProfileImageContainer>
       <ProfileImage>
-        <img src="https://via.assets.so/img.jpg?tc=blue" alt="" />
+        <img src={userImage} alt="" />
       </ProfileImage>
       <ProfileInfo>
         <ProfileInfoItem>
@@ -12,16 +14,16 @@ function ProfileImageContainer() {
           <div>게시물</div>
         </ProfileInfoItem>
         <ProfileInfoItem>
-          <a href="!#" onClick={() => alert("팔로워 리스트로 이동")}>
+          <Link to="follower">
             <div>834</div>
             <div>팔로워</div>
-          </a>
+          </Link>
         </ProfileInfoItem>
         <ProfileInfoItem>
-          <a href="!#" onClick={() => alert("팔로잉 리스트로 이동")}>
+          <Link to="following">
             <div>162</div>
             <div>팔로잉</div>
-          </a>
+          </Link>
         </ProfileInfoItem>
       </ProfileInfo>
     </StyledProfileImageContainer>
