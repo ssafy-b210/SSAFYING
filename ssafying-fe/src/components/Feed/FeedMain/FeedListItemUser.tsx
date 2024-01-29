@@ -6,7 +6,6 @@ import RoundImg from "../utils/RoundImg";
 import ImgBtn from "../utils/ImgBtn";
 import Modal from "react-modal";
 
-
 function FeedListItemUser() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
