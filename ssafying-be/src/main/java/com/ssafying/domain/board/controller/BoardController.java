@@ -6,15 +6,12 @@ import com.ssafying.global.result.ResultResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 //@Api
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/board")
+@RequestMapping("/boards")
 public class BoardController {
 
     private final BoardService boardService;
@@ -22,19 +19,27 @@ public class BoardController {
     /**
      * 5.1 게시판 게시글 작성
      */
-    @PostMapping("board/article")
-    public ResponseEntity<ResultResponse> createBoard(@RequestBody @Valid CreateBoardRequest request) {
+    @PostMapping
+    public ResponseEntity<ResultResponse> boardAdd(
+            @RequestBody @Valid CreateBoardRequest request) {
 
-        boardService.createBoard(request);
-
+        boardService.addBoard(request);
 
         return null;
     }
 
     /**
-     * 5.2 게시판
+     * 5.2 게시판 게시글 조회
      */
-
+    @GetMapping
+    public ResponseEntity<ResultResponse> boardList(
+            @RequestParam(defaultValue = "1") int pageNo, //몇번째 페이지인지
+            @RequestParam String searchCategory, //게시글 중 어떤 카테고리인지
+            @RequestParam(required = false) String searchWord //검색어가 있는 경우
+    ) {
+        boardService.findBoard(pageNo, searchCategory, searchWord);
+        return null;
+    }
 
 
 
