@@ -21,4 +21,17 @@ public class BoardScrap {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Board board; //스크랩한 게시글
+
+    public static BoardScrap createBoardScrap(
+            User user,
+            Board board
+    ) {
+        BoardScrap boardScrap = new BoardScrap();
+
+        //파라미터로 넘어온 값 세팅
+        boardScrap.user = user;
+        boardScrap.board = board;
+
+        return boardScrap;
+    }
 }
