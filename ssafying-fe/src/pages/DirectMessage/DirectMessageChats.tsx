@@ -31,7 +31,7 @@ function DirectMessageChats() {
     <div>
       {chatList.map((chat, index) => (
         <ProfileListItem key={index}>
-          <Link to={`chat/${index}`}>
+          <Link to={`${index}`}>
             <ProfileImg>
               <RoundImg size="54px" src={chat.img} />
             </ProfileImg>
