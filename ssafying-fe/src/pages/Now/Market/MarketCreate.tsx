@@ -4,9 +4,9 @@ import CreateTitle from "../../../components/All/Board/BoardCreate/CreateTitle";
 import SelectCategory, {
   Option,
 } from "../../../components/All/Board/BoardCreate/SelectCategory";
-import BoardHeaderWithoutPlus from "../../../components/All/Board/BoardMenu/BoardHeaderWithoutPlus";
 import AddPhoto from "../../../components/Now/Market/AddPhoto";
 import MarketPriceInput from "../../../components/Now/Market/MarketPriceInput";
+import BackBtnHeader from "../../../components/Common/BackBtnHeader";
 
 const bigcategory: Option[] = [
   { value: "1", label: "팝니다" },
@@ -23,7 +23,11 @@ const isSold: Option[] = [
 function MarketCreate() {
   return (
     <div>
-      <BoardHeaderWithoutPlus header="중고거래"></BoardHeaderWithoutPlus>
+      <BackBtnHeader
+        backLink="/"
+        htext={<h2>중고거래</h2>}
+        isCenter={true}
+      ></BackBtnHeader>
       <SelectCategory
         category="대분류"
         options={bigcategory}

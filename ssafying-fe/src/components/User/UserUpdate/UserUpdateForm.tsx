@@ -178,6 +178,8 @@ const BioLinkInput = styled.div`
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
+  padding-right: 45px;
+  padding-left: 55px;
 
   label {
     display: block;

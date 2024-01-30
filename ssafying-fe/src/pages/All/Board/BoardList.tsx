@@ -1,13 +1,18 @@
-import BoardHeader from "../../../components/All/Board/BoardMenu/BoardHeader";
 import BoardSortTab from "../../../components/All/Board/BoardList/BoardSortTab";
 import BoardCardList from "../../../components/All/Board/BoardList/BoardCardList";
-import PlusBtn from "../../../components/All/Board/PlusBtn";
 import SearchBarOnly from "../../../components/All/Board/BoardList/SearchBarOnly";
+import BackBtnHeader from "../../../components/Common/BackBtnHeader";
+import PlusBtn from "../../../components/Common/PlusBtn";
 
 function BoardList() {
   return (
     <div>
-      <BoardHeader header="게시판"></BoardHeader>
+      <BackBtnHeader
+        backLink="/"
+        htext={<h2>게시판</h2>}
+        isCenter={true}
+        extraBtn={<PlusBtn link="/" />}
+      />
       <BoardSortTab></BoardSortTab>
       <SearchBarOnly></SearchBarOnly>
       <BoardCardList></BoardCardList>

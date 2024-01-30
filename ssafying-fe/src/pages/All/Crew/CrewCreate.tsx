@@ -4,8 +4,8 @@ import CreateTitle from "../../../components/All/Board/BoardCreate/CreateTitle";
 import SelectCategory, {
   Option,
 } from "../../../components/All/Board/BoardCreate/SelectCategory";
-import BoardHeaderWithoutPlus from "../../../components/All/Board/BoardMenu/BoardHeaderWithoutPlus";
 import ToggleBtn from "../../../components/All/Crew/ToggleBtn";
+import BackBtnHeader from "../../../components/Common/BackBtnHeader";
 
 const category: Option[] = [
   { value: "1", label: "스터디" },
@@ -37,7 +37,11 @@ const location: Option[] = [
 function CrewCreate() {
   return (
     <div>
-      <BoardHeaderWithoutPlus header="사람 구하기"></BoardHeaderWithoutPlus>
+      <BackBtnHeader
+        backLink="/"
+        htext={<h2>사람 구하기</h2>}
+        isCenter={true}
+      ></BackBtnHeader>
       <SelectCategory
         category="지역"
         options={location}
