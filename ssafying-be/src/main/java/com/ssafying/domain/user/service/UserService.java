@@ -1,18 +1,12 @@
 package com.ssafying.domain.user.service;
 
-import com.ssafying.domain.user.dto.CreateUserRequest;
+import com.ssafying.domain.user.dto.request.CreateUserRequest;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import java.util.Optional;
 
 
 @Service

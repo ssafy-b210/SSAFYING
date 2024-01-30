@@ -12,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -24,8 +25,8 @@ public class User extends BaseTimeEntity {
     @Column(name = "user_id")
     private int id; //회원 id
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "campus_id") //이걸참조
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "campus_id")
     private Campus campusId; //캠퍼스 id
 
     @Column(unique = true)

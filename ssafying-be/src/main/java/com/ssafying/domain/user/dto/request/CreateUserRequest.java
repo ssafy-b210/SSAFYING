@@ -1,4 +1,4 @@
-package com.ssafying.domain.user.dto;
+package com.ssafying.domain.user.dto.request;
 
 import com.ssafying.domain.shuttle.entity.Campus;
 import com.ssafying.domain.user.entity.UserStatus;

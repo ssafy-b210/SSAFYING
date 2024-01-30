@@ -1,8 +1,7 @@
 package com.ssafying.domain.user;
 
 import com.ssafying.domain.shuttle.entity.Campus;
-import com.ssafying.domain.shuttle.entity.CampusRegion;
-import com.ssafying.domain.user.dto.CreateUserRequest;
+import com.ssafying.domain.user.dto.request.CreateUserRequest;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.entity.UserStatus;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
