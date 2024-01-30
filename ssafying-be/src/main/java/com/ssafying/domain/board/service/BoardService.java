@@ -4,7 +4,7 @@ import com.ssafying.domain.board.dto.request.CreateBoardRequest;
 import com.ssafying.domain.board.entity.Board;
 import com.ssafying.domain.board.repository.jdbc.BoardRepository;
 import com.ssafying.domain.user.entity.User;
-import com.ssafying.domain.user.repository.jdbc.UserRepositorySDJ;
+import com.ssafying.domain.user.repository.jdbc.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BoardService {
 
     private final BoardRepository boardRepository;
-    private final UserRepositorySDJ userRepository;
+    private final UserRepository userRepository;
 
     /**
      * 5.1 게시판 게시글 작성

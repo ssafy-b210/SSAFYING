@@ -1,17 +1,24 @@
 package com.ssafying.domain.user;
 
+import com.ssafying.domain.shuttle.entity.Campus;
+import com.ssafying.domain.shuttle.entity.CampusRegion;
+import com.ssafying.domain.user.dto.CreateUserRequest;
 import com.ssafying.domain.user.entity.User;
-import com.ssafying.domain.user.repository.UserRepository;
+import com.ssafying.domain.user.entity.UserStatus;
+import com.ssafying.domain.user.repository.jdbc.UserRepository;
 import com.ssafying.domain.user.service.UserService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.assertj.core.api.Fail.fail;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.time.LocalDate;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -26,33 +33,64 @@ public class UserServiceTest {
     @Autowired
     UserRepository userRepository;
 
+
     @Test
+    @Rollback(false)
     public void 회원가입() throws Exception{
-        //given
+
         User user = new User();
-        user.setEmail("ssafy@ssafy.com");
+        LocalDate date = LocalDate.of(1994,5,12);
+
+        //given
+        CreateUserRequest req = CreateUserRequest.builder()
+//                .campusId()
+                .email("ssafy3@ssafy.com")
+                .password("1234")
+                .nickname("소금")
+                .birthday(date)
+                .phoneNumber("010-1234-5678")
+                .name("이애옹")
+                .generation(10)
+                .isMajor(false)
+                .userStatus(UserStatus.ACTIVE)
+                .build();
 
         //when
-        int saveId = userService.join(user);
+
+        user = userService.createUser(req);
+
+        Optional<User> find = userRepository.findById(user.getId());
 
         //then
-        assertEquals(user, userRepository.findOne(saveId));
+        User check = find.get();
+        assertThat(user.getEmail()).isEqualTo(check.getEmail());
     }
 
     @Test
-    public void 중복_회원_예외() throws Exception{
-        //given
+    @Rollback(false)
+    public void 중복_회원_예외() throws Exception {
+
         User user1 = new User();
-        user1.setEmail("ssafy1@ssafy.com");
+        LocalDate date = LocalDate.of(1994, 5, 12);
 
-        User user2 = new User();
-        user2.setEmail("ssafy1@ssafy.com");
+        // given
+        CreateUserRequest req = CreateUserRequest.builder()
+                .email("ssafy1@ssafy.com")
+                .password("1234")
+                .nickname("소금")
+                .birthday(date)
+                .phoneNumber("010-1234-5678")
+                .name("이애옹")
+                .generation(10)
+                .isMajor(false)
+                .userStatus(UserStatus.ACTIVE)
+                .build();
 
-        //when
-        userService.join(user1);
-        assertThrows(IllegalStateException.class, () -> userService.join(user2));
-        //then
+        // when
+        userService.createUser(req);
 
+        // then
+        assertThrows(IllegalStateException.class, () -> userService.createUser(req));
     }
 
 }

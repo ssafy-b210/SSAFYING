@@ -1,19 +1,13 @@
 package com.ssafying.domain.user.controller;
 
-import com.ssafying.domain.user.dto.RegistUserRequest;
-import com.ssafying.domain.user.dto.RegistUserResponse;
-import com.ssafying.domain.user.dto.ResultResponse;
+import com.ssafying.domain.user.dto.CreateUserRequest;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.service.UserService;
-import com.ssafying.global.result.ResultCode;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,14 +16,29 @@ public class UserApiController {
 
     private final UserService userService;
 
-//    @PostMapping("/signup")
-//    public ResponseEntity<?> registUser(@RequestBody @Valid RegistUserRequest req){
-//        boolean isRegisted = userService.join(req);
-//        if(isRegisted){
-//            return ResponseEntity.ok(ResultResponse.of(ResultCode.REGIST_SUCCESS));
-//        }else{
-//            return ResponseEntity.ok(ResultResponse.of(ResultCode.REGIST_FAIL));
-//        }
-//    }
+    /*
+     * 1.1 회원가입
+     */
+    @PostMapping("/signup")
+    public ResponseEntity<?> userCreate(@RequestBody @Valid CreateUserRequest request){
+
+        User user = userService.createUser(request);
+
+        return null;
+
+    }
+
+    /*
+     * 1.4 회원 정보 조회
+     */
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<?> Userfinds(@RequestBody int userId){
+
+        User user = userService.findUser(userId);
+
+        return null;
+
+    }
+
 
 }
