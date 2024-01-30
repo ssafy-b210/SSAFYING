@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import CustomDate from "./TodayDate";
+import MealPlan from "./MealPlan";
 
 function MealPlannerComp() {
   return (
@@ -7,6 +8,10 @@ function MealPlannerComp() {
       <IsMealMsg>
         <CustomDate></CustomDate>의 점심을 투표해주세요
       </IsMealMsg>
+      <MealPlannerContainer>
+        <MealPlan></MealPlan>
+        <MealPlan></MealPlan>
+      </MealPlannerContainer>
     </MsgContainer>
   );
 }
@@ -19,4 +24,9 @@ const MsgContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+const MealPlannerContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 `;
