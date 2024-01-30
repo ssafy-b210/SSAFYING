@@ -56,6 +56,16 @@ public class BoardController {
     }
 
     /**
+     * 5.3.1 게시판 게시글 스크랩 취소
+     */
+    @DeleteMapping("/scrap")
+    public ResponseEntity<ResultResponse> boardUnScrap(
+            @RequestBody @Valid ScrapBoardRequest request
+    ) {
+        return null;
+    }
+
+    /**
      * 5.4 게시판 게시글 상세 조회
      */
     @GetMapping("/{boardId}")
