@@ -127,15 +127,14 @@ const UploadButton = styled.button`
 `;
 
 const CroppedImage = styled.img`
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
   object-fit: cover;
   margin: 0 10px;
 `;
 
 const NavigationButtons = styled.div`
   display: flex;
-  margin-top: 20px;
 
   button {
     background-color: #616161;

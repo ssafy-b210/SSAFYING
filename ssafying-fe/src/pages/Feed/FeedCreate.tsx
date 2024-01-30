@@ -1,5 +1,6 @@
 import ImgEdit from "../../components/Feed/FeedCreate/ImgEdit";
 import BackBtnHeader from "../../components/Common/BackBtnHeader";
+import FeedContentInput from "../../components/Feed/FeedCreate/FeedContentInput";
 
 function FeedCreate() {
   return (
@@ -10,6 +11,7 @@ function FeedCreate() {
         isCenter={true}
       />
       <ImgEdit />
+      <FeedContentInput />
     </>
   );
 }
