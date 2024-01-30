@@ -35,36 +35,35 @@ import FollowingList from "./pages/Profile/FollowingList";
 import FollowerList from "./pages/Profile/FollowerList";
 import UserLogin from "./pages/User/UserLogin";
 import SelectCampusMeal from "./pages/Now/MealPlanner/SelectCampusMeal";
+import DirectMessage from "./pages/DirectMessage/DirectMessageList";
 
 function App() {
   return (
-    <>
+    <Wrapper>
       <FeedHeader />
-      <Wrapper>
-        <Routes>
-          {/* <Route path="/" element={<CrewCreate />} /> */}
-          <Route path="/" element={<SelectCampusMeal />} />
-          <Route path="/signup" element={<UserSignup />} />
+      <Routes>
+        {/* <Route path="/" element={<CrewCreate />} /> */}
+        <Route path="/" element={<CrewList />} />
+        <Route path="/signup" element={<UserSignup />} />
 
-          <Route path="/feedhome" element={<FeedMain />} />
-          <Route path="/search" element={<FeedSearch />} />
-          <Route path="/feedwrite" element={<FeedCreate />} />
-          <Route path="/alarmdetail" element={<AlarmDetail />} />
-          <Route path="/profile" element={<ProfileMain />}>
+        <Route path="/feedhome" element={<FeedMain />} />
+        <Route path="/search" element={<FeedSearch />} />
+        <Route path="/feedwrite" element={<FeedCreate />} />
+        <Route path="/alarmdetail" element={<AlarmDetail />} />
+        <Route path="/profile" element={<ProfileMain />}>
+          <Route path="" element={<ContentFeedSection />} />
+          <Route path="portfolio" element={<ContentPortfolioSection />} />
+          <Route path="saved" element={<ContentSavedSection />}>
             <Route path="" element={<ContentFeedSection />} />
-            <Route path="portfolio" element={<ContentPortfolioSection />} />
-            <Route path="saved" element={<ContentSavedSection />}>
-              <Route path="" element={<ContentFeedSection />} />
-              <Route path="board" element={<ContentFeedSection />} />
-              <Route path="recruiting" element={<ContentFeedSection />} />
-            </Route>
+            <Route path="board" element={<ContentFeedSection />} />
+            <Route path="recruiting" element={<ContentFeedSection />} />
           </Route>
-          <Route path="/profile/following" element={<FollowingList />} />
-          <Route path="/profile/follower" element={<FollowerList />} />
-        </Routes>
-        <BottomNavBar />
-      </Wrapper>
-    </>
+        </Route>
+        <Route path="/profile/following" element={<FollowingList />} />
+        <Route path="/profile/follower" element={<FollowerList />} />
+      </Routes>
+      <BottomNavBar />
+    </Wrapper>
   );
 }
 
