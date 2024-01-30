@@ -21,3 +21,5 @@ tesseract
   .catch((error: Error) => {
     console.error(error);
   });
+
+//test
