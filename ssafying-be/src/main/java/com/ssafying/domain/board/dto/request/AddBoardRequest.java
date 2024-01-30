@@ -9,7 +9,7 @@ import lombok.Getter;
 //@AllArgsConstructor
 //@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class CreateBoardRequest {
+public class AddBoardRequest {
 
     @NotNull(message = "유저 PK는 필수입니다.")
     int userId;

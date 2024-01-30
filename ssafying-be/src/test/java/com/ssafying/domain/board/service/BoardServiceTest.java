@@ -1,6 +1,6 @@
 package com.ssafying.domain.board.service;
 
-import com.ssafying.domain.board.dto.request.CreateBoardRequest;
+import com.ssafying.domain.board.dto.request.AddBoardRequest;
 import com.ssafying.domain.board.dto.request.ScrapBoardRequest;
 import com.ssafying.domain.board.entity.Board;
 import com.ssafying.domain.board.entity.BoardScrap;
@@ -38,7 +38,7 @@ public class BoardServiceTest {
 //        user.setName("순");
         userRepository.save(user);
 
-        CreateBoardRequest req = CreateBoardRequest.builder()
+        AddBoardRequest req = AddBoardRequest.builder()
                 .userId(user.getId())
                 .title("title")
                 .content("content")
@@ -91,5 +91,28 @@ public class BoardServiceTest {
         BoardScrap boardScrap = find.get();
         assertThat(boardScrap.getBoard().getContent()).isEqualTo("content22");
         assertThat(boardScrap.getUser().getName()).isEqualTo("순");
+    }
+
+    @Test
+    void 게시글_상세조회() throws Exception {
+        //유저 생성
+        User user = new User();
+        user.setName("순");
+        userRepositorySDJ.save(user);
+
+        //게시글 생성
+        Board board = Board.createBoard(
+                "title222",
+                "content22",
+                CategoryStatus.FREEDOM,
+                false,
+                user
+        );
+        boardRepository.save(board);
+
+        Board detailBoard = boardService.findDetailBoard(board.getId());
+
+//        System.out.println(board);
+        assertThat((detailBoard.getTitle())).isEqualTo("title222");
     }
 }

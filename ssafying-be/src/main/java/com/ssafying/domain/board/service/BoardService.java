@@ -1,7 +1,6 @@
 package com.ssafying.domain.board.service;
 
-import com.ssafying.domain.board.dto.request.CreateBoardRequest;
-import com.ssafying.domain.board.dto.request.ScrapBoardRequest;
+import com.ssafying.domain.board.dto.request.*;
 import com.ssafying.domain.board.entity.Board;
 import com.ssafying.domain.board.entity.BoardScrap;
 import com.ssafying.domain.board.repository.jdbc.BoardRepository;
@@ -29,7 +28,7 @@ public class BoardService {
      * @return
      */
     @Transactional
-    public int addBoard(CreateBoardRequest request) {
+    public int addBoard(AddBoardRequest request) {
 
         //유저가 있는지 확인한 후, 유저가 없다면 익셉션을 발생시킴
         User user = userRepository.findById(request.getUserId())
@@ -54,21 +53,22 @@ public class BoardService {
     /**
      * 5.2 게시판 게시글 조회
      */
-
-
-    /**
-     * 5.3 게시판 게시글 스크랩
-     */
     public List<Board> findBoard(int pageNo, String searchCategory, String searchWord) {
 
         //searchCategory 검사하기
         //searchCategory 가 enum 값 중에서 없다면? 에러
+
+        //**스크랩여부, 유저이름, 익명여부, 제목,필요
 
 //        boardRepository.
 
         return null;
     }
 
+    /**
+     * 5.3 게시판 게시글 스크랩
+     */
+    @Transactional
     public int scrapBoard(ScrapBoardRequest request) {
 
         //request로 넘어온 userId가 존재하는지 확인
@@ -86,5 +86,60 @@ public class BoardService {
         BoardScrap save = boardScarpRepository.save(boardScrap);
 
         return save.getId();
+    }
+
+    /**
+     * 5.4 게시판 게시글 상세 조회
+     *
+     * @return
+     */
+    public Board findDetailBoard(int boardId) {
+
+        //boardId가 존재하는지 확인
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new RuntimeException("게시글이 없습니다."));
+
+
+        //존재한다면 해당 게시글을 상세 조회
+
+        //board를 Response에 담아서 넘겨줘야할 듯요
+
+        return board;
+
+    }
+
+    /**
+     * 5.5 게시판 게시글 삭제
+     */
+    @Transactional
+    public void removeBoard(int boardId) {
+    }
+
+    /**
+     * 5.6 게시판 게시글 수정
+     */
+    @Transactional
+    public void modifyBoard(int boardId, ModifyBoardRequest request) {
+    }
+
+    /**
+     * 5.7 게시판 게시글 댓글 작성
+     */
+    @Transactional
+    public void addComment(int boardId, AddBoardCommentRequest request) {
+    }
+
+    /**
+     * 5.8 게시판 게시글 댓글 삭제
+     */
+    @Transactional
+    public void removeComment(int boardCommentId, RemoveBoardCommentRequest request) {
+    }
+
+    /**
+     * 5.9 게시판 게시글 댓글 수정
+     */
+    @Transactional
+    public void modifyComment(int boardCommentId, ModifyBaordCommentRequest request) {
     }
 }
