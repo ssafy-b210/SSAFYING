@@ -64,6 +64,13 @@ function UserUpdateForm() {
         {InputItems.map((item, index) => (
           <DIV_Label key={index}>
             <div>바이오 링크{index + 1}</div>
+            <select>
+              <option>github</option>
+              <option>notion</option>
+              <option>tistory</option>
+              <option>blog</option>
+              <option>etc</option>
+            </select>
             <input
               type="url"
               onChange={(e) => handleTitleChange(e, index)}
@@ -157,6 +164,13 @@ const DIV_Label = styled.div`
   display: block;
   margin-top: 25px;
   left: 0;
+  select {
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    margin: 10px;
+    height: 30px;
+    padding: 5px;
+  }
 `;
 
 const BioLinkInput = styled.div`
@@ -182,12 +196,12 @@ const BioLinkInput = styled.div`
     }
 
     input {
-      width: 400px;
+      width: 350px;
       height: 30px;
       margin-top: 5px;
       padding: 5px;
       border: 1px solid #ddd;
-      border-radius: 5px;
+      border-radius: 15px;
       box-sizing: border-box;
     }
 
