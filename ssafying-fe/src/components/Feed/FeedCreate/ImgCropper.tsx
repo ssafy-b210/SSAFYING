@@ -1,133 +1,166 @@
-import React, { useState, useCallback } from "react";
-import Cropper from "react-easy-crop";
-import ImgBtn from "../utils/ImgBtn";
-import styled from "styled-components";
+import { useRef, useState } from "react";
+import { Cropper, ReactCropperElement } from "react-cropper";
+import "cropperjs/dist/cropper.css";
+import { styled } from "styled-components";
 
-interface ImgCropperProps {
-  images: string[];
-  onCancel: () => void;
-  onUpload: (croppedImages: string[]) => void;
+interface PropsType {
+  onCrop: (image: string) => void;
+  aspectRatio: number;
+  children: React.ReactNode;
 }
 
-const ImgCropper: React.FC<ImgCropperProps> = ({
-  images,
-  onCancel,
-  onUpload,
-}) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [crop, setCrop] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
-  const [croppedImages, setCroppedImages] = useState<string[]>([]);
+const ImageCropper = ({ children, aspectRatio, onCrop }: PropsType) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const cropperRef = useRef<ReactCropperElement>(null);
+  const [image, setImage] = useState<null | string>(null);
 
-  const onCropChange = useCallback((newCrop: { x: number; y: number }) => {
-    setCrop(newCrop);
-  }, []);
+  const handleChildrenClick = () => {
+    if (inputRef.current) inputRef.current.click();
+  };
 
-  const onZoomChange = useCallback((newZoom: number) => {
-    setZoom(newZoom);
-  }, []);
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
 
-  const onCropComplete = useCallback(
-    (
-      croppedArea: { x: number; y: number; width: number; height: number },
-      croppedAreaPixels: { x: number; y: number; width: number; height: number }
-    ) => {
-      const canvas = document.createElement("canvas");
-      const imageElement = document.createElement("img");
-      imageElement.src = images[currentImageIndex];
-      const scaleX = imageElement.naturalWidth / imageElement.width;
-      const scaleY = imageElement.naturalHeight / imageElement.height;
-      canvas.width = 300;
-      canvas.height = 300;
-      const ctx = canvas.getContext("2d");
-      if (ctx) {
-        ctx.drawImage(
-          imageElement,
-          croppedArea.x * scaleX,
-          croppedArea.y * scaleY,
-          croppedArea.width * scaleX,
-          croppedArea.height * scaleY,
-          0,
-          0,
-          300,
-          300
-        );
-        canvas.toBlob((blob) => {
-          if (blob) {
-            const croppedImage = URL.createObjectURL(blob);
-            setCroppedImages((prevImages) => [...prevImages, croppedImage]);
-          }
-        }, "image/jpeg");
-      }
-    },
-    [images, currentImageIndex]
-  );
+    const files = e.target.files;
 
-  const handleNext = useCallback(() => {
-    if (currentImageIndex < images.length - 1) {
-      setCurrentImageIndex((prevIndex) => prevIndex + 1);
-      setCrop({ x: 0, y: 0 }); // Reset crop for the next image
+    if (!files) return;
+
+    console.log(files);
+
+    const reader = new FileReader();
+
+    for (let i = 0; i < files.length; i++) {
+      reader.onload = () => {
+        setImage(reader.result as string);
+      };
+      reader.readAsDataURL(files[i]);
     }
-  }, [currentImageIndex, images]);
+  };
 
-  const handlePrev = useCallback(() => {
-    if (currentImageIndex > 0) {
-      setCurrentImageIndex((prevIndex) => prevIndex - 1);
-      setCrop({ x: 0, y: 0 }); // Reset crop for the previous image
+  const getCropData = () => {
+    if (typeof cropperRef.current?.cropper !== "undefined") {
+      onCrop(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
+      setImage(null);
     }
-  }, [currentImageIndex]);
-
-  const handleConfirm = useCallback(() => {
-    onUpload(croppedImages);
-  }, [croppedImages, onUpload]);
+  };
 
   return (
-    <CropperContainer>
-      <Cropper
-        image={images[currentImageIndex]}
-        crop={crop}
-        zoom={zoom}
-        aspect={1}
-        onCropChange={onCropChange}
-        onZoomChange={onZoomChange}
-        onCropComplete={onCropComplete}
+    <>
+      <input
+        type="file"
+        ref={inputRef}
+        style={{ display: "none" }}
+        onChange={handleFileChange}
       />
-      <ButtonContainer>
-        <ImgBtn
-          src={images[currentImageIndex]}
-          size="21px"
-          onClick={onCancel}
-        />
-        <Button onClick={handlePrev} disabled={currentImageIndex === 0}>
-          Previous
-        </Button>
-        <Button
-          onClick={handleNext}
-          disabled={currentImageIndex === images.length - 1}
-        >
-          Next
-        </Button>
-        {croppedImages.length === images.length && (
-          <Button onClick={handleConfirm}>Confirm</Button>
-        )}
-      </ButtonContainer>
-    </CropperContainer>
+      <span onClick={handleChildrenClick}>{children}</span>
+      {image && (
+        <CropperWrapper>
+          <Backdrop />
+          <Modal>
+            <h3>이미지 편집하기</h3>
+            <ContentWrapper>
+              <Content>
+                <Cropper
+                  ref={cropperRef}
+                  aspectRatio={aspectRatio}
+                  src={image}
+                  viewMode={1}
+                  width={800}
+                  height={500}
+                  background={false}
+                  responsive
+                  autoCropArea={1}
+                  checkOrientation={false}
+                  guides
+                />
+              </Content>
+            </ContentWrapper>
+            <Footer>
+              <button onClick={() => setImage(null)}>취소</button>
+              <button className="crop" onClick={getCropData}>
+                적용하기
+              </button>
+            </Footer>
+          </Modal>
+        </CropperWrapper>
+      )}
+    </>
   );
 };
 
-export default ImgCropper;
+export default ImageCropper;
 
-const CropperContainer = styled.div`
+const CropperWrapper = styled.div`
+  z-index: 10;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
-const ButtonContainer = styled.div`
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000; /* Ensure buttons appear on top of the cropper */
+const Backdrop = styled.div`
+  position: inherit;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
 `;
 
-const Button = styled.button`
-  margin: 0 5px;
+const Modal = styled.div`
+  z-index: 2;
+  background: #ffffff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  h3 {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 26px;
+    padding: 20px 16px;
+    margin: 0;
+  }
+`;
+
+const ContentWrapper = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+`;
+
+const Content = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+`;
+
+const Footer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 16px;
+  background: #ffffff;
+  column-gap: 5px;
+
+  button {
+    width: 100px;
+    height: 40px;
+    border: 1px solid #c3c3c3;
+    border-radius: 4px;
+    background: white;
+  }
+
+  .crop {
+    background: #7b73df;
+    color: white;
+    border: none;
+  }
 `;

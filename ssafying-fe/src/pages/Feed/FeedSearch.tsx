@@ -1,6 +1,5 @@
 import SearchBar from "../../components/Feed/utils/SearchBar";
 import UserItemList from "../../components/Feed/Search/UserItemList";
-import userImage from "../../../assets/img/testImg/user.svg";
 import HashSearchList from "../../components/Feed/Search/HashSearchList";
 
 function FeedSearch() {

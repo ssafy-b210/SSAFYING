@@ -1,8 +1,10 @@
 import AlarmItemList from "../../components/Feed/Alarm/AlarmItemList";
+import BackBtnHeader from "../../components/Common/BackBtnHeader";
 
 function AlarmDetail() {
   return (
     <div>
+      <BackBtnHeader backLink="/feedhome" text="알림" isCenter={true} />
       <AlarmItemList
         alarmList={[
           {
