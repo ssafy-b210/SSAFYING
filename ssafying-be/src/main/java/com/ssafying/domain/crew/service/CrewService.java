@@ -3,7 +3,7 @@ package com.ssafying.domain.crew.service;
 import com.ssafying.domain.crew.dto.request.AddCrewRequest;
 import com.ssafying.domain.crew.dto.request.UpdateCrewRequest;
 import com.ssafying.domain.crew.entity.Crew;
-import com.ssafying.domain.crew.repository.CrewRepository;
+import com.ssafying.domain.crew.repository.jdbc.CrewRepository;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -24,13 +24,13 @@ public class CrewService {
     게시글 등록
      */
     @Transactional
-    public Crew addCrew(final AddCrewRequest request){
+    public Crew createCrew(final AddCrewRequest request){
 
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
 
         //db에 저장할 crew
-        Crew crew = Crew.addCrew(
+        Crew crew = Crew.createCrew(
                 request.getTitle(),
                 request.getContent(),
                 request.getRegion(),

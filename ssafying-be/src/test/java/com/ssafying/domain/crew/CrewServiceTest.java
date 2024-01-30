@@ -5,7 +5,7 @@ import com.ssafying.domain.crew.dto.request.UpdateCrewRequest;
 import com.ssafying.domain.crew.entity.Category;
 import com.ssafying.domain.crew.entity.Crew;
 import com.ssafying.domain.crew.entity.Region;
-import com.ssafying.domain.crew.repository.CrewRepository;
+import com.ssafying.domain.crew.repository.jdbc.CrewRepository;
 import com.ssafying.domain.crew.service.CrewService;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
@@ -33,7 +33,6 @@ public class CrewServiceTest {
     public void 게시글등록() throws Exception{
         //given
         User user = new User();
-        user.setName("애옹");
         userRepository.save(user);
 
         AddCrewRequest req = AddCrewRequest.builder()
@@ -46,7 +45,7 @@ public class CrewServiceTest {
                 .build();
 
         //when
-        Crew crew = crewService.addCrew(req);
+        Crew crew = crewService.createCrew(req);
 
         Optional<Crew> find = crewRepository.findById(crew.getCrewId());
 
@@ -57,13 +56,12 @@ public class CrewServiceTest {
     }
 
     @Test
-//    @Rollback(false)
+    @Rollback(false)
     public void 게시글수정() throws Exception{
 
         //given
 
         User user = new User();
-        user.setName("애옹");
         userRepository.save(user);
 
         AddCrewRequest req = AddCrewRequest.builder()
@@ -75,7 +73,7 @@ public class CrewServiceTest {
                 .isRecruit(true)
                 .build();
 
-        Crew addedCrew = crewService.addCrew(req);
+        Crew addedCrew = crewService.createCrew(req);
 
         UpdateCrewRequest req2 = UpdateCrewRequest.builder()
                 .crewId(addedCrew.getCrewId())

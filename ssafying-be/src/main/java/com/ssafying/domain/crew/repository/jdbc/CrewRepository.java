@@ -1,4 +1,4 @@
-package com.ssafying.domain.crew.repository;
+package com.ssafying.domain.crew.repository.jdbc;
 
 import com.ssafying.domain.crew.entity.Crew;
 import org.springframework.data.jpa.repository.JpaRepository;

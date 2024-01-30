@@ -24,7 +24,7 @@ public class CrewApiController {
      */
     @PostMapping("/crew")
     public ResponseEntity<AddCrewResponse> registCrew(@RequestBody @Valid AddCrewRequest request) {
-        Crew registedCrew = crewService.addCrew(request);
+        Crew crew = crewService.createCrew(request);
 
         return null;
     }

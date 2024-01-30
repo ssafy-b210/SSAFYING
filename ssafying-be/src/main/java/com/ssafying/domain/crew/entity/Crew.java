@@ -16,7 +16,7 @@ import java.util.List;
 public class Crew extends BaseTimeEntity {
 
     @Id @GeneratedValue
-    @Column(name = "crew_id", updatable = false)
+    @Column(name = "crew_id") //updatable = false ?
     private int crewId; //크루 id
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -42,7 +42,7 @@ public class Crew extends BaseTimeEntity {
     /*
     구해요 게시글 생성
      */
-    public static Crew addCrew(
+    public static Crew createCrew(
             String title,
             String content,
             Region region,
