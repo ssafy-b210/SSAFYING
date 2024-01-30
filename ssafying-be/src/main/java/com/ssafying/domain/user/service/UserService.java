@@ -24,7 +24,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     /*
-    회원 가입
+     * 회원 가입
      */
     @Transactional
     public User createUser(final CreateUserRequest request){
@@ -60,17 +60,17 @@ public class UserService {
 
 
     /*
-    회원 정보 조회
+     * 회원 정보 조회
      */
     @Transactional
-    public User findUser(int userId){
+    public User DetailUser(int userId){
 
         //해당 유저 찾기
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("유저 정보가 없습니다."));
 
 
-        user = User.findUser(user.getEmail(), user.getNickname(), user.getPhoneNumber(), user.getName(), user.getIntro(), user.getProfileImageUrl());
+        user = User.detailUser(user.getEmail(), user.getNickname(), user.getPhoneNumber(), user.getName(), user.getIntro(), user.getProfileImageUrl());
 
         return user;
 

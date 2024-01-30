@@ -27,7 +27,7 @@ public class BoardServiceTest {
     public void 게시글작성() throws Exception {
         //Given
         User user = new User();
-        user.setName("순");
+//        user.setName("순");
         userRepository.save(user);
 
         CreateBoardRequest req = CreateBoardRequest.builder()

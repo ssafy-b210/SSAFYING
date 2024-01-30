@@ -35,18 +35,20 @@ public class UserServiceTest {
 
 
     @Test
-    @Rollback(false)
+//    @Rollback(false)
     public void 회원가입() throws Exception{
 
         User user = new User();
         LocalDate date = LocalDate.of(1994,5,12);
+        Campus campus = new Campus();
+
 
         //given
         CreateUserRequest req = CreateUserRequest.builder()
 //                .campusId()
-                .email("ssafy3@ssafy.com")
+                .email("ssafy123@ssafy.com")
                 .password("1234")
-                .nickname("소금")
+                .nickname("소금1")
                 .birthday(date)
                 .phoneNumber("010-1234-5678")
                 .name("이애옹")
@@ -67,7 +69,7 @@ public class UserServiceTest {
     }
 
     @Test
-    @Rollback(false)
+//    @Rollback(false)
     public void 중복_회원_예외() throws Exception {
 
         User user1 = new User();
@@ -92,5 +94,7 @@ public class UserServiceTest {
         // then
         assertThrows(IllegalStateException.class, () -> userService.createUser(req));
     }
+
+
 
 }

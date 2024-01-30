@@ -16,7 +16,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-@Getter @Setter
+@Getter
 public class User extends BaseTimeEntity {
 
     @Id
@@ -69,7 +69,7 @@ public class User extends BaseTimeEntity {
     private List<Crew> crews = new ArrayList<>(); //가입한 크루
 
     /*
-    회원 가입
+     * 회원 가입
      */
     public static User createUser(
 
@@ -102,9 +102,9 @@ public class User extends BaseTimeEntity {
     }
 
     /*
-    회원 정보 조회
+     * 회원 정보 조회
      */
-    public static User findUser(
+    public static User detailUser(
 
             String email,
             String nickname,
@@ -125,7 +125,10 @@ public class User extends BaseTimeEntity {
 
         return user;
 
-
     }
+
+    /*
+     *
+     */
 
 }

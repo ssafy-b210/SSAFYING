@@ -34,7 +34,7 @@ public class UserApiController {
     @GetMapping("/users/{userId}")
     public ResponseEntity<?> Userfinds(@RequestBody int userId){
 
-        User user = userService.findUser(userId);
+        User user = userService.DetailUser(userId);
 
         return null;
 
