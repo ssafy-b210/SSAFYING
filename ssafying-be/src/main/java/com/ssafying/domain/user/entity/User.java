@@ -3,11 +3,15 @@ package com.ssafying.domain.user.entity;
 import com.ssafying.domain.board.entity.Board;
 import com.ssafying.domain.chat.entity.ChatMessage;
 import com.ssafying.domain.chat.entity.ChatRoomUser;
+import com.ssafying.domain.crew.entity.Crew;
 import com.ssafying.domain.shuttle.entity.Campus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,7 +28,7 @@ public class User {
     private int id; //회원 id
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "campus_id")
+    @JoinColumn(name = "campus_id") //이걸참조
     private Campus campusId; //캠퍼스 id
 
     private String email; //이메일
@@ -47,10 +51,12 @@ public class User {
 
     private String intro; //한줄 소개
 
-    @Column(name = "create_at")
+    @Column(name = "created_at")
+    @CreatedDate
     private LocalDateTime createdAt; //생성 시기
 
     @Column(name = "updated_at")
+    @LastModifiedDate
     private LocalDateTime updatedAt; //수정 시기
 
     @Enumerated(EnumType.STRING)
@@ -66,4 +72,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<ChatRoomUser> chatRoomUsers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Crew> crews = new ArrayList<>();
 }
