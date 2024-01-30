@@ -35,7 +35,8 @@ import FollowingList from "./pages/Profile/FollowingList";
 import FollowerList from "./pages/Profile/FollowerList";
 import UserLogin from "./pages/User/UserLogin";
 import SelectCampusMeal from "./pages/Now/MealPlanner/SelectCampusMeal";
-import DirectMessage from "./pages/DirectMessage/DirectMessageList";
+import DirectMessageChats from "./pages/DirectMessage/DirectMessageChats";
+import ChatWrapper from "./components/DirectMessage/ChatWrapper";
 
 function App() {
   return (
@@ -61,6 +62,8 @@ function App() {
         </Route>
         <Route path="/profile/following" element={<FollowingList />} />
         <Route path="/profile/follower" element={<FollowerList />} />
+        <Route path="/direct" element={<DirectMessageChats />} />
+        <Route path="/direct/:id" element={<ChatWrapper />} />
       </Routes>
       <BottomNavBar />
     </Wrapper>
