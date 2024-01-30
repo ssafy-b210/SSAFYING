@@ -44,7 +44,7 @@ function App() {
       <FeedHeader />
       <Routes>
         {/* <Route path="/" element={<CrewCreate />} /> */}
-        <Route path="/" element={<AllMenu />} />
+        <Route path="/" element={<SelectCampusMeal />} />
         <Route path="/signup" element={<UserSignup />} />
 
         <Route path="/feedhome" element={<FeedMain />} />

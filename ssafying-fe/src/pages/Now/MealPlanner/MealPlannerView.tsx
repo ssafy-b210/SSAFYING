@@ -1,5 +1,11 @@
+import MealPlannerComp from "../../../components/Now/MealPlanner/MealPlannerComp";
+
 function MealPlannerView() {
-  return <div></div>;
+  return (
+    <div>
+      <MealPlannerComp></MealPlannerComp>
+    </div>
+  );
 }
 
 export default MealPlannerView;
