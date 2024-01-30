@@ -1,11 +1,15 @@
 import CommentContainer from "../../../components/All/Board/BoardDetail/CommentContainer";
-import BoardHeaderWithoutPlus from "../../../components/All/Board/BoardMenu/BoardHeaderWithoutPlus";
 import ContentContainer from "../../../components/Now/Market/ContentContainer";
+import BackBtnHeader from "../../../components/Common/BackBtnHeader";
 
 function BoardDetail() {
   return (
     <div>
-      <BoardHeaderWithoutPlus header="게시판" />
+      <BackBtnHeader
+        backLink="/"
+        htext={<h2>게시판</h2>}
+        isCenter={true}
+      ></BackBtnHeader>
       <ContentContainer></ContentContainer>
       <CommentContainer></CommentContainer>
     </div>

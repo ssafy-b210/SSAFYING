@@ -1,13 +1,16 @@
-import React from "react";
 import styled from "styled-components";
 import BoardBtn from "../../../components/All/Board/BoardBtn";
-import BoardHeaderWithoutPlus from "../../../components/All/Board/BoardMenu/BoardHeaderWithoutPlus";
 import ContentContainer from "../../../components/Now/Market/ContentContainer";
+import BackBtnHeader from "../../../components/Common/BackBtnHeader";
 
 function MarketDetail() {
   return (
     <div>
-      <BoardHeaderWithoutPlus header="중고거래" />
+      <BackBtnHeader
+        backLink="/"
+        htext={<h2>게시판</h2>}
+        isCenter={true}
+      ></BackBtnHeader>
       <ContentContainer></ContentContainer>
       {/* // 내게시물인 경우 */}
       <ButtonWrapper>

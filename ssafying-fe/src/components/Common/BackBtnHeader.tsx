@@ -3,7 +3,8 @@ import BackBtn from "./BackBtn";
 
 type HeaderProps = {
   backLink: string;
-  text: string;
+  text?: string;
+  htext?: JSX.Element;
   isCenter: boolean;
   extraBtn?: JSX.Element;
 };
@@ -14,7 +15,9 @@ function BackBtnHeader(props: HeaderProps) {
       <div className="btnWrapper">
         <BackBtn link={props.backLink} />
       </div>
-      <div className="contentWrapper">{props.text}</div>
+      <div className="contentWrapper">
+        {props.text ? props.text : props.htext}
+      </div>
       <div className="btnWrapper">{props.extraBtn ? props.extraBtn : null}</div>
     </Wrapper>
   );

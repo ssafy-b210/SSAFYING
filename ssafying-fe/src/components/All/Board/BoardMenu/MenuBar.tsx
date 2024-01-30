@@ -28,7 +28,7 @@ function MenuBar() {
 export default MenuBar;
 
 const MenuOne = styled.div`
-  border: 4px solid #8aae92;
+  border: 1px solid gray;
   border-radius: 20px;
   height: 150px;
   width: 80%;
@@ -41,6 +41,10 @@ const MenuOne = styled.div`
   h2,
   .board-text {
     margin-left: 10px;
+  }
+  &:hover {
+    background-color: black;
+    color: white;
   }
 `;
 

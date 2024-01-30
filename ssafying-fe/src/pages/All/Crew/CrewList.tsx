@@ -1,13 +1,18 @@
 import CrewCardList from "../../../components/All/Crew/CrewList/CrewCardList";
 import CrewSortTab from "../../../components/All/Crew/CrewList/CrewSortTab";
 import SearchBar from "../../../components/All/Crew/CrewList/SearchBar";
-
-import BoardHeader from "../../../components/All/Board/BoardMenu/BoardHeader";
+import BackBtnHeader from "../../../components/Common/BackBtnHeader";
+import PlusBtn from "../../../components/Common/PlusBtn";
 
 function CrewList() {
   return (
     <div>
-      <BoardHeader header="사람구해요"></BoardHeader>
+      <BackBtnHeader
+        backLink="/"
+        htext={<h2>게시판</h2>}
+        isCenter={true}
+        extraBtn={<PlusBtn link="/" />}
+      />
       <CrewSortTab></CrewSortTab>
       <SearchBar></SearchBar>
       <CrewCardList></CrewCardList>
