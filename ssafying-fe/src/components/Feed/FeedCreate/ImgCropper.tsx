@@ -51,7 +51,6 @@ const ImageCropper = ({ children, aspectRatio, onCrop }: PropsType) => {
         ref={inputRef}
         style={{ display: "none" }}
         onChange={handleFileChange}
-        multiple
       />
       <span onClick={handleChildrenClick}>{children}</span>
       {image && (
@@ -147,9 +146,9 @@ const Footer = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 20px 16px;
+  padding: 0 16px;
   background: #ffffff;
-  column-gap: 12px;
+  column-gap: 5px;
 
   button {
     width: 100px;
