@@ -1,4 +1,9 @@
+import BackBtnHeader from "../../components/Common/BackBtnHeader";
 import Chat from "../../components/DirectMessage/Chat";
+import RoundImg from "../../components/Feed/utils/RoundImg";
+import userImg from "../../assets/img/testImg/user.svg"; // TEST
+import styled from "styled-components";
+import ExitBtn from "../../components/Common/ExitBtn";
 
 function DirectMessageChattingRoom() {
   const chatList = [
@@ -49,6 +54,17 @@ function DirectMessageChattingRoom() {
 
   return (
     <div>
+      <BackBtnHeader
+        backLink="/direct"
+        isCenter={false}
+        htext={
+          <HeaderTextWrapper>
+            <RoundImg size="30px" src={userImg} />
+            <div className="text">su00</div>
+          </HeaderTextWrapper>
+        }
+        extraBtn={<ExitBtn link="/direct" />}
+      />
       <div>
         {chatList.map((chat, idx) => {
           const nextChat = chatList[idx + 1];
@@ -80,3 +96,13 @@ function DirectMessageChattingRoom() {
 }
 
 export default DirectMessageChattingRoom;
+
+const HeaderTextWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  .text {
+    margin: 10px;
+    font-weight: 600;
+  }
+`;
