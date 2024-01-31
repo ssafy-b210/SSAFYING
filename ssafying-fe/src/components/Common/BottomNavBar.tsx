@@ -57,8 +57,7 @@ const TabBarWrapper = styled.div<{ visible: boolean }>`
   left: 0;
   right: 0;
   height: 50px;
-  background-color: #fff;
-  border-top: 1px solid #ccc;
+  background-color: rgba(255, 255, 255, 0.1);
   transition: bottom 0.3s;
   z-index: 1000;
   width: 100%;
