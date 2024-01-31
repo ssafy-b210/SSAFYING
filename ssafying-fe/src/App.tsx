@@ -38,6 +38,7 @@ import SelectCampusMeal from "./pages/Now/MealPlanner/SelectCampusMeal";
 import DirectMessageChats from "./pages/DirectMessage/DirectMessageChats";
 import ChatWrapper from "./components/DirectMessage/ChatWrapper";
 import MealPlannerCreate from "./pages/Now/MealPlanner/MealPlannerCreate";
+import MealPlannerView from "./pages/Now/MealPlanner/MealPlannerView";
 
 function App() {
   return (
@@ -45,7 +46,7 @@ function App() {
       <FeedHeader />
       <Routes>
         {/* <Route path="/" element={<CrewCreate />} /> */}
-        <Route path="/" element={<SelectCampusMeal />} />
+        <Route path="/" element={<MealPlannerView />} />
         <Route path="/signup" element={<UserSignup />} />
 
         <Route path="/feedhome" element={<FeedMain />} />

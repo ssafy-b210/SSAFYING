@@ -2,7 +2,12 @@ import styled from "styled-components";
 
 function MealPlan() {
   return (
-    <MealPlanContainer>{/* 여기에  식단내용이 들어감 */}</MealPlanContainer>
+    <div>
+      <MealPlanContainer>{/* 여기에  식단내용이 들어감 */}</MealPlanContainer>
+      <IsLikeContainer>
+        <IsLikeButton>투표하기</IsLikeButton>
+      </IsLikeContainer>
+    </div>
   );
 }
 
@@ -16,3 +21,6 @@ const MealPlanContainer = styled.div`
   background-color: white;
   margin: 10px;
 `;
+
+const IsLikeContainer = styled.div``;
+const IsLikeButton = styled.button``;
