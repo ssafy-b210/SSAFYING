@@ -15,8 +15,8 @@ function CreateBtn() {
 export default CreateBtn;
 
 const ButtonContainer = styled.div`
-  margin: 20px;
-  float: right;
+  display: flex;
+  justify-content: flex-end;
   button {
     border-radius: 20px;
     border: none;

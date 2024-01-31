@@ -87,9 +87,11 @@ const SignUpInput = styled.div`
     border-radius: 20px;
     outline: none;
     min-width: 60vmin;
-    font-size: 18px;
+    font-size: 15px;
     padding-bottom: 5px;
     background-color: rgba(255, 255, 255, 0.3);
+    padding-left: 10px;
+    padding-top: 10px;
   }
   label {
     position: absolute;

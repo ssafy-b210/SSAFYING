@@ -7,10 +7,10 @@ function MarketList() {
   return (
     <div>
       <BackBtnHeader
-        backLink="/"
+        backLink="/now"
         htext={<h2>중고거래</h2>}
         isCenter={true}
-        extraBtn={<PlusBtn link="/" />}
+        extraBtn={<PlusBtn link="/market/create" />}
       />
       <MarketSortTab></MarketSortTab>
       <MarketCardList></MarketCardList>

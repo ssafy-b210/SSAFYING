@@ -39,6 +39,8 @@ import MealPlannerView from "./pages/Now/MealPlanner/MealPlannerView";
 import BambooForest from "./pages/BambooForest/BambooForest";
 import SelectTagForm from "./components/User/Signup/SelectTagForm";
 import DirectMessageChattingRoom from "./pages/DirectMessage/DirectMessageChattingRoom";
+import NowMenu from "./pages/Now/NowMenu";
+import RecruitmentList from "./pages/All/Recruitment/RecruitementList";
 
 function App() {
   return (
@@ -47,10 +49,20 @@ function App() {
         <FeedHeader />
         <Routes>
           {/* <Route path="/" element={<CrewCreate />} /> */}
-          <Route path="/" element={<UserSelectTag />} />
+          <Route path="/" element={<SelectCampusMeal />} />
           <Route path="/signup" element={<UserSignup />} />
           <Route path="/auth" element={<UserAuth />} />
           <Route path="/login" element={<UserLogin />} />
+
+          <Route path="/all" element={<AllMenu />} />
+          <Route path="/board" element={<BoardList />} />
+          <Route path="/crew" element={<CrewList />} />
+          <Route path="/recruit" element={<RecruitmentList />} />
+
+          <Route path="/now" element={<NowMenu />} />
+          <Route path="/market" element={<MarketList />} />
+          <Route path="/market/create" element={<MarketCreate />} />
+          <Route path="/mealplan" element={<SelectCampusMeal />} />
 
           <Route path="/feedhome" element={<FeedMain />} />
           <Route path="/search" element={<FeedSearch />} />

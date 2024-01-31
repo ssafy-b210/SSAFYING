@@ -8,7 +8,7 @@ function BoardList() {
   return (
     <div>
       <BackBtnHeader
-        backLink="/"
+        backLink="/all"
         htext={<h2>게시판</h2>}
         isCenter={true}
         extraBtn={<PlusBtn link="/" />}

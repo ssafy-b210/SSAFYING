@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 import CreateBtn from "../../../components/All/Board/BoardCreate/CreateBtn";
 import CreateContent from "../../../components/All/Board/BoardCreate/CreateContent";
 import CreateTitle from "../../../components/All/Board/BoardCreate/CreateTitle";
@@ -22,7 +24,7 @@ const isSold: Option[] = [
 
 function MarketCreate() {
   return (
-    <div>
+    <Wrapper>
       <BackBtnHeader
         backLink="/"
         htext={<h2>중고거래</h2>}
@@ -43,8 +45,12 @@ function MarketCreate() {
       <CreateContent></CreateContent>
       <AddPhoto></AddPhoto>
       <CreateBtn></CreateBtn>
-    </div>
+    </Wrapper>
   );
 }
 
 export default MarketCreate;
+
+const Wrapper = styled.div`
+  padding: 20px;
+`;

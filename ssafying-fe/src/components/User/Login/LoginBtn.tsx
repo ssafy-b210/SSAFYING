@@ -40,7 +40,7 @@ const SubmitButton = styled.input`
   border: none;
   border-radius: 10px;
   margin-bottom: 10px;
-  background-color: #565cf8;
+  background-color: #ff8e99;
   color: white;
   font-family: "Noto Sans KR";
 `;

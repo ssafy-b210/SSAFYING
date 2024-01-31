@@ -1,4 +1,4 @@
-import MenuBar from "../../components/All/Board/BoardMenu/MenuBar";
+import MenuBar from "../../components/Now/BoardMenu/MenuBar";
 import MenuHeader from "../../components/All/Board/BoardMenu/MenuHeader";
 
 function NowMenu() {
