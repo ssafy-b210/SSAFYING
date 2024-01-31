@@ -3,6 +3,7 @@ import ImgBtn from "../Feed/utils/ImgBtn";
 import logo from "../../assets/img/logo/logo1.svg";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import BambooForestList from "./BambooForestList";
 
 function BambooForestContent() {
   return (
@@ -12,6 +13,7 @@ function BambooForestContent() {
           <ImgBtn src={logo} size="32px" />
         </Link>
       </Header>
+      <BambooForestList />
     </div>
   );
 }
