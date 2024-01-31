@@ -11,9 +11,6 @@ import lombok.Getter;
 @Builder
 public class AddBoardRequest {
 
-    @NotNull(message = "유저 PK는 필수입니다.")
-    int userId;
-
     @NotNull(message = "제목은 필수입니다.")
     String title;
 

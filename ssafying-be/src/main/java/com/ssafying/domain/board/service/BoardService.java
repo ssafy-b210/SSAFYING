@@ -6,7 +6,8 @@ import com.ssafying.domain.board.entity.BoardScrap;
 import com.ssafying.domain.board.repository.jdbc.BoardRepository;
 import com.ssafying.domain.board.repository.jdbc.BoardScarpRepository;
 import com.ssafying.domain.user.entity.User;
-import com.ssafying.domain.user.repository.jdbc.UserRepositorySDJ;
+import com.ssafying.domain.user.repository.jdbc.UserRepository;
+import com.ssafying.global.util.AuthUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +20,9 @@ import java.util.List;
 public class BoardService {
 
     private final BoardRepository boardRepository;
-    private final UserRepositorySDJ userRepository;
+    private final UserRepository userRepository;
     private final BoardScarpRepository boardScarpRepository;
+    private final AuthUtil authUtil;
 
     /**
      * 5.1 게시판 게시글 작성
@@ -30,24 +32,29 @@ public class BoardService {
     @Transactional
     public int addBoard(AddBoardRequest request) {
 
+        //** 수정필요
+        //global에서 갖고오기
+        int userId = authUtil.getLoginUserId();
+
         //유저가 있는지 확인한 후, 유저가 없다면 익셉션을 발생시킴
-        User user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
+//        User user = userRepository.findById(request.getUserId())
+//                .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
 
 
         //디비에 저장할 Board 준비
-        Board board = Board.createBoard(
-                request.getTitle(),
-                request.getContent(),
-                request.getCategory(),
-                request.isAnonymous(),
-                user
-        );
+//        Board board = Board.createBoard(
+//                request.getTitle(),
+//                request.getContent(),
+//                request.getCategory(),
+//                request.isAnonymous(),
+//                user
+//        );
 
         //디비에 Board 저장
-        Board save = boardRepository.save(board);
+//        Board save = boardRepository.save(board);
 
-        return save.getId();
+//        return save.getId();
+        return 0;
     }
 
     /**
@@ -71,6 +78,10 @@ public class BoardService {
     @Transactional
     public int scrapBoard(ScrapBoardRequest request) {
 
+        //user 정보는 로그인하고 난 후, 가져올 수 있음.
+        //프론트에서 userId를 받지 말고 user 정보를 빼오기
+
+        //**수정필요
         //request로 넘어온 userId가 존재하는지 확인
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
@@ -86,6 +97,13 @@ public class BoardService {
         BoardScrap save = boardScarpRepository.save(boardScrap);
 
         return save.getId();
+    }
+
+    /**
+     * 5.3.1 게시판 게시글 스크랩 취소
+     */
+    @Transactional
+    public void unScrapBoard(ScrapBoardRequest request) {
     }
 
     /**
@@ -142,4 +160,6 @@ public class BoardService {
     @Transactional
     public void modifyComment(int boardCommentId, ModifyBaordCommentRequest request) {
     }
+
+
 }

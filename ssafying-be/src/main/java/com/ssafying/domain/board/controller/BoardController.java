@@ -62,6 +62,8 @@ public class BoardController {
     public ResponseEntity<ResultResponse> boardUnScrap(
             @RequestBody @Valid ScrapBoardRequest request
     ) {
+        boardService.unScrapBoard(request);
+
         return null;
     }
 
