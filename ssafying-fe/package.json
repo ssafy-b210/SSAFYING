@@ -20,6 +20,7 @@
     "leva": "^0.9.35",
     "node-tesseract-ocr": "^2.2.1",
     "path": "^0.12.7",
+    "pug": "^3.0.2",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-cropper": "^2.3.3",

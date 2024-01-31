@@ -21,4 +21,5 @@ const FeedListItemWrapper = styled.div`
   border-radius: 10px;
   padding: 15px;
   margin: 10px;
+  box-sizing: border-box;
 `;

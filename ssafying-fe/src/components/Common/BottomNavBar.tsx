@@ -1,11 +1,6 @@
-import React, { ReactNode, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Route } from "react-router-dom";
-
-import All from "../../assets/img/TabBar/All.svg";
-import Now from "../../assets/img/TabBar/Now.svg";
-import Forest from "../../assets/img/TabBar/Forest.svg";
-import Home from "../../assets/img/TabBar/Home.svg";
+import { Link } from "react-router-dom";
 
 const BottomNavBar = () => {
   const [visible, setVisible] = useState(true);
@@ -30,21 +25,31 @@ const BottomNavBar = () => {
 
   return (
     <TabBarWrapper visible={visible}>
-      <div data-hover="NOW">
-        <span>NOW</span>
-      </div>
-      <div data-hover="ALL">
-        <span>ALL</span>
-      </div>
-      <div data-hover="HOME">
-        <span>HOME</span>
-      </div>
-      <div data-hover="FOREST">
-        <span>FOREST</span>
-      </div>
-      <div data-hover="PROFILE">
-        <span>PROFILE</span>
-      </div>
+      <Link to="/now" className="now">
+        <Menu data-hover="NOW">
+          <span>NOW</span>
+        </Menu>
+      </Link>
+      <Link to="/all" className="all">
+        <Menu data-hover="ALL">
+          <span>ALL</span>
+        </Menu>
+      </Link>
+      <Link to="/feedhome" className="feedhome">
+        <Menu data-hover="HOME">
+          <span>HOME</span>
+        </Menu>
+      </Link>
+      <Link to="/forest" className="forest">
+        <Menu data-hover="FOREST">
+          <span>FOREST</span>
+        </Menu>
+      </Link>
+      <Link to="/profile" className="profile">
+        <Menu data-hover="PROFILE">
+          <span>PROFILE</span>
+        </Menu>
+      </Link>
     </TabBarWrapper>
   );
 };
@@ -57,32 +62,37 @@ const TabBarWrapper = styled.div<{ visible: boolean }>`
   left: 0;
   right: 0;
   height: 50px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.7);
   transition: bottom 0.3s;
   z-index: 1000;
   width: 100%;
-  max-width: 560px;
   margin: 0 auto;
   display: flex;
+  justify-content: space-around;
   align-items: center;
 
-  div {
-    position: relative;
-    overflow: hidden;
-    display: block;
-    text-align: center;
-    -webkit-box-flex: 1;
-    -webkit-flex-grow: 1;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    padding: 0;
+  a {
+    text-decoration-line: none;
+    color: black;
   }
+`;
 
-  div span {
+const Menu = styled.div`
+  position: relative;
+  overflow: hidden;
+  display: block;
+  text-align: center;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  padding: 0;
+
+  span {
     display: block;
     -webkit-transition: -webkit-transform 500ms
       cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -92,7 +102,7 @@ const TabBarWrapper = styled.div<{ visible: boolean }>`
       -webkit-transform 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 
-  div:after {
+  &:after {
     position: absolute;
     top: 100%;
     left: 0;
@@ -104,21 +114,21 @@ const TabBarWrapper = styled.div<{ visible: boolean }>`
     transition: top 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 
-  div:hover {
-    color: #cc8e35;
+  &:hover {
+    color: #ffa6c9;
   }
 
-  div:hover span {
-    color: #cc8e35;
+  &:hover span {
+    color: #ffa6c9;
     -webkit-transform: translateY(-100%);
     transform: translateY(-100%);
   }
 
-  div:hover:after {
+  &:hover:after {
     top: 0;
   }
 
-  div:active {
+  &:active {
     -webkit-animation-name: rubberBand;
     animation-name: rubberBand;
   }

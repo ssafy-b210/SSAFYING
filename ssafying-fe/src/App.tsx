@@ -38,6 +38,7 @@ import DirectMessageChats from "./pages/DirectMessage/DirectMessageChats";
 import ChatWrapper from "./components/DirectMessage/ChatWrapper";
 import MealPlannerCreate from "./pages/Now/MealPlanner/MealPlannerCreate";
 import MealPlannerView from "./pages/Now/MealPlanner/MealPlannerView";
+import BambooForest from "./pages/BambooForest/BambooForest";
 
 function App() {
   return (
@@ -53,6 +54,8 @@ function App() {
           <Route path="/search" element={<FeedSearch />} />
           <Route path="/feedwrite" element={<FeedCreate />} />
           <Route path="/alarmdetail" element={<AlarmDetail />} />
+          <Route path="/forest" element={<BambooForest />} />
+
           <Route path="/profile" element={<ProfileMain />}>
             <Route path="" element={<ContentFeedSection />} />
             <Route path="portfolio" element={<ContentPortfolioSection />} />
@@ -79,7 +82,6 @@ export default App;
 const Wrapper = styled.div`
   width: 100vw;
   max-width: 560px;
-  min-height: 100vh;
   margin: 0 auto;
   @supports (-webkit-touch-callout: none) {
     height: -webkit-fill-available;
@@ -94,7 +96,10 @@ const MoveGrad = keyframes`
 
 const AppWrapper = styled.div`
   // background: linear-gradient(70deg, #fff, #7de7ff, #ffaffb);
-  background: linear-gradient(70deg, #e9feff, #b5e7ef, #ffaffb);
+  background: linear-gradient(70deg, #e9feff, #b5e7ef, #ffc6fc);
   background-size: 200% 200%;
   animation: ${MoveGrad} 5s ease infinite;
+  -webkit-animation: ${MoveGrad} 5s ease infinite;
+  height: 100%;
+  min-height: 100vh;
 `;
