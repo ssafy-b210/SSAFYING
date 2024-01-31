@@ -56,7 +56,4 @@ export default ChartComponent;
 const BarContainer = styled.div`
   margin-top: 50px;
   margin-bottom: 200px;
-  // .react-chartjs-2 {
-  //   margin-bottom: 100px;
-  // }
 `;
