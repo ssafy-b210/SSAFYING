@@ -26,7 +26,6 @@ import renderMarketDetail from "./pages/Now/Market/MarketDetail";
 import MarketDetail from "./pages/Now/Market/MarketDetail";
 import BoardDetail from "./pages/All/Board/BoardDetail";
 import CrewDetail from "./pages/All/Crew/CrewDetail";
-import CrewCardList from "./components/All/Crew/CrewList/CrewCardList";
 import BottomNavBar from "./components/Common/BottomNavBar";
 import FeedHeader from "./components/Feed/FeedMain/FeedHeader";
 import AlarmDetail from "./pages/Feed/AlarmDetail";
@@ -35,11 +34,11 @@ import FollowerList from "./pages/Profile/FollowerList";
 import UserLogin from "./pages/User/UserLogin";
 import SelectCampusMeal from "./pages/Now/MealPlanner/SelectCampusMeal";
 import DirectMessageChats from "./pages/DirectMessage/DirectMessageChats";
-import ChatWrapper from "./components/DirectMessage/ChatWrapper";
 import MealPlannerCreate from "./pages/Now/MealPlanner/MealPlannerCreate";
 import MealPlannerView from "./pages/Now/MealPlanner/MealPlannerView";
 import BambooForest from "./pages/BambooForest/BambooForest";
 import SelectTagForm from "./components/User/Signup/SelectTagForm";
+import DirectMessageChattingRoom from "./pages/DirectMessage/DirectMessageChattingRoom";
 
 function App() {
   return (
@@ -71,7 +70,10 @@ function App() {
           <Route path="/profile/following" element={<FollowingList />} />
           <Route path="/profile/follower" element={<FollowerList />} />
           <Route path="/direct" element={<DirectMessageChats />} />
-          <Route path="/direct/:id" element={<ChatWrapper />} />
+          <Route
+            path="/direct/chat/:id"
+            element={<DirectMessageChattingRoom />}
+          />
           <Route path="/meal/create" element={<MealPlannerCreate />} />
         </Routes>
         <BottomNavBar />
