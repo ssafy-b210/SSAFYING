@@ -26,7 +26,7 @@ function MarketCreate() {
   return (
     <Wrapper>
       <BackBtnHeader
-        backLink="/"
+        backLink="/market"
         htext={<h2>중고거래</h2>}
         isCenter={true}
       ></BackBtnHeader>

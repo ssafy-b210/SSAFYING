@@ -15,7 +15,7 @@ function BoardSortTab({}: BoardSortTab) {
       {tabButtons.map((label, index) => (
         <SortTabButton
           key={index}
-          active={index === activeButton}
+          $active={index === activeButton}
           onClick={() => handleButtonClick(index)}
         >
           <span>{label}</span>
@@ -30,7 +30,7 @@ export default BoardSortTab;
 const tabButtons = ["자유", "취업", "정보", "개발", "싸피꿀팁", "생활", "홍보"];
 
 interface SortTabButtonProps {
-  active: boolean;
+  $active: boolean;
 }
 
 const SortTabButton = styled.a<SortTabButtonProps>`
@@ -39,8 +39,8 @@ const SortTabButton = styled.a<SortTabButtonProps>`
   padding: 10px 16px;
   border-radius: 30px;
   text-decoration: none;
-  background-color: ${({ active }) => (active ? "#616161" : "#fff")};
-  color: ${({ active }) => (active ? "#fff" : "#262626")};
+  background-color: ${({ $active }) => ($active ? "#616161" : "#fff")};
+  color: ${({ $active }) => ($active ? "#fff" : "#262626")};
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 `;
 

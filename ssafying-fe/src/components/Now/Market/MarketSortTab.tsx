@@ -15,7 +15,7 @@ function MarketSortTab({}: MarketSortTab) {
       {tabButtons.map((label, index) => (
         <SortTabButton
           key={index}
-          active={index === activeButton}
+          $active={index === activeButton}
           onClick={() => handleButtonClick(index)}
         >
           <span>{label}</span>
@@ -30,7 +30,7 @@ export default MarketSortTab;
 const tabButtons = ["삽니다", "팝니다", "나눔합니다"];
 
 interface SortTabButtonProps {
-  active: boolean;
+  $active: boolean;
 }
 
 const SortTabButton = styled.a<SortTabButtonProps>`
@@ -39,8 +39,8 @@ const SortTabButton = styled.a<SortTabButtonProps>`
   padding: 10px 16px;
   border-radius: 30px;
   text-decoration: none;
-  background-color: ${({ active }) => (active ? "#616161" : "#fff")};
-  color: ${({ active }) => (active ? "#fff" : "#262626")};
+  background-color: ${({ $active }) => ($active ? "#616161" : "#fff")};
+  color: ${({ $active }) => ($active ? "#fff" : "#262626")};
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 
   &.active {
