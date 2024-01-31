@@ -41,7 +41,6 @@ import MealPlannerView from "./pages/Now/MealPlanner/MealPlannerView";
 
 function App() {
   return (
-<<<<<<< HEAD
     <AppWrapper>
       <Wrapper>
         <FeedHeader />
@@ -49,14 +48,6 @@ function App() {
           {/* <Route path="/" element={<CrewCreate />} /> */}
           <Route path="/" element={<SelectCampusMeal />} />
           <Route path="/signup" element={<UserSignup />} />
-=======
-    <Wrapper>
-      <FeedHeader />
-      <Routes>
-        {/* <Route path="/" element={<CrewCreate />} /> */}
-        <Route path="/" element={<MealPlannerView />} />
-        <Route path="/signup" element={<UserSignup />} />
->>>>>>> feature-fe/board
 
           <Route path="/feedhome" element={<FeedMain />} />
           <Route path="/search" element={<FeedSearch />} />

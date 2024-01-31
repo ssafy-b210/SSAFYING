@@ -1,16 +1,19 @@
 import styled from "styled-components";
 import CustomDate from "./TodayDate";
-import MealPlan from "./MealPlan";
+import MealPlan, { MealPlanProps } from "./MealPlan";
 
 function MealPlannerComp() {
+  const handleVote = () => {
+    console.log("Voted!");
+  };
   return (
     <MsgContainer>
       <IsMealMsg>
-        <CustomDate></CustomDate>의 점심을 투표해주세요
+        <CustomDate></CustomDate> 당신의 점심을 투표해주세요
       </IsMealMsg>
       <MealPlannerContainer>
-        <MealPlan></MealPlan>
-        <MealPlan></MealPlan>
+        <MealPlan onVote={handleVote} />
+        <MealPlan onVote={handleVote} />
       </MealPlannerContainer>
     </MsgContainer>
   );
