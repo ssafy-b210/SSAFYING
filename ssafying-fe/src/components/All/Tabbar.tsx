@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-const TabBarWrapper = styled.div<{ visible: boolean }>`
+const TabBarWrapper = styled.div<{ $visible: boolean }>`
   position: fixed;
-  bottom: ${(props) => (props.visible ? "0" : "-60px")};
+  bottom: ${(props) => (props.$visible ? "0" : "-60px")};
   left: 0;
   right: 0;
   height: 60px;
@@ -35,7 +35,7 @@ const TabBar: React.FC = () => {
   }, []);
 
   return (
-    <TabBarWrapper visible={visible}>
+    <TabBarWrapper $visible={visible}>
       {/* Add your tab bar content here */}
       Tab 1 | Tab 2 | Tab 3
     </TabBarWrapper>

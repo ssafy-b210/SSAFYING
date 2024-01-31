@@ -29,7 +29,7 @@ const BottomNavBar = () => {
   }, []);
 
   return (
-    <TabBarWrapper visible={visible}>
+    <TabBarWrapper $visible={visible}>
       <div data-hover="NOW">
         <span>NOW</span>
       </div>
@@ -51,9 +51,9 @@ const BottomNavBar = () => {
 
 export default BottomNavBar;
 
-const TabBarWrapper = styled.div<{ visible: boolean }>`
+const TabBarWrapper = styled.div<{ $visible: boolean }>`
   position: fixed;
-  bottom: ${(props) => (props.visible ? "0" : "-60px")};
+  bottom: ${(props) => (props.$visible ? "0" : "-60px")};
   left: 0;
   right: 0;
   height: 50px;
