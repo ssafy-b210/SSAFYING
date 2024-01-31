@@ -1,17 +1,17 @@
-import ForgotpwBubble from "../../components/User/Login/ForgotpwBubble";
-import LoginBtnBubble from "../../components/User/Login/LoginBtnBubble";
-import LoginFormBubble from "../../components/User/Login/LoginFormBubble";
+import Forgotpw from "../../components/User/Login/Forgotpw";
+import LoginBtn from "../../components/User/Login/LoginBtn";
+import LoginForm from "../../components/User/Login/LoginForm";
 import LoginHeader from "../../components/User/Login/LoginHeader";
-import SignupBubble from "../../components/User/Login/SignupBubble";
+import SignupBtn from "../../components/User/Login/SignupBtn";
 
 function UserLogin() {
   return (
     <div>
       <LoginHeader></LoginHeader>
-      <LoginFormBubble></LoginFormBubble>
-      <LoginBtnBubble></LoginBtnBubble>
-      <ForgotpwBubble></ForgotpwBubble>
-      <SignupBubble></SignupBubble>
+      <LoginForm></LoginForm>
+      <LoginBtn></LoginBtn>
+      <Forgotpw></Forgotpw>
+      <SignupBtn></SignupBtn>
     </div>
   );
 }

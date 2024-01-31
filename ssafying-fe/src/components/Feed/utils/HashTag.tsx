@@ -27,7 +27,9 @@ const StyledHashTagButton = styled.span`
     font-size: 12px;
   }
 
-  a:hover {
+  a:hover,
+  a:active,
+  a:focus {
     background-color: #ddeedf;
   }
 `;

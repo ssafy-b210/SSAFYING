@@ -1,10 +1,14 @@
 import SignUpForm from "../../components/User/Signup/SignupForm";
-import SignupHeader from "../../components/User/Signup/SignupHeader";
+import BackBtnHeader from "../../components/Common/BackBtnHeader";
 
 function UserSignup() {
   return (
     <div>
-      <SignupHeader></SignupHeader>
+      <BackBtnHeader
+        backLink="/"
+        htext={<h2>회원가입</h2>}
+        isCenter={true}
+      ></BackBtnHeader>
       <SignUpForm />
     </div>
   );

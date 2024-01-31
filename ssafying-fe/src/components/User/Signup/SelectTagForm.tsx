@@ -1,17 +1,25 @@
 import styled from "styled-components";
-import Btn from "./OptionsBtn";
+import WorkBtn from "./WorkBtn";
+import LifeBtn from "./LifeBtn";
+import SubmitBtn from "../../Common/SubmitBtn";
+
 function SelectTagForm() {
   return (
     <div>
       <TagMsg>
         <h3>당신의 관심사를 태그로 선택해주세요</h3>
       </TagMsg>
-      <Selected>
-        <p>나의 관심사</p>
-      </Selected>
-      <Btn></Btn>
+      {/* 워크 */}
+      <TagContainer>
+        <WorkBtn></WorkBtn>
+      </TagContainer>
+      <hr></hr>
+      {/* 라이프 */}
+      <TagContainer>
+        <LifeBtn></LifeBtn>
+      </TagContainer>
       <BtnContainer>
-        <SubmitButton>싸피 인증하러 가기</SubmitButton>
+        <SubmitBtn link="/auth" text="싸피 인증하러 가기"></SubmitBtn>
       </BtnContainer>
     </div>
   );
@@ -23,27 +31,8 @@ const TagMsg = styled.div`
   justify-content: center;
 `;
 
-const Selected = styled.div`
-  height: 100px;
-  border: 1px solid gray;
-  border-radius: 10px;
-  margin-right: 15px;
-  margin-left: 15px;
-  p {
-    margin-left: 15px;
-  }
-`;
-const SubmitButton = styled.button`
-  width: 300px;
-  height: 30px;
-  border-radius: 20px;
-  background-color: #b6cdbd;
-  border: none;
-  color: white;
-  margin-top: 80%;
-  color: black;
-`;
 const BtnContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
+const TagContainer = styled.div``;

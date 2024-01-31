@@ -1,9 +1,13 @@
-import SignupHeader from "../../components/User/Signup/SignupHeader";
+import BackBtnHeader from "../../components/Common/BackBtnHeader";
 import SelectTagForm from "../../components/User/Signup/SelectTagForm";
 function UserSelectTag() {
   return (
     <div>
-      <SignupHeader></SignupHeader>
+      <BackBtnHeader
+        backLink="/signup"
+        htext={<h2>회원가입</h2>}
+        isCenter={true}
+      ></BackBtnHeader>
       <SelectTagForm></SelectTagForm>
     </div>
   );
