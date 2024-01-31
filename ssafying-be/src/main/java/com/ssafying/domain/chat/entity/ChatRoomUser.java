@@ -1,6 +1,7 @@
 package com.ssafying.domain.chat.entity;
 
 import com.ssafying.domain.user.entity.User;
+import com.ssafying.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "chat_room_user")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ChatRoomUser {
+public class ChatRoomUser extends BaseTimeEntity {
     /*
     * 채팅방 - 유저 입장관리 중개테이블
     */
