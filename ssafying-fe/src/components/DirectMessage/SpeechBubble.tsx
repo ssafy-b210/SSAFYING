@@ -33,7 +33,7 @@ const StyledSpeechBubble = styled.div<{ $isMine: boolean }>`
   font-size: 14px;
   word-break: break-word;
   border-radius: 20px;
-  background-color: ${(props) => (props.$isMine ? "#f0efef" : "#D9D9D9")};
+  background-color: ${(props) => (props.$isMine ? "#fdfdfd" : "#ffefff")};
 `;
 
 export default SpeechBubble;
