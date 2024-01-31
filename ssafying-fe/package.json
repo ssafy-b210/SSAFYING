@@ -16,6 +16,7 @@
     "browser-image-compression": "^2.0.2",
     "chart.js": "^4.4.1",
     "node-tesseract-ocr": "^2.2.1",
+    "path": "^0.12.7",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-cropper": "^2.3.3",

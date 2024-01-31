@@ -37,6 +37,7 @@ import UserLogin from "./pages/User/UserLogin";
 import SelectCampusMeal from "./pages/Now/MealPlanner/SelectCampusMeal";
 import DirectMessageChats from "./pages/DirectMessage/DirectMessageChats";
 import ChatWrapper from "./components/DirectMessage/ChatWrapper";
+import MealPlannerCreate from "./pages/Now/MealPlanner/MealPlannerCreate";
 
 function App() {
   return (
@@ -64,6 +65,7 @@ function App() {
         <Route path="/profile/follower" element={<FollowerList />} />
         <Route path="/direct" element={<DirectMessageChats />} />
         <Route path="/direct/:id" element={<ChatWrapper />} />
+        <Route path="/meal/create" element={<MealPlannerCreate />} />
       </Routes>
       <BottomNavBar />
     </Wrapper>

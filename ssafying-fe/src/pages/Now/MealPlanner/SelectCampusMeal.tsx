@@ -1,11 +1,12 @@
 import BackBtnHeader from "../../../components/Common/BackBtnHeader";
+import PlusBtn from "../../../components/Common/PlusBtn";
 import MealPlannerComp from "../../../components/Now/MealPlanner/MealPlannerComp";
 import NoMealPlannerComp from "../../../components/Now/MealPlanner/NoMealPlannerComp";
 import SelectCampus from "../../../components/Now/MealPlanner/SelectCampus";
 import MealPlannerView from "./MealPlannerView";
 
 // 지금 등록된 식단표가 존재하는 경우와 존재하지 않는 경우 구분!
-const hasMealPlanner = true;
+const hasMealPlanner = false;
 function SelectCampusMeal() {
   return (
     <div>
@@ -13,6 +14,7 @@ function SelectCampusMeal() {
         backLink="/"
         isCenter={true}
         htext={<h2>오늘 점심은 뭘까</h2>}
+        extraBtn={<PlusBtn link="/meal/create" />}
       ></BackBtnHeader>
       <SelectCampus></SelectCampus>
       {hasMealPlanner ? (

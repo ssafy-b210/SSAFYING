@@ -54,8 +54,9 @@ const ChartComponent: React.FC = () => {
 export default ChartComponent;
 
 const BarContainer = styled.div`
-  margin-bottom: 20px;
-  .react-chartjs-2 {
-    margin-bottom: 100px;
-  }
+  margin-top: 50px;
+  margin-bottom: 200px;
+  // .react-chartjs-2 {
+  //   margin-bottom: 100px;
+  // }
 `;
