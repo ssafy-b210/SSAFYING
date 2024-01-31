@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
-import RoundImg from "../../components/Feed/utils/RoundImg";
 import { Link } from "react-router-dom";
+import RoundImg from "../../components/Feed/utils/RoundImg";
 
 function DirectMessageChats() {
   const [chatList, setChatList] = useState([
@@ -31,7 +31,7 @@ function DirectMessageChats() {
     <div>
       {chatList.map((chat, index) => (
         <ProfileListItem key={index}>
-          <Link to={`${index}`}>
+          <Link to={`chat/${index}`}>
             <ProfileImg>
               <RoundImg size="54px" src={chat.img} />
             </ProfileImg>

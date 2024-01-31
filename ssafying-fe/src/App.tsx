@@ -34,7 +34,7 @@ import AlarmDetail from "./pages/Feed/AlarmDetail";
 import FollowingList from "./pages/Profile/FollowingList";
 import FollowerList from "./pages/Profile/FollowerList";
 import DirectMessageChats from "./pages/DirectMessage/DirectMessageChats";
-import ChatWrapper from "./components/DirectMessage/ChatWrapper";
+import DirectMessageChattingRoom from "./pages/DirectMessage/DirectMessageChattingRoom";
 
 function App() {
   return (
@@ -61,7 +61,10 @@ function App() {
         <Route path="/profile/following" element={<FollowingList />} />
         <Route path="/profile/follower" element={<FollowerList />} />
         <Route path="/direct" element={<DirectMessageChats />} />
-        <Route path="/direct/:id" element={<ChatWrapper />} />
+        <Route
+          path="/direct/chat/:id"
+          element={<DirectMessageChattingRoom />}
+        />
       </Routes>
       <BottomNavBar />
     </Wrapper>
