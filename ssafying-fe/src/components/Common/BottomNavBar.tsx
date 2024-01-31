@@ -25,21 +25,31 @@ const BottomNavBar = () => {
 
   return (
     <TabBarWrapper $visible={visible}>
-      <div data-hover="NOW">
-        <span>NOW</span>
-      </div>
-      <div data-hover="ALL">
-        <span>ALL</span>
-      </div>
-      <div data-hover="HOME">
-        <span>HOME</span>
-      </div>
-      <div data-hover="FOREST">
-        <span>FOREST</span>
-      </div>
-      <div data-hover="PROFILE">
-        <span>PROFILE</span>
-      </div>
+      <Link to="/now" className="now">
+        <Menu data-hover="NOW">
+          <span>NOW</span>
+        </Menu>
+      </Link>
+      <Link to="/all" className="all">
+        <Menu data-hover="ALL">
+          <span>ALL</span>
+        </Menu>
+      </Link>
+      <Link to="/feedhome" className="feedhome">
+        <Menu data-hover="HOME">
+          <span>HOME</span>
+        </Menu>
+      </Link>
+      <Link to="/forest" className="forest">
+        <Menu data-hover="FOREST">
+          <span>FOREST</span>
+        </Menu>
+      </Link>
+      <Link to="/profile" className="profile">
+        <Menu data-hover="PROFILE">
+          <span>PROFILE</span>
+        </Menu>
+      </Link>
     </TabBarWrapper>
   );
 };
