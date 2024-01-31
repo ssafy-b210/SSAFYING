@@ -1,10 +1,14 @@
 package com.ssafying.global.util;
 
+import com.ssafying.domain.shuttle.entity.Campus;
 import com.ssafying.domain.user.entity.User;
+import com.ssafying.domain.user.entity.UserStatus;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 @Component
 @RequiredArgsConstructor
@@ -15,8 +19,6 @@ public class AuthUtil {
         try {
 
 //            final String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-
-//            return Integer.parseInt(userId);
 
             User user = new User();
             user.setName("test숭");
