@@ -84,10 +84,12 @@ const SignUpInput = styled.div`
     height: 40px;
     border: none;
     border-bottom: 2px solid #ddd;
+    border-radius: 20px;
     outline: none;
     min-width: 60vmin;
     font-size: 18px;
     padding-bottom: 5px;
+    background-color: rgba(255, 255, 255, 0.3);
   }
   label {
     position: absolute;
@@ -96,19 +98,24 @@ const SignUpInput = styled.div`
     transform: translateY(-50%);
     pointer-events: none;
     transition: transform 0.3s ease-out;
+    padding-left: 10px;
+    font-size: 15px;
   }
   input:focus + label,
   input:not(:placeholder-shown) + label {
     transform: translateY(-150%);
+    font-size: 12px;
   }
 `;
 const SubmitButton = styled.button`
   width: 300px;
-  height: 30px;
-  border-radius: 10px;
+  height: 50px;
+  border-radius: 20px;
   margin-bottom: 15px;
-  background-color: #b6cdbd;
+  background-color: rgba(255, 255, 255, 0.5);
   border: none;
-  color: white;
+  color: black;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
 `;
 const isMajor = styled.div``;

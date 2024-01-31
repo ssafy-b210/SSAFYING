@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import authCheck from "../../assets/img/userIcons/userAuthCheck.svg";
+import SubmitBtn from "../Common/SubmitBtn";
 
 function SsafyAuth() {
   return (
@@ -25,7 +26,7 @@ function SsafyAuth() {
           <img src={authCheck} />
           <h3>성공적으로 인증이되었습니다.</h3>
         </AuthMsg>
-        <SubmitButton>회원가입 하러가기</SubmitButton>
+        <SubmitBtn link="/login" text="싸핑 회원가입끝내기"></SubmitBtn>
       </Form>
     </div>
   );
@@ -64,10 +65,12 @@ const Input = styled.div`
     height: 40px;
     border: none;
     border-bottom: 2px solid #ddd;
+    border-radius: 20px;
     outline: none;
     min-width: 60vmin;
     font-size: 18px;
     padding-bottom: 5px;
+    background-color: rgba(255, 255, 255, 0.3);
   }
   label {
     position: absolute;
@@ -76,10 +79,13 @@ const Input = styled.div`
     transform: translateY(-50%);
     pointer-events: none;
     transition: transform 0.3s ease-out;
+    padding-left: 10px;
+    font-size: 15px;
   }
   input:focus + label,
   input:not(:placeholder-shown) + label {
     transform: translateY(-150%);
+    font-size: 12px;
   }
 `;
 const AuthMsg = styled.div`
@@ -89,13 +95,4 @@ const AuthMsg = styled.div`
   img {
     margin: 15px;
   }
-`;
-const SubmitButton = styled.button`
-  width: 300px;
-  height: 30px;
-  border-radius: 10px;
-  background-color: #616161;
-  border: none;
-  color: white;
-  margin-top: 80%;
 `;

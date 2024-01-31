@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-import ssafying from "../../../assets/img/Logo/ssafying.svg";
+import logo2 from "../../../assets/img/logo/logo2.svg";
 
 function LoginHeader() {
   return (
     <Header>
-      <img src={ssafying} />
+      <img src={logo2} alt="로그인로고" />
     </Header>
   );
 }
