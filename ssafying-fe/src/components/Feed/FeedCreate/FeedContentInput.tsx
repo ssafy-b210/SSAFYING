@@ -8,8 +8,9 @@ function FeedContentInput() {
       <TextWrapper>
         <TextArea />
       </TextWrapper>
-
-      <button>작성</button>
+      <ButtonWrapper>
+        <button>작성</button>
+      </ButtonWrapper>
     </InputWrapper>
   );
 }
@@ -18,8 +19,6 @@ export default FeedContentInput;
 
 const InputWrapper = styled.div`
   width: 100%;
-  background-color: lightgray;
-  border-radius: 20px;
 `;
 
 const TextWrapper = styled.div`
@@ -27,4 +26,19 @@ const TextWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin: 0 auto;
+`;
+
+const ButtonWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  button {
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
+    padding: 5px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+  }
 `;

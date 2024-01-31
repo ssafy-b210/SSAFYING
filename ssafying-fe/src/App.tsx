@@ -1,9 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import React from "react";
+import styled, { keyframes } from "styled-components";
 
 import UserSignup from "./pages/User/UserSignup";
 import ProfileMain from "./pages/Profile/ProfileMain";
-import styled from "styled-components";
 import FeedMain from "./pages/Feed/FeedMain";
 import FeedSearch from "./pages/Feed/FeedSearch";
 import FeedCreate from "./pages/Feed/FeedCreate";
@@ -40,33 +39,35 @@ import ChatWrapper from "./components/DirectMessage/ChatWrapper";
 
 function App() {
   return (
-    <Wrapper>
-      <FeedHeader />
-      <Routes>
-        {/* <Route path="/" element={<CrewCreate />} /> */}
-        <Route path="/" element={<AllMenu />} />
-        <Route path="/signup" element={<UserSignup />} />
+    <AppWrapper>
+      <Wrapper>
+        <FeedHeader />
+        <Routes>
+          {/* <Route path="/" element={<CrewCreate />} /> */}
+          <Route path="/" element={<AllMenu />} />
+          <Route path="/signup" element={<UserSignup />} />
 
-        <Route path="/feedhome" element={<FeedMain />} />
-        <Route path="/search" element={<FeedSearch />} />
-        <Route path="/feedwrite" element={<FeedCreate />} />
-        <Route path="/alarmdetail" element={<AlarmDetail />} />
-        <Route path="/profile" element={<ProfileMain />}>
-          <Route path="" element={<ContentFeedSection />} />
-          <Route path="portfolio" element={<ContentPortfolioSection />} />
-          <Route path="saved" element={<ContentSavedSection />}>
+          <Route path="/feedhome" element={<FeedMain />} />
+          <Route path="/search" element={<FeedSearch />} />
+          <Route path="/feedwrite" element={<FeedCreate />} />
+          <Route path="/alarmdetail" element={<AlarmDetail />} />
+          <Route path="/profile" element={<ProfileMain />}>
             <Route path="" element={<ContentFeedSection />} />
-            <Route path="board" element={<ContentFeedSection />} />
-            <Route path="recruiting" element={<ContentFeedSection />} />
+            <Route path="portfolio" element={<ContentPortfolioSection />} />
+            <Route path="saved" element={<ContentSavedSection />}>
+              <Route path="" element={<ContentFeedSection />} />
+              <Route path="board" element={<ContentFeedSection />} />
+              <Route path="recruiting" element={<ContentFeedSection />} />
+            </Route>
           </Route>
-        </Route>
-        <Route path="/profile/following" element={<FollowingList />} />
-        <Route path="/profile/follower" element={<FollowerList />} />
-        <Route path="/direct" element={<DirectMessageChats />} />
-        <Route path="/direct/:id" element={<ChatWrapper />} />
-      </Routes>
-      <BottomNavBar />
-    </Wrapper>
+          <Route path="/profile/following" element={<FollowingList />} />
+          <Route path="/profile/follower" element={<FollowerList />} />
+          <Route path="/direct" element={<DirectMessageChats />} />
+          <Route path="/direct/:id" element={<ChatWrapper />} />
+        </Routes>
+        <BottomNavBar />
+      </Wrapper>
+    </AppWrapper>
   );
 }
 
@@ -80,4 +81,16 @@ const Wrapper = styled.div`
   @supports (-webkit-touch-callout: none) {
     height: -webkit-fill-available;
   }
+`;
+
+const MoveGrad = keyframes`
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+`;
+
+const AppWrapper = styled.div`
+  background: linear-gradient(70deg, #fff, #7de7ff, #ffaffb);
+  background-size: 200% 200%;
+  animation: ${MoveGrad} 5s ease infinite;
 `;

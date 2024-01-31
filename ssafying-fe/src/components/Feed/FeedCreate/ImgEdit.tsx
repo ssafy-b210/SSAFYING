@@ -117,12 +117,11 @@ const InputWrapper = styled.div`
 `;
 
 const UploadButton = styled.button`
-  background-color: #616161;
-  color: white;
+  background-color: #fff;
   border: none;
   padding: 10px 20px;
   margin-top: 10px;
-  border-radius: 5px;
+  border-radius: 20px;
   cursor: pointer;
 `;
 
@@ -137,11 +136,10 @@ const NavigationButtons = styled.div`
   display: flex;
 
   button {
-    background-color: #616161;
-    color: white;
+    background-color: #fff;
     border: none;
     padding: 5px 20px;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
     margin-right: 10px;
   }
