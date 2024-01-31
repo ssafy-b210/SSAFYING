@@ -7,12 +7,12 @@ function FollowBtn() {
 export default FollowBtn;
 
 const BtnWrapper = styled.div`
-  background-color: #b6cdbd;
+  background-color: #fff4f9;
   border-radius: 5px;
-  color: white;
   padding: 2px 10px;
   text-align: center;
   min-width: 40px;
   margin-top: 5px;
-  font-size: 13px;
+  font-size: 10px;
+  cursor: pointer;
 `;

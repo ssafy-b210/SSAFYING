@@ -41,7 +41,6 @@ import MealPlannerView from "./pages/Now/MealPlanner/MealPlannerView";
 
 function App() {
   return (
-<<<<<<< HEAD
     <AppWrapper>
       <Wrapper>
         <FeedHeader />
@@ -49,14 +48,6 @@ function App() {
           {/* <Route path="/" element={<CrewCreate />} /> */}
           <Route path="/" element={<SelectCampusMeal />} />
           <Route path="/signup" element={<UserSignup />} />
-=======
-    <Wrapper>
-      <FeedHeader />
-      <Routes>
-        {/* <Route path="/" element={<CrewCreate />} /> */}
-        <Route path="/" element={<MealPlannerView />} />
-        <Route path="/signup" element={<UserSignup />} />
->>>>>>> feature-fe/board
 
           <Route path="/feedhome" element={<FeedMain />} />
           <Route path="/search" element={<FeedSearch />} />
@@ -76,7 +67,7 @@ function App() {
           <Route path="/direct" element={<DirectMessageChats />} />
           <Route path="/direct/:id" element={<ChatWrapper />} />
           <Route path="/meal/create" element={<MealPlannerCreate />} />
-      </Routes>
+        </Routes>
         <BottomNavBar />
       </Wrapper>
     </AppWrapper>
@@ -102,7 +93,8 @@ const MoveGrad = keyframes`
 `;
 
 const AppWrapper = styled.div`
-  background: linear-gradient(70deg, #fff, #7de7ff, #ffaffb);
+  // background: linear-gradient(70deg, #fff, #7de7ff, #ffaffb);
+  background: linear-gradient(70deg, #e9feff, #b5e7ef, #ffaffb);
   background-size: 200% 200%;
   animation: ${MoveGrad} 5s ease infinite;
 `;

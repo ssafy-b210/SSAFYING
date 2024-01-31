@@ -27,7 +27,9 @@ function FeedHeader() {
   return (
     <Header>
       <div>
-        <Img src={logo} alt="ssafying" height="30px" />
+        <Link to="/feedhome" className="home">
+          <Img src={logo} alt="ssafying" height="30px" />
+        </Link>
       </div>
       <div>
         <Link to="/search" className="search">

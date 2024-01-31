@@ -19,7 +19,6 @@ function UserRecommendListItem({ id }: Props) {
 }
 
 const UserItem = styled.div`
-  border: 1px solid lightgray;
   border-radius: 10px;
   width: 70px;
   min-height: 100px;
@@ -27,6 +26,8 @@ const UserItem = styled.div`
   padding: 10px;
   margin: 5px;
   text-align: center;
+  background-color: rgba(255, 255, 255, 0.3);
+  color: #4b4b4b;
 `;
 
 export default UserRecommendListItem;

@@ -35,7 +35,7 @@ const RecommendWrapper = styled.div`
 const Title = styled.div`
   font-size: 11px;
   margin-left: 10px;
-  color: gray;
+  color: #4b4b4b;
 `;
 
 const RecommendList = styled.div`
