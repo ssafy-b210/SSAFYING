@@ -6,6 +6,7 @@ import com.ssafying.domain.board.service.command.AddBoardCommentCommand;
 import com.ssafying.global.result.ResultResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,12 +51,19 @@ public class BoardController {
      * 5.3 게시판 게시글 스크랩
      */
     @PostMapping("/scrap")
-    public ResponseEntity<ResultResponse> boardScrap(
+    public ResponseEntity<ResultResponse<Integer>> boardScrap(
             @RequestBody @Valid ScrapBoardRequest request
     ) {
-        boardService.scrapBoard(request);
+        //TODO 유저 id 가져오는 방법은 아직 고민 중
+        int userId = 1;
 
-        return null;
+        int result = boardService.scrapBoard(userId, request);
+
+//        ResultResponse resultResponse = new ResultResponse(result);
+//
+//        return ResponseEntity.ok(result);
+
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
     /**
