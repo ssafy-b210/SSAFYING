@@ -1,38 +1,56 @@
 import React, { useEffect, useState } from "react";
-import Tesseract from "tesseract.js";
+import Tesseract, { LoggerMessage } from "tesseract.js";
 import styled from "styled-components";
 
-const ImageRecognition: React.FC = () => {
-  const [result, setResult] = useState<string | null>(null);
+interface ImageRecognitionProps {
+  imageUrl: string | null;
+  setMealPlanResult: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
+const ImageRecognition: React.FC<ImageRecognitionProps> = ({
+  imageUrl,
+  setMealPlanResult,
+}) => {
+  const [result, setResult] = useState<string[]>([]);
 
   useEffect(() => {
     const recognizeImage = async () => {
-      const imageUrl =
-        "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbo49uE%2FbtrmTPxkS2Y%2FHhQFnyFUDbWVdWNKVFE3IK%2Fimg.png";
+      if (!imageUrl) {
+        return;
+      }
 
       try {
+        const options: any = {
+          logger: (info: LoggerMessage) => console.log(info),
+        };
+
         const {
           data: { text },
-        } = await Tesseract.recognize(imageUrl, "eng+kor", {
-          logger: (info) => console.log(info),
-        });
+        } = await Tesseract.recognize(imageUrl, "eng+kor", options);
 
-        setResult(text);
+        const lines = text.split(/\n/).filter((line) => line.trim() !== "");
+        setResult(lines);
+        setMealPlanResult(lines);
       } catch (error) {
         console.error(error);
       }
     };
 
     recognizeImage();
-  }, []);
+  }, [imageUrl, setMealPlanResult]);
 
   return (
     <div>
-      <Title>식단표 사진을 올려주세요</Title>
-      {result !== null ? <p>결과: {result}</p> : <p>로딩 중...</p>}
-      <BtnContainer>
-        <CreateBtn>식단표 추가하기</CreateBtn>
-      </BtnContainer>
+      {/* <Title>식단표 사진을 올려주세요</Title> */}
+      {result.length > 0 ? (
+        <ResultContainer>
+          {result.map((line, index) => (
+            <p key={index}>{line}</p>
+          ))}
+        </ResultContainer>
+      ) : (
+        <p>로딩 중...</p>
+      )}
     </div>
   );
 };
@@ -43,12 +61,8 @@ const Title = styled.h3`
   display: flex;
   justify-content: center;
 `;
-const CreateBtn = styled.button`
-  border-radius: 20px;
-  padding: 5px;
-`;
-
-const BtnContainer = styled.div`
+const ResultContainer = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;
