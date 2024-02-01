@@ -23,21 +23,23 @@ interface ChartComponentProps {
       };
     };
     plugins: {
-      tooltip: false;
+      // tooltip: {
+      //   display: boolean;
+      // };
       legend: {
-        display: false;
+        display: boolean;
       };
     };
   };
 }
 
-const ChartComponent: React.FC<ChartComponentProps> = ({ data, options }) => {
+function ChartComponent(props: ChartComponentProps) {
   return (
     <BarContainer>
-      <Bar data={data} />
+      <Bar data={props.data} options={props.options} />
     </BarContainer>
   );
-};
+}
 
 export default ChartComponent;
 export type { ChartComponentProps };

@@ -1,24 +1,36 @@
 import styled from "styled-components";
-import MenuOne from "../../All/Board/BoardMenu/MenuOne";
+import Shuttle from "../../../assets/img/MenuIcon/Shuttle.svg";
+import Meal from "../../../assets/img/MenuIcon/Meal.svg";
+import Market from "../../../assets/img/MenuIcon/Market.svg";
 
 // 현재기수와 전체기수 진입시 메뉴 화면 구성 컴포넌트
 function MenuBar() {
   return (
-    <div>
-      <MenuContainer>
-        <MenuOne
-          link="/"
-          title="셔틀버스 위치공유"
-          text="광역 캠퍼스만 제공, 오전 9시 전까지만 제공"
-        ></MenuOne>
-        <MenuOne link="/mealplan" title="식단표" text="오점뭐?"></MenuOne>
-        <MenuOne
-          link="/market"
-          title="중고 거래 장터"
-          text="당신 근처의 소중한 거래"
-        ></MenuOne>
-      </MenuContainer>
-    </div>
+    <MenuContainer>
+      <Content>
+        <Card>
+          <Icon>
+            <img src={Shuttle} className="shuttle" />
+          </Icon>
+          <Title>셔틀버스 위치공유</Title>
+          <Text>광역 캠퍼스만 제공, 오전 9시 전까지만 제공</Text>
+        </Card>
+        <Card>
+          <Icon>
+            <img src={Meal} className="meal" />
+          </Icon>
+          <Title>식단표"</Title>
+          <Text>오점뭐?</Text>
+        </Card>
+        <Card>
+          <Icon>
+            <img src={Market} className="market" />
+          </Icon>
+          <Title>중고 거래 장터</Title>
+          <Text>당신 근처의 소중한 거래</Text>
+        </Card>
+      </Content>
+    </MenuContainer>
   );
 }
 
@@ -26,7 +38,95 @@ export default MenuBar;
 
 const MenuContainer = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Content = styled.div`
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+const Text = styled.p`
+  width: 80%;
+  margin: 0 auto;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 20px;
+  color: black;
+  font-weight: 400;
+  opacity: 0;
+  max-height: 0;
+  transition: all 0.3s ease;
+`;
+
+const Card = styled.div`
+  width: 100%;
+  height: 200px;
+  background-color: rgba(255, 255, 255, 0.3);
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.24);
+  border: 2px solid rgba(7, 7, 7, 0.12);
+  font-size: 16px;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0 20px;
+
+  &:hover {
+    height: 270px;
+
+    ${Text} {
+      transition: all 0.3s ease;
+      opacity: 1;
+      max-height: 40px;
+    }
+  }
+`;
+const Icon = styled.div`
+  margin: 0 auto;
+  width: 100%;
+  height: 80px;
+  max-width: 80px;
+  background: linear-gradient(
+    90deg,
+    #ffc0cb 0%,
+    #ff8e99 40%,
+    rgba(0, 0, 0, 0.28) 60%
+  );
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  transition: all 0.8s ease;
+  background-position: 0px;
+  background-size: 200px;
+  .meal {
+    width: 90px;
+  }
+  .shuttle {
+    width: 80%;
+  }
+  .market {
+    width: 80%;
+  }
+`;
+const Title = styled.p`
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  margin-top: 30px;
+  color: black;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 20px;
 `;
