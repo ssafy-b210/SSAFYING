@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import MenuOne from "./MenuOne";
+
+import { Link } from "react-router-dom";
+
 import Board from "../../../../assets/img/MenuIcon/Board.svg";
 import Crew from "../../../../assets/img/MenuIcon/Crew.svg";
 import Recruitment from "../../../../assets/img/MenuIcon/Recruitment.svg";
@@ -9,27 +11,33 @@ function MenuBar() {
   return (
     <MenuContainer>
       <Content>
-        <Card>
-          <Icon>
-            <img src={Board} />
-          </Icon>
-          <Title>게시판</Title>
-          <Text>자유, 취업, 개발 정보 자유롭게 공유해봐요!</Text>
-        </Card>
-        <Card>
-          <Icon>
-            <img src={Crew} />
-          </Icon>
-          <Title>사람 구하기</Title>
-          <Text>내가 찾는 사람이 어디있나</Text>
-        </Card>
-        <Card>
-          <Icon>
-            <img src={Recruitment} />
-          </Icon>
-          <Title>취업공고</Title>
-          <Text>너 내 동료가 되라</Text>
-        </Card>
+        <Link to={"/board"}>
+          <Card>
+            <Icon>
+              <img src={Board} />
+            </Icon>
+            <Title>게시판</Title>
+            <Text>자유, 취업, 개발 정보 자유롭게 공유해봐요!</Text>
+          </Card>
+        </Link>
+        <Link to={"/crew"}>
+          <Card>
+            <Icon>
+              <img src={Crew} />
+            </Icon>
+            <Title>사람 구하기</Title>
+            <Text>내가 찾는 사람이 어디있나</Text>
+          </Card>
+        </Link>
+        <Link to={"/recruit"}>
+          <Card>
+            <Icon>
+              <img src={Recruitment} />
+            </Icon>
+            <Title>취업공고</Title>
+            <Text>너 내 동료가 되라</Text>
+          </Card>
+        </Link>
       </Content>
     </MenuContainer>
   );
@@ -48,6 +56,9 @@ const Content = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  a {
+    text-decoration: none;
+  }
 `;
 
 const Text = styled.p`
@@ -64,7 +75,7 @@ const Text = styled.p`
 `;
 
 const Card = styled.div`
-  width: 100%;
+  width: 400px;
   height: 200px;
   background-color: rgba(255, 255, 255, 0.3);
   margin: 10px;

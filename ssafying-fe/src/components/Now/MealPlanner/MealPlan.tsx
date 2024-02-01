@@ -35,7 +35,7 @@ const MealPlan: React.FC<MealPlanProps> = ({ onVote, voteCount = 0 }) => {
         {mealPlanResult.length > 0 && (
           <ResultContainer>
             {mealPlanResult.map((line, index) => (
-              <p key={index}>{line}</p>
+              <StyledParagraph key={index}>{line}</StyledParagraph>
             ))}
           </ResultContainer>
         )}
@@ -52,7 +52,6 @@ const MealPlan: React.FC<MealPlanProps> = ({ onVote, voteCount = 0 }) => {
           accept="image/*"
           onChange={handleFileChange}
         ></input>
-        {/* <VoteCountText>{voteCount}</VoteCountText> */}
         <ImageRecognition
           imageUrl={imageUrl}
           setMealPlanResult={setMealPlanResult}
@@ -128,4 +127,7 @@ const VoteCountText = styled.p`
   margin-top: 5px;
   font-size: 14px;
   color: gray;
+`;
+const StyledParagraph = styled.p`
+  margin: 5px 0;
 `;

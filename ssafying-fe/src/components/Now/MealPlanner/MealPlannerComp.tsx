@@ -8,10 +8,9 @@ interface MealPlannerCompProps {
 
 const MealPlannerComp: React.FC<MealPlannerCompProps> = ({ onVote }) => {
   const handleVote = () => {
-    console.log("Voted!");
-
     onVote();
   };
+
   return (
     <MsgContainer>
       <MealPlannerContainer>
