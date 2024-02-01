@@ -42,6 +42,7 @@ import DirectMessageChattingRoom from "./pages/DirectMessage/DirectMessageChatti
 import NowMenu from "./pages/Now/NowMenu";
 import RecruitmentList from "./pages/All/Recruitment/RecruitementList";
 import BusRealTimeSelect from "./pages/Now/BusRealTime/BusRealTimeSelect";
+import BusRealTimeMap from "./pages/Now/BusRealTime/BusRealTimeMap";
 
 function App() {
   return (
@@ -65,6 +66,7 @@ function App() {
           <Route path="/market/create" element={<MarketCreate />} />
           <Route path="/mealplan" element={<SelectCampusMeal />} />
           <Route path="/bus" element={<BusRealTimeSelect />} />
+          <Route path="/bus/:id" element={<BusRealTimeMap />} />
 
           <Route path="/feedhome" element={<FeedMain />} />
           <Route path="/search" element={<FeedSearch />} />

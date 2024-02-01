@@ -22,7 +22,7 @@ function BusRealTimeSelect() {
           </div>
         </SelectWrapper>
       </SelectContainer>
-      <SubmitBtn text="셔틀 위치 보기" link="/" />
+      <SubmitBtn text="셔틀 위치 보기" link="/1" />
     </Wrapper>
   );
 }
