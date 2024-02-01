@@ -1,6 +1,6 @@
 import React from "react";
 import ImgBtn from "../Feed/utils/ImgBtn";
-import logo from "../../assets/img/Logo/logo1.svg";
+import logo from "../../assets/img/logoImg/logo1.svg";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import BambooForestList from "./BambooForestList";
