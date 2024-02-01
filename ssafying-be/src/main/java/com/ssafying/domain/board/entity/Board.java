@@ -35,8 +35,9 @@ public class Board extends BaseTimeEntity {
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE) //게시글 사라지면 댓글도 삭제됨
     private List<BoardComment> commentList = new ArrayList<>(); //댓글
 
-    @OneToOne(mappedBy = "board", cascade = CascadeType.REMOVE) //게시글 삭제되면 스크랩 여부도 삭제됨
-    private BoardScrap isScrap; // 스크랩 여부
+    //이게 필요한 상황은 이 board에 대해서 모든 user를 조회해올 때임 -> 그럴 필요없으니 주석처맄
+//    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE) //게시글 삭제되면 스크랩 여부도 삭제됨
+//    private List<BoardScrap> isScrap = new ArrayList<>(); // 스크랩 여부
 
     //생성일자와 수정일자는 BaseTimeEntity 에 있음
 
