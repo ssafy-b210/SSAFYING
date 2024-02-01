@@ -7,7 +7,7 @@ function MenuBar() {
     <div>
       <MenuContainer>
         <MenuOne
-          link="/"
+          link="/bus"
           title="셔틀버스 위치공유"
           text="광역 캠퍼스만 제공, 오전 9시 전까지만 제공"
         ></MenuOne>
