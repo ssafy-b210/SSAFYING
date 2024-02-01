@@ -23,8 +23,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Transactional
 public class BoardServiceTest {
 
-    @Autowired BoardService boardService;
-    @Autowired BoardRepository boardRepository;
+    @Autowired
+    BoardService boardService;
+    @Autowired
+    BoardRepository boardRepository;
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -63,7 +65,8 @@ public class BoardServiceTest {
 
 
     @Test
-    @Rollback(false) // rollback 되지 않도록 설정
+    @Rollback(false)
+        // rollback 되지 않도록 설정
     void 게시글스크랩() throws Exception {
         // given
 
@@ -120,5 +123,28 @@ public class BoardServiceTest {
 
 //        System.out.println(board);
         assertThat((detailBoard.getTitle())).isEqualTo("title222");
+    }
+
+    @Test
+    @Rollback(value = false)
+    void 게시글_삭제() {
+        //유저 생성
+        User user = new User();
+        user.setName("순_게시글삭제");
+        userRepository.save(user);
+
+        //게시글 생성
+        Board board = Board.createBoard(
+                "title222",
+                "content22",
+                CategoryStatus.FREEDOM,
+                false,
+                user
+        );
+
+        //댓글 생성
+
+
+        //게시글 삭제
     }
 }
