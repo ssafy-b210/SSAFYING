@@ -2,12 +2,11 @@ package com.ssafying.domain.board.dto.request;
 
 import com.ssafying.domain.board.entity.CategoryStatus;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
-//@AllArgsConstructor
-//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 public class AddBoardRequest {
 
@@ -22,6 +21,4 @@ public class AddBoardRequest {
 
     @NotNull(message = "익명 여부는 필수입니다.")
     boolean isAnonymous;
-
-
 }
