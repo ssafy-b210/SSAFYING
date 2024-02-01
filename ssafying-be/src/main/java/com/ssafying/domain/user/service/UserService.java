@@ -1,6 +1,6 @@
 package com.ssafying.domain.user.service;
 
-import com.ssafying.domain.user.dto.request.CreateUserRequest;
+import com.ssafying.domain.user.dto.request.UpdateUserRequest;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,51 +17,16 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    /*
-     * 회원 가입
-     */
-    @Transactional
-    public User createUser(final CreateUserRequest request){
-
-        //중복회원 검증
-        if (userRepository.existsByEmail(request.getEmail())) {
-            throw new IllegalStateException("동일한 이메일로 등록된 회원이 존재합니다.");
-        }
-
-        if (userRepository.existsByNickname(request.getNickname())){
-            throw new IllegalStateException("이미 사용 중인 닉네임입니다.");
-        }
-
-        //user build
-        User user = User.createUser(
-                request.getCampusId(),
-                request.getEmail(),
-                request.getPassword(),
-                request.getNickname(),
-                request.getBirthday(),
-                request.getPhoneNumber(),
-                request.getName(),
-                request.getGeneration(),
-                request.isMajor(),
-                request.getUserStatus()
-        );
-
-        User save = userRepository.save(user);
-
-        return save;
-
-    }
-
 
     /*
      * 회원 정보 조회
      */
     @Transactional
-    public User DetailUser(int userId){
+    public User detailUser(int userId){
 
         //해당 유저 찾기
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("유저 정보가 없습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("유저 정보를 찾을 수 없습니다."));
 
 
         user = User.detailUser(user.getEmail(), user.getNickname(), user.getPhoneNumber(), user.getName(), user.getIntro(), user.getProfileImageUrl());
@@ -70,6 +35,47 @@ public class UserService {
 
     }
 
+    /*
+     * 회원 정보 수정
+     */
+    @Transactional
+    public User UpdateUser(final UpdateUserRequest request){
+
+        //해당 유저 찾기
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("유저 정보를 찾을 수 없습니다."));
+
+        User updateUserInfo = User.updateUser(
+                request.getNickname(),
+                request.getPhoneNumber(),
+                request.getPassword(),
+                request.getIntro(),
+                request.getProfileImageUrl()
+        );
+
+        if (request.getNickname() != null) {
+            user.setNickname(request.getNickname());
+        }
+
+        if (request.getPhoneNumber() != null) {
+            user.setPhoneNumber(request.getPhoneNumber());
+        }
+
+        if (request.getPassword() != null) {
+            user.setPassword(request.getPassword());
+        }
+
+        if (request.getIntro() != null) {
+            user.setIntro(request.getIntro());
+        }
+
+        if (request.getProfileImageUrl() != null) {
+            user.setProfileImageUrl(request.getProfileImageUrl());
+        }
+
+        return user;
+
+    }
 
 
 }

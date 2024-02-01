@@ -12,7 +12,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -21,13 +20,13 @@ import java.util.List;
 public class User extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private int id; //회원 id
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "campus_id")
-    private Campus campusId; //캠퍼스 id
+    private Campus campus; //캠퍼스
 
     @Column(unique = true)
     private String email; //이메일
@@ -74,7 +73,7 @@ public class User extends BaseTimeEntity {
      */
     public static User createUser(
 
-            Campus campusId,
+            Campus campus,
             String email,
             String password,
             String nickname,
@@ -88,7 +87,7 @@ public class User extends BaseTimeEntity {
 
         User user = new User();
 
-        user.campusId = campusId;
+        user.campus = campus;
         user.email = email;
         user.password = password;
         user.nickname = nickname;
@@ -129,7 +128,41 @@ public class User extends BaseTimeEntity {
     }
 
     /*
-     *
+     * 회원 정보 수정
      */
+    public static User updateUser(
+
+            String nickname,
+            String phoneNumber,
+            String password,
+            String intro,
+            String profileImageUrl
+    ){
+        User user = new User();
+
+        //null 값이 아닌 값만 주입
+
+        if (nickname != null) {
+            user.setNickname(nickname);
+        }
+
+        if (phoneNumber != null) {
+            user.setPhoneNumber(phoneNumber);
+        }
+
+        if (password != null) {
+            user.setPassword(password);
+        }
+
+        if (intro != null) {
+            user.setIntro(intro);
+        }
+
+        if (profileImageUrl != null) {
+            user.setProfileImageUrl(profileImageUrl);
+        }
+
+        return user;
+    }
 
 }
