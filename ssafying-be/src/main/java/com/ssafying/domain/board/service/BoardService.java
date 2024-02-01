@@ -10,7 +10,6 @@ import com.ssafying.domain.board.repository.jdbc.BoardScarpRepository;
 import com.ssafying.domain.board.service.command.AddBoardCommentCommand;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
-import com.ssafying.global.util.AuthUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +24,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
     private final BoardScarpRepository boardScarpRepository;
-    private final AuthUtil authUtil;
+    //    private final AuthUtil authUtil;
     private final BoardCommentRepository boardCommentRepository;
 
     /**
@@ -80,14 +79,14 @@ public class BoardService {
      * 5.3 게시판 게시글 스크랩
      */
     @Transactional
-    public int scrapBoard(ScrapBoardRequest request) {
+    public int scrapBoard(int userId, ScrapBoardRequest request) {
 
         //user 정보는 로그인하고 난 후, 가져올 수 있음.
         //프론트에서 userId를 받지 말고 user 정보를 빼오기
 
         //**수정필요
         //request로 넘어온 userId가 존재하는지 확인
-        User user = userRepository.findById(request.getUserId())
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
 
         //request 로 넘어온 boardId가 존재하는지 확인
@@ -142,7 +141,7 @@ public class BoardService {
                 .orElseThrow(() -> (new RuntimeException("해당 게시글이 존재하지 않습니다.")));
 
         //userId 정보를 가져옴
-        int loginUserId = authUtil.getLoginUserId();
+//        int loginUserId = authUtil.getLoginUserId();
 
         //TODO 요청에 jwt 안에 userId가 원래 값과 맞는지 비교를 해봐야되려나
 
