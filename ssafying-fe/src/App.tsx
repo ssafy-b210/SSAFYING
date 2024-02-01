@@ -84,10 +84,7 @@ function App() {
           <Route path="/profile/following" element={<FollowingList />} />
           <Route path="/profile/follower" element={<FollowerList />} />
           <Route path="/direct" element={<DirectMessageChats />} />
-          <Route
-            path="/direct/chat/:id"
-            element={<DirectMessageChattingRoom />}
-          />
+          <Route path="/direct/:id" element={<DirectMessageChattingRoom />} />
           <Route path="/meal/create" element={<MealPlannerCreate />} />
         </Routes>
         <BottomNavBar />

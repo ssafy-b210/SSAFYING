@@ -13,7 +13,10 @@ function MealPlannerCreate() {
         extraBtn={<PlusBtn link="/meal/create" />}
       ></BackBtnHeader>
       <SelectCampus></SelectCampus>
-      <ImageRecognition></ImageRecognition>
+      {/* <ImageRecognition
+        setMealPlanResult={}
+        imageUrl={"https://i.ibb.co/zZ975XV/240129.png"}
+      ></ImageRecognition> */}
     </div>
   );
 }

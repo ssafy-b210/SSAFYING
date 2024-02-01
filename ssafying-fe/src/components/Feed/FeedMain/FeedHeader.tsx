@@ -1,4 +1,4 @@
-import logo from "../../../assets/img/logo/logo1.svg";
+import logo from "../../../assets/img/logoImg/logo1.svg";
 import search from "../../../assets/img/imgBtn/search.svg";
 import add from "../../../assets/img/imgBtn/add.svg";
 import alarm from "../../../assets/img/imgBtn/alarm.svg";

@@ -1,27 +1,28 @@
 import styled from "styled-components";
-import CustomDate from "./TodayDate";
+
 import MealPlan, { MealPlanProps } from "./MealPlan";
 
-function MealPlannerComp() {
+interface MealPlannerCompProps {
+  onVote: () => void;
+}
+
+const MealPlannerComp: React.FC<MealPlannerCompProps> = ({ onVote }) => {
   const handleVote = () => {
     console.log("Voted!");
+
+    onVote();
   };
   return (
     <MsgContainer>
-      <IsMealMsg>
-        <CustomDate></CustomDate> 당신의 점심을 투표해주세요
-      </IsMealMsg>
       <MealPlannerContainer>
-        <MealPlan onVote={handleVote} />
-        <MealPlan onVote={handleVote} />
+        <MealPlan onVote={handleVote} voteCount={0} />
       </MealPlannerContainer>
     </MsgContainer>
   );
-}
+};
 
 export default MealPlannerComp;
 
-const IsMealMsg = styled.h3``;
 const MsgContainer = styled.div`
   text-align: center;
   display: flex;
