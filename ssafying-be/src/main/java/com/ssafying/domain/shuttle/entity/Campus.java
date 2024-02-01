@@ -10,7 +10,7 @@ import lombok.Getter;
 public class Campus {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "campus_id")
     private int campusId; //캠퍼스 아이디
 
