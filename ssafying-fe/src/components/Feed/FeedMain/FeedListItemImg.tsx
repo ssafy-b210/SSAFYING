@@ -1,27 +1,42 @@
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import userImg from "../../../assets/img/testImg/user5.svg";
 import userImg2 from "../../../assets/img/testImg/user4.svg";
 import userImg3 from "../../../assets/img/testImg/user3.svg";
 
 function FeedListItemImg() {
+  const [currentImage, setCurrentImage] = useState(0);
+  const images = [userImg, userImg2, userImg3];
+
+  const handleNext = () => {
+    setCurrentImage((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  const handlePrev = () => {
+    setCurrentImage((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
   return (
-    <Carousel showArrows showThumbs={false}>
-      <div>
-        <Img src={userImg} alt="User 1" />
-      </div>
-      <div>
-        <Img src={userImg2} alt="User 2" />
-      </div>
-      <div>
-        <Img src={userImg3} alt="User 3" />
-      </div>
-    </Carousel>
+    <Wrapper>
+      <ImgWrapper>
+        <Img src={images[currentImage]} alt={`User ${currentImage + 1}`} />
+        <ButtonLeft onClick={handlePrev}>◀</ButtonLeft>
+        <ButtonRight onClick={handleNext}>▶</ButtonRight>
+      </ImgWrapper>
+    </Wrapper>
   );
 }
 
-export default FeedListItemImg;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ImgWrapper = styled.div`
+  position: relative;
+  width: 95%;
+`;
 
 const Img = styled.img`
   width: 100%;
@@ -29,3 +44,35 @@ const Img = styled.img`
   border-radius: 5px;
   height: auto;
 `;
+
+const Button = styled.button`
+  position: absolute;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+`;
+
+const ButtonLeft = styled(Button)`
+  left: 10px;
+  top: 45%;
+`;
+
+const ButtonRight = styled(Button)`
+  right: 10px;
+  top: 45%;
+`;
+
+export default FeedListItemImg;

@@ -4,6 +4,8 @@ import logo from "../../assets/img/logoImg/logo1.svg";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import BambooForestList from "./BambooForestList";
+import BambooItemModal from "./BambooItemModal";
+import BambooWriteModal from "./BambooWriteModal";
 
 function BambooForestContent() {
   return (
@@ -15,7 +17,9 @@ function BambooForestContent() {
       </Header>
       <BambooForestList />
       <ButtonWrapper>
-        <button>대나무숲에 소리치기</button>
+        <BambooItemModal btnTxt="대나무숲에 소리치기">
+          <BambooWriteModal />
+        </BambooItemModal>
       </ButtonWrapper>
     </div>
   );

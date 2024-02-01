@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import BambooForestListItem from "./BambooForestListItem";
 
-// styled-components를 사용하여 스타일 정의
 const Container = styled.div`
   display: flex;
   padding: 5% 5%;
