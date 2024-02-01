@@ -56,6 +56,8 @@ function App() {
 
           <Route path="/all" element={<AllMenu />} />
           <Route path="/board" element={<BoardList />} />
+          <Route path="/board/${id}" element={<BoardDetail />} />
+          <Route path="/board/create" element={<BoardCreate />} />
           <Route path="/crew" element={<CrewList />} />
           <Route path="/recruit" element={<RecruitmentList />} />
 

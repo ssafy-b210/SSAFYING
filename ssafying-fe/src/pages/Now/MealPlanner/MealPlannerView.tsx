@@ -39,6 +39,9 @@ function MealPlannerView() {
     },
     plugins: {
       tooltip: false as any,
+      legend: {
+        display: false as const,
+      },
     },
   };
 

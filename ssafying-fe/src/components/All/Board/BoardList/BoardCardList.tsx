@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 interface BoardCardList {
+  id: number;
   title: string;
   nickname: string;
 }
@@ -31,15 +33,26 @@ const Back: React.FC<BackProps> = ({ description }) => (
 );
 
 function BoardCardList() {
+  const navigate = useNavigate();
   const [cardInfo, setCardInfo] = React.useState<BoardCardList[]>([
-    { title: "유온역 맛집 추천받아요", nickname: "su00" },
+    { id: 1, title: "유온역 맛집 추천받아요", nickname: "sueun" },
   ]);
+
+  const handleClick = (id: number) => {
+    navigate("/board/${id}");
+  };
 
   return (
     <BoardCardContainer className="flip-inner">
       {cardInfo.map((info, idx) => (
         <React.Fragment key={idx}>
-          <Cards info={info} />
+          <StyledCards onClick={() => handleClick(info.id)}>
+            <h2 className="title">{info.title}</h2>
+            <hr></hr>
+            <div className="small-container">
+              <p className="nickname">{info.nickname}</p>
+            </div>
+          </StyledCards>
           <Back description="대전캠퍼스 봉명동 맛집 제발요..." />
         </React.Fragment>
       ))}

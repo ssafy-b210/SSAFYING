@@ -3,7 +3,7 @@ import styled from "styled-components";
 function CreateTitle() {
   return (
     <Title>
-      <h5>제목</h5>
+      <h4>제목</h4>
       <TitleContainer>
         <input type="text" />
       </TitleContainer>
@@ -14,7 +14,7 @@ function CreateTitle() {
 export default CreateTitle;
 
 const Title = styled.div`
-  h5 {
+  h4 {
     margin-left: 20px;
   }
 `;

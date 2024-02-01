@@ -3,7 +3,7 @@ import styled from "styled-components";
 function CreateContent() {
   return (
     <Content>
-      <h5>내용</h5>
+      <h4>내용</h4>
       <ContentContainer>
         <StyledInput />
       </ContentContainer>
@@ -14,7 +14,7 @@ function CreateContent() {
 export default CreateContent;
 
 const Content = styled.div`
-  h5 {
+  h4 {
     margin-left: 20px;
   }
 `;
@@ -33,4 +33,5 @@ const StyledInput = styled.textarea`
   background-color: #f4f9f4;
   line-height: 1.5;
   resize: none;
+  margin-bottom: 20px;
 `;

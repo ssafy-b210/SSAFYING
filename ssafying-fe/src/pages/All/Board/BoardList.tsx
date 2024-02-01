@@ -11,7 +11,7 @@ function BoardList() {
         backLink="/all"
         htext={<h2>게시판</h2>}
         isCenter={true}
-        extraBtn={<PlusBtn link="/" />}
+        extraBtn={<PlusBtn link="/board/create" />}
       />
       <BoardSortTab></BoardSortTab>
       <SearchBarOnly></SearchBarOnly>

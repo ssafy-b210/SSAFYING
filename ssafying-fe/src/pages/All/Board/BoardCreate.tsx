@@ -21,7 +21,7 @@ function BoardCreate() {
   return (
     <div>
       <BackBtnHeader
-        backLink="/"
+        backLink="/board"
         htext={<h2>게시판</h2>}
         isCenter={true}
       ></BackBtnHeader>

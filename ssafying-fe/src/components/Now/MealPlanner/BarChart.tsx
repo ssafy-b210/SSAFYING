@@ -24,6 +24,9 @@ interface ChartComponentProps {
     };
     plugins: {
       tooltip: false;
+      legend: {
+        display: false;
+      };
     };
   };
 }
@@ -40,6 +43,8 @@ export default ChartComponent;
 export type { ChartComponentProps };
 
 const BarContainer = styled.div`
+  display: flex;
+  justify-content: center;
   margin-top: 50px;
   padding-bottom: 200px;
 `;

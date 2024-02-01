@@ -25,7 +25,7 @@ const SelectCategory: React.FC<SelectCategoryProps> = ({
 
   return (
     <Category>
-      <h5>{category}</h5>
+      <h4>{category}</h4>
       <CategoryContainer
         className="select-box"
         value={selectedOption}
@@ -44,7 +44,7 @@ const SelectCategory: React.FC<SelectCategoryProps> = ({
 export default SelectCategory;
 
 const Category = styled.div`
-  h5 {
+  h4 {
     margin-left: 20px;
   }
   display: flex;

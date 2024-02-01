@@ -42,7 +42,10 @@ function AddPhoto() {
 
   return (
     <PhotoAddForm>
-      <h5>사진</h5>
+      <h4>사진</h4>
+      <UploadButton onClick={() => imagePreviewRef.current?.click()}>
+        📷 Upload Images
+      </UploadButton>
       <PhotoInputContainer>
         <PhotoRealInput
           type="file"
@@ -63,11 +66,18 @@ function AddPhoto() {
 export default AddPhoto;
 
 const PhotoAddForm = styled.div`
-  h5 {
+  h4 {
     margin-left: 20px;
   }
 `;
-
+const UploadButton = styled.button`
+  background-color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+`;
 const PhotoInputContainer = styled.div`
   display: flex;
   flex-direction: column;

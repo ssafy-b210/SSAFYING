@@ -3,7 +3,7 @@ import styled from "styled-components";
 function MarketPriceInput() {
   return (
     <PriceInput>
-      <h5>금 액</h5>
+      <h4>금 액</h4>
       <PriceContainer>
         <input type="number" />원
       </PriceContainer>
@@ -16,7 +16,7 @@ export default MarketPriceInput;
 const PriceInput = styled.div`
   display: flex;
   align-items: center;
-  h5 {
+  h4 {
     margin-left: 20px;
   }
 `;

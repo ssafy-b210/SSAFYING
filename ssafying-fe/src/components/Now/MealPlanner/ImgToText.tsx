@@ -44,12 +44,12 @@ const ImageRecognition: React.FC<ImageRecognitionProps> = ({
       {/* <Title>식단표 사진을 올려주세요</Title> */}
       {result.length > 0 ? (
         <ResultContainer>
-          {result.map((line, index) => (
+          {/* {result.map((line, index) => (
             <p key={index}>{line}</p>
-          ))}
+          ))} */}
         </ResultContainer>
       ) : (
-        <p>로딩 중...</p>
+        <p></p>
       )}
     </div>
   );
