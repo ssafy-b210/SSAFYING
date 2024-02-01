@@ -3,10 +3,10 @@ package com.ssafying.domain.board.entity;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "board") //자유게시판
@@ -31,6 +31,12 @@ public class Board extends BaseTimeEntity {
 
     @Column(name = "is_anonymous")
     private boolean isAnonymous; //익명여부
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE) //게시글 사라지면 댓글도 삭제됨
+    private List<BoardComment> commentList = new ArrayList<>(); //댓글
+
+    @OneToOne(mappedBy = "board", cascade = CascadeType.REMOVE) //게시글 삭제되면 스크랩 여부도 삭제됨
+    private BoardScrap isScrap; // 스크랩 여부
 
     //생성일자와 수정일자는 BaseTimeEntity 에 있음
 
