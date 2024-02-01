@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "feed")
 @Getter
@@ -24,5 +27,22 @@ public class Feed extends BaseTimeEntity {
 
     @ColumnDefault("0")
     private int hit; // 조회수
+
+    @OneToMany(mappedBy = "feed")
+    private List<FeedHashtag> feedTags = new ArrayList<>();
+
+    @OneToMany(mappedBy = "feed")
+    private List<FeedImage> feedImages = new ArrayList<>();
+
+    public static Feed createFeed(
+            User user,
+            String content
+    ) {
+        Feed feed = new Feed();
+        feed.user = user;
+        feed.content = content;
+
+        return feed;
+    }
 
 }

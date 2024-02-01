@@ -1,11 +1,9 @@
 package com.ssafying.global.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "hashtag")
 public class Hashtag {
 
     @Id
@@ -15,5 +13,11 @@ public class Hashtag {
 
     @Column(name = "teg_name")
     private String tagName;
+
+    public static Hashtag createTag(String tagName) {
+        Hashtag hashtag = new Hashtag();
+        hashtag.tagName = tagName;
+        return hashtag;
+    }
 
 }

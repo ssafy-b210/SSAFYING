@@ -5,6 +5,10 @@ import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/*
+* http://localhost:8081/api/swagger-ui/index.html/
+*/
+
 @Configuration
 public class SwaggerConfig {
 

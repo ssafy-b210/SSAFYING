@@ -20,4 +20,14 @@ public class FeedImage {
     @Column(name = "image_url")
     private String imageUrl; // 이미지 url
 
+    public static FeedImage createFeedImage(
+            Feed feed,
+            String imageUrl
+    ) {
+        FeedImage feedImage = new FeedImage();
+        feedImage.feed = feed;
+        feedImage.imageUrl = imageUrl;
+        return feedImage;
+    }
+
 }

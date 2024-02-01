@@ -1,11 +1,12 @@
 package com.ssafying.domain.feed.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.ssafying.global.entity.Hashtag;
+import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
+@Table(name = "feed_hashtag")
+@Getter
 public class FeedHashtag {
 
     @Id
@@ -13,6 +14,23 @@ public class FeedHashtag {
     @Column(name = "feed_hashtag_id")
     private int id;
 
-    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "feed_id")
+    private Feed feed;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hashtag_id")
+    private Hashtag hashtag;
+
+    public static FeedHashtag createFeedtag(
+            Feed feed,
+            Hashtag hashtag
+    ) {
+        FeedHashtag feedHashtag = new FeedHashtag();
+        feedHashtag.feed = feed;
+        feedHashtag.hashtag = hashtag;
+
+        return feedHashtag;
+    }
 
 }
