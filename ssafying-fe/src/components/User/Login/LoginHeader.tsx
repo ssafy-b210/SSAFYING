@@ -1,6 +1,5 @@
 import styled from "styled-components";
-
-import logo2 from "../../../assets/img/logo/logo2.svg";
+import logo2 from "../../../assets/img/Logo/logo2.svg";
 
 function LoginHeader() {
   return (
