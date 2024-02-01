@@ -4,6 +4,7 @@ import RoundImg from "../../components/Feed/utils/RoundImg";
 import userImg from "../../assets/img/testImg/user.svg"; // TEST
 import styled from "styled-components";
 import ExitBtn from "../../components/Common/ExitBtn";
+import { ChangeEvent, useState } from "react";
 
 function DirectMessageChattingRoom() {
   const chatList = [
@@ -52,6 +53,12 @@ function DirectMessageChattingRoom() {
     },
   ];
 
+  const [chatInputValue, setChatInputValue] = useState("");
+
+  function chatInputChangeHandle(e: ChangeEvent<HTMLInputElement>) {
+    setChatInputValue(e.target.value);
+  }
+
   return (
     <div>
       <BackBtnHeader
@@ -77,7 +84,6 @@ function DirectMessageChattingRoom() {
           2. 현재 채팅(chat)의 작성자가 다음 채팅과 같음
           3. 현재 채팅의 작성시간이 다음 채팅과 같음
           */
-
           const isContinuous =
             nextChat &&
             nextChat.userId === chat.userId &&
@@ -95,6 +101,10 @@ function DirectMessageChattingRoom() {
           );
         })}
       </div>
+      <ChatInputBox>
+        <input type="text" onChange={chatInputChangeHandle} />
+        {chatInputValue.length > 0 ? <button>보내기</button> : null}
+      </ChatInputBox>
     </div>
   );
 }
@@ -108,5 +118,38 @@ const HeaderTextWrapper = styled.div`
   .text {
     margin: 10px;
     font-weight: 600;
+  }
+`;
+
+const ChatInputBox = styled.div`
+  position: relative;
+  width: 100%;
+
+  input {
+    width: 100%;
+    height: 40px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-family: "Noto Sans KR", "Noto Sans", sans-serif;
+    border: 2px solid #ddd9e0;
+    border-radius: 20px;
+    box-sizing: border-box;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 18px;
+    color: #565cf8;
+    font-weight: 600;
+    font-family: "Noto Sans KR", "Noto Sans", sans-serif;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
   }
 `;
