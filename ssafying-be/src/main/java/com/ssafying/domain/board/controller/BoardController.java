@@ -2,6 +2,7 @@ package com.ssafying.domain.board.controller;
 
 import com.ssafying.domain.board.dto.request.*;
 import com.ssafying.domain.board.service.BoardService;
+import com.ssafying.domain.board.service.command.AddBoardCommentCommand;
 import com.ssafying.global.result.ResultResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 //@Api
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/boards")
+@RequestMapping("/api/boards")
 public class BoardController {
 
     private final BoardService boardService;
@@ -23,7 +24,9 @@ public class BoardController {
     public ResponseEntity<ResultResponse> boardAdd(
             @RequestBody @Valid AddBoardRequest request) {
 
-        boardService.addBoard(request);
+        //TODO 유저 id 가져오는 방법은 아직 고민 중
+        int userId = 1;
+        boardService.addBoard(userId, request);
 
         return null;
     }
@@ -107,7 +110,22 @@ public class BoardController {
             @PathVariable int boardId,
             @RequestBody AddBoardCommentRequest request
     ) {
-        boardService.addComment(boardId, request);
+
+        //TODO 유저 id 가져오는 방법은 아직 고민 중
+        int userId = 1;
+
+        //유저 + boardId + request
+        AddBoardCommentCommand command = AddBoardCommentCommand.builder()
+                .boardId(boardId)
+                .userId(userId)
+                .content(request.getContent())
+                .isAnonymous(request.isAnonymous())
+                .parentId(request.getParentId())
+                .build();
+
+//        boardService.addComment(boardId, request);
+
+        boardService.addComment(command);
 
         return null;
     }
