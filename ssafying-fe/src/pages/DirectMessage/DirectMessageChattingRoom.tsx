@@ -69,11 +69,15 @@ function DirectMessageChattingRoom() {
         {chatList.map((chat, idx) => {
           const nextChat = chatList[idx + 1];
 
-          // 특정 유저가 같은 시간에 2개 이상의 채팅을 보낸 상황을 연속 채팅이라고 정의합니다.
-          // 아래의 조건이 모두 만족할 때 연속 채팅이라고 판단합니다.
-          // 1. 다음 채팅(nextChat)이 존재함
-          // 2. 현재 채팅(chat)의 작성자가 다음 채팅과 같음
-          // 3. 현재 채팅의 작성시간이 다음 채팅과 같음
+          /*
+          특정 유저가 같은 시간에 2개 이상의 채팅을 보낸 상황을 연속 채팅이라고 정의합니다.
+          
+          아래의 조건이 모두 만족할 때 연속 채팅이라고 판단합니다.
+          1. 다음 채팅(nextChat)이 존재함
+          2. 현재 채팅(chat)의 작성자가 다음 채팅과 같음
+          3. 현재 채팅의 작성시간이 다음 채팅과 같음
+          */
+
           const isContinuous =
             nextChat &&
             nextChat.userId === chat.userId &&
