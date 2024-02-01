@@ -2,9 +2,12 @@ package com.ssafying.domain.board.service;
 
 import com.ssafying.domain.board.dto.request.*;
 import com.ssafying.domain.board.entity.Board;
+import com.ssafying.domain.board.entity.BoardComment;
 import com.ssafying.domain.board.entity.BoardScrap;
+import com.ssafying.domain.board.repository.jdbc.BoardCommentRepository;
 import com.ssafying.domain.board.repository.jdbc.BoardRepository;
 import com.ssafying.domain.board.repository.jdbc.BoardScarpRepository;
+import com.ssafying.domain.board.service.command.AddBoardCommentCommand;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
 import com.ssafying.global.util.AuthUtil;
@@ -23,6 +26,7 @@ public class BoardService {
     private final UserRepository userRepository;
     private final BoardScarpRepository boardScarpRepository;
     private final AuthUtil authUtil;
+    private final BoardCommentRepository boardCommentRepository;
 
     /**
      * 5.1 게시판 게시글 작성
@@ -30,31 +34,31 @@ public class BoardService {
      * @return
      */
     @Transactional
-    public int addBoard(AddBoardRequest request) {
+    public int addBoard(int userId, AddBoardRequest request) {
 
         //** 수정필요
         //global에서 갖고오기
-        int userId = authUtil.getLoginUserId();
+//        int userId = authUtil.getLoginUserId();
 
         //유저가 있는지 확인한 후, 유저가 없다면 익셉션을 발생시킴
-//        User user = userRepository.findById(request.getUserId())
-//                .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
 
 
         //디비에 저장할 Board 준비
-//        Board board = Board.createBoard(
-//                request.getTitle(),
-//                request.getContent(),
-//                request.getCategory(),
-//                request.isAnonymous(),
-//                user
-//        );
+        Board board = Board.createBoard(
+                request.getTitle(),
+                request.getContent(),
+                request.getCategory(),
+                request.isAnonymous(),
+                user
+        );
 
-        //디비에 Board 저장
-//        Board save = boardRepository.save(board);
+//        디비에 Board 저장
+        Board save = boardRepository.save(board);
 
-//        return save.getId();
-        return 0;
+        return save.getId();
+//        return 0;
     }
 
     /**
@@ -120,6 +124,7 @@ public class BoardService {
 
         //존재한다면 해당 게시글을 상세 조회
 
+
         //board를 Response에 담아서 넘겨줘야할 듯요
 
         return board;
@@ -131,7 +136,26 @@ public class BoardService {
      */
     @Transactional
     public void removeBoard(int boardId) {
+
+        //삭제하려는 게시글이 있는지 확인해줌
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> (new RuntimeException("해당 게시글이 존재하지 않습니다.")));
+
+        //userId 정보를 가져옴
+        int loginUserId = authUtil.getLoginUserId();
+
+        //TODO 요청에 jwt 안에 userId가 원래 값과 맞는지 비교를 해봐야되려나
+
+        //게시글이 있다면 게시글을 삭제해줌
+        //게시글이 삭제되면 댓글이랑 스크랩도 줄줄이 삭제돼야 함 (cascade 걸어놓음)
+        boardRepository.delete(board);
+
+
+        //jwt에서 read를 제외한 나머지 연산들은 토큰을 까서 안의 값이랑 저장해놨던 값이랑 비교를 해야되려나?
+
+
     }
+
 
     /**
      * 5.6 게시판 게시글 수정
@@ -144,7 +168,27 @@ public class BoardService {
      * 5.7 게시판 게시글 댓글 작성
      */
     @Transactional
-    public void addComment(int boardId, AddBoardCommentRequest request) {
+    public void addComment(AddBoardCommentCommand command) {
+
+        // 유저 가져오기
+        User user = userRepository.findById(command.getUserId())
+                .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
+
+        // 해당 게시글이 있는지 확인해줌
+        Board board = boardRepository.findById(command.getBoardId())
+                .orElseThrow(() -> (new RuntimeException("해당 게시글이 존재하지 않습니다.")));
+
+        //있다면 comment 를 추가해줌
+        BoardComment boardComment = BoardComment.createBoardComment(
+                board,
+                user,
+                command.getContent(),
+                false,
+                false,
+                command.getParentId()
+        );
+
+        boardCommentRepository.save(boardComment);
     }
 
     /**
