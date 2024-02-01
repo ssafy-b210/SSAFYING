@@ -8,22 +8,6 @@ import ImgBtn from "../utils/ImgBtn";
 import { Link } from "react-router-dom";
 
 function FeedHeader() {
-  function clickSearchBtn() {
-    console.log("search");
-  }
-
-  function clickAddBtn() {
-    console.log("add");
-  }
-
-  function clickAlarmBtn() {
-    console.log("alarm");
-  }
-
-  function clickDmBtn() {
-    console.log("dm");
-  }
-
   return (
     <Header>
       <div>
@@ -33,15 +17,15 @@ function FeedHeader() {
       </div>
       <div>
         <Link to="/search" className="search">
-          <ImgBtn src={search} size="21px" onClick={clickSearchBtn} />
+          <ImgBtn src={search} size="21px" />
         </Link>
         <Link to="/feedwrite" className="write">
-          <ImgBtn src={add} size="21px" onClick={clickAddBtn} />
+          <ImgBtn src={add} size="21px" />
         </Link>
         <Link to="/alarmdetail" className="alarm">
-          <ImgBtn src={alarm} size="21px" onClick={clickAlarmBtn} />
+          <ImgBtn src={alarm} size="21px" />
         </Link>
-        <ImgBtn src={dm} size="21px" onClick={clickDmBtn} />
+        <ImgBtn src={dm} size="21px" />
       </div>
     </Header>
   );
