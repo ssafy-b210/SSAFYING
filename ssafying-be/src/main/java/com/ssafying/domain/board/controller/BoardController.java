@@ -59,10 +59,6 @@ public class BoardController {
 
         int result = boardService.scrapBoard(userId, request);
 
-//        ResultResponse resultResponse = new ResultResponse(result);
-//
-//        return ResponseEntity.ok(result);
-
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
