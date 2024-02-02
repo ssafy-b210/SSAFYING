@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface BoardCardList {
   id: number;
@@ -13,26 +13,33 @@ interface CardsProps {
   info: BoardCardList;
 }
 
+const truncate = (str: string, n: number) => {
+  return str?.length > n ? str.substr(0, n - 1) + "..." : str;
+};
+
 const Cards: React.FC<CardsProps> = ({ info }) => {
   const [isFlipped, setIsFlipped] = React.useState(false);
 
   return (
     <StyledCards>
-      <CardContainer
-        onMouseEnter={() => setIsFlipped(true)}
-        onMouseLeave={() => setIsFlipped(false)}
-      >
-        <FrontSide isFlipped={isFlipped}>
-          <StyledCardsTitle>{info.title}</StyledCardsTitle>
-          <hr />
-          <SmallContainer>
-            <p>{info.nickname}</p>
-          </SmallContainer>
-        </FrontSide>
-        <BackSide isFlipped={isFlipped}>
-          <h4>{info.description}</h4>
-        </BackSide>
-      </CardContainer>
+      <Link to={`/board/${info.id}`}>
+        <CardContainer
+          onMouseEnter={() => setIsFlipped(true)}
+          onMouseLeave={() => setIsFlipped(false)}
+          key={info.id}
+        >
+          <FrontSide isFlipped={isFlipped}>
+            <StyledCardsTitle>{truncate(info.title, 20)}</StyledCardsTitle>
+            <hr />
+            <SmallContainer>
+              <p>{info.nickname}</p>
+            </SmallContainer>
+          </FrontSide>
+          <BackSide isFlipped={isFlipped}>
+            <h4>{truncate(info.description, 100)}</h4>
+          </BackSide>
+        </CardContainer>
+      </Link>
     </StyledCards>
   );
 };
@@ -43,7 +50,8 @@ function BoardCardList() {
       id: 1,
       title: "유온역 맛집 추천받아요",
       nickname: "sueun",
-      description: "숙취용 부탁해",
+      description:
+        "숙취용 부탁해testesetsajfdklajfjaklfjsasjflkdjfakljfkslfjkfjsakfjkjfskfjsakfjskfjakjfkfjkdajfakljfakfjaksdl",
     },
     {
       id: 2,
@@ -54,7 +62,7 @@ function BoardCardList() {
   ]);
 
   return (
-    <BoardCardContainer className="flip-inner">
+    <BoardCardContainer>
       {cardInfo.map((info, idx) => (
         <Cards key={idx} info={info} />
       ))}
@@ -76,7 +84,6 @@ const CardContainer = styled.div`
   height: 100%;
   position: relative;
   transition: all 0.5s;
-  // perspective-origin: center;
   transform-style: preserve-3d;
   border: 3px solid gray;
   border-radius: 20px;
@@ -91,6 +98,9 @@ const StyledCards = styled.div`
   &:hover ${CardContainer} {
     transform: rotateY(180deg);
   }
+  a {
+    text-decoration: none;
+  }
 `;
 
 const FrontSide = styled.div<{ isFlipped: boolean }>`
@@ -98,6 +108,17 @@ const FrontSide = styled.div<{ isFlipped: boolean }>`
   height: 100%;
   position: absolute;
   backface-visibility: hidden;
+  color: black;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  word-wrap: break-word;
+
+  hr {
+    width: 80%;
+  }
 `;
 
 const BackSide = styled.div<{ isFlipped: boolean }>`
@@ -106,16 +127,19 @@ const BackSide = styled.div<{ isFlipped: boolean }>`
   position: absolute;
   backface-visibility: hidden;
   transform: rotateY(180deg);
+  color: black;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  word-wrap: break-word;
 `;
 
 const StyledCardsTitle = styled.h2`
   text-align: left;
   margin-left: 15px;
+  // width: 100%;
 `;
 
 const SmallContainer = styled.div`

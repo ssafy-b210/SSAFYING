@@ -3,8 +3,14 @@ import styled from "styled-components";
 import ImgBtn from "../../Feed/utils/ImgBtn";
 import saveBtn from "../../../assets/img/imgBtn/save.svg";
 
+interface ContentContainerProps {
+  boardId: number;
+}
+
 function ContentContainer() {
-  const clickSaveBtn = () => {};
+  const clickSaveBtn = () => {
+    // console.log("Board ID:", boardId ?? "Undefined");
+  };
   return (
     <ContentWrapper>
       <Content>

@@ -16,6 +16,10 @@ interface CardsProps {
   info: MarketCardList;
 }
 
+const truncate = (str: string, n: number) => {
+  return str?.length > n ? str.substr(0, n - 1) + "..." : str;
+};
+
 const Cards: React.FC<CardsProps> = ({ info }) => {
   const [isFlipped, setIsFlipped] = React.useState(false);
 
@@ -26,7 +30,7 @@ const Cards: React.FC<CardsProps> = ({ info }) => {
         onMouseLeave={() => setIsFlipped(false)}
       >
         <FrontSide isFlipped={isFlipped}>
-          <StyledCardsTitle>{info.title}</StyledCardsTitle>
+          <StyledCardsTitle>{truncate(info.title, 20)}</StyledCardsTitle>
           <hr />
           <SmallContainer>
             <p>{info.price}원</p>
@@ -38,7 +42,7 @@ const Cards: React.FC<CardsProps> = ({ info }) => {
           </SmallContainer>
         </FrontSide>
         <BackSide isFlipped={isFlipped}>
-          <h4>{info.description}</h4>
+          <h4>{truncate(info.description, 100)}</h4>
           <p>{info.username}</p>
         </BackSide>
       </CardContainer>
@@ -109,6 +113,12 @@ const FrontSide = styled.div<{ isFlipped: boolean }>`
   height: 100%;
   position: absolute;
   backface-visibility: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  word-wrap: break-word;
 `;
 
 const BackSide = styled.div<{ isFlipped: boolean }>`
@@ -122,6 +132,7 @@ const BackSide = styled.div<{ isFlipped: boolean }>`
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  word-wrap: break-word;
 `;
 
 const StyledCardsTitle = styled.h2`

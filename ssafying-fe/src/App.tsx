@@ -50,14 +50,15 @@ function App() {
       <Wrapper>
         <Routes>
           {/* <Route path="/" element={<CrewCreate />} /> */}
-          <Route path="/" element={<SelectCampusMeal />} />
+          <Route path="/" element={<UserLogin />} />
           <Route path="/signup" element={<UserSignup />} />
+          <Route path="/tagselect" element={<SelectTagForm />} />
           <Route path="/auth" element={<UserAuth />} />
-          <Route path="/login" element={<UserLogin />} />
+          {/* <Route path="/" element={<UserLogin />} /> */}
 
           <Route path="/all" element={<AllMenu />} />
           <Route path="/board" element={<BoardList />} />
-          <Route path="/board/${id}" element={<BoardDetail />} />
+          <Route path="/board/:id" element={<BoardDetail />} />
           <Route path="/board/create" element={<BoardCreate />} />
           <Route path="/crew" element={<CrewList />} />
           <Route path="/recruit" element={<RecruitmentList />} />

@@ -4,15 +4,10 @@ function SignupBtn() {
   return (
     <SignupContainer>
       <Signup>
-        <p className="signup-text">
-          등록된 계정이 없다면
-          <ButtonContainer>
-            <SubmitButton
-              type="submit"
-              value="회원가입 하러가기"
-            ></SubmitButton>
-          </ButtonContainer>
-        </p>
+        <p className="signup-text">👇등록된 계정이 없다면👇</p>
+        <ButtonContainer>
+          <SubmitButton type="submit" value="회원가입 하러가기"></SubmitButton>
+        </ButtonContainer>
       </Signup>
     </SignupContainer>
   );
@@ -29,8 +24,9 @@ const SignupContainer = styled.div`
 const Signup = styled.div`
   .signup-text {
     white-space: nowrap;
-    color: #666666;
+    color: black;
     text-align: center;
+    margin-bottom: 10px;
   }
 `;
 

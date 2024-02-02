@@ -1,10 +1,15 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-function SubmitBtn(props: { link: string; text: string }) {
+function SubmitBtn(props: {
+  link: string;
+  text: string;
+  onClick?: () => void;
+}) {
   return (
     <Link to={props.link}>
-      <SubmitButton>{props.text}</SubmitButton>
+      <SubmitButton onClick={props.onClick}>{props.text}</SubmitButton>
     </Link>
   );
 }
