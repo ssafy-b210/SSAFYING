@@ -41,6 +41,9 @@ dependencies {
 	// swagger
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
 //	implementation 'org.springframework.boot:spring-boot-starter-security' //spring security
+
+	// websocket 의존성 추가
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 }
 
 tasks.named('test') {
