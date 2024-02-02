@@ -1,34 +1,28 @@
+import React from "react";
+import TextArea from "../Feed/FeedCreate/TextArea";
 import styled from "styled-components";
-import BambooItemModal from "./BambooItemModal";
-import BambooMoreModal from "./BambooMoreModal";
 
-interface BambooItemProps {
+interface moreProps {
   card: {
     time: string;
     content: string;
   };
-  index: number;
 }
 
-function BambooForestListItem({ card, index }: BambooItemProps) {
+function BambooMoreModal({ card }: moreProps) {
   return (
     <div>
-      <Card key={index}>
+      <Card>
         <Content>
           <Copy>{card.content}</Copy>
           <Time>{card.time} 전</Time>
-          <Button>
-            <BambooItemModal btnTxt="더보기">
-              <BambooMoreModal card={card} />
-            </BambooItemModal>
-          </Button>
         </Content>
       </Card>
     </div>
   );
 }
 
-export default BambooForestListItem;
+export default BambooMoreModal;
 
 const Card = styled.div`
   position: relative;
@@ -46,9 +40,6 @@ const Card = styled.div`
   height: 250px;
   overflow: hidden;
   transition: all 0.2s linear;
-  &:hover {
-    transform: scale(1.1);
-  }
 `;
 
 const Content = styled.div`
@@ -71,24 +62,4 @@ const Copy = styled.p`
   line-height: 1.35;
   width: 100%;
   height: 100px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  white-space: unset;
-  -webkit-line-clamp: 3;
-`;
-
-const Button = styled.button`
-  cursor: pointer;
-  margin-top: 1.5rem;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.65rem;
-  font-weight: bold;
-  letter-spacing: 0.025rem;
-  text-transform: uppercase;
-  color: white;
-  background-color: black;
-  border: none;
-  border-radius: 20px;
 `;
