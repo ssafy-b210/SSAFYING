@@ -6,55 +6,57 @@ interface BoardCardList {
   id: number;
   title: string;
   nickname: string;
+  description: string; //back
 }
 
 interface CardsProps {
   info: BoardCardList;
 }
 
-interface BackProps {
-  description: string;
-}
+const Cards: React.FC<CardsProps> = ({ info }) => {
+  const [isFlipped, setIsFlipped] = React.useState(false);
 
-const Cards: React.FC<CardsProps> = ({ info }) => (
-  <StyledCards>
-    <h2 className="title">{info.title}</h2>
-    <hr></hr>
-    <div className="small-container">
-      <p className="nickname">{info.nickname}</p>
-    </div>
-  </StyledCards>
-);
-
-const Back: React.FC<BackProps> = ({ description }) => (
-  <div className="back">
-    <h4>{description}</h4>
-  </div>
-);
+  return (
+    <StyledCards>
+      <CardContainer
+        onMouseEnter={() => setIsFlipped(true)}
+        onMouseLeave={() => setIsFlipped(false)}
+      >
+        <FrontSide isFlipped={isFlipped}>
+          <StyledCardsTitle>{info.title}</StyledCardsTitle>
+          <hr />
+          <SmallContainer>
+            <p>{info.nickname}</p>
+          </SmallContainer>
+        </FrontSide>
+        <BackSide isFlipped={isFlipped}>
+          <h4>{info.description}</h4>
+        </BackSide>
+      </CardContainer>
+    </StyledCards>
+  );
+};
 
 function BoardCardList() {
-  const navigate = useNavigate();
   const [cardInfo, setCardInfo] = React.useState<BoardCardList[]>([
-    { id: 1, title: "유온역 맛집 추천받아요", nickname: "sueun" },
+    {
+      id: 1,
+      title: "유온역 맛집 추천받아요",
+      nickname: "sueun",
+      description: "숙취용 부탁해",
+    },
+    {
+      id: 2,
+      title: "새해복많이받을사람",
+      nickname: "sooming",
+      description: "아아 난가?",
+    },
   ]);
-
-  const handleClick = (id: number) => {
-    navigate("/board/${id}");
-  };
 
   return (
     <BoardCardContainer className="flip-inner">
       {cardInfo.map((info, idx) => (
-        <React.Fragment key={idx}>
-          <StyledCards onClick={() => handleClick(info.id)}>
-            <h2 className="title">{info.title}</h2>
-            <hr></hr>
-            <div className="small-container">
-              <p className="nickname">{info.nickname}</p>
-            </div>
-          </StyledCards>
-          <Back description="대전캠퍼스 봉명동 맛집 제발요..." />
-        </React.Fragment>
+        <Cards key={idx} info={info} />
       ))}
     </BoardCardContainer>
   );
@@ -66,49 +68,58 @@ const BoardCardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  position: relative;
-  transition: transform 1s;
-  transform-style: preserve-3d;
-  &:hover {
-    transform: rotateY(180deg);
-  }
-  .back {
-    position: absolute;
-    text-align: center;
-    transform: rotateY(180deg);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 200px;
-    height: 200px;
-    border: 3px solid #c4c4c4;
-    border-radius: 20px;
-    backface-visibility: hidden;
-    margin: 20px;
-  }
 `;
 
+//card
+const CardContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: all 0.5s;
+  // perspective-origin: center;
+  transform-style: preserve-3d;
+  border: 3px solid gray;
+  border-radius: 20px;
+`;
+
+//wrapper
 const StyledCards = styled.div`
   width: 200px;
   height: 200px;
-  border: 3px solid #c4c4c4;
-  border-radius: 20px;
   margin: 20px;
-  display: flex;
-  flex-direction: column;
+  perspective: 1100px;
+  &:hover ${CardContainer} {
+    transform: rotateY(180deg);
+  }
+`;
+
+const FrontSide = styled.div<{ isFlipped: boolean }>`
+  width: 100%;
+  height: 100%;
   position: absolute;
   backface-visibility: hidden;
-  z-index: 1;
-  hr {
-    width: 80%;
-  }
-  .title {
-    text-align: left;
-    margin-left: 15px;
-  }
-  .small-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-  }
+`;
+
+const BackSide = styled.div<{ isFlipped: boolean }>`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+`;
+
+const StyledCardsTitle = styled.h2`
+  text-align: left;
+  margin-left: 15px;
+`;
+
+const SmallContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 `;

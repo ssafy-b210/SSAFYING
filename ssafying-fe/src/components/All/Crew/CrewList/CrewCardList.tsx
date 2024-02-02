@@ -8,53 +8,61 @@ interface CrewCardList {
   title: string;
   nickname: string;
   isRecruiting: boolean;
+  description: string;
 }
 
 interface CardsProps {
   info: CrewCardList;
 }
 
-interface BackProps {
-  description: string;
-}
-
-const Cards: React.FC<CardsProps> = ({ info }) => (
-  <StyledCards>
-    <h2 className="title">{info.title}</h2>
-    <hr></hr>
-    <div className="small-container">
-      <p className="nickname">{info.nickname}</p>
-      {info.isRecruiting ? (
-        <img className="isRecruiting" src={isRecruiting} alt="Recruiting" />
-      ) : (
-        <img
-          className="isRecruiting"
-          src={isNotRecruiting}
-          alt="Not Recruiting"
-        />
-      )}
-    </div>
-  </StyledCards>
-);
-
-const Back: React.FC<BackProps> = ({ description }) => (
-  <div className="back">
-    <h4>{description}</h4>
-  </div>
-);
+const Cards: React.FC<CardsProps> = ({ info }) => {
+  const [isFlipped, setIsFlipped] = React.useState(false);
+  return (
+    <StyledCards>
+      <CardContainer
+        onMouseEnter={() => setIsFlipped(true)}
+        onMouseLeave={() => setIsFlipped(false)}
+      >
+        <FrontSide isFlipped={isFlipped}>
+          <StyledCardsTitle>{info.title}</StyledCardsTitle>
+          <hr />
+          <SmallContainer>
+            <p>{info.nickname}</p>
+            {info.isRecruiting ? (
+              <img src={isRecruiting} alt="isRecruiting" />
+            ) : (
+              <img src={isNotRecruiting} alt="isNotRecruiting" />
+            )}
+          </SmallContainer>
+        </FrontSide>
+        <BackSide isFlipped={isFlipped}>
+          <h4>{info.description}</h4>
+        </BackSide>
+      </CardContainer>
+    </StyledCards>
+  );
+};
 
 function CrewCardList() {
   const [cardInfo, setCardInfo] = React.useState<CrewCardList[]>([
-    { title: "대전캠 스터디 구해요", nickname: "su00", isRecruiting: true },
+    {
+      title: "대전캠 스터디 구해요",
+      nickname: "su00",
+      isRecruiting: true,
+      description: "누구누구?",
+    },
+    {
+      title: "서울캠 스터디 구해요",
+      nickname: "sooming",
+      isRecruiting: false,
+      description: "TESTSSTSJDFHAJFHDSJKFASJDFHSJKDFHJFHAJK",
+    },
   ]);
 
   return (
     <CrewCardContainer>
       {cardInfo.map((info, idx) => (
-        <React.Fragment key={idx}>
-          <Cards info={info} />
-          <Back description="봉명동 하이테이블에서 매일 기상 스터디 할 사람구함용" />
-        </React.Fragment>
+        <Cards key={idx} info={info} />
       ))}
     </CrewCardContainer>
   );
@@ -66,49 +74,58 @@ const CrewCardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  position: relative;
-  transition: transform 1s;
-  transform-style: preserve-3d;
-  &:hover {
-    transform: rotateY(180deg);
-  }
-  .back {
-    position: absolute;
-    text-align: center;
-    transform: rotateY(180deg);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 200px;
-    height: 200px;
-    border: 3px solid #c4c4c4;
-    border-radius: 20px;
-    backface-visibility: hidden;
-    margin: 20px;
-  }
 `;
 
+//card
+const CardContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: all 0.5s;
+  // perspective-origin: center;
+  transform-style: preserve-3d;
+  border: 3px solid gray;
+  border-radius: 20px;
+`;
+
+//wrapper
 const StyledCards = styled.div`
   width: 200px;
   height: 200px;
-  border: 3px solid #c4c4c4;
-  border-radius: 20px;
   margin: 20px;
-  display: flex;
-  flex-direction: column;
+  perspective: 1100px;
+  &:hover ${CardContainer} {
+    transform: rotateY(180deg);
+  }
+`;
+
+const FrontSide = styled.div<{ isFlipped: boolean }>`
+  width: 100%;
+  height: 100%;
   position: absolute;
   backface-visibility: hidden;
-  z-index: 1;
-  hr {
-    width: 80%;
-  }
-  .title {
-    text-align: left;
-    margin-left: 15px;
-  }
-  .small-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-  }
+`;
+
+const BackSide = styled.div<{ isFlipped: boolean }>`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+`;
+
+const StyledCardsTitle = styled.h2`
+  text-align: left;
+  margin-left: 15px;
+`;
+
+const SmallContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 `;

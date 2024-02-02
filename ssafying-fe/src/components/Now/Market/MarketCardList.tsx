@@ -62,7 +62,6 @@ function MarketCardList() {
       description: "우와 되나?",
       username: "되나",
     },
-    // Add more cards as needed
   ]);
 
   return (
@@ -82,47 +81,47 @@ const MarketCardContainer = styled.div`
   justify-content: center;
 `;
 
-const StyledCards = styled.div`
-  width: 200px;
-  height: 200px;
-  margin: 20px;
-`;
-
+//card
 const CardContainer = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
+  transition: all 0.5s;
+  // perspective-origin: center;
+  transform-style: preserve-3d;
+  border: 3px solid gray;
+  border-radius: 20px;
+`;
+
+//wrapper
+const StyledCards = styled.div`
+  width: 200px;
+  height: 200px;
+  margin: 20px;
   perspective: 1100px;
+  &:hover ${CardContainer} {
+    transform: rotateY(180deg);
+  }
 `;
 
 const FrontSide = styled.div<{ isFlipped: boolean }>`
   width: 100%;
   height: 100%;
   position: absolute;
-  backface-visibility: ${(props) => (props.isFlipped ? "hidden" : "visible")};
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border: 3px solid #c4c4c4;
-  border-radius: 20px;
-  transform: ${(props) =>
-    props.isFlipped ? "rotateY(180deg)" : "rotateY(0deg)"};
-  transition: transform 0.5s;
+  backface-visibility: hidden;
 `;
 
 const BackSide = styled.div<{ isFlipped: boolean }>`
   width: 100%;
   height: 100%;
   position: absolute;
-  display: ${(props) => (props.isFlipped ? "flex" : "none")};
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+
+  display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 3px solid #c4c4c4;
-  border-radius: 20px;
   text-align: center;
-  transform: ${(props) =>
-    props.isFlipped ? "rotateY(0deg)" : "rotateY(180deg)"};
-  transition: transform 0.5s;
 `;
 
 const StyledCardsTitle = styled.h2`
