@@ -74,7 +74,6 @@ public class UserServiceTest {
                 .email("ssafy@ssafy.com")
                 .password("1234")
                 .nickname("소금dldldl")
-                .birthday(date)
                 .phoneNumber("010-1234-5678")
                 .name("이애옹")
                 .generation(10)
@@ -105,10 +104,10 @@ public class UserServiceTest {
 
         // given
         CreateUserRequest req = CreateUserRequest.builder()
+                .campusRegion(CampusRegion.DAEJEON)
                 .email("ssafy1@ssafy.com")
                 .password("1234")
                 .nickname("소금")
-                .birthday(date)
                 .phoneNumber("010-1234-5678")
                 .name("이애옹")
                 .generation(10)
@@ -132,10 +131,10 @@ public class UserServiceTest {
         User user = new User();
         LocalDate date = LocalDate.of(1994,5,12);
         CreateUserRequest req = CreateUserRequest.builder()
+                .campusRegion(CampusRegion.DAEJEON)
                 .email("ssafy1@ssafy.com")
                 .password("12345")
                 .nickname("소금")
-                .birthday(date)
                 .phoneNumber("010-1234-5678")
                 .name("이애옹")
                 .generation(10)
