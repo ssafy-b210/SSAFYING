@@ -49,6 +49,9 @@ const MenuContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px;
 `;
 
 const Content = styled.div`
@@ -63,10 +66,10 @@ const Content = styled.div`
 
 const Text = styled.p`
   width: 80%;
-  margin: 0 auto;
+  margin: 10px auto;
   font-size: 13px;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 10px;
   color: black;
   font-weight: 400;
   opacity: 0;
@@ -75,8 +78,8 @@ const Text = styled.p`
 `;
 
 const Card = styled.div`
-  width: 400px;
-  height: 200px;
+  width: 280px;
+  height: 138px;
   background-color: rgba(255, 255, 255, 0.3);
   margin: 10px;
   border-radius: 10px;
@@ -92,9 +95,10 @@ const Card = styled.div`
   cursor: pointer;
   transition: all 0.3s ease;
   padding: 0 20px;
+  padding-top: 20px;
 
   &:hover {
-    height: 270px;
+    height: 180px;
 
     ${Text} {
       transition: all 0.3s ease;
@@ -107,11 +111,11 @@ const Icon = styled.div`
   margin: 0 auto;
   width: 100%;
   height: 80px;
-  max-width: 80px;
+  width: 80px;
   background: linear-gradient(
-    90deg,
-    #ffc0cb 0%,
-    #ff8e99 40%,
+    120deg,
+    #ffc0cb 5%,
+    #ff8e99 30%,
     rgba(0, 0, 0, 0.28) 60%
   );
   border-radius: 100%;
@@ -122,14 +126,16 @@ const Icon = styled.div`
   transition: all 0.8s ease;
   background-position: 0px;
   background-size: 200px;
+  img {
+    width: 30px;
+    height: auto;
+  }
 `;
 const Title = styled.p`
   width: 100%;
-  margin: 0;
+  margin: 10px;
   text-align: center;
-  margin-top: 30px;
-  color: black;
+  color: #4b4b4b;
   font-weight: 600;
   text-transform: uppercase;
-  font-size: 20px;
 `;

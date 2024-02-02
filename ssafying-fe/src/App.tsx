@@ -99,7 +99,7 @@ function App() {
 export default App;
 
 const Wrapper = styled.div`
-  width: 100vw;
+  width: 100%;
   max-width: 560px;
   min-height: 100vh;
   height: 100%;

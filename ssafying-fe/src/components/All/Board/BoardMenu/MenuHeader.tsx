@@ -6,19 +6,19 @@ interface MenuHeaderProps {
 function MenuHeader(props: MenuHeaderProps) {
   const header = props.header;
   return (
-    <div>
-      <Header>
-        <h2>{header}</h2>
-      </Header>
-    </div>
+    <MenuHeaderWrapper>
+      <header>{header}</header>
+    </MenuHeaderWrapper>
   );
 }
 
 export default MenuHeader;
 
-const Header = styled.header`
-  h2 {
-    margin-top: 50px;
-    margin-left: 50px;
-  }
+const MenuHeaderWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
 `;
