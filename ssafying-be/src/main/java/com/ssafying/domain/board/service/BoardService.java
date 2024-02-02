@@ -1,6 +1,9 @@
 package com.ssafying.domain.board.service;
 
-import com.ssafying.domain.board.dto.request.*;
+import com.ssafying.domain.board.dto.request.AddBoardRequest;
+import com.ssafying.domain.board.dto.request.ModifyBaordCommentRequest;
+import com.ssafying.domain.board.dto.request.ModifyBoardRequest;
+import com.ssafying.domain.board.dto.request.ScrapBoardRequest;
 import com.ssafying.domain.board.entity.Board;
 import com.ssafying.domain.board.entity.BoardComment;
 import com.ssafying.domain.board.entity.BoardScrap;
@@ -57,7 +60,6 @@ public class BoardService {
         Board save = boardRepository.save(board);
 
         return save.getId();
-//        return 0;
     }
 
     /**
@@ -211,9 +213,27 @@ public class BoardService {
 
     /**
      * 5.8 게시판 게시글 댓글 삭제
+     *
+     * @return
      */
     @Transactional
-    public void removeComment(int boardCommentId, RemoveBoardCommentRequest request) {
+    public String removeComment(int boardCommentId) {
+
+        //댓글의 게시글이 존재하는지도 확인해주면 좋을 듯 함
+
+        // 해당 게시글이 있는지 확인
+//        Board board = boardRepository.findById(request.getBoardId())
+//                .orElseThrow(() -> (new RuntimeException("해당 게시글이 존재하지 않습니다.")));
+
+        //삭제하려는 댓글이 존재하는지 확인
+        boardCommentRepository.findById(boardCommentId)
+                .orElseThrow(() -> (new RuntimeException("해당 댓글이 존재하지 않습니다.")));
+
+        // 댓글 삭제
+        boardCommentRepository.deleteById(boardCommentId);
+
+        return "success";
+
     }
 
     /**

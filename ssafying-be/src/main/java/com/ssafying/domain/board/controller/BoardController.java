@@ -22,14 +22,14 @@ public class BoardController {
      * 5.1 게시판 게시글 작성
      */
     @PostMapping
-    public ResponseEntity<ResultResponse> boardAdd(
+    public ResponseEntity<ResultResponse<Integer>> boardAdd(
             @RequestBody @Valid AddBoardRequest request) {
 
         //TODO 유저 id 가져오는 방법은 아직 고민 중
         int userId = 1;
-        boardService.addBoard(userId, request);
+        int result = boardService.addBoard(userId, request);
 
-        return null;
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
     /**
@@ -81,7 +81,8 @@ public class BoardController {
      * 5.4 게시판 게시글 상세 조회
      */
     @GetMapping("/{boardId}")
-    public ResponseEntity<ResultResponse> boardDetails(@PathVariable int boardId){
+    public ResponseEntity<ResultResponse> boardDetails(
+            @PathVariable(name = "boardId") int boardId) {
 
         //TODO 유저 id 가져오는 방법은 아직 고민 중
         int userId = 1;
@@ -96,7 +97,8 @@ public class BoardController {
      * 5.5 게시판 게시글 삭제
      */
     @DeleteMapping("/{boardId}")
-    public ResponseEntity<ResultResponse> boardRemove(@PathVariable int boardId){
+    public ResponseEntity<ResultResponse> boardRemove(
+            @PathVariable(name = "boardId") int boardId) {
 
         //TODO 유저 id 가져오는 방법은 아직 고민 중
         int userId = 1;
@@ -112,7 +114,7 @@ public class BoardController {
      */
     @PutMapping("/{boardId}")
     public ResponseEntity<ResultResponse> boardModify(
-            @PathVariable int boardId,
+            @PathVariable(name = "boardId") int boardId,
             @RequestBody ModifyBoardRequest request){
         boardService.modifyBoard(boardId, request);
 
@@ -149,13 +151,14 @@ public class BoardController {
      * 5.8 게시판 게시글 댓글 삭제
      */
     @DeleteMapping("/comments/{boardCommentId}")
-    public ResponseEntity<ResultResponse> boardCommentRemove(
-            @PathVariable int boardCommentId,
-            @RequestBody RemoveBoardCommentRequest request
+    public ResponseEntity<ResultResponse<String>> boardCommentRemove(
+            @PathVariable(name = "boardCommentId") int boardCommentId
+            /*,@RequestBody RemoveBoardCommentRequest request*/
     ){
-        boardService.removeComment(boardCommentId, request);
+        //TODO
+        String result = boardService.removeComment(boardCommentId/*, request*/);
 
-        return null;
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
     /**
@@ -163,7 +166,7 @@ public class BoardController {
      */
     @PutMapping("/comments/{boardCommentId}")
     public ResponseEntity<ResultResponse> boardCommentModify(
-        @PathVariable int boardCommentId,
+            @PathVariable(name = "boardCommentId") int boardCommentId,
         @RequestBody ModifyBaordCommentRequest request
     ) {
         boardService.modifyComment(boardCommentId, request);
