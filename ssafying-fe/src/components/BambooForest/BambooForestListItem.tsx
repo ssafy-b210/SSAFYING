@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import BambooItemModal from "./BambooItemModal";
+import Modal from "../Common/Modal";
 import BambooMoreModal from "./BambooMoreModal";
 
 interface BambooItemProps {
@@ -18,9 +18,9 @@ function BambooForestListItem({ card, index }: BambooItemProps) {
           <Copy>{card.content}</Copy>
           <Time>{card.time} 전</Time>
           <Button>
-            <BambooItemModal btnTxt="더보기">
+            <Modal btnTxt="더보기">
               <BambooMoreModal card={card} />
-            </BambooItemModal>
+            </Modal>
           </Button>
         </Content>
       </Card>
@@ -68,27 +68,18 @@ const Time = styled.h2`
 const Copy = styled.p`
   font-family: var(--font-serif);
   font-size: 1.125rem;
-  line-height: 1.35;
-  width: 100%;
-  height: 100px;
-  text-overflow: ellipsis;
+
   overflow: hidden;
+  text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-box-orient: vertical;
-  white-space: unset;
   -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 `;
 
-const Button = styled.button`
-  cursor: pointer;
-  margin-top: 1.5rem;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.65rem;
-  font-weight: bold;
-  letter-spacing: 0.025rem;
-  text-transform: uppercase;
-  color: white;
-  background-color: black;
-  border: none;
-  border-radius: 20px;
+const Button = styled.div`
+  button {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 5px 20px;
+  }
 `;

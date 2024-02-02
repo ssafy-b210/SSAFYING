@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import BambooForestList from "./BambooForestList";
-import BambooItemModal from "./BambooItemModal";
+import Modal from "../Common/Modal";
 import BambooWriteModal from "./BambooWriteModal";
 
 function BambooForestContent() {
@@ -8,9 +8,9 @@ function BambooForestContent() {
     <div>
       <BambooForestList />
       <ButtonWrapper>
-        <BambooItemModal btnTxt="대나무숲에 소리치기">
+        <Modal btnTxt="대나무숲에 소리치기">
           <BambooWriteModal />
-        </BambooItemModal>
+        </Modal>
       </ButtonWrapper>
     </div>
   );
@@ -27,7 +27,7 @@ const ButtonWrapper = styled.div`
   button {
     border: none;
     background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 10px 20px;
     color: white;
     font-size: 18px;
