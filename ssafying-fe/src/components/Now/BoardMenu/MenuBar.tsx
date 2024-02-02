@@ -1,4 +1,7 @@
 import styled from "styled-components";
+
+import { Link } from "react-router-dom";
+
 import Shuttle from "../../../assets/img/MenuIcon/Shuttle.svg";
 import Meal from "../../../assets/img/MenuIcon/Meal.svg";
 import Market from "../../../assets/img/MenuIcon/Market.svg";
@@ -8,27 +11,33 @@ function MenuBar() {
   return (
     <MenuContainer>
       <Content>
-        <Card>
-          <Icon>
-            <img src={Shuttle} className="shuttle" />
-          </Icon>
-          <Title>셔틀버스 위치공유</Title>
-          <Text>광역 캠퍼스만 제공, 오전 9시 전까지만 제공</Text>
-        </Card>
-        <Card>
-          <Icon>
-            <img src={Meal} className="meal" />
-          </Icon>
-          <Title>식단표"</Title>
-          <Text>오점뭐?</Text>
-        </Card>
-        <Card>
-          <Icon>
-            <img src={Market} className="market" />
-          </Icon>
-          <Title>중고 거래 장터</Title>
-          <Text>당신 근처의 소중한 거래</Text>
-        </Card>
+        <Link to={"/"}>
+          <Card>
+            <Icon>
+              <img src={Shuttle} className="shuttle" />
+            </Icon>
+            <Title>셔틀버스 위치공유</Title>
+            <Text>광역 캠퍼스만 제공, 오전 9시 전까지만 제공</Text>
+          </Card>
+        </Link>
+        <Link to={"/mealplan"}>
+          <Card>
+            <Icon>
+              <img src={Meal} className="meal" />
+            </Icon>
+            <Title>식단표</Title>
+            <Text>오점뭐?</Text>
+          </Card>
+        </Link>
+        <Link to={"/market"}>
+          <Card>
+            <Icon>
+              <img src={Market} className="market" />
+            </Icon>
+            <Title>중고 거래 장터</Title>
+            <Text>당신 근처의 소중한 거래</Text>
+          </Card>
+        </Link>
       </Content>
     </MenuContainer>
   );
@@ -47,6 +56,9 @@ const Content = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  a {
+    text-decoration: none;
+  }
 `;
 
 const Text = styled.p`
@@ -63,7 +75,7 @@ const Text = styled.p`
 `;
 
 const Card = styled.div`
-  width: 100%;
+  width: 400px;
   height: 200px;
   background-color: rgba(255, 255, 255, 0.3);
   margin: 10px;

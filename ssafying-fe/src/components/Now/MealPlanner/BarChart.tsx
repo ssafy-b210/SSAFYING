@@ -23,9 +23,6 @@ interface ChartComponentProps {
       };
     };
     plugins: {
-      // tooltip: {
-      //   display: boolean;
-      // };
       legend: {
         display: boolean;
       };
