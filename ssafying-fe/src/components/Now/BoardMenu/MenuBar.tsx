@@ -65,7 +65,7 @@ const Content = styled.div`
 `;
 
 const Text = styled.p`
-  width: 80%;
+  width: 90%;
   margin: 10px auto;
   font-size: 13px;
   text-align: center;
