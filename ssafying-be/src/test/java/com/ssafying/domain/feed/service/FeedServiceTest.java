@@ -7,6 +7,7 @@ import com.ssafying.domain.feed.entity.FeedImage;
 import com.ssafying.domain.feed.repository.FeedRepository;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,6 +35,9 @@ class FeedServiceTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private EntityManager em;
+
 
 
     @Test
@@ -55,8 +59,10 @@ class FeedServiceTest {
         // when
         int savedId = feedService.createFeed(request);
 
-        Optional<Feed> savedFeed = feedRepository.findById(savedId);
+        em.flush();
+        em.clear();
 
+        Optional<Feed> savedFeed = feedRepository.findById(savedId);
         assertTrue(savedFeed.isPresent());
 
         // then
@@ -64,10 +70,10 @@ class FeedServiceTest {
         assertThat(feed.getUser().getId()).isEqualTo(user.getId()); // UserId 일치 여부 확인
         assertThat(feed.getContent()).isEqualTo("Example Content"); // content 일치 여부 확인
 
-//        List<String> imageUrls = feed.getFeedImages().stream()
-//                .map(FeedImage::getImageUrl)
-//                .collect(Collectors.toList());
-//        assertThat(imageUrls).containsExactlyInAnyOrderElementsOf(List.of("url1", "url2"));
+        List<String> imageUrls = feed.getFeedImages().stream()
+                .map(FeedImage::getImageUrl)
+                .collect(Collectors.toList());
+        assertThat(imageUrls).containsExactlyInAnyOrderElementsOf(List.of("url1", "url2"));
 
     }
 

@@ -39,4 +39,17 @@ public class FeedComment extends BaseTimeEntity {
     @OneToMany(mappedBy = "parentComment")
     private List<FeedComment> childComments = new ArrayList<>(); // 자식댓글
 
+    public static FeedComment createComment(
+            User user,
+            String content,
+            FeedComment parentComment
+    ) {
+        FeedComment feedComment = new FeedComment();
+        feedComment.user = user;
+        feedComment.content = content;
+        feedComment.parentComment = parentComment;
+
+        return feedComment;
+    }
+
 }
