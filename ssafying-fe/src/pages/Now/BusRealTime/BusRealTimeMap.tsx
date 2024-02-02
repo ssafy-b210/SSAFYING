@@ -2,6 +2,10 @@ import styled from "styled-components";
 import BackBtnHeader from "../../../components/Common/BackBtnHeader";
 
 function BusRealTimeMap() {
+  function initTmap() {
+    // const map = new Tmap2.
+  }
+
   return (
     <div>
       <BackBtnHeader
