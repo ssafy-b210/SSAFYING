@@ -122,4 +122,5 @@ const AppWrapper = styled.div`
   animation: ${MoveGrad} 5s ease infinite;
   -webkit-animation: ${MoveGrad} 5s ease infinite;
   height: 100%;
+  width: 100%;
 `;
