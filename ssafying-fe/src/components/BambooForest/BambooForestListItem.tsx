@@ -1,5 +1,6 @@
-import React from "react";
 import styled from "styled-components";
+import BambooItemModal from "./BambooItemModal";
+import BambooMoreModal from "./BambooMoreModal";
 
 interface BambooItemProps {
   card: {
@@ -16,7 +17,11 @@ function BambooForestListItem({ card, index }: BambooItemProps) {
         <Content>
           <Copy>{card.content}</Copy>
           <Time>{card.time} 전</Time>
-          <Button>더보기</Button>
+          <Button>
+            <BambooItemModal btnTxt="더보기">
+              <BambooMoreModal card={card} />
+            </BambooItemModal>
+          </Button>
         </Content>
       </Card>
     </div>
