@@ -24,8 +24,8 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
     private final BoardScarpRepository boardScarpRepository;
-    //    private final AuthUtil authUtil;
     private final BoardCommentRepository boardCommentRepository;
+
 
     /**
      * 5.1 게시판 게시글 작성
@@ -104,9 +104,26 @@ public class BoardService {
 
     /**
      * 5.3.1 게시판 게시글 스크랩 취소
+     *
+     * @return
      */
     @Transactional
-    public void unScrapBoard(ScrapBoardRequest request) {
+    public int unScrapBoard(int userId, ScrapBoardRequest request) {
+
+        //request로 넘어온 userId가 존재하는지 확인
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
+
+        //request 로 넘어온 boardId가 존재하는지 확인
+        Board board = boardRepository.findById(request.getBoardId())
+                .orElseThrow(() -> new RuntimeException("삭제하려는 게시글이 존재하지 않습니다."));
+
+        System.out.println("BoardService.unScrapBoard");
+
+        //게시글 스크랩 취소
+        boardScarpRepository.deleteByUserAndBoard(user, board);
+
+        return board.getId();
     }
 
     /**
@@ -114,12 +131,15 @@ public class BoardService {
      *
      * @return
      */
-    public Board findDetailBoard(int boardId) {
+    public Board findDetailBoard(int userId, int boardId) {
+
+        //request로 넘어온 userId가 존재하는지 확인
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
 
         //boardId가 존재하는지 확인
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new RuntimeException("게시글이 없습니다."));
-
 
         //존재한다면 해당 게시글을 상세 조회
 
@@ -134,16 +154,11 @@ public class BoardService {
      * 5.5 게시판 게시글 삭제
      */
     @Transactional
-    public void removeBoard(int boardId) {
+    public void removeBoard(int userId, int boardId) {
 
         //삭제하려는 게시글이 있는지 확인해줌
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> (new RuntimeException("해당 게시글이 존재하지 않습니다.")));
-
-        //userId 정보를 가져옴
-//        int loginUserId = authUtil.getLoginUserId();
-
-        //TODO 요청에 jwt 안에 userId가 원래 값과 맞는지 비교를 해봐야되려나
 
         //게시글이 있다면 게시글을 삭제해줌
         //게시글이 삭제되면 댓글이랑 스크랩도 줄줄이 삭제돼야 함 (cascade 걸어놓음)
@@ -165,9 +180,11 @@ public class BoardService {
 
     /**
      * 5.7 게시판 게시글 댓글 작성
+     *
+     * @return
      */
     @Transactional
-    public void addComment(AddBoardCommentCommand command) {
+    public int addComment(AddBoardCommentCommand command) {
 
         // 유저 가져오기
         User user = userRepository.findById(command.getUserId())
@@ -187,7 +204,9 @@ public class BoardService {
                 command.getParentId()
         );
 
-        boardCommentRepository.save(boardComment);
+        BoardComment save = boardCommentRepository.save(boardComment);
+
+        return save.getId();
     }
 
     /**

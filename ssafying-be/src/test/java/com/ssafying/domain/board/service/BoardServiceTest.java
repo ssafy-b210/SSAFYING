@@ -113,7 +113,7 @@ public class BoardServiceTest {
         );
         boardRepository.save(board);
 
-        Board detailBoard = boardService.findDetailBoard(board.getId());
+        Board detailBoard = boardService.findDetailBoard(userId, board.getId());
 
 //        System.out.println(board);
         assertThat((detailBoard.getTitle())).isEqualTo("title222");

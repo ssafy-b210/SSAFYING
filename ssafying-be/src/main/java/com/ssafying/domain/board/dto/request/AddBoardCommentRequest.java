@@ -18,6 +18,6 @@ public class AddBoardCommentRequest {
     @NotNull
     boolean isAnonymous; //익명 여부
 
-    @NotNull
+    //    @NotNull
     int parentId; //부모 댓글
 }
