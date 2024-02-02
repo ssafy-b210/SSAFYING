@@ -1,35 +1,56 @@
 package com.ssafying.domain.user.controller;
 
-import com.ssafying.domain.user.dto.RegistUserRequest;
-import com.ssafying.domain.user.dto.RegistUserResponse;
-import com.ssafying.domain.user.dto.ResultResponse;
+import com.ssafying.domain.user.dto.request.UpdateUserRequest;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.service.UserService;
-import com.ssafying.global.result.ResultCode;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/users")
 public class UserApiController {
 
     private final UserService userService;
 
-    @PostMapping("/signup")
-    public ResponseEntity<?> registUser(@RequestBody @Valid RegistUserRequest req){
-        boolean isRegisted = userService.join(req);
-        if(isRegisted){
-            return ResponseEntity.ok(ResultResponse.of(ResultCode.REGIST_SUCCESS));
-        }else{
-            return ResponseEntity.ok(ResultResponse.of(ResultCode.REGIST_FAIL));
-        }
-    };
+    /*
+     * 1.4 회원 정보 조회
+     */
+
+    @GetMapping("/{userId}")
+    public User userDetail(@PathVariable(name = "userId") int userId){
+
+        User user = userService.detailUser(userId);
+
+        return user;
+
+    }
+
+    /*
+     * 1.5 회원 정보 수정
+     */
+    @PatchMapping("/{userId}")
+    public int userUpdate(@PathVariable(name = "userId") int userId,
+                           @RequestBody UpdateUserRequest request){
+
+        User user = userService.UpdateUser(userId, request);
+
+        return userId;
+    }
+
+
+    /*
+     * 1.6 회원 탈퇴
+     */
+    @DeleteMapping("/{userId}")
+    public int userDelete(@PathVariable(name = "userId") int userId){
+
+        userService.DeleteUser(userId);
+
+        return userId;
+
+    }
+
+
 
 }

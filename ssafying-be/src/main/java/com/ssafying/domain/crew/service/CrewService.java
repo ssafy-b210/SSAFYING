@@ -1,19 +1,15 @@
 package com.ssafying.domain.crew.service;
 
 import com.ssafying.domain.crew.dto.request.AddCrewRequest;
-import com.ssafying.domain.crew.dto.response.AddCrewResponse;
+import com.ssafying.domain.crew.dto.request.UpdateCrewRequest;
 import com.ssafying.domain.crew.entity.Crew;
-import com.ssafying.domain.crew.repository.CrewRepository;
+import com.ssafying.domain.crew.repository.jdbc.CrewRepository;
 import com.ssafying.domain.user.entity.User;
-import com.ssafying.domain.user.repository.jdbc.UserRepositorySDJ;
+import com.ssafying.domain.user.repository.jdbc.UserRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -22,19 +18,19 @@ import java.util.stream.Collectors;
 public class CrewService {
 
     private final CrewRepository crewRepository;
-    private final UserRepositorySDJ userRepository;
+    private final UserRepository userRepository;
 
     /*
     게시글 등록
      */
     @Transactional
-    public int addCrew(final AddCrewRequest request){
+    public Crew createCrew(final AddCrewRequest request){
 
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
 
         //db에 저장할 crew
-        Crew crew = Crew.addCrew(
+        Crew crew = Crew.createCrew(
                 request.getTitle(),
                 request.getContent(),
                 request.getRegion(),
@@ -46,27 +42,27 @@ public class CrewService {
         //db에 crew 저장
         Crew save = crewRepository.save(crew);
 
-        return save.getCrewId();
+        return save;
     }
+
     /*
     게시글 수정
      */
-//    @Transactional
-//    public int update(final int id, final AddCrewRequest params){
-//        Crew entity = crewRepository.findById(id).orElse(null);
-//        entity.Update(params.getTitle(), params.getContent(), params.isStatus());
-//        return id;
-//    }
+@Transactional
+    public Crew updateCrew(final UpdateCrewRequest request){
+        Crew crew = crewRepository.findById(request.getCrewId())
+                .orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
+
+        crew.updateCrew(request.getCrewId(), request.getTitle(), request.getContent(), request.isRecruit());
+
+        return crew;
+}
 
 
     /*
     전체 목록 조회
      */
-//    public List<AddCrewResponse> findAll(){
-//
-//        Sort sort = Sort.by(Sort.Direction.DESC, "id", "createdAt");
-//        List<Crew> list = crewRepository.findAll(sort);
-//        return list.stream().map(AddCrewResponse::new).collect(Collectors.toList());
+//    public int findAll(){
 //
 //    }
 

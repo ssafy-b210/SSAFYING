@@ -19,12 +19,11 @@ public class SwaggerConfig {
                                 openApi
                                         .setInfo(
                                                 new Info()
-                                                        .title("SSAFYING") // API 제목
-                                                        .description("우리는 아직 싸피 중") // API 설명
+                                                        .title("SSAFYING - 우리는 여전히 싸피 중") // API 제목
+                                                        .description("SSAFYING 업무 처리를 위한 api") // API 설명
                                                         .version("1.0.0") // API 버전
                                         )
                 )
                 .build();
-
     }
 }

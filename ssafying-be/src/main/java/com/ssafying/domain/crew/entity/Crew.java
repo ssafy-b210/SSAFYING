@@ -4,9 +4,11 @@ import com.ssafying.domain.user.entity.User;
 import com.ssafying.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.sql.Update;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "crew")
@@ -14,12 +16,12 @@ import java.time.LocalDateTime;
 public class Crew extends BaseTimeEntity {
 
     @Id @GeneratedValue
-    @Column(name = "crew_id")
+    @Column(name = "crew_id") //updatable = false ?
     private int crewId; //크루 id
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user; //회원
+    private User user; //작성자
 
     private String title; //제목
 
@@ -34,7 +36,13 @@ public class Crew extends BaseTimeEntity {
     @Column(name = "is_recruit")
     private boolean isRecruit; //모집 상태
 
-    public static Crew addCrew(
+    @Column(name = "image_url")
+    private String imageUrl; //작성자 프로필 이미지
+
+    /*
+    구해요 게시글 생성
+     */
+    public static Crew createCrew(
             String title,
             String content,
             Region region,
@@ -50,7 +58,48 @@ public class Crew extends BaseTimeEntity {
         crew.region = region;
         crew.category = category;
         crew.isRecruit = isRecruit;
+        crew.user = user;
 
         return crew;
     }
+
+    /*
+    게시글 수정
+     */
+    public Crew updateCrew(
+            int crewId,
+            String title,
+            String content,
+            boolean isRecruit
+    ){
+
+        this.crewId = crewId;
+        this.title = title;
+        this.content = content;
+        this.isRecruit = isRecruit;
+
+        return this;
+    }
+
+
+    /*
+    구해요 게시글 전체 조회
+     */
+//    public List<Crew> findAllCrew(
+//            int crewId,
+//            User user,
+//            String title,
+//            boolean isRecruit,
+//            String imageUrl
+//    ){
+//
+//        this.crewId = crewId;
+//        this.user = user;
+//        this.title = title;
+//        this.isRecruit = isRecruit;
+//        this.imageUrl = imageUrl;
+//
+//        return
+//    }
+
 }

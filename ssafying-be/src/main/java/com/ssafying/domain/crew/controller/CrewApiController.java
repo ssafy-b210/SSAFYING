@@ -1,6 +1,7 @@
 package com.ssafying.domain.crew.controller;
 
 import com.ssafying.domain.crew.dto.request.AddCrewRequest;
+import com.ssafying.domain.crew.dto.request.UpdateCrewRequest;
 import com.ssafying.domain.crew.dto.response.AddCrewResponse;
 import com.ssafying.domain.crew.entity.Crew;
 import com.ssafying.domain.crew.service.CrewService;
@@ -9,11 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
 public class CrewApiController {
 
     private final CrewService crewService;
@@ -23,7 +21,17 @@ public class CrewApiController {
      */
     @PostMapping("/crew")
     public ResponseEntity<AddCrewResponse> registCrew(@RequestBody @Valid AddCrewRequest request) {
-        int registedId = crewService.addCrew(request);
+        Crew crew = crewService.createCrew(request);
+
+        return null;
+    }
+
+        /*
+    게시글 수정
+     */
+    @PutMapping("/crew/{crewId}")
+    public ResponseEntity<AddCrewResponse> updateCrew(@PathVariable final int crewId, @RequestBody final UpdateCrewRequest request){
+        crewService.updateCrew(request);
 
         return null;
     }
@@ -36,12 +44,5 @@ public class CrewApiController {
 //        return crewService.findAll();
 //    }
 
-    /*
-    게시글 수정
-     */
-//    @PatchMapping("/crew/{crewId}")
-//    public int save(@PathVariable final int crewId, @RequestBody final AddCrewRequest params){
-//        return crewService.update(crewId, params);
-//    }
 
 }

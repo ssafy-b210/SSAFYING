@@ -16,8 +16,3 @@ logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
-
-#jwt:
-#  header: Authorization
-#  secret: dGVhbWplanVkby15ZXdvbi1zb29ldW4taHllamluLWh5dW5zZW9rLXN1bWluLWppZXVuLXRlYW1qZWp1ZG8teWV3b24tc29vZXVuLWh5ZWppbi1oeXVuc2Vvay1zdW1pbi1qaWV1bi10ZWFtamVqdWRvLXRlYW1qZWp1ZG8tdGVhbWplanVkbw==
-#  token-validity-in-seconds: 86400

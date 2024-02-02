@@ -6,6 +6,7 @@ import lombok.Getter;
 @Entity
 @Table(name = "campus")
 @Getter
+//@Setter
 public class Campus {
 
     @Id

@@ -1,14 +1,14 @@
 package com.ssafying.domain.board.entity;
 
+import com.ssafying.domain.user.entity.User;
+import com.ssafying.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "board_comment")
 @Getter
-public class BoardComment {
+public class BoardComment extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
@@ -19,7 +19,14 @@ public class BoardComment {
     @JoinColumn(name = "board_id")
     private Board board; //댓글 작성한 게시글
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user; //댓글 등록한 유저
+
     private String content; //댓글 내용
+
+    @Column(name = "is_anonymous")
+    private boolean isAnonymous; //익명 여부
 
     @Column(name = "is_deleted")
     private boolean isDeleted; //삭제 여부
@@ -27,6 +34,27 @@ public class BoardComment {
     @Column(name = "parent_id")
     private int parentId; //부모댓글
 
-    @Column(name = "created_id")
-    private LocalDateTime createdAt; //생성일자
+    //생성일자와 수정일자는 BaseTimeEntity에 있음
+
+
+    //팩토리 함수
+    public static BoardComment createBoardComment(
+            Board board,
+            User user,
+            String content,
+            boolean isAnonymous,
+            boolean isDeleted,
+            int parentId
+    ) {
+        BoardComment comment = new BoardComment();
+
+        comment.board = board;
+        comment.user = user;
+        comment.content = content;
+        comment.isAnonymous = isAnonymous;
+        comment.isDeleted = isDeleted;
+        comment.parentId = parentId;
+
+        return comment;
+    }
 }
