@@ -7,9 +7,6 @@ import kakaoIcon from "../../../assets/img/socialLoginIcons/kakaoIcon.svg";
 function LoginBtn() {
   return (
     <LoginBtnContainer>
-      <ButtonContainer>
-        <SubmitButton type="submit" value="로그인"></SubmitButton>
-      </ButtonContainer>
       <SocialLoginBox>
         <SocialLogin>
           <img src={googleIcon} alt="Google Icon" />

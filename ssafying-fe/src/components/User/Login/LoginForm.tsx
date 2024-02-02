@@ -1,24 +1,103 @@
 import styled from "styled-components";
-
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import profile from "../../../assets/img/userLoginIcons/profile.svg";
 import lock from "../../../assets/img/userLoginIcons/lock.svg";
 
+import SubmitBtn from "../../Common/SubmitBtn";
+
 function LoginForm() {
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [error, setError] = useState<string | null>(null);
+
+  const validation = {
+    email: (email: string) => {
+      if (email === "") {
+        return "이메일을 제대로 입력해주세요";
+      }
+      return null;
+    },
+    password: (password: string) => {
+      if (password === "") {
+        return "비밀번호를 제대로 입력해주세요";
+      }
+      return null;
+    },
+  };
+
+  const handleInputChange = (fieldName: string, value: string) => {
+    setForm((prevForm) => ({
+      ...prevForm,
+      [fieldName]: value,
+    }));
+  };
+
+  const handleSubmit = () => {
+    const errorMessage =
+      validation.email(form.email) ||
+      validation.password(form.password) ||
+      null;
+
+    if (errorMessage) {
+      setError(errorMessage);
+    } else {
+      setError(null);
+    }
+  };
+
   return (
     <LoginContainer>
       <Form>
         <div className="user-box">
-          <div className="input-bar">
-            <img src={profile} className="input-icon" />
-            <Input type="email" placeholder="EMAIL"></Input>
-          </div>
+          <fieldset className="input-bar">
+            <img src={profile} className="input-icon" alt="profile icon" />
+            <Input
+              type="email"
+              placeholder="EMAIL"
+              required
+              value={form.email}
+              onChange={(e) => handleInputChange("email", e.target.value)}
+            />
+          </fieldset>
         </div>
         <div className="user-box">
-          <div className="input-bar">
-            <img src={lock} className="input-icon" />
-            <Input type="password" placeholder="PW"></Input>
-          </div>
+          <fieldset className="input-bar">
+            <img src={lock} className="input-icon" alt="lock icon" />
+            <Input
+              type="password"
+              placeholder="PW"
+              required
+              value={form.password}
+              onChange={(e) => handleInputChange("password", e.target.value)}
+            />
+          </fieldset>
         </div>
+        <ButtonContainer>
+          {error ? (
+            <>
+              <ErrorText>🚨{error}</ErrorText>
+              <SubmitButton
+                type="submit"
+                value="로그인"
+                onClick={handleSubmit}
+              />
+            </>
+          ) : (
+            <Link
+              to={form.email !== "" && form.password !== "" ? "/feedhome" : "#"}
+            >
+              <SubmitButton
+                type="submit"
+                value="로그인"
+                onClick={handleSubmit}
+              />
+            </Link>
+          )}
+        </ButtonContainer>
       </Form>
     </LoginContainer>
   );
@@ -35,12 +114,14 @@ const LoginContainer = styled.div`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  justifty-content: center;
+  justify-content: center;
   align-items: center;
   width: 100%;
 
   .user-box {
     width: 300px;
+    display: flex;
+    justify-content: center;
   }
 
   .input-bar {
@@ -49,10 +130,15 @@ const Form = styled.form`
     width: 100%;
     position: relative;
   }
+
   .input-icon {
     position: absolute;
-    left: 10px;
+    left: 20px;
     margin-bottom: 11px;
+  }
+
+  fieldset {
+    border: none;
   }
 `;
 
@@ -63,4 +149,27 @@ const Input = styled.input`
   border-radius: 10px;
   padding-left: 30px;
   margin-bottom: 15px;
+`;
+
+const ErrorText = styled.p`
+  text-align: center;
+  color: red;
+  margin-top: 3px;
+  font-size: 14px;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+const SubmitButton = styled.input`
+  width: 300px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background-color: #ff8e99;
+  color: white;
+  font-family: "Noto Sans KR";
 `;

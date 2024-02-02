@@ -1,13 +1,20 @@
 import styled from "styled-components";
 
+import { Link } from "react-router-dom";
+
 function SignupBtn() {
   return (
     <SignupContainer>
       <Signup>
         <p className="signup-text">👇등록된 계정이 없다면👇</p>
-        <ButtonContainer>
-          <SubmitButton type="submit" value="회원가입 하러가기"></SubmitButton>
-        </ButtonContainer>
+        <Link to="/signup">
+          <ButtonContainer>
+            <SubmitButton
+              type="submit"
+              value="회원가입 하러가기"
+            ></SubmitButton>
+          </ButtonContainer>
+        </Link>
       </Signup>
     </SignupContainer>
   );

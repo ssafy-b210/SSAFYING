@@ -1,25 +1,41 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import SubmitBtn from "../../Common/SubmitBtn";
+import { style } from "@mui/system";
 
-function passwordTest() {
-  var p1 = (document.getElementById("password") as HTMLInputElement).value;
-  var p2 = (document.getElementById("password2") as HTMLInputElement).value;
+interface SignUpFormProps {}
 
-  if (p1 != p2) {
-    alert("비밀번호가 일치하지 않습니다");
-    return false;
-  } else {
-    alert("비밀번호가 일치합니다");
-    return true;
-  }
-  if (p1.length < 6) {
-    alert("입력한 글자가 6글자 이상이어야 합니다");
-    return false;
-  }
-}
+const SignUpForm: React.FC<SignUpFormProps> = () => {
+  const [inputValue, setInputValue] = useState({
+    name: "",
+    nickname: "",
+    email: "",
+    password: "",
+    password2: "",
+    tel: "",
+    level: "",
+    campus: "",
+    strongPasswordError: "",
+    mismatchError: "",
+  });
 
-const SignUpForm: React.FC = () => {
+  const submitRequirements =
+    inputValue.name &&
+    inputValue.nickname &&
+    inputValue.email &&
+    inputValue.password &&
+    inputValue.password2 &&
+    inputValue.tel &&
+    inputValue.level &&
+    inputValue.campus &&
+    inputValue.strongPasswordError &&
+    inputValue.mismatchError;
+
+  const inputRegexs = {
+    // 비밀번호 : 최소 8자 이상, 최소한 하나의 대문자, 하나의 소문자, 하나의 숫자, 하나의 특수문자를 포함, 공백 허용하지 않음
+    pwRegex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?!.*\s).{8,}$/,
+  };
+
   return (
     <div>
       <Form>
@@ -27,11 +43,12 @@ const SignUpForm: React.FC = () => {
           <input type="text" id="name" placeholder=" " />
           <label htmlFor="name">이름을 입력해주세요</label>
         </SignUpInput>
+        {/*랜덤닉네임 부여 */}
         <SignUpInput className="input-area">
           <input type="text" id="nickname" placeholder=" " />
           <label htmlFor="nickname">닉네임을 입력해주세요</label>
         </SignUpInput>
-        {/* 이메일 중복검사 */}
+        {/* 이메일 중복검사 화면 만들기 */}
         <SignUpInput className="input-area">
           <input type="email" id="email" placeholder=" " />
           <label htmlFor="email">이메일을 입력해주세요</label>
@@ -40,18 +57,16 @@ const SignUpForm: React.FC = () => {
           <input type="password" id="password" placeholder=" " />
           <label htmlFor="password">비밀번호을 입력해주세요</label>
         </SignUpInput>
+
         <SignUpInput className="input-area">
           <input type="password" id="password2" placeholder=" " />
           <label htmlFor="password2">비밀번호를 다시 입력해주세요</label>
         </SignUpInput>
+
         <SignUpInput className="input-area">
           <input type="tel" id="tel" placeholder=" " />
           <label htmlFor="tel">전화번호를 입력해주세요</label>
         </SignUpInput>
-        {/* <SignUpInput className="input-area">
-          <input type="date" id="birthday" placeholder=" " />
-          <label htmlFor="birthday">생년월일을 입력해주세요</label>
-        </SignUpInput> */}
         <SignUpInput className="input-area">
           <input type="number" id="level" placeholder=" " />
           <label htmlFor="level">기수를 입력해주세요</label>
@@ -81,9 +96,10 @@ const SignUpForm: React.FC = () => {
           </div>
         </IsMajor>
         <SubmitBtn
-          onClick={passwordTest}
           link="/tagselect"
           text="다음으로 넘어가기"
+          // className={submitRequirements ? styled.allFilled : styled.submitBtn}
+          disabled={!submitRequirements}
         ></SubmitBtn>
       </Form>
     </div>

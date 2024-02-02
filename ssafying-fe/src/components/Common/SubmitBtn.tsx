@@ -6,6 +6,8 @@ function SubmitBtn(props: {
   link: string;
   text: string;
   onClick?: () => void;
+  disabled?: boolean;
+  className?: string;
 }) {
   return (
     <Link to={props.link}>
