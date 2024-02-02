@@ -41,9 +41,6 @@ public class User extends BaseTimeEntity {
     @Column(unique = true)
     private String nickname; //닉네임
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate birthday; //생년월일
-
     @Column(name = "phone_number")
     private String phoneNumber; //전화번호
 
@@ -82,7 +79,6 @@ public class User extends BaseTimeEntity {
             String email,
             String password,
             String nickname,
-            LocalDate birthday,
             String phoneNumber,
             String name,
             int generation,
@@ -95,7 +91,6 @@ public class User extends BaseTimeEntity {
         user.email = email;
         user.password = password;
         user.nickname = nickname;
-        user.birthday = birthday;
         user.phoneNumber = phoneNumber;
         user.name = name;
         user.generation = generation;

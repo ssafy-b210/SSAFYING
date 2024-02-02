@@ -5,12 +5,22 @@ spring:
     username: ssafy
     password: 1234
 
+  #  jpa:
+  #    hibernate:
+  #      ddl-auto: create
+  #    properties:
+  #      hibernate:
+  #        format_sql: true
+
   jpa:
     hibernate:
-      ddl-auto: create
-    properties:
-      hibernate:
-        format_sql: true
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+  sql:
+    init:
+      data-locations: classpath*:db/data.sql
+      mode: always
+      platform: mysql
 
 logging:
   level:

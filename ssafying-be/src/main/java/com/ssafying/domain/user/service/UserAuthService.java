@@ -47,7 +47,6 @@ public class UserAuthService {
                 request.getEmail(),
                 request.getPassword(),
                 request.getNickname(),
-                request.getBirthday(),
                 request.getPhoneNumber(),
                 request.getName(),
                 request.getGeneration(),

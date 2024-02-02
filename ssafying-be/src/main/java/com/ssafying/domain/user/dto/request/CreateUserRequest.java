@@ -31,9 +31,6 @@ public class CreateUserRequest {
     @NotNull(message = "닉네임 입력은 필수입니다.")
     String nickname;
 
-    @NotNull(message = "생년월일 입력은 필수입니다.")
-    LocalDate birthday;
-
     @NotNull(message = "휴대폰 번호 입력은 필수입니다.")
     String phoneNumber;
 
