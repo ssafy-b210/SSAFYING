@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import BambooForestBack from "../../components/BambooForest/BambooForestBack";
 import BambooForestContent from "../../components/BambooForest/BambooForestContent";
+import CenterHeader from "../../components/Common/CenterHeader";
 
 const Container = styled.div`
   position: fixed;
@@ -15,6 +16,7 @@ function BambooForest() {
   return (
     <Container>
       <BambooForestBack>
+        <CenterHeader />
         <BambooForestContent />
       </BambooForestBack>
     </Container>

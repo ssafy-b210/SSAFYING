@@ -100,7 +100,7 @@ function App() {
 export default App;
 
 const Wrapper = styled.div`
-  width: 100vw;
+  width: 100%;
   max-width: 560px;
   min-height: 100vh;
   height: 100%;
@@ -123,4 +123,5 @@ const AppWrapper = styled.div`
   animation: ${MoveGrad} 5s ease infinite;
   -webkit-animation: ${MoveGrad} 5s ease infinite;
   height: 100%;
+  width: 100%;
 `;
