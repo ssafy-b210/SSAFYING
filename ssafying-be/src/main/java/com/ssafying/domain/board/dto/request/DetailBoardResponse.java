@@ -1,10 +1,15 @@
 package com.ssafying.domain.board.dto.request;
 
 import com.ssafying.domain.board.dto.ParentCommentDTO;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+@Getter
 public class DetailBoardResponse {
 
     //title, content, isScrap, userName, createdAt,

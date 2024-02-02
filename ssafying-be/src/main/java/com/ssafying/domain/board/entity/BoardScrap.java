@@ -1,13 +1,14 @@
 package com.ssafying.domain.board.entity;
 
 import com.ssafying.domain.user.entity.User;
+import com.ssafying.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 
 @Entity
 @Table(name = "board_scrap") //자유게시판 스크랩
 @Getter
-public class BoardScrap {
+public class BoardScrap extends BaseTimeEntity {
 
     @Id
     @GeneratedValue

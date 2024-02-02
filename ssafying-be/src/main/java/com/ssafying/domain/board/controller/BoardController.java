@@ -6,6 +6,7 @@ import com.ssafying.domain.board.service.command.AddBoardCommentCommand;
 import com.ssafying.global.result.ResultResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,31 +50,31 @@ public class BoardController {
     /**
      * 5.3 게시판 게시글 스크랩
      */
-//    @PostMapping("/scrap")
-//    public ResponseEntity<ResultResponse> boardScrap(
-//            @RequestBody @Valid ScrapBoardRequest request
-//    ) {
-//        boardService.scrapBoard(request);
-//
-////<<<<<<< HEAD
-////        return null;
-////=======
-////        int result = boardService.scrapBoard(userId, request);
-////
-////        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
-////>>>>>>> feature-be/board
-//    }
+    @PostMapping("/scrap")
+    public ResponseEntity<ResultResponse<Integer>> boardScrap(
+            @RequestBody @Valid ScrapBoardRequest request
+    ) {
+        //TODO 유저 id 가져오는 방법은 아직 고민 중
+        int userId = 1;
+
+        int result = boardService.scrapBoard(userId, request);
+
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
+    }
 
     /**
      * 5.3.1 게시판 게시글 스크랩 취소
      */
     @DeleteMapping("/scrap")
-    public ResponseEntity<ResultResponse> boardUnScrap(
+    public ResponseEntity<ResultResponse<Integer>> boardUnScrap(
             @RequestBody @Valid ScrapBoardRequest request
     ) {
-        boardService.unScrapBoard(request);
+        //TODO 유저 id 가져오는 방법은 아직 고민 중
+        int userId = 1;
 
-        return null;
+        int result = boardService.unScrapBoard(userId, request);
+
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
     /**
@@ -81,7 +82,12 @@ public class BoardController {
      */
     @GetMapping("/{boardId}")
     public ResponseEntity<ResultResponse> boardDetails(@PathVariable int boardId){
-        boardService.findDetailBoard(boardId);
+
+        //TODO 유저 id 가져오는 방법은 아직 고민 중
+        int userId = 1;
+
+
+        boardService.findDetailBoard(userId, boardId);
 
         return null;
     }
@@ -91,7 +97,12 @@ public class BoardController {
      */
     @DeleteMapping("/{boardId}")
     public ResponseEntity<ResultResponse> boardRemove(@PathVariable int boardId){
-        boardService.removeBoard(boardId);
+
+        //TODO 유저 id 가져오는 방법은 아직 고민 중
+        int userId = 1;
+
+
+        boardService.removeBoard(userId, boardId);
 
         return null;
     }
@@ -112,8 +123,8 @@ public class BoardController {
      * 5.7 게시판 게시글 댓글 작성
      */
     @PostMapping("/comments/{boardId}")
-    public ResponseEntity<ResultResponse> boardCommentAdd(
-            @PathVariable int boardId,
+    public ResponseEntity<ResultResponse<Integer>> boardCommentAdd(
+            @PathVariable(name = "boardId") int boardId,
             @RequestBody AddBoardCommentRequest request
     ) {
 
@@ -129,11 +140,9 @@ public class BoardController {
                 .parentId(request.getParentId())
                 .build();
 
-//        boardService.addComment(boardId, request);
+        int result = boardService.addComment(command);
 
-        boardService.addComment(command);
-
-        return null;
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
     /**

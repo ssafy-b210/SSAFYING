@@ -1,10 +1,11 @@
 package com.ssafying.domain.board.dto.request;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class AddBoardCommentRequest {
 
@@ -17,6 +18,6 @@ public class AddBoardCommentRequest {
     @NotNull
     boolean isAnonymous; //익명 여부
 
-    @NotNull
+    //    @NotNull
     int parentId; //부모 댓글
 }

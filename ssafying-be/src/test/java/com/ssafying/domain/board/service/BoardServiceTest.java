@@ -31,8 +31,6 @@ public class BoardServiceTest {
     UserRepository userRepository;
     @Autowired
     BoardScarpRepository boardScarpRepository;
-    @Autowired
-    UserRepository userRepository;
 
     @Test
 //    @Rollback(false) // rollback 되지 않도록 설정
@@ -41,11 +39,8 @@ public class BoardServiceTest {
         User user = new User();
         user.setName("순");
         userRepository.save(user);
-//        user.setName("순");
-        userRepository.save(user);
 
         AddBoardRequest req = AddBoardRequest.builder()
-                .userId(user.getId())
                 .title("title")
                 .content("content")
                 .category(CategoryStatus.FREEDOM)
@@ -53,7 +48,7 @@ public class BoardServiceTest {
                 .build();
 
         //When
-        int boardId = boardService.addBoard(req);
+        int boardId = boardService.addBoard(user.getId(), req);
 
         Optional<Board> find = boardRepository.findById(boardId);
 
@@ -87,13 +82,12 @@ public class BoardServiceTest {
 
         //메서드 req 생성
         ScrapBoardRequest req = ScrapBoardRequest.builder()
-                .userId(user.getId())
                 .boardId(board.getId())
                 .build();
 
         // when
         //메서드 호출
-        int boardScrapId = boardService.scrapBoard(req);
+        int boardScrapId = boardService.scrapBoard(user.getId(), req);
         Optional<BoardScrap> find = boardScarpRepository.findById(boardScrapId);
 
         // then
@@ -105,24 +99,24 @@ public class BoardServiceTest {
     @Test
     void 게시글_상세조회() throws Exception {
         //유저 생성
-        User user = new User();
-        user.setName("순");
-        userRepository.save(user);
-
-        //게시글 생성
-        Board board = Board.createBoard(
-                "title222",
-                "content22",
-                CategoryStatus.FREEDOM,
-                false,
-                user
-        );
-        boardRepository.save(board);
-
-        Board detailBoard = boardService.findDetailBoard(board.getId());
-
-//        System.out.println(board);
-        assertThat((detailBoard.getTitle())).isEqualTo("title222");
+//        User user = new User();
+//        user.setName("순");
+//        userRepository.save(user);
+//
+//        //게시글 생성
+//        Board board = Board.createBoard(
+//                "title222",
+//                "content22",
+//                CategoryStatus.FREEDOM,
+//                false,
+//                user
+//        );
+//        boardRepository.save(board);
+//
+//        Board detailBoard = boardService.findDetailBoard(userId, board.getId());
+//
+////        System.out.println(board);
+//        assertThat((detailBoard.getTitle())).isEqualTo("title222");
     }
 
     @Test

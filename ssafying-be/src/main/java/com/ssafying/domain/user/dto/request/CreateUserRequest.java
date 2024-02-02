@@ -4,6 +4,10 @@ import com.ssafying.domain.shuttle.entity.CampusRegion;
 import com.ssafying.domain.user.entity.UserStatus;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
