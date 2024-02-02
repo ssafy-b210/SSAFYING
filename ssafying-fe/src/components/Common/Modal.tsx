@@ -2,12 +2,12 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 
-interface bambooProps {
+interface modalProps {
   children: React.ReactNode;
   btnTxt: string;
 }
 
-function BambooItemModal({ btnTxt, children }: bambooProps) {
+function Modal({ btnTxt, children }: modalProps) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -35,4 +35,4 @@ function BambooItemModal({ btnTxt, children }: bambooProps) {
   );
 }
 
-export default BambooItemModal;
+export default Modal;

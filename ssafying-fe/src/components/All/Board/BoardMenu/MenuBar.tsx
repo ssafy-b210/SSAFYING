@@ -2,8 +2,9 @@ import styled from "styled-components";
 
 import { Link } from "react-router-dom";
 
-import Board from "../../../../assets/img/MenuIcon/Board.svg";
 import Crew from "../../../../assets/img/MenuIcon/Crew.svg";
+import Board from "../../../../assets/img/MenuIcon/Board.svg";
+
 import Recruitment from "../../../../assets/img/MenuIcon/Recruitment.svg";
 
 // 현재기수와 전체기수 진입시 메뉴 화면 구성 컴포넌트
@@ -65,7 +66,7 @@ const Content = styled.div`
 `;
 
 const Text = styled.p`
-  width: 80%;
+  width: 90%;
   margin: 10px auto;
   font-size: 13px;
   text-align: center;
