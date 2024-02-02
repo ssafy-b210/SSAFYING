@@ -35,6 +35,9 @@ const Signup = styled.div`
     text-align: center;
     margin-bottom: 10px;
   }
+  a {
+    text-decoration: none;
+  }
 `;
 
 const ButtonContainer = styled.div`

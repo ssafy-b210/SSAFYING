@@ -12,11 +12,9 @@ const MealPlannerComp: React.FC<MealPlannerCompProps> = ({ onVote }) => {
   };
 
   return (
-    <MsgContainer>
-      <MealPlannerContainer>
-        <MealPlan onVote={handleVote} voteCount={0} />
-      </MealPlannerContainer>
-    </MsgContainer>
+    <MealPlannerContainer>
+      <MealPlan onVote={handleVote} voteCount={0} />
+    </MealPlannerContainer>
   );
 };
 
