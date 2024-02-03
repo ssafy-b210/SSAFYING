@@ -9,8 +9,10 @@ interface CrewItemProps {
   card: {
     title: string;
     writer: string;
-    isRecruiting: boolean;
     content: string;
+    location: string;
+    category: string;
+    isRecruiting: boolean;
   };
   index: number;
 }

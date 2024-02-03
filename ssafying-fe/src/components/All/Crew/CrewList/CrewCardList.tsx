@@ -19,12 +19,16 @@ const cards = [
     writer: "su00",
     isRecruiting: true,
     content: "누구누구?",
+    location: "대전",
+    category: "스터디",
   },
   {
     title: "서울캠 스터디 구해요",
     writer: "sooming",
     isRecruiting: false,
     content: "TESTSSTSJDFHAJFHDSJKFASJDFHSJKDFHJFHAJadfadfafdafsadfafK",
+    location: "서울",
+    category: "스터디",
   },
 ];
 

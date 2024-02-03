@@ -34,5 +34,5 @@ const StyledInput = styled.textarea`
   line-height: 1.5;
   resize: none;
   margin-bottom: 20px;
-  font-size: 15px;
+  font-size: 16px;
 `;

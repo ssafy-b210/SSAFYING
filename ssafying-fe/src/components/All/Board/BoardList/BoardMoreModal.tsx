@@ -7,6 +7,7 @@ interface moreProps {
     title: string;
     writer: string;
     content: string;
+    category: string;
   };
 }
 function BoardMoreModal({ card }: moreProps) {
@@ -15,7 +16,13 @@ function BoardMoreModal({ card }: moreProps) {
       <Card>
         <Content>
           <Title>{card.title}</Title>
-          <Writer>by. {card.writer}</Writer>
+          <Writer>
+            <div className="small-title">By.</div>
+            {card.writer}
+          </Writer>
+          <Category>
+            <div className="small-title">카테고리</div> {card.category}
+          </Category>
           <Copy>{card.content}</Copy>
         </Content>
       </Card>
@@ -54,6 +61,7 @@ const Content = styled.div`
 const Title = styled.h1`
   font-size: 20px;
 `;
+
 const Copy = styled.p`
   font-family: var(--font-serif);
   font-size: 1.125rem;
@@ -61,4 +69,19 @@ const Copy = styled.p`
   width: 100%;
   height: 100px;
 `;
-const Writer = styled.p``;
+const Writer = styled.p`
+  display: flex;
+  flex-direction: row;
+  .small-title {
+    font-weight: bold;
+    padding-right: 10px;
+  }
+`;
+const Category = styled.p`
+  display: flex;
+  flex-direction: row;
+  .small-title {
+    font-weight: bold;
+    padding-right: 10px;
+  }
+`;

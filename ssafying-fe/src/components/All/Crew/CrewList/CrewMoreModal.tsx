@@ -7,6 +7,9 @@ interface moreProps {
     title: string;
     writer: string;
     content: string;
+    location: string;
+    category: string;
+    isRecruiting: boolean;
   };
 }
 
@@ -17,6 +20,9 @@ function CrewMoreModal({ card }: moreProps) {
         <Content>
           <Title>{card.title}</Title>
           <Writer>by. {card.writer}</Writer>
+          <Location>{card.location}</Location>
+          <Category>{card.category}</Category>
+          <IsRecruiting>{card.isRecruiting}</IsRecruiting>
           <Copy>{card.content}</Copy>
         </Content>
       </Card>
@@ -62,3 +68,6 @@ const Copy = styled.p`
   height: 100px;
 `;
 const Writer = styled.p``;
+const IsRecruiting = styled.p``;
+const Location = styled.p``;
+const Category = styled.p``;

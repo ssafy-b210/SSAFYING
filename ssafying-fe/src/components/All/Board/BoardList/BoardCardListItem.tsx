@@ -7,6 +7,7 @@ interface BoardItemProps {
     title: string;
     content: string;
     writer: string;
+    category: string;
   };
   index: number;
 }

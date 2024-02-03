@@ -18,21 +18,25 @@ const cards = [
     title: "유온역 맛집 추천받아요",
     writer: "sueun",
     content: "숙취용 부탁해",
+    category: "자유",
   },
   {
     title: "유온역 맛집 추천받아요",
     writer: "sueun",
     content: "숙취용 부탁해",
+    category: "자유",
   },
   {
     title: "유온역 맛집 추천받아요",
     writer: "sueun",
     content: "숙취용 부탁해",
+    category: "자유",
   },
   {
     title: "유온역 맛집 추천받아요",
     writer: "sueun",
     content: "숙취용 부탁해",
+    category: "자유",
   },
 ];
 
