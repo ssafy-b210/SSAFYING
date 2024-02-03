@@ -9,8 +9,8 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ScrapBoardRequest {
 
-//    @NotNull(message = "user id는 필수입니다.")
-//    int userId;
+    @NotNull(message = "user id는 필수입니다.")
+    int userId;
 
     @NotNull(message = "게시글 id는 필수입니다.")
     int boardId;
