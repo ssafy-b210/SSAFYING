@@ -30,8 +30,9 @@ const StyledInput = styled.textarea`
   border-radius: 15px;
   outline: none;
   padding: 10px;
-  background-color: #f4f9f4;
+  background-color: #d9d9d9;
   line-height: 1.5;
   resize: none;
   margin-bottom: 20px;
+  font-size: 15px;
 `;

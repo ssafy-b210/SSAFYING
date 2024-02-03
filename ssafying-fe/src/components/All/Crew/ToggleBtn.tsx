@@ -10,7 +10,7 @@ function ToggleBtn() {
 
   return (
     <ToggleContainer>
-      <h5>모집여부</h5>
+      <h4>모집여부</h4>
       <Toggle>
         <input
           role="switch"
@@ -27,7 +27,7 @@ function ToggleBtn() {
 export default ToggleBtn;
 
 const ToggleContainer = styled.div`
-  h5 {
+  h4 {
     margin-left: 20px;
   }
   display: flex;

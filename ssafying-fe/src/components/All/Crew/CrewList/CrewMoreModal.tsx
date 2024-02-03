@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-// 카드눌렀을 때 detail 보이게 하기
+// 카드 눌렀을때 crew detail
 interface moreProps {
   card: {
     title: string;
@@ -9,7 +9,8 @@ interface moreProps {
     content: string;
   };
 }
-function BoardMoreModal({ card }: moreProps) {
+
+function CrewMoreModal({ card }: moreProps) {
   return (
     <div>
       <Card>
@@ -23,8 +24,7 @@ function BoardMoreModal({ card }: moreProps) {
   );
 }
 
-export default BoardMoreModal;
-
+export default CrewMoreModal;
 const Card = styled.div`
   position: relative;
   display: flex;

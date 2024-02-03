@@ -1,21 +1,24 @@
 import React from "react";
 import styled from "styled-components";
 
-// 카드눌렀을 때 detail 보이게 하기
+//카드 눌렀을 때 중고장터 detail
 interface moreProps {
   card: {
     title: string;
+    price: number;
     writer: string;
     content: string;
   };
 }
-function BoardMoreModal({ card }: moreProps) {
+
+function MarketMoreModal({ card }: moreProps) {
   return (
     <div>
       <Card>
         <Content>
           <Title>{card.title}</Title>
           <Writer>by. {card.writer}</Writer>
+          <Price>{card.price}원</Price>
           <Copy>{card.content}</Copy>
         </Content>
       </Card>
@@ -23,7 +26,7 @@ function BoardMoreModal({ card }: moreProps) {
   );
 }
 
-export default BoardMoreModal;
+export default MarketMoreModal;
 
 const Card = styled.div`
   position: relative;
@@ -62,3 +65,4 @@ const Copy = styled.p`
   height: 100px;
 `;
 const Writer = styled.p``;
+const Price = styled.p``;

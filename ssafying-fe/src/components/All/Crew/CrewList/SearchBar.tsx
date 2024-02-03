@@ -21,6 +21,10 @@ function SearchBar() {
         <Option value="제주">제주</Option>
       </DropdownContent>
       <SearchBox type="text" placeholder="검색어를 입력해주세요"></SearchBox>
+      <InputContainer>
+        <input type="checkbox" />
+        모집중만 검색
+      </InputContainer>
     </LocationContainer>
   );
 }
@@ -47,4 +51,10 @@ const SearchBox = styled.input`
   border: 2px solid #c4c4c4;
   border-radius: 20px;
   text-align: center;
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

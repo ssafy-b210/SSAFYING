@@ -6,9 +6,6 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  // padding: 5% 5%;
-  // margin: 0 auto;
-  // overflow-x: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
