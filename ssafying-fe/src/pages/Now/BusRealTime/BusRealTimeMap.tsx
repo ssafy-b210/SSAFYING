@@ -1,11 +1,8 @@
 import styled from "styled-components";
 import BackBtnHeader from "../../../components/Common/BackBtnHeader";
+import Tmap from "./Tmap";
 
 function BusRealTimeMap() {
-  function initTmap() {
-    // const map = new Tmap2.
-  }
-
   return (
     <div>
       <BackBtnHeader
@@ -13,7 +10,9 @@ function BusRealTimeMap() {
         isCenter={true}
         htext={<h3>대전 1호차 위치공유</h3>}
       />
-      <MapContainer></MapContainer>
+      <MapContainer>
+        <Tmap />
+      </MapContainer>
     </div>
   );
 }
