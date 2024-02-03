@@ -82,4 +82,27 @@ public class CrewApiController {
         return crewId;
     }
 
+    /*
+     * 10.6 게시글 검색
+     */
+    @GetMapping("/search")
+    @Operation(summary = "구인글 검색")
+    public List<Crew> crewSearch(
+            @RequestParam(name = "title", required = false) String title,
+            @RequestParam(name = "region", required = false) String region,
+            @RequestParam(name = "category", required = false) String category,
+            @RequestParam(name = "isRecruit", required = false) boolean isRecruit
+    ){
+
+            List<Crew> list = crewService.searchCrew(title, region, category, isRecruit);
+
+            if(list.size() != 0){
+                return list;
+            }else{
+                throw new RuntimeException("검색 결과를 찾을 수 없습니다.");
+            }
+
+    }
+
+
 }

@@ -2,17 +2,22 @@ package com.ssafying.domain.crew.service;
 
 import com.ssafying.domain.crew.dto.request.AddCrewRequest;
 import com.ssafying.domain.crew.dto.request.ModifyCrewRequest;
+import com.ssafying.domain.crew.dto.specification.CrewSpecification;
+import com.ssafying.domain.crew.entity.Category;
 import com.ssafying.domain.crew.entity.Crew;
+import com.ssafying.domain.crew.entity.Region;
 import com.ssafying.domain.crew.repository.jdbc.CrewRepository;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
 import com.ssafying.domain.user.service.UserAuthService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -22,8 +27,6 @@ public class CrewService {
 
     private final CrewRepository crewRepository;
     private final UserRepository userRepository;
-
-    private final UserAuthService userAuthService;
 
     /*
      * 게시글 등록
@@ -86,7 +89,7 @@ public class CrewService {
      * 게시글 수정
      */
     @Transactional
-        public Crew modifyCrew(int crewId, final ModifyCrewRequest request){
+    public Crew modifyCrew(int crewId, final ModifyCrewRequest request){
 
         //해당 crew 찾기
         Crew crew = crewRepository.findById(crewId)
@@ -100,7 +103,36 @@ public class CrewService {
         crewRepository.save(crew);
 
         return crew;
-}
+    }
+
+    /*
+     * 게시글 검색
+     */
+    public List<Crew> searchCrew(String title, String region, String category, boolean isRecruit){
+
+        Specification<Crew> spec = (root, query, criteriaBuilder) -> null;
+
+        // title
+        if (title != null) {
+            spec = spec.and(CrewSpecification.containingTitle(title));
+        }
+
+        // region
+        if (region != null) {
+            spec = spec.and(CrewSpecification.findByRegion(Region.valueOf(region)));
+        }
+
+        // category
+        if (category != null) {
+            spec = spec.and(CrewSpecification.findByCategory(Category.valueOf(category)));
+        }
+
+        // isRecruit
+        spec = spec.and(CrewSpecification.isRecruit(isRecruit));
+
+        return crewRepository.findAll(spec);
+
+    }
 
 
 }
