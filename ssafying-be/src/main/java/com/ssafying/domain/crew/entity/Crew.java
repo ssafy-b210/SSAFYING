@@ -1,9 +1,12 @@
 package com.ssafying.domain.crew.entity;
 
+import com.ssafying.domain.crew.dto.request.AddCrewRequest;
+import com.ssafying.domain.crew.dto.request.ModifyCrewRequest;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.sql.Update;
 
@@ -13,10 +16,11 @@ import java.util.List;
 @Entity
 @Table(name = "crew")
 @Getter
+@Setter
 public class Crew extends BaseTimeEntity {
 
-    @Id @GeneratedValue
-    @Column(name = "crew_id") //updatable = false ?
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "crew_id")
     private int crewId; //크루 id
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -43,21 +47,17 @@ public class Crew extends BaseTimeEntity {
     구해요 게시글 생성
      */
     public static Crew createCrew(
-            String title,
-            String content,
-            Region region,
-            Category category,
-            boolean isRecruit,
+            AddCrewRequest request,
             User user
     ) {
 
         Crew crew = new Crew();
 
-        crew.title = title;
-        crew.content = content;
-        crew.region = region;
-        crew.category = category;
-        crew.isRecruit = isRecruit;
+        crew.title = request.getTitle();
+        crew.content = request.getContent();
+        crew.region = request.getRegion();
+        crew.category = request.getCategory();
+        crew.isRecruit = request.isRecruit();
         crew.user = user;
 
         return crew;
@@ -66,19 +66,24 @@ public class Crew extends BaseTimeEntity {
     /*
     게시글 수정
      */
-    public Crew updateCrew(
-            int crewId,
-            String title,
-            String content,
-            boolean isRecruit
+    public static Crew modifyCrew(
+            Crew crew,
+            ModifyCrewRequest request
     ){
 
-        this.crewId = crewId;
-        this.title = title;
-        this.content = content;
-        this.isRecruit = isRecruit;
+        // null 값이 아닌 경우에만 업데이트
+        if(request.getTitle() != null){
+            crew.title = request.getTitle();
+        }
+        if(request.getContent() != null){
+            crew.content = request.getContent();
+        }
 
-        return this;
+        //드롭 선택
+        crew.region = request.getRegion();
+        crew.category = request.getCategory();
+
+        return crew;
     }
 
 

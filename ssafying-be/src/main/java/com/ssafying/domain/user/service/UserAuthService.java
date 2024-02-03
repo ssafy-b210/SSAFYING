@@ -5,6 +5,7 @@ import com.ssafying.domain.shuttle.repository.jdbc.CampusRepository;
 import com.ssafying.domain.user.dto.request.CreateUserRequest;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
+import com.ssafying.global.config.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,14 +20,13 @@ public class UserAuthService {
     private final UserRepository userRepository;
     private final CampusRepository campusRepository;
 
+    private final TokenProvider tokenProvider;
+
     /*
      * 회원 가입
      */
     @Transactional
     public User createUser(final CreateUserRequest request){
-
-        Campus campus1 = new Campus();
-
 
         //중복회원 검증
         if (userRepository.existsByEmail(request.getEmail())) {
@@ -74,6 +74,21 @@ public class UserAuthService {
             return null;
         }
 
+    }
+
+    // 토큰 검증 및 사용자 정보 추출 메소드
+    public User getUserFromToken(String token) {
+        // 토큰 유효성 검증
+        if (!tokenProvider.validToken(token)) {
+            throw new RuntimeException("유효하지 않은 토큰입니다.");
+        }
+
+        // 토큰 기반으로 유저 ID 추출
+        int userId = tokenProvider.getUserId(token);
+
+        // 유저 정보 조회
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 사용자입니다."));
     }
 
 }

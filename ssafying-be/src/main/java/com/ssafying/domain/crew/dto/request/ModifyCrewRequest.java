@@ -10,10 +10,8 @@ import lombok.*;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class AddCrewRequest {
+public class ModifyCrewRequest {
 
-    @NotNull(message = "유저 PK는 필수입니다.")
-    int userId;
 
     @NotNull(message = "제목은 필수입니다.")
     String title;
