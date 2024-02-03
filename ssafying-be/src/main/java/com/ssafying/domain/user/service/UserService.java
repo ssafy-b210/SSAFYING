@@ -28,9 +28,6 @@ public class UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("유저 정보를 찾을 수 없습니다."));
 
-
-        user = User.detailUser(user.getEmail(), user.getNickname(), user.getPhoneNumber(), user.getName(), user.getIntro(), user.getProfileImageUrl());
-
         return user;
 
     }

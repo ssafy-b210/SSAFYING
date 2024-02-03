@@ -1,5 +1,6 @@
 package com.ssafying.domain.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafying.domain.chat.entity.ChatMessage;
 import com.ssafying.domain.chat.entity.ChatRoomUser;
 import com.ssafying.domain.crew.entity.Crew;
@@ -20,7 +21,6 @@ import java.util.ArrayList;
 @Entity
 @Table(name = "users")
 @Getter
-@Setter
 @DynamicUpdate
 public class User extends BaseTimeEntity {
 
@@ -31,6 +31,7 @@ public class User extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "campus_id")
+    @JsonIgnore
     private Campus campus; //캠퍼스
 
     @Column(unique = true)
@@ -101,32 +102,6 @@ public class User extends BaseTimeEntity {
     }
 
     /*
-     * 회원 정보 조회
-     */
-    public static User detailUser(
-
-            String email,
-            String nickname,
-            String phoneNumber,
-            String name,
-            String intro,
-            String profileImageUrl
-    ) {
-
-        User user = new User();
-
-        user.email = email;
-        user.nickname = nickname;
-        user.phoneNumber = phoneNumber;
-        user.name = name;
-        user.intro = intro;
-        user.profileImageUrl = profileImageUrl;
-
-        return user;
-
-    }
-
-    /*
      * 회원 정보 수정
      */
     public static User updateUser(
@@ -137,19 +112,19 @@ public class User extends BaseTimeEntity {
 
         // null 값이 아닌 경우에만 업데이트
         if(request.getNickname() != null){
-            user.setNickname(request.getNickname());
+            user.nickname = request.getNickname();
         }
         if(request.getPhoneNumber() != null){
-            user.setPhoneNumber(request.getPhoneNumber());
+            user.phoneNumber = request.getPhoneNumber();
         }
         if(request.getPassword() != null){
-            user.setPassword(request.getPassword());
+            user.password = request.getPassword();
         }
         if(request.getIntro() != null){
-            user.setIntro(request.getIntro());
+            user.intro = request.getIntro();
         }
         if(request.getProfileImageUrl() != null){
-            user.setProfileImageUrl(request.getProfileImageUrl());
+            user.profileImageUrl = request.getProfileImageUrl();
         }
         return user;
     }

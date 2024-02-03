@@ -17,7 +17,6 @@ import java.util.List;
 @Entity
 @Table(name = "crew")
 @Getter
-@Setter
 public class Crew extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -87,26 +86,5 @@ public class Crew extends BaseTimeEntity {
 
         return crew;
     }
-
-
-    /*
-    구해요 게시글 전체 조회
-     */
-//    public List<Crew> findAllCrew(
-//            int crewId,
-//            User user,
-//            String title,
-//            boolean isRecruit,
-//            String imageUrl
-//    ){
-//
-//        this.crewId = crewId;
-//        this.user = user;
-//        this.title = title;
-//        this.isRecruit = isRecruit;
-//        this.imageUrl = imageUrl;
-//
-//        return
-//    }
 
 }
