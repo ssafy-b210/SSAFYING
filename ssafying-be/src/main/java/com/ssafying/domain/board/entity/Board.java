@@ -69,12 +69,10 @@ public class Board extends BaseTimeEntity {
     public void modifyBoard(
             String title,
             String content,
-            CategoryStatus category,
-            boolean isAnonymous
+            CategoryStatus category
     ) {
         this.title = title;
         this.content = content;
         this.category = category;
-        this.isAnonymous = isAnonymous;
     }
 }
