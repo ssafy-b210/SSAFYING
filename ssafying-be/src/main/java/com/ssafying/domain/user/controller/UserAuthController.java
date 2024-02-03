@@ -37,10 +37,10 @@ public class UserAuthController {
 
     @PostMapping("/signup")
     @Operation(summary = "회원 가입")
-    public int userCreate(@RequestBody @Valid CreateUserRequest request) {
+    public int userAdd(@RequestBody @Valid CreateUserRequest request) {
 
         //회원가입 서비스 호출
-        User user = userAuthService.createUser(request);
+        User user = userAuthService.addUser(request);
 
         return user.getId();
 

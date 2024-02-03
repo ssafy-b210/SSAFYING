@@ -22,9 +22,9 @@ public class UserApiController {
 
     @GetMapping("/{userId}")
     @Operation(summary = "회원 정보 조회")
-    public User userDetail(@PathVariable(name = "userId") int userId){
+    public User userDetails(@PathVariable(name = "userId") int userId){
 
-        User user = userService.detailUser(userId);
+        User user = userService.findUser(userId);
 
         return user;
 
@@ -35,10 +35,10 @@ public class UserApiController {
      */
     @PatchMapping("/{userId}")
     @Operation(summary = "회원 정보 수정")
-    public int userUpdate(@PathVariable(name = "userId") int userId,
+    public int userModify(@PathVariable(name = "userId") int userId,
                            @RequestBody UpdateUserRequest request){
 
-        User user = userService.UpdateUser(userId, request);
+        User user = userService.modifyUser(userId, request);
 
         return userId;
     }
@@ -49,9 +49,9 @@ public class UserApiController {
      */
     @DeleteMapping("/{userId}")
     @Operation(summary = "회원 탈퇴")
-    public int userDelete(@PathVariable(name = "userId") int userId){
+    public int userRemove(@PathVariable(name = "userId") int userId){
 
-        userService.DeleteUser(userId);
+        userService.removeUser(userId);
 
         return userId;
 

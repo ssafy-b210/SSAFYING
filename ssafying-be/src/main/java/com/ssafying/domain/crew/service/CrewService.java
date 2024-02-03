@@ -29,7 +29,7 @@ public class CrewService {
      * 게시글 등록
      */
     @Transactional
-    public Crew createCrew(int userId, final AddCrewRequest request){
+    public Crew addCrew(int userId, final AddCrewRequest request){
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
@@ -64,6 +64,13 @@ public class CrewService {
     /*
      * 게시글 상세 조회
      */
+    @Transactional
+    public Crew findCrew(int crewId){
+        Crew crew = crewRepository.findById(crewId)
+                .orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
+
+        return crew;
+    }
 
     /*
      * 게시글 전체 조회
@@ -79,7 +86,7 @@ public class CrewService {
      * 게시글 수정
      */
     @Transactional
-    public Crew updateCrew(int crewId, final ModifyCrewRequest request){
+        public Crew modifyCrew(int crewId, final ModifyCrewRequest request){
 
         //해당 crew 찾기
         Crew crew = crewRepository.findById(crewId)

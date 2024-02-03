@@ -26,7 +26,7 @@ public class UserAuthService {
      * 회원 가입
      */
     @Transactional
-    public User createUser(final CreateUserRequest request){
+    public User addUser(final CreateUserRequest request){
 
         //중복회원 검증
         if (userRepository.existsByEmail(request.getEmail())) {

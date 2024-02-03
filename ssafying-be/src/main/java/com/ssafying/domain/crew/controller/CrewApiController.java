@@ -25,10 +25,10 @@ public class CrewApiController {
      */
     @PostMapping
     @Operation(summary = "구인글 작성")
-    public int registCrew(@RequestBody @Valid AddCrewRequest request) {
+    public int crewAdd(@RequestBody @Valid AddCrewRequest request) {
 
         int userId = 1;
-        Crew crew = crewService.createCrew(userId, request);
+        Crew crew = crewService.addCrew(userId, request);
 
         return crew.getCrewId();
     }
@@ -38,7 +38,7 @@ public class CrewApiController {
      */
     @DeleteMapping("/{crewId}")
     @Operation(summary = "구인글 삭제")
-    public int removeCrew(@PathVariable(name = "crewId") int crewId){
+    public int crewRemove(@PathVariable(name = "crewId") int crewId){
 
         crewService.removeCrew(crewId);
 
@@ -48,13 +48,21 @@ public class CrewApiController {
     /*
      * 10.3 게시글 상세 조회
      */
+    @GetMapping("/{crewId}")
+    @Operation(summary = "구인글 상세 조회")
+    public int crewDetails(@PathVariable(name = "crewId")int crewId){
+
+        Crew crew = crewService.findCrew(crewId);
+
+        return crewId;
+    }
 
     /*
      * 10.4 게시글 전체 목록 조회
      */
     @GetMapping
     @Operation(summary = "구인글 전체 조회")
-    public List<Crew> findAllCrew(){
+    public List<Crew> crewList(){
 
         List<Crew> list = crewService.findAllCrews();
 
@@ -67,9 +75,9 @@ public class CrewApiController {
      */
     @PatchMapping("/{crewId}")
     @Operation(summary = "구인글 수정")
-    public int updateCrew(@PathVariable(name = "crewId") int crewId,
+    public int crewModify(@PathVariable(name = "crewId") int crewId,
                           @RequestBody final ModifyCrewRequest request){
-        crewService.updateCrew(crewId, request);
+        crewService.modifyCrew(crewId, request);
 
         return crewId;
     }
