@@ -57,4 +57,16 @@ public class BoardComment extends BaseTimeEntity {
 
         return comment;
     }
+
+    //댓글 수정 함수
+    public void modifyBoard(
+            String content,
+            boolean isAnonymous
+    ) {
+        this.content = content;
+
+        System.out.println("isAnonymous = " + isAnonymous);
+
+        this.isAnonymous = isAnonymous;
+    }
 }
