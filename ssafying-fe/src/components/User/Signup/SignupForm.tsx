@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import SubmitBtn from "../../Common/SubmitBtn";
-import { style } from "@mui/system";
+// import { style } from "@mui/system";
 
 interface SignUpFormProps {}
 
