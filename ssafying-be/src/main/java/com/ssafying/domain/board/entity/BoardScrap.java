@@ -15,11 +15,11 @@ public class BoardScrap extends BaseTimeEntity {
     @Column(name = "board_scrap_id")
     private int id; //자유게시판 게시글 스크랩 id
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user; //게시글 스크랩 회원
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Board board; //스크랩한 게시글
 
