@@ -5,8 +5,13 @@ import com.ssafying.domain.user.dto.request.LoginRequest;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.service.UserAuthService;
 import com.ssafying.global.config.jwt.TokenProvider;
+import com.ssafying.domain.user.dto.request.CreateAccessTokenRequest;
+import com.ssafying.domain.user.dto.response.CreateAccessTokenResponse;
+import com.ssafying.global.config.jwt.service.TokenService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
@@ -18,6 +23,7 @@ public class UserAuthController {
 
     private final UserAuthService userAuthService;
     private final TokenProvider tokenProvider;
+    private final TokenService tokenService;
 
 
     private final Duration TOKEN_EXPIRES = Duration.ofDays(7); // 7일
@@ -40,7 +46,7 @@ public class UserAuthController {
      * 1.2 로그인
      */
     @PostMapping("/login")
-    public int login(@RequestBody @Valid LoginRequest request) {
+    public ResponseEntity<String> login(@RequestBody @Valid LoginRequest request) {
 
         //로그인 시도
         User user = userAuthService.login(request.getEmail(), request.getPassword());
@@ -49,18 +55,38 @@ public class UserAuthController {
         if (user != null) {
 
             //토큰 생성
-            String accessToken = tokenProvider.generateToken(user, TOKEN_EXPIRES);
+            String token = tokenProvider.generateToken(user, TOKEN_EXPIRES);
 
-//            System.out.println("////////////////////////////////////");
-//            System.out.println(accessToken);
-//            System.out.println("////////////////////////////////////");
-
-            return user.getId();
+            // 헤더에 담아서 응답
+            HttpHeaders responseHeaders = new HttpHeaders();
+            responseHeaders.setBearerAuth(token);
+            return ResponseEntity.ok().headers(responseHeaders).body(token);
 
             //실패
         } else {
-            return user.getId();
+            throw new RuntimeException("로그인 실패");
         }
+    }
+    /*
+     * 토큰 재발급
+     */
+    @PostMapping("/newToken")
+    public ResponseEntity<CreateAccessTokenResponse> createNewAccessToken(@RequestBody @Valid CreateAccessTokenRequest request) {
+
+        // Refresh 토큰 유효성 검사
+        try {
+            tokenProvider.validToken(request.getRefreshToken());
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("유효하지 않은 토큰입니다.");
+        }
+
+        // 새로운 Access 토큰 생성
+        String newAccessToken = tokenService.createNewAccessToken(request.getRefreshToken());
+
+        // 헤더에 담아서 응답
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setBearerAuth(newAccessToken);
+        return ResponseEntity.ok().headers(responseHeaders).body(new CreateAccessTokenResponse(newAccessToken));
     }
 
     /*

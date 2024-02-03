@@ -51,9 +51,9 @@ public class TokenProvider {
     }
 
     // 토큰 기반으로 유저 ID를 가져오는 메소드
-    public Long getUserId(String token) {
+    public int getUserId(String token) {
         Claims claims = getClaims(token);
-        return claims.get("id", Long.class);
+        return claims.get("id", Integer.class);
     }
 
     private Claims getClaims(String token){
