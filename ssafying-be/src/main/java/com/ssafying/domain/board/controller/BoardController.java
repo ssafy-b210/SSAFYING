@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 //@Api
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/boards")
+@RequestMapping("/boards")
 public class BoardController {
 
     private final BoardService boardService;
@@ -25,9 +25,7 @@ public class BoardController {
     public ResponseEntity<ResultResponse<Integer>> boardAdd(
             @RequestBody @Valid AddBoardRequest request) {
 
-        //TODO 유저 id 가져오는 방법은 아직 고민 중
-        int userId = 1;
-        int result = boardService.addBoard(userId, request);
+        int result = boardService.addBoard(request);
 
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
@@ -54,10 +52,8 @@ public class BoardController {
     public ResponseEntity<ResultResponse<Integer>> boardScrap(
             @RequestBody @Valid ScrapBoardRequest request
     ) {
-        //TODO 유저 id 가져오는 방법은 아직 고민 중
-        int userId = 1;
 
-        int result = boardService.scrapBoard(userId, request);
+        int result = boardService.scrapBoard(request);
 
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
@@ -69,10 +65,8 @@ public class BoardController {
     public ResponseEntity<ResultResponse<Integer>> boardUnScrap(
             @RequestBody @Valid ScrapBoardRequest request
     ) {
-        //TODO 유저 id 가져오는 방법은 아직 고민 중
-        int userId = 1;
 
-        int result = boardService.unScrapBoard(userId, request);
+        int result = boardService.unScrapBoard(request);
 
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
@@ -97,28 +91,24 @@ public class BoardController {
      * 5.5 게시판 게시글 삭제
      */
     @DeleteMapping("/{boardId}")
-    public ResponseEntity<ResultResponse> boardRemove(
+    public ResponseEntity<ResultResponse<Integer>> boardRemove(
             @PathVariable(name = "boardId") int boardId) {
 
-        //TODO 유저 id 가져오는 방법은 아직 고민 중
-        int userId = 1;
+        int result = boardService.removeBoard(boardId);
 
-
-        boardService.removeBoard(userId, boardId);
-
-        return null;
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
     /**
      * 5.6 게시판 게시글 수정
      */
-    @PutMapping("/{boardId}")
-    public ResponseEntity<ResultResponse> boardModify(
+    @PatchMapping("/{boardId}")
+    public ResponseEntity<ResultResponse<Integer>> boardModify(
             @PathVariable(name = "boardId") int boardId,
             @RequestBody ModifyBoardRequest request){
-        boardService.modifyBoard(boardId, request);
+        int result = boardService.modifyBoard(boardId, request);
 
-        return null;
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
     /**
@@ -130,15 +120,12 @@ public class BoardController {
             @RequestBody AddBoardCommentRequest request
     ) {
 
-        //TODO 유저 id 가져오는 방법은 아직 고민 중
-        int userId = 1;
-
-        //유저 + boardId + request
+        //boardId + request 를 controller 로 보내줌
         AddBoardCommentCommand command = AddBoardCommentCommand.builder()
                 .boardId(boardId)
-                .userId(userId)
+                .userId(request.getUserId())
                 .content(request.getContent())
-                .isAnonymous(request.isAnonymous())
+                .isAnonymous(request.getIsAnonymous())
                 .parentId(request.getParentId())
                 .build();
 
@@ -153,10 +140,9 @@ public class BoardController {
     @DeleteMapping("/comments/{boardCommentId}")
     public ResponseEntity<ResultResponse<String>> boardCommentRemove(
             @PathVariable(name = "boardCommentId") int boardCommentId
-            /*,@RequestBody RemoveBoardCommentRequest request*/
     ){
-        //TODO
-        String result = boardService.removeComment(boardCommentId/*, request*/);
+
+        String result = boardService.removeComment(boardCommentId);
 
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
@@ -164,14 +150,13 @@ public class BoardController {
     /**
      * 5.9 게시판 게시글 댓글 수정
      */
-    @PutMapping("/comments/{boardCommentId}")
-    public ResponseEntity<ResultResponse> boardCommentModify(
+    @PatchMapping("/comments/{boardCommentId}")
+    public ResponseEntity<ResultResponse<Integer>> boardCommentModify(
             @PathVariable(name = "boardCommentId") int boardCommentId,
-        @RequestBody ModifyBaordCommentRequest request
+            @RequestBody ModifyBoardCommentRequest request
     ) {
-        boardService.modifyComment(boardCommentId, request);
+        int result = boardService.modifyComment(boardCommentId, request);
 
-        return null;
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
-
 }
