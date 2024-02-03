@@ -12,14 +12,15 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/crew")
 public class CrewApiController {
 
     private final CrewService crewService;
 
     /*
-    게시글 작성
+     * 10.1 게시글 작성
      */
-    @PostMapping("/crew")
+    @PostMapping
     public int registCrew(@RequestBody @Valid AddCrewRequest request) {
 
         int userId = 1;
@@ -28,10 +29,21 @@ public class CrewApiController {
         return crew.getCrewId();
     }
 
-        /*
-    게시글 수정
+    /*
+     * 10.2 게시글 삭제
      */
-    @PatchMapping("/crew/{crewId}")
+    @DeleteMapping("/{crewId}")
+    public int removeCrew(@PathVariable(name = "crewId") int crewId){
+
+        crewService.removeCrew(crewId);
+
+        return crewId;
+    }
+
+    /*
+     * 10.5 게시글 수정
+     */
+    @PatchMapping("/{crewId}")
     public int updateCrew(@PathVariable(name = "crewId") int crewId,
                           @RequestBody final ModifyCrewRequest request){
         crewService.updateCrew(crewId, request);

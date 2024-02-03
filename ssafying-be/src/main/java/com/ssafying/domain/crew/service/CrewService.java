@@ -24,7 +24,7 @@ public class CrewService {
     private final UserAuthService userAuthService;
 
     /*
-    게시글 등록
+     * 게시글 등록
      */
     @Transactional
     public Crew createCrew(int userId, final AddCrewRequest request){
@@ -45,7 +45,22 @@ public class CrewService {
     }
 
     /*
-    게시글 수정
+     * 게시글 삭제
+     */
+    @Transactional
+    public int removeCrew(int crewId){
+
+        //해당 crew 찾기
+        Crew crew = crewRepository.findById(crewId)
+                .orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
+
+        crewRepository.delete(crew);
+
+        return crewId;
+    }
+
+    /*
+     * 게시글 수정
      */
     @Transactional
     public Crew updateCrew(int crewId, final ModifyCrewRequest request){
