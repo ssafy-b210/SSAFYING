@@ -33,17 +33,27 @@ public class BoardController {
     /**
      * 5.2 게시판 게시글 조회
      */
+//    @GetMapping
+//    public ResponseEntity<ResultResponse> boardList(
+//            @RequestParam(defaultValue = "1") int pageNo, //몇번째 페이지인지
+//            @RequestParam String searchCategory, //게시글 중 어떤 카테고리인지
+//            @RequestParam(required = false) String searchWord //검색어가 있는 경우
+//    ) {
+//        boardService.findBoard(pageNo, searchCategory, searchWord);
+////        CategoryStatus employment = CategoryStatus.valueOf("EMPLOYMENT");
+//
+//        return null;
+//    }
+
     @GetMapping
     public ResponseEntity<ResultResponse> boardList(
-            @RequestParam(defaultValue = "1") int pageNo, //몇번째 페이지인지
-            @RequestParam String searchCategory, //게시글 중 어떤 카테고리인지
-            @RequestParam(required = false) String searchWord //검색어가 있는 경우
+
     ) {
-        boardService.findBoard(pageNo, searchCategory, searchWord);
-//        CategoryStatus employment = CategoryStatus.valueOf("EMPLOYMENT");
+
 
         return null;
     }
+
 
     /**
      * 5.3 게시판 게시글 스크랩
@@ -78,11 +88,7 @@ public class BoardController {
     public ResponseEntity<ResultResponse> boardDetails(
             @PathVariable(name = "boardId") int boardId) {
 
-        //TODO 유저 id 가져오는 방법은 아직 고민 중
-        int userId = 1;
-
-
-        boardService.findDetailBoard(userId, boardId);
+        boardService.findDetailBoard(boardId);
 
         return null;
     }
