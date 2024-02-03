@@ -10,6 +10,9 @@ import lombok.*;
 @Builder
 public class AddBoardRequest {
 
+    @NotNull(message = "사용자 id는 필수입니다.")
+    int userId;
+
     @NotNull(message = "제목은 필수입니다.")
     String title;
 
@@ -20,5 +23,5 @@ public class AddBoardRequest {
     CategoryStatus category;
 
     @NotNull(message = "익명 여부는 필수입니다.")
-    boolean isAnonymous;
+    Boolean isAnonymous;
 }
