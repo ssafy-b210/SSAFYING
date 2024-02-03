@@ -10,7 +10,6 @@ import lombok.*;
 public class ModifyBoardRequest {
 
     CategoryStatus category;
-    Boolean isAnonymous;
     private String title;
     private String content;
 
