@@ -123,20 +123,19 @@ public class BoardService {
      *
      * @return
      */
-    public Board findDetailBoard(int userId, int boardId) {
+    public Board findDetailBoard(int boardId) {
 
-        //request로 넘어온 userId가 존재하는지 확인
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
-
-        //boardId가 존재하는지 확인
+        // boardId가 존재하는지 확인
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new RuntimeException("게시글이 없습니다."));
 
-        //존재한다면 해당 게시글을 상세 조회
+        // 존재한다면 해당 게시글을 상세 조회
+        // board 내용 + 댓글들 + 스크랩 여부
+
+        //board + comment
 
 
-        //board를 Response에 담아서 넘겨줘야할 듯요
+        // board를 Response에 담아서 넘겨줘야할 듯요
 
         return board;
 
@@ -178,8 +177,7 @@ public class BoardService {
         board.modifyBoard(
                 request.getTitle(),
                 request.getContent(),
-                request.getCategory(),
-                request.getIsAnonymous()
+                request.getCategory()
         );
 
         return board.getId();
@@ -198,8 +196,15 @@ public class BoardService {
                 .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
 
         // 해당 게시글이 있는지 확인해줌
-        Board board = boardRepository.findById(command.getBoardId())
-                .orElseThrow(() -> (new RuntimeException("해당 게시글이 존재하지 않습니다.")));
+        Board board = boardRepository.getReferenceById(command.getBoardId());
+
+        BoardComment parentComment = null;
+
+        // 자식댓글이라면 부모댓글을 찾아줌
+        if (command.getParentId() != -1) {
+            parentComment = boardCommentRepository.findById(command.getParentId())
+                    .orElseThrow(() -> (new RuntimeException("부모댓글이 존재하지 않습니다.")));
+        }
 
         //있다면 comment 를 추가해줌
         BoardComment boardComment = BoardComment.createBoardComment(
@@ -208,7 +213,7 @@ public class BoardService {
                 command.getContent(),
                 false,
                 false,
-                command.getParentId()
+                parentComment
         );
 
         BoardComment save = boardCommentRepository.save(boardComment);
@@ -224,32 +229,23 @@ public class BoardService {
     @Transactional
     public String removeComment(int boardCommentId) {
 
-        //삭제하려는 댓글이 존재하는지 확인
+        // 삭제하려는 댓글이 존재하는지 확인
         BoardComment comment = boardCommentRepository.findById(boardCommentId)
                 .orElseThrow(() -> (new RuntimeException("해당 댓글이 존재하지 않습니다.")));
 
-
-        // TODO 부모댓글을 확인하고.... 깊이 1 댓글이라면 바로 삭제 대신,,,
-
-        // comment 의 parentId 가 -1 인 경우 (부모댓글)
-        // 그냥 삭제해버리면 안됨
-        // 자식댓글 개수가 1개 이상인 경우
-        // 부모댓글의 삭제여부를 true 로 바꿔줌
-
-        //자식댓글 개수가 0개인 경우
-        //바로 삭제해줌
-
-        // -1이 아닌 경우 (자식댓글)
-        // 그냥 삭제해버리면 됨
-        // 자신이 마지막 자식댓글이라면 추가로 부모댓글을 삭제해줌
-
-
-
         // 댓글 삭제
+        // 부모 댓글이라면 자식 댓글까지 삭제해줘야 함
+        if ((comment.getParentComment()) == null) {
+            List<BoardComment> parentComment = boardCommentRepository.findByParentComment(comment);
+
+            for (BoardComment child : parentComment) {
+                boardCommentRepository.deleteById(child.getId());
+            }
+        }
+
         boardCommentRepository.deleteById(comment.getId());
 
         return "success";
-
     }
 
     /**
@@ -265,7 +261,7 @@ public class BoardService {
                 .orElseThrow(() -> (new RuntimeException("해당 댓글이 존재하지 않습니다.")));
 
         //댓글 수정
-        comment.modifyBoard(request.getContent(), request.getIsAnonymous());
+        comment.modifyBoard(request.getContent());
 
         return comment.getId();
     }
