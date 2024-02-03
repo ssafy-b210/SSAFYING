@@ -1,7 +1,7 @@
 package com.ssafying.domain.crew.controller;
 
 import com.ssafying.domain.crew.dto.request.AddCrewRequest;
-import com.ssafying.domain.crew.dto.request.UpdateCrewRequest;
+import com.ssafying.domain.crew.dto.request.ModifyCrewRequest;
 import com.ssafying.domain.crew.dto.response.AddCrewResponse;
 import com.ssafying.domain.crew.entity.Crew;
 import com.ssafying.domain.crew.service.CrewService;
@@ -20,20 +20,23 @@ public class CrewApiController {
     게시글 작성
      */
     @PostMapping("/crew")
-    public ResponseEntity<AddCrewResponse> registCrew(@RequestBody @Valid AddCrewRequest request) {
-        Crew crew = crewService.createCrew(request);
+    public int registCrew(@RequestBody @Valid AddCrewRequest request) {
 
-        return null;
+        int userId = 1;
+        Crew crew = crewService.createCrew(userId, request);
+
+        return crew.getCrewId();
     }
 
         /*
     게시글 수정
      */
-    @PutMapping("/crew/{crewId}")
-    public ResponseEntity<AddCrewResponse> updateCrew(@PathVariable final int crewId, @RequestBody final UpdateCrewRequest request){
-        crewService.updateCrew(request);
+    @PatchMapping("/crew/{crewId}")
+    public int updateCrew(@PathVariable(name = "crewId") int crewId,
+                          @RequestBody final ModifyCrewRequest request){
+        crewService.updateCrew(crewId, request);
 
-        return null;
+        return crewId;
     }
 
     /*

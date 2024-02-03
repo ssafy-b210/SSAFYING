@@ -14,7 +14,7 @@ import static java.util.Collections.emptyMap;
 
 @Getter
 public class JwtFactory {
-    private String subject = "ssafy@ssafy.com";
+    private String subject = "ssafying";
     private Date issuedAt = new Date();
     private Date expiration = new Date(new Date().getTime() + Duration.ofDays(14).toMillis());
     private Map<String, Object> claims = emptyMap();
