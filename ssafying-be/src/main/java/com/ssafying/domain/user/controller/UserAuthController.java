@@ -8,6 +8,8 @@ import com.ssafying.global.config.jwt.TokenProvider;
 import com.ssafying.domain.user.dto.request.CreateAccessTokenRequest;
 import com.ssafying.domain.user.dto.response.CreateAccessTokenResponse;
 import com.ssafying.global.config.jwt.service.TokenService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +21,7 @@ import java.time.Duration;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
+@Tag(name = "회원가입, 로그인")
 public class UserAuthController {
 
     private final UserAuthService userAuthService;
@@ -33,6 +36,7 @@ public class UserAuthController {
      */
 
     @PostMapping("/signup")
+    @Operation(summary = "회원 가입")
     public int userCreate(@RequestBody @Valid CreateUserRequest request) {
 
         //회원가입 서비스 호출
@@ -46,6 +50,7 @@ public class UserAuthController {
      * 1.2 로그인
      */
     @PostMapping("/login")
+    @Operation(summary = "로그인")
     public ResponseEntity<String> login(@RequestBody @Valid LoginRequest request) {
 
         //로그인 시도
@@ -71,6 +76,7 @@ public class UserAuthController {
      * 토큰 재발급
      */
     @PostMapping("/newToken")
+    @Operation(summary = "토큰 재발급")
     public ResponseEntity<CreateAccessTokenResponse> createNewAccessToken(@RequestBody @Valid CreateAccessTokenRequest request) {
 
         // Refresh 토큰 유효성 검사

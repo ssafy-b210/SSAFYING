@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -60,6 +62,20 @@ public class CrewService {
     }
 
     /*
+     * 게시글 상세 조회
+     */
+
+    /*
+     * 게시글 전체 조회
+     */
+    @Transactional
+    public List<Crew> findAllCrews(){
+        List<Crew> list = crewRepository.findAll();
+
+        return list;
+    }
+
+    /*
      * 게시글 수정
      */
     @Transactional
@@ -79,12 +95,5 @@ public class CrewService {
         return crew;
 }
 
-
-    /*
-    전체 목록 조회
-     */
-//    public int findAll(){
-//
-//    }
 
 }

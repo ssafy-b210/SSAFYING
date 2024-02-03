@@ -1,5 +1,6 @@
 package com.ssafying.domain.crew.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafying.domain.crew.dto.request.AddCrewRequest;
 import com.ssafying.domain.crew.dto.request.ModifyCrewRequest;
 import com.ssafying.domain.user.entity.User;
@@ -24,6 +25,7 @@ public class Crew extends BaseTimeEntity {
     private int crewId; //크루 id
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "user_id")
     private User user; //작성자
 
