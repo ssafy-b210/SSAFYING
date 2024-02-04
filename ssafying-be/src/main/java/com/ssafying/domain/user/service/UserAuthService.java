@@ -44,13 +44,7 @@ public class UserAuthService {
         //user build
         User user = User.createUser(
                 campus,
-                request.getEmail(),
-                request.getPassword(),
-                request.getNickname(),
-                request.getPhoneNumber(),
-                request.getName(),
-                request.getGeneration(),
-                request.isMajor()
+                request
         );
 
         User save = userRepository.save(user);

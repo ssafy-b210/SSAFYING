@@ -27,6 +27,6 @@ public class AddCrewRequest {
     CrewCategory category;
 
     @NotNull(message = "모집 여부 체크는 필수입니다.")
-    boolean isRecruit;
+    Boolean isRecruit;
 
 }

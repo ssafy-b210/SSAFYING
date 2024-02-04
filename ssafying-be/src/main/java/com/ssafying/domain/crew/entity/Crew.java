@@ -36,7 +36,7 @@ public class Crew extends BaseTimeEntity {
     private CrewCategory category; //카테고리
 
     @Column(name = "is_recruit")
-    private boolean isRecruit; //모집 상태
+    private Boolean isRecruit; //모집 상태
 
     @Column(name = "image_url")
     private String imageUrl; //작성자 프로필 이미지
@@ -45,7 +45,7 @@ public class Crew extends BaseTimeEntity {
     private List<CrewComment> comments = new ArrayList<>(); //댓글
 
     /*
-     * 구해요 게시글 생성
+     * 구해요 게시글 작성
      */
     public static Crew createCrew(
             AddCrewRequest request,
@@ -58,7 +58,7 @@ public class Crew extends BaseTimeEntity {
         crew.content = request.getContent();
         crew.region = request.getRegion();
         crew.category = request.getCategory();
-        crew.isRecruit = request.isRecruit();
+        crew.isRecruit = request.getIsRecruit();
         crew.user = user;
 
         return crew;
@@ -80,9 +80,10 @@ public class Crew extends BaseTimeEntity {
             crew.content = request.getContent();
         }
 
-        //드롭 선택
+        //드롭 다운
         crew.region = request.getRegion();
         crew.category = request.getCategory();
+        crew.isRecruit = request.getIsRecruit();
 
         return crew;
     }

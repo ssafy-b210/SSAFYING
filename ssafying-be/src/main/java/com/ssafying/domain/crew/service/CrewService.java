@@ -37,7 +37,7 @@ public class CrewService {
     public Crew addCrew(final AddCrewRequest request){
 
         User user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
+                .orElseThrow(() -> new RuntimeException("유저 정보를 찾을 수 없습니다."));
 
         //db에 저장할 crew
         Crew crew = Crew.createCrew(

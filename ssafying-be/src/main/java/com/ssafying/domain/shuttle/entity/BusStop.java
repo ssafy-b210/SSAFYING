@@ -20,9 +20,9 @@ public class BusStop {
 
     private double lon; //경도
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shuttle_id")
-    private Shuttle shuttle; //셔틀
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "shuttle_id")
+//    private Shuttle shuttle; //셔틀
 
     /*
      * 버스 정류장 등록

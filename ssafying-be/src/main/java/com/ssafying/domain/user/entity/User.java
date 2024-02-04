@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafying.domain.chat.entity.ChatMessage;
 import com.ssafying.domain.chat.entity.ChatRoomUser;
 import com.ssafying.domain.crew.entity.Crew;
+import com.ssafying.domain.market.entity.Market;
 import com.ssafying.domain.shuttle.entity.BusStop;
 import com.ssafying.domain.shuttle.entity.Campus;
+import com.ssafying.domain.user.dto.request.CreateUserRequest;
 import com.ssafying.domain.user.dto.request.UpdateUserRequest;
 import com.ssafying.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
@@ -60,7 +62,7 @@ public class User extends BaseTimeEntity {
 
     /* board entity */
     @Column(name = "is_major")
-    private boolean isMajor; //전공 유무
+    private Boolean isMajor; //전공 유무
 
     /* chat entity */
     @OneToMany(mappedBy = "user")
@@ -71,10 +73,13 @@ public class User extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "user")
     private List<Crew> crews = new ArrayList<>(); //가입한 크루
+    
+    @OneToMany(mappedBy = "user")
+    private List<Market> markets = new ArrayList<>(); //작성한 중고거래 게시글
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "bus_stop")
-    private BusStop busStop; //셔틀 탑승 정류장
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @Column(name = "bus_stop")
+//    private BusStop busStop; //셔틀 탑승 정류장
 
     /*
      * 회원 가입
@@ -82,25 +87,19 @@ public class User extends BaseTimeEntity {
     public static User createUser(
 
             Campus campus,
-            String email,
-            String password,
-            String nickname,
-            String phoneNumber,
-            String name,
-            int generation,
-            boolean isMajor
+            CreateUserRequest request
     ){
 
         User user = new User();
 
         user.campus = campus;
-        user.email = email;
-        user.password = password;
-        user.nickname = nickname;
-        user.phoneNumber = phoneNumber;
-        user.name = name;
-        user.generation = generation;
-        user.isMajor = isMajor;
+        user.email = request.getEmail();
+        user.password = request.getPassword();
+        user.nickname = request.getNickname();
+        user.phoneNumber = request.getPhoneNumber();
+        user.name = request.getName();
+        user.generation = request.getGeneration();
+        user.isMajor = request.getIsMajor();
         user.status = UserStatus.ACTIVE;
 
         return user;

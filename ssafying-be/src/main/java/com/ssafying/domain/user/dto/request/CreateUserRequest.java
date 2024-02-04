@@ -41,7 +41,7 @@ public class CreateUserRequest {
     int generation;
 
     @NotNull(message = "전공 유무 입력은 필수입니다.")
-    boolean isMajor;
+    Boolean isMajor;
 
     UserStatus userStatus;
 

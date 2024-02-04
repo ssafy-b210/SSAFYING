@@ -20,7 +20,7 @@ public class Campus {
     @Enumerated(EnumType.STRING)
     private CampusRegion campusRegion; //캠퍼스 지역
 
-    @OneToMany(mappedBy = "campus")
-    private List<Shuttle> shuttles = new ArrayList<>(); //셔틀버스
+//    @OneToMany(mappedBy = "campus")
+//    private List<Shuttle> shuttles = new ArrayList<>(); //셔틀버스
 
 }

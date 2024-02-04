@@ -78,6 +78,7 @@ public class CrewController {
     @Operation(summary = "구인글 수정")
     public int crewModify(@PathVariable(name = "crewId") int crewId,
                           @RequestBody final ModifyCrewRequest request){
+
         crewService.modifyCrew(crewId, request);
 
         return crewId;

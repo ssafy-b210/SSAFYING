@@ -11,7 +11,6 @@ import lombok.*;
 @AllArgsConstructor
 public class ModifyCrewRequest {
 
-
     @NotNull(message = "제목은 필수입니다.")
     String title;
 
@@ -25,7 +24,7 @@ public class ModifyCrewRequest {
     CrewCategory category;
 
     @NotNull(message = "모집 여부 체크는 필수입니다.")
-    boolean isRecruit;
+    Boolean isRecruit;
 
     @NotNull(message = "crew PK는 필수입니다.")
     int crewId;
