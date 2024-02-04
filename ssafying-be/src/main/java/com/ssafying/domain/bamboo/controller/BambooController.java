@@ -36,10 +36,10 @@ public class BambooController {
      * 4.2 대나무숲 작성
      */
     @PostMapping
-    public ResponseEntity<ResultResponse<Integer>> bambooAdd(
+    public ResponseEntity<ResultResponse<Long>> bambooAdd(
             @RequestBody @Valid AddBambooRequest request) {
 
-        int result = bambooService.addBamboo(request);
+        Long result = bambooService.addBamboo(request);
 
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
@@ -61,7 +61,7 @@ public class BambooController {
     /**
      * 4.4 대나무숲 댓글 작성
      */
-    @PostMapping("/comments")
+    @PostMapping("/comments/{bambooId}")
     public ResponseEntity<ResultResponse<Long>> bambooCommentAdd(
             @PathVariable(name = "bambooId") Long bambooId,
             @RequestBody AddBambooCommentRequest request) {
@@ -76,10 +76,10 @@ public class BambooController {
      * 4.5 대나무숲 댓글 삭제
      */
     @DeleteMapping("/comments/{bambooCommentId}")
-    public ResponseEntity<ResultResponse<Integer>> bambooCommentRemove(
+    public ResponseEntity<ResultResponse<String>> bambooCommentRemove(
             @PathVariable(name = "bambooCommentId") Long bambooCommentId) {
 
-        int result = bambooService.removeBambooComment(bambooCommentId);
+        String result = bambooService.removeBambooComment(bambooCommentId);
 
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
