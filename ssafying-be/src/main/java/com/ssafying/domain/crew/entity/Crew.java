@@ -7,11 +7,8 @@ import com.ssafying.domain.user.entity.User;
 import com.ssafying.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.sql.Update;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -36,7 +33,7 @@ public class Crew extends BaseTimeEntity {
     private Region region; //지역
 
     @Enumerated(EnumType.STRING)
-    private Category category; //카테고리
+    private CrewCategory category; //카테고리
 
     @Column(name = "is_recruit")
     private boolean isRecruit; //모집 상태
@@ -44,8 +41,11 @@ public class Crew extends BaseTimeEntity {
     @Column(name = "image_url")
     private String imageUrl; //작성자 프로필 이미지
 
+    @OneToMany(mappedBy = "crew", cascade = CascadeType.REMOVE)
+    private List<CrewComment> comments = new ArrayList<>(); //댓글
+
     /*
-    구해요 게시글 생성
+     * 구해요 게시글 생성
      */
     public static Crew createCrew(
             AddCrewRequest request,
@@ -65,7 +65,7 @@ public class Crew extends BaseTimeEntity {
     }
 
     /*
-    게시글 수정
+     * 게시글 수정
      */
     public static Crew modifyCrew(
             Crew crew,

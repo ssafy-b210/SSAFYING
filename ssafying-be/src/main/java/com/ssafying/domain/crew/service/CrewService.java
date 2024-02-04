@@ -1,15 +1,17 @@
 package com.ssafying.domain.crew.service;
 
+import com.ssafying.domain.crew.dto.request.AddCrewCommentRequest;
 import com.ssafying.domain.crew.dto.request.AddCrewRequest;
 import com.ssafying.domain.crew.dto.request.ModifyCrewRequest;
 import com.ssafying.domain.crew.dto.specification.CrewSpecification;
-import com.ssafying.domain.crew.entity.Category;
+import com.ssafying.domain.crew.entity.CrewCategory;
 import com.ssafying.domain.crew.entity.Crew;
+import com.ssafying.domain.crew.entity.CrewComment;
 import com.ssafying.domain.crew.entity.Region;
+import com.ssafying.domain.crew.repository.jdbc.CrewCommentsRepository;
 import com.ssafying.domain.crew.repository.jdbc.CrewRepository;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
-import com.ssafying.domain.user.service.UserAuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -27,15 +28,16 @@ public class CrewService {
 
     private final CrewRepository crewRepository;
     private final UserRepository userRepository;
+    private final CrewCommentsRepository crewCommentsRepository;
 
     /*
      * 게시글 등록
      */
     @Transactional
-    public Crew addCrew(int userId, final AddCrewRequest request){
+    public Crew addCrew(final AddCrewRequest request){
 
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
 
         //db에 저장할 crew
         Crew crew = Crew.createCrew(
@@ -44,9 +46,9 @@ public class CrewService {
         );
 
         //db에 crew 저장
-        Crew save = crewRepository.save(crew);
+        Crew savedCrew = crewRepository.save(crew);
 
-        return save;
+        return savedCrew;
     }
 
     /*
@@ -124,7 +126,7 @@ public class CrewService {
 
         // category
         if (category != null) {
-            spec = spec.and(CrewSpecification.findByCategory(Category.valueOf(category)));
+            spec = spec.and(CrewSpecification.findByCategory(CrewCategory.valueOf(category)));
         }
 
         // isRecruit
@@ -132,6 +134,42 @@ public class CrewService {
 
         return crewRepository.findAll(spec);
 
+    }
+
+    /*
+     * 댓글 등록
+     */
+    @Transactional
+    public CrewComment addComment(int crewId, AddCrewCommentRequest request){
+
+        //작성자 찾기
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
+
+        //게시글 찾기
+        Crew crew = crewRepository.findById(crewId)
+                .orElseThrow(() -> new RuntimeException("해당 게시글을 찾을 수 없습니다."));
+
+        CrewComment parentComment = null;
+
+        //자식 댓글이라면 부모 댓글 달아줌
+        if(request.getParentId() != -1){
+            parentComment = crewCommentsRepository.findById(request.getParentId())
+                    .orElseThrow(() -> new RuntimeException("부모 댓글이 존재하지 않습니다."));
+        }
+
+        //comment 추가
+        CrewComment comment = CrewComment.addCrewComment(
+                crew,
+                user,
+                parentComment,
+                request.getContent()
+        );
+
+        //댓글 등록
+        CrewComment savedComment = crewCommentsRepository.save(comment);
+
+        return savedComment;
     }
 
 

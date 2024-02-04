@@ -40,7 +40,7 @@ public class UserApiController {
 
         User user = userService.modifyUser(userId, request);
 
-        return userId;
+        return user.getId();
     }
 
 

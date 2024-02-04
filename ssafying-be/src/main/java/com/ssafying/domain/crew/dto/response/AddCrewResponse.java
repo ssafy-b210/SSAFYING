@@ -1,7 +1,6 @@
 package com.ssafying.domain.crew.dto.response;
 
-import com.ssafying.domain.crew.entity.Category;
-import com.ssafying.domain.crew.entity.Crew;
+import com.ssafying.domain.crew.entity.CrewCategory;
 import com.ssafying.domain.crew.entity.Region;
 import com.ssafying.domain.user.entity.User;
 import lombok.Getter;
@@ -16,7 +15,7 @@ public class AddCrewResponse {
     private String title;
     private String content;
     private Region region;
-    private Category category;
+    private CrewCategory category;
     private boolean status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

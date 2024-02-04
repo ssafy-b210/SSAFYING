@@ -1,8 +1,10 @@
 package com.ssafying.domain.crew.controller;
 
+import com.ssafying.domain.crew.dto.request.AddCrewCommentRequest;
 import com.ssafying.domain.crew.dto.request.AddCrewRequest;
 import com.ssafying.domain.crew.dto.request.ModifyCrewRequest;
 import com.ssafying.domain.crew.entity.Crew;
+import com.ssafying.domain.crew.entity.CrewComment;
 import com.ssafying.domain.crew.service.CrewService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,8 +29,7 @@ public class CrewApiController {
     @Operation(summary = "구인글 작성")
     public int crewAdd(@RequestBody @Valid AddCrewRequest request) {
 
-        int userId = 1;
-        Crew crew = crewService.addCrew(userId, request);
+        Crew crew = crewService.addCrew(request);
 
         return crew.getCrewId();
     }
@@ -103,6 +104,25 @@ public class CrewApiController {
             }
 
     }
+
+    /*
+     * 10.7 댓글 작성
+     */
+    @PostMapping("/comments/{crewId}")
+    @Operation(summary = "댓글 작성")
+    public int crewCommentAdd(@PathVariable(name = "crewId") int crewId,
+                              @RequestBody AddCrewCommentRequest request){
+
+        CrewComment comment = crewService.addComment(crewId, request);
+
+        return comment.getId();
+    }
+
+
+    /*
+     * 10.8 댓글 삭제
+     */
+
 
 
 }
