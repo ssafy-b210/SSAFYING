@@ -1,8 +1,11 @@
 package com.ssafying.domain.market.service;
 
+import com.ssafying.domain.feed.entity.FeedImage;
 import com.ssafying.domain.market.dto.request.AddMarketRequest;
 import com.ssafying.domain.market.dto.request.ModifyMarketRequest;
 import com.ssafying.domain.market.entity.Market;
+import com.ssafying.domain.market.entity.MarketImage;
+import com.ssafying.domain.market.repository.jdbc.MarketImageRepository;
 import com.ssafying.domain.market.repository.jdbc.MarketRepository;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
@@ -21,6 +24,7 @@ public class MarketService {
 
     private final MarketRepository marketRepository;
     private final UserRepository userRepository;
+    private final MarketImageRepository marketImageRepository;
 
     /*
      * 게시글 등록
@@ -37,6 +41,22 @@ public class MarketService {
         );
 
         Market savedMarket = marketRepository.save(market);
+
+        //image upload
+        List<String> imgUrls = request.getImageUrls();
+        for(String url : imgUrls){
+            MarketImage marketImage = MarketImage.addMarketImage(
+                    market,
+                    url
+            );
+            marketImageRepository.save(marketImage);
+        }
+        List<String> imageUrls = market.getMarketImages().stream()
+                .map(MarketImage::getImageUrl)
+                .toList();
+        System.out.println("////////////////////////////////");
+        System.out.println(imageUrls.toString());
+        System.out.println("////////////////////////////////");
 
         return savedMarket;
     }

@@ -38,8 +38,8 @@ public class Crew extends BaseTimeEntity {
     @Column(name = "is_recruit")
     private Boolean isRecruit; //모집 상태
 
-    @Column(name = "image_url")
-    private String imageUrl; //작성자 프로필 이미지
+    @Column(name = "profile_image_url")
+    private String profileImageUrl; //작성자 프로필 이미지
 
     @OneToMany(mappedBy = "crew", cascade = CascadeType.REMOVE)
     private List<CrewComment> comments = new ArrayList<>(); //댓글

@@ -3,6 +3,8 @@ package com.ssafying.domain.market.dto.request;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,5 +28,7 @@ public class AddMarketRequest {
 
     @NotNull(message = "내용 입력은 필수입니다.")
     String content;
+
+    List<String> imageUrls;
 
 }

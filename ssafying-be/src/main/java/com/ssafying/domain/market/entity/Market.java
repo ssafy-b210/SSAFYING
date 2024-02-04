@@ -9,6 +9,9 @@ import com.ssafying.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "market")
 @Getter
@@ -35,6 +38,9 @@ public class Market extends BaseTimeEntity {
 
     @Column(name = "is_soldout")
     private Boolean isSoldout; //거래 완료 여부
+
+    @OneToMany(mappedBy = "market", cascade = CascadeType.REMOVE)
+    private List<MarketImage> marketImages = new ArrayList<>(); //사진
 
     /*
      * 중고거래 게시글 작성
