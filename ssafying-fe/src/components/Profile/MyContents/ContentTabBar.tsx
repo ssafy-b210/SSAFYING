@@ -53,6 +53,9 @@ const StyledContentTabBar = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 16px;
+  padding: 10px;
+  border-radius: 10px 10px 0 0;
+  background-color: rgba(255, 255, 255, 0.7);
 
   a {
     position: relative;
