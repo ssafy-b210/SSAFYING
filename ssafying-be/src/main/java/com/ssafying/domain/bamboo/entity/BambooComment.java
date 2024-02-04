@@ -3,7 +3,11 @@ package com.ssafying.domain.bamboo.entity;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
 
+@Entity
+@Table(name = "bamboo_comment") //대나무숲
+@Getter
 public class BambooComment extends BaseTimeEntity {
 
     @Id
@@ -26,4 +30,13 @@ public class BambooComment extends BaseTimeEntity {
     private BambooComment parentComment; //부모댓글
 
     //생성일자와 수정일자는 BaseTimeEntity에 있음
+
+
+    public static BambooComment createBambooComment(
+            Bamboo bamboo,
+            User user
+    ) {
+        return null;
+    }
+
 }
