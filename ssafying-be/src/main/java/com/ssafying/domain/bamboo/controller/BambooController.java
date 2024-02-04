@@ -1,5 +1,6 @@
 package com.ssafying.domain.bamboo.controller;
 
+import com.ssafying.domain.bamboo.dto.request.AddBambooCommentRequest;
 import com.ssafying.domain.bamboo.dto.request.AddBambooRequest;
 import com.ssafying.domain.bamboo.dto.response.FindDetailBambooResponse;
 import com.ssafying.domain.bamboo.dto.response.FindListBambooResponse;
@@ -19,7 +20,6 @@ import java.util.List;
 public class BambooController {
 
     private final BambooService bambooService;
-
 
     /**
      * 4.1 대나무숲 조회
@@ -57,14 +57,16 @@ public class BambooController {
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
+    //TODO 작성은 완료했으니 4.2 완료 후 테스트 해보기
     /**
      * 4.4 대나무숲 댓글 작성
      */
     @PostMapping("/comments")
-    public ResponseEntity<ResultResponse<Integer>> bambooCommentAdd(
-            @PathVariable(name = "bambooId") Long bambooId) {
+    public ResponseEntity<ResultResponse<Long>> bambooCommentAdd(
+            @PathVariable(name = "bambooId") Long bambooId,
+            @RequestBody AddBambooCommentRequest request) {
 
-        int result = bambooService.addBambooComment(bambooId);
+        Long result = bambooService.addBambooComment(bambooId, request);
 
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
