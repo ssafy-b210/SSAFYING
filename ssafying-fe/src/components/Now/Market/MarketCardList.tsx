@@ -20,13 +20,15 @@ const cards = [
     isSelling: true,
     content: "우와 되나?",
     writer: "되나",
+    category: "팝니다",
   },
   {
-    title: "다른 카드",
+    title: "이수민 사요",
     price: 30000,
     isSelling: false,
     content: "우와 되나?",
     writer: "되나",
+    category: "삽니다",
   },
 ];
 

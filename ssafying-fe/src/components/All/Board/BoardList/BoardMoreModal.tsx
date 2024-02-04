@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import MoreCommentInput from "../../../Feed/Comment/CommentInput";
+import CrewCommentList from "../../Crew/CrewList/CrewCommentList";
 
 // 카드눌렀을 때 detail 보이게 하기
 interface moreProps {
@@ -10,6 +12,11 @@ interface moreProps {
     category: string;
   };
 }
+
+const handleCommentSubmit = (comment: string) => {
+  console.log("Comment submitted:", comment);
+};
+
 function BoardMoreModal({ card }: moreProps) {
   return (
     <div>
@@ -24,7 +31,11 @@ function BoardMoreModal({ card }: moreProps) {
             <div className="small-title">카테고리</div> {card.category}
           </Category>
           <Copy>{card.content}</Copy>
+          <hr />
         </Content>
+        <CommentContainer>
+          <MoreCommentInput onSubmit={handleCommentSubmit}></MoreCommentInput>
+        </CommentContainer>
       </Card>
     </div>
   );
@@ -35,9 +46,11 @@ export default BoardMoreModal;
 const Card = styled.div`
   position: relative;
   display: flex;
+  flex-direction: column;
   overflow: hidden;
   padding: 20px 10px;
   width: 500px;
+  height: 90%;
   text-align: center;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.5);
@@ -45,7 +58,6 @@ const Card = styled.div`
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.1),
     0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 8px rgba(0, 0, 0, 0.1),
     0 16px 16px rgba(0, 0, 0, 0.1);
-  height: 500px;
   overflow: hidden;
   transition: all 0.2s linear;
 `;
@@ -57,6 +69,9 @@ const Content = styled.div`
   width: 100%;
   padding: 1rem;
   z-index: 1;
+  hr {
+    width: 90%;
+  }
 `;
 const Title = styled.h1`
   font-size: 20px;
@@ -84,4 +99,9 @@ const Category = styled.p`
     font-weight: bold;
     padding-right: 10px;
   }
+`;
+
+const CommentContainer = styled.div`
+  width: 100%;
+  background-color: white;
 `;

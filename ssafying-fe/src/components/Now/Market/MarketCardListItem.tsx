@@ -12,6 +12,7 @@ interface MarketItemProps {
     isSelling: boolean;
     content: string;
     writer: string;
+    category: string;
   };
   index: number;
 }
