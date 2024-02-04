@@ -12,14 +12,13 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import javax.naming.Name;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/crew")
-@Tag(name = "CREW")
-public class CrewApiController {
+@Tag(name = "구해요 게시판")
+public class CrewController {
 
     private final CrewService crewService;
 
@@ -124,6 +123,7 @@ public class CrewApiController {
      * 10.8 댓글 삭제
      */
     @DeleteMapping("comments/{crewCommentId}")
+    @Operation(summary = "댓글 삭제")
     public int crewCommentRemove(@PathVariable(name = "crewCommentId") int crewCommentId){
 
         int commentId = crewService.removeComment(crewCommentId);

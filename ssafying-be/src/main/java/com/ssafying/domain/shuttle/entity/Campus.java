@@ -3,10 +3,12 @@ package com.ssafying.domain.shuttle.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "campus")
 @Getter
-//@Setter
 public class Campus {
 
     @Id
@@ -18,5 +20,7 @@ public class Campus {
     @Enumerated(EnumType.STRING)
     private CampusRegion campusRegion; //캠퍼스 지역
 
+    @OneToMany(mappedBy = "campus")
+    private List<Shuttle> shuttles = new ArrayList<>(); //셔틀버스
 
 }

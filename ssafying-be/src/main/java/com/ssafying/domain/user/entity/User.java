@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafying.domain.chat.entity.ChatMessage;
 import com.ssafying.domain.chat.entity.ChatRoomUser;
 import com.ssafying.domain.crew.entity.Crew;
+import com.ssafying.domain.shuttle.entity.BusStop;
 import com.ssafying.domain.shuttle.entity.Campus;
 import com.ssafying.domain.user.dto.request.UpdateUserRequest;
 import com.ssafying.global.entity.BaseTimeEntity;
@@ -70,6 +71,10 @@ public class User extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "user")
     private List<Crew> crews = new ArrayList<>(); //가입한 크루
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "bus_stop")
+    private BusStop busStop; //셔틀 탑승 정류장
 
     /*
      * 회원 가입
