@@ -25,18 +25,22 @@ public class BambooComment extends BaseTimeEntity {
 
     private String content; //댓글 내용
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_comment_id")
-    private BambooComment parentComment; //부모댓글
 
     //생성일자와 수정일자는 BaseTimeEntity에 있음
 
 
     public static BambooComment createBambooComment(
             Bamboo bamboo,
-            User user
+            User user,
+            String content
     ) {
-        return null;
+        BambooComment comment = new BambooComment();
+
+        comment.bamboo = bamboo;
+        comment.user = user;
+        comment.content = content;
+
+        return comment;
     }
 
 }
