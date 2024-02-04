@@ -2,20 +2,49 @@ import hashtag from "../../../assets/img/scrapButtonIcons/hashtag.svg";
 import picturesFolder from "../../../assets/img/scrapButtonIcons/picturesFolder.svg";
 import floppyDisk from "../../../assets/img/scrapButtonIcons/floppyDisk.svg";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import styled from "styled-components";
 
 function ContentTabBar() {
+  const data = [
+    {
+      name: "hastag",
+      icon: hashtag,
+      alt: "해시태그",
+      path: "",
+    },
+    {
+      name: "portfolio",
+      icon: picturesFolder,
+      alt: "포트폴리오",
+      path: "portfolio",
+    },
+    {
+      name: "saved",
+      icon: floppyDisk,
+      alt: "스크랩",
+      path: "saved",
+    },
+  ];
+
+  const [activeTab, setActiveTab] = useState<string>("hastag");
+
+  function switchActiveTab(name: string) {
+    setActiveTab(name);
+  }
+
   return (
     <StyledContentTabBar>
-      <Link to="" className="acitve">
-        <img src={hashtag} alt="" />
-      </Link>
-      <Link to="portfolio">
-        <img src={picturesFolder} alt="" />
-      </Link>
-      <Link to="saved">
-        <img src={floppyDisk} alt="" />
-      </Link>
+      {data.map((item, index) => (
+        <Link
+          key={index}
+          to={item.path}
+          className={activeTab === item.name ? "active" : ""}
+          onClick={() => switchActiveTab(item.name)}
+        >
+          <img src={item.icon} alt={item.alt} />
+        </Link>
+      ))}
     </StyledContentTabBar>
   );
 }
@@ -31,7 +60,7 @@ const StyledContentTabBar = styled.div`
     margin: 0 16px;
   }
 
-  a.acitve::after {
+  a.active::after {
     content: "";
     position: absolute;
     top: 0;
