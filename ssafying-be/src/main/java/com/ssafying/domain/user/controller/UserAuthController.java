@@ -8,11 +8,13 @@ import com.ssafying.global.config.jwt.TokenProvider;
 import com.ssafying.domain.user.dto.request.CreateAccessTokenRequest;
 import com.ssafying.domain.user.dto.response.CreateAccessTokenResponse;
 import com.ssafying.global.config.jwt.service.TokenService;
+import com.ssafying.global.result.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,12 +39,12 @@ public class UserAuthController {
 
     @PostMapping("/signup")
     @Operation(summary = "회원 가입")
-    public int userAdd(@RequestBody @Valid CreateUserRequest request) {
+    public ResponseEntity<ResultResponse<Integer>> userAdd(@RequestBody @Valid CreateUserRequest request) {
 
         //회원가입 서비스 호출
-        User user = userAuthService.addUser(request);
+        int result = userAuthService.addUser(request);
 
-        return user.getId();
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
 
     }
 

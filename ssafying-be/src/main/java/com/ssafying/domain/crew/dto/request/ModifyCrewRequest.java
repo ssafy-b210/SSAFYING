@@ -1,8 +1,7 @@
 package com.ssafying.domain.crew.dto.request;
 
-import com.ssafying.domain.crew.entity.Category;
+import com.ssafying.domain.crew.entity.CrewCategory;
 import com.ssafying.domain.crew.entity.Region;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -11,7 +10,6 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class ModifyCrewRequest {
-
 
     @NotNull(message = "제목은 필수입니다.")
     String title;
@@ -23,9 +21,12 @@ public class ModifyCrewRequest {
     Region region;
 
     @NotNull(message = "카테고리 선택은 필수입니다.")
-    Category category;
+    CrewCategory category;
 
     @NotNull(message = "모집 여부 체크는 필수입니다.")
-    boolean isRecruit;
+    Boolean isRecruit;
+
+    @NotNull(message = "crew PK는 필수입니다.")
+    int crewId;
 
 }
