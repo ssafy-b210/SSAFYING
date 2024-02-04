@@ -6,13 +6,13 @@ import SelectCategory, { Option } from "../../Board/BoardCreate/SelectCategory";
 import IsAnonymous from "../BoardCreate/CheckAnonymous";
 
 const options: Option[] = [
-  { value: "1", label: "자유" },
-  { value: "2", label: "취업" },
-  { value: "3", label: "정보" },
-  { value: "4", label: "개발" },
-  { value: "5", label: "싸피꿀팁" },
-  { value: "6", label: "생활" },
-  { value: "7", label: "홍보" },
+  { value: "자유", label: "자유" },
+  { value: "취업", label: "취업" },
+  { value: "정보", label: "정보" },
+  { value: "개발", label: "개발" },
+  { value: "싸피꿀팁", label: "싸피꿀팁" },
+  { value: "생활", label: "생활" },
+  { value: "홍보", label: "홍보" },
 ];
 
 function BoardCreateModal() {

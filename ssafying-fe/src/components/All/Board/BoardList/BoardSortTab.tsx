@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-interface BoardSortTab {}
+interface BoardSortTabProps {
+  onCategoryChange: (category: string) => void;
+}
 
-function BoardSortTab({}: BoardSortTab) {
+const tabButtons = ["자유", "취업", "정보", "개발", "싸피꿀팁", "생활", "홍보"];
+
+const BoardSortTab: React.FC<BoardSortTabProps> = ({ onCategoryChange }) => {
   const [activeButton, setActiveButton] = useState<number | null>(null);
 
   const handleButtonClick = (index: number) => {
     setActiveButton(index);
+    const selectedCategory = tabButtons[index];
+    onCategoryChange(selectedCategory);
   };
 
   return (
@@ -18,22 +24,16 @@ function BoardSortTab({}: BoardSortTab) {
           $active={index === activeButton}
           onClick={() => handleButtonClick(index)}
         >
-          <span>{label}</span>
+          {label}
         </SortTabButton>
       ))}
     </StyledTab>
   );
-}
+};
 
 export default BoardSortTab;
 
-const tabButtons = ["자유", "취업", "정보", "개발", "싸피꿀팁", "생활", "홍보"];
-
-interface SortTabButtonProps {
-  $active: boolean;
-}
-
-const SortTabButton = styled.a<SortTabButtonProps>`
+const SortTabButton = styled.a<{ $active: boolean }>`
   display: inline-block;
   margin: 0 16px;
   padding: 10px 16px;

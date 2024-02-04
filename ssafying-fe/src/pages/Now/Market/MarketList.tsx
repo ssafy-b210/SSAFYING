@@ -1,3 +1,5 @@
+import styled from "styled-components";
+import React, { useState } from "react";
 import MarketCardList from "../../../components/Now/Market/MarketCardList";
 import MarketSortTab from "../../../components/Now/Market/MarketSortTab";
 import BackBtnHeader from "../../../components/Common/BackBtnHeader";
@@ -6,8 +8,14 @@ import Modal from "../../../components/Common/Modal";
 import MarketCreateModal from "../../../components/Now/Market/MarketCreateModal";
 
 function MarketList() {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+  };
+
   return (
-    <div>
+    <Wrapper>
       <BackBtnHeader
         backLink="/now"
         htext={<h2>중고거래</h2>}
@@ -18,10 +26,12 @@ function MarketList() {
           </Modal>
         }
       />
-      <MarketSortTab></MarketSortTab>
-      <MarketCardList></MarketCardList>
-    </div>
+      <MarketSortTab onCategoryChange={handleCategoryChange}></MarketSortTab>
+      <MarketCardList selectedCategory={selectedCategory}></MarketCardList>
+    </Wrapper>
   );
 }
 
 export default MarketList;
+
+const Wrapper = styled.div``;

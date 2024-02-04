@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import React, { useState } from "react";
 import BoardSortTab from "../../../components/All/Board/BoardList/BoardSortTab";
 import BoardCardList from "../../../components/All/Board/BoardList/BoardCardList";
 import SearchBarOnly from "../../../components/All/Board/BoardList/SearchBarOnly";
@@ -9,6 +9,12 @@ import Modal from "../../../components/Common/Modal";
 import BoardCreateModal from "../../../components/All/Board/BoardList/BoardCreateModal";
 
 function BoardList() {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+  };
+
   return (
     <Wrapper>
       <BackBtnHeader
@@ -22,9 +28,9 @@ function BoardList() {
         }
       />
 
-      <BoardSortTab></BoardSortTab>
+      <BoardSortTab onCategoryChange={handleCategoryChange}></BoardSortTab>
       <SearchBarOnly></SearchBarOnly>
-      <BoardCardList></BoardCardList>
+      <BoardCardList selectedCategory={selectedCategory}></BoardCardList>
     </Wrapper>
   );
 }

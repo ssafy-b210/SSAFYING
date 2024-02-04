@@ -1,3 +1,5 @@
+import styled from "styled-components";
+import React, { useState } from "react";
 import CrewCardList from "../../../components/All/Crew/CrewList/CrewCardList";
 import CrewSortTab from "../../../components/All/Crew/CrewList/CrewSortTab";
 import SearchBar from "../../../components/All/Crew/CrewList/SearchBar";
@@ -7,8 +9,13 @@ import Modal from "../../../components/Common/Modal";
 import CrewCreateModal from "../../../components/All/Crew/CrewList/CrewCreateModal";
 
 function CrewList() {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+  };
   return (
-    <div>
+    <Wrapper>
       <BackBtnHeader
         backLink="/all"
         htext={<h2>사람 구해요</h2>}
@@ -19,10 +26,11 @@ function CrewList() {
           </Modal>
         }
       />
-      <CrewSortTab></CrewSortTab>
+      <CrewSortTab onCategoryChange={handleCategoryChange}></CrewSortTab>
       <SearchBar></SearchBar>
-      <CrewCardList></CrewCardList>
-    </div>
+      <CrewCardList selectedCategory={selectedCategory}></CrewCardList>
+    </Wrapper>
   );
 }
 export default CrewList;
+const Wrapper = styled.div``;
