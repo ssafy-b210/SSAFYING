@@ -3,11 +3,14 @@ package com.ssafying.domain.user.controller;
 import com.ssafying.domain.user.dto.request.UpdateUserRequest;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.service.UserService;
+import com.ssafying.global.result.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,11 +27,11 @@ public class UserApiController {
 
     @GetMapping("/{userId}")
     @Operation(summary = "회원 정보 조회")
-    public User userDetails(@PathVariable(name = "userId") int userId){
+    public ResponseEntity<ResultResponse> userDetails(@PathVariable(name = "userId") int userId){
 
-        User user = userService.findUser(userId);
+        userService.findUser(userId);
 
-        return user;
+        return null;
 
     }
 
@@ -37,12 +40,12 @@ public class UserApiController {
      */
     @PatchMapping("/{userId}")
     @Operation(summary = "회원 정보 수정")
-    public int userModify(@PathVariable(name = "userId") int userId,
-                           @RequestBody UpdateUserRequest request){
+    public ResponseEntity<ResultResponse<Integer>> userModify(@PathVariable(name = "userId") int userId,
+                                                              @RequestBody UpdateUserRequest request){
 
-        User user = userService.modifyUser(userId, request);
+        int result = userService.modifyUser(userId, request);
 
-        return user.getId();
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
 
@@ -52,12 +55,12 @@ public class UserApiController {
      */
     @DeleteMapping("/{userId}")
     @Operation(summary = "회원 탈퇴")
-    public int userRemove(@PathVariable(name = "userId") int userId,
+    public ResponseEntity<ResultResponse<Integer>> userRemove(@PathVariable(name = "userId") int userId,
                           @RequestParam(name = "password") String password){
 
-        userService.removeUser(userId, password);
+        int result =  userService.removeUser(userId, password);
 
-        return userId;
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
 
     }
 

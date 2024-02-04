@@ -9,8 +9,10 @@ import com.ssafying.domain.market.repository.jdbc.MarketImageRepository;
 import com.ssafying.domain.market.repository.jdbc.MarketRepository;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
+import com.ssafying.global.result.ResultResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +32,7 @@ public class MarketService {
      * 게시글 등록
      */
     @Transactional
-    public Market addMarket(final AddMarketRequest request) {
+    public int addMarket(final AddMarketRequest request) {
 
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new RuntimeException("유저 정보를 찾을 수 없습니다."));
@@ -51,35 +53,29 @@ public class MarketService {
             );
             marketImageRepository.save(marketImage);
         }
-        List<String> imageUrls = market.getMarketImages().stream()
-                .map(MarketImage::getImageUrl)
-                .toList();
-        System.out.println("////////////////////////////////");
-        System.out.println(imageUrls.toString());
-        System.out.println("////////////////////////////////");
 
-        return savedMarket;
+        return savedMarket.getMarketId();
     }
 
     /*
      * 게시글 삭제
      */
     @Transactional
-    public Market removeMarket(int marketId){
+    public int removeMarket(int marketId){
 
         Market market = marketRepository.findById(marketId)
                 .orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
 
         marketRepository.delete(market);
 
-        return market;
+        return market.getMarketId();
     }
 
     /*
      * 게시글 수정
      */
     @Transactional
-    public Market modifyMarket(int marketId, final ModifyMarketRequest request){
+    public int modifyMarket(int marketId, final ModifyMarketRequest request){
 
         Market market = marketRepository.findById(marketId)
                 .orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
@@ -91,7 +87,7 @@ public class MarketService {
 
         marketRepository.save(market);
 
-        return market;
+        return market.getMarketId();
     }
 
     /*

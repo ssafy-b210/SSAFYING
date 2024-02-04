@@ -36,7 +36,7 @@ public class UserService {
      * 회원 정보 수정
      */
     @Transactional
-    public User modifyUser(int userId, UpdateUserRequest request){
+    public int modifyUser(int userId, UpdateUserRequest request){
         //해당 유저 찾기
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("유저 정보를 찾을 수 없습니다."));
@@ -47,7 +47,7 @@ public class UserService {
         );
         userRepository.save(user);
 
-        return user;
+        return user.getId();
     }
 
 
@@ -55,7 +55,7 @@ public class UserService {
      * 회원 탈퇴
      */
     @Transactional
-    public void removeUser(int userId, String password){
+    public int removeUser(int userId, String password){
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("회원 정보를 찾을 수 없습니다."));
@@ -73,6 +73,7 @@ public class UserService {
             throw new RuntimeException("비밀번호가 일치하지 않습니다.");
         }
 
+        return userId;
 
     }
 

@@ -6,10 +6,13 @@ import com.ssafying.domain.crew.dto.request.ModifyCrewRequest;
 import com.ssafying.domain.crew.entity.Crew;
 import com.ssafying.domain.crew.entity.CrewComment;
 import com.ssafying.domain.crew.service.CrewService;
+import com.ssafying.global.result.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,43 +25,44 @@ public class CrewController {
 
     private final CrewService crewService;
 
-    /*
+    /**
      * 10.1 게시글 작성
      */
     @PostMapping
     @Operation(summary = "구인글 작성")
-    public int crewAdd(@RequestBody @Valid AddCrewRequest request) {
+    public ResponseEntity<ResultResponse<Integer>> crewAdd(@RequestBody @Valid AddCrewRequest request) {
 
-        Crew crew = crewService.addCrew(request);
+        int result = crewService.addCrew(request);
 
-        return crew.getCrewId();
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
-    /*
+    /**
      * 10.2 게시글 삭제
      */
     @DeleteMapping("/{crewId}")
     @Operation(summary = "구인글 삭제")
-    public int crewRemove(@PathVariable(name = "crewId") int crewId){
+    public ResponseEntity<ResultResponse<Integer>> crewRemove(@PathVariable(name = "crewId") int crewId){
 
-        crewService.removeCrew(crewId);
+        int result = crewService.removeCrew(crewId);
 
-        return crewId;
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
-    /*
+    /**
      * 10.3 게시글 상세 조회
      */
     @GetMapping("/{crewId}")
     @Operation(summary = "구인글 상세 조회")
-    public int crewDetails(@PathVariable(name = "crewId")int crewId){
+    public ResponseEntity<ResultResponse> crewDetails(
+            @PathVariable(name = "crewId")int crewId){
 
-        Crew crew = crewService.findCrew(crewId);
+        crewService.findCrew(crewId);
 
-        return crewId;
+        return null;
     }
 
-    /*
+    /**
      * 10.4 게시글 전체 목록 조회
      */
     @GetMapping
@@ -71,20 +75,20 @@ public class CrewController {
 
     }
 
-    /*
+    /**
      * 10.5 게시글 수정
      */
     @PatchMapping("/{crewId}")
     @Operation(summary = "구인글 수정")
-    public int crewModify(@PathVariable(name = "crewId") int crewId,
+    public ResponseEntity<ResultResponse<Integer>> crewModify(@PathVariable(name = "crewId") int crewId,
                           @RequestBody final ModifyCrewRequest request){
 
-        crewService.modifyCrew(crewId, request);
+       int result = crewService.modifyCrew(crewId, request);
 
-        return crewId;
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(),result));
     }
 
-    /*
+    /**
      * 10.6 게시글 검색
      */
     @GetMapping("/search")
@@ -106,32 +110,30 @@ public class CrewController {
 
     }
 
-    /*
+    /**
      * 10.7 댓글 작성
      */
     @PostMapping("/comments/{crewId}")
     @Operation(summary = "댓글 작성")
-    public int crewCommentAdd(@PathVariable(name = "crewId") int crewId,
+    public ResponseEntity<ResultResponse<Integer>> crewCommentAdd(@PathVariable(name = "crewId") int crewId,
                               @RequestBody AddCrewCommentRequest request){
 
-        CrewComment comment = crewService.addComment(crewId, request);
+        int result = crewService.addComment(crewId, request);
 
-        return comment.getId();
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
 
-    /*
+    /**
      * 10.8 댓글 삭제
      */
     @DeleteMapping("comments/{crewCommentId}")
     @Operation(summary = "댓글 삭제")
-    public int crewCommentRemove(@PathVariable(name = "crewCommentId") int crewCommentId){
+    public ResponseEntity<ResultResponse<Integer>> crewCommentRemove(@PathVariable(name = "crewCommentId") int crewCommentId){
 
-        int commentId = crewService.removeComment(crewCommentId);
+        int result = crewService.removeComment(crewCommentId);
 
-        return commentId;
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
-
-
 
 }

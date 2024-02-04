@@ -34,7 +34,7 @@ public class CrewService {
      * 게시글 등록
      */
     @Transactional
-    public Crew addCrew(final AddCrewRequest request){
+    public int addCrew(final AddCrewRequest request){
 
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new RuntimeException("유저 정보를 찾을 수 없습니다."));
@@ -48,7 +48,7 @@ public class CrewService {
         //db에 crew 저장
         Crew savedCrew = crewRepository.save(crew);
 
-        return savedCrew;
+        return savedCrew.getCrewId();
     }
 
     /*
@@ -91,7 +91,7 @@ public class CrewService {
      * 게시글 수정
      */
     @Transactional
-    public Crew modifyCrew(int crewId, final ModifyCrewRequest request){
+    public int modifyCrew(int crewId, final ModifyCrewRequest request){
 
         //해당 crew 찾기
         Crew crew = crewRepository.findById(crewId)
@@ -104,7 +104,7 @@ public class CrewService {
 
         crewRepository.save(crew);
 
-        return crew;
+        return crew.getCrewId();
     }
 
     /*
@@ -140,7 +140,7 @@ public class CrewService {
      * 댓글 등록
      */
     @Transactional
-    public CrewComment addComment(int crewId, AddCrewCommentRequest request){
+    public int addComment(int crewId, AddCrewCommentRequest request){
 
         //작성자 찾기
         User user = userRepository.findById(request.getUserId())
@@ -169,7 +169,7 @@ public class CrewService {
         //댓글 등록
         CrewComment savedComment = crewCommentsRepository.save(comment);
 
-        return savedComment;
+        return savedComment.getId();
     }
 
     /*

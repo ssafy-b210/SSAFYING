@@ -26,7 +26,7 @@ public class UserAuthService {
      * 회원 가입
      */
     @Transactional
-    public User addUser(final CreateUserRequest request){
+    public int addUser(final CreateUserRequest request){
 
         //중복회원 검증
         if (userRepository.existsByEmail(request.getEmail())) {
@@ -49,7 +49,7 @@ public class UserAuthService {
 
         User save = userRepository.save(user);
 
-        return save;
+        return save.getId();
     }
 
     /*
