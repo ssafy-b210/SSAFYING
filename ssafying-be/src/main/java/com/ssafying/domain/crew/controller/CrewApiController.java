@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.Name;
 import java.util.List;
 
 @RestController
@@ -122,6 +123,13 @@ public class CrewApiController {
     /*
      * 10.8 댓글 삭제
      */
+    @DeleteMapping("comments/{crewCommentId}")
+    public int crewCommentRemove(@PathVariable(name = "crewCommentId") int crewCommentId){
+
+        int commentId = crewService.removeComment(crewCommentId);
+
+        return commentId;
+    }
 
 
 

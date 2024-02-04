@@ -172,5 +172,29 @@ public class CrewService {
         return savedComment;
     }
 
+    /*
+     * 댓글 삭제
+     */
+    @Transactional
+    public int removeComment(int crewCommentId){
+
+        //삭제하려는 댓글이 존재하는지 확인
+        CrewComment comment = crewCommentsRepository.findById(crewCommentId)
+                .orElseThrow(() -> new RuntimeException("해당 댓글이 존재하지 않습니다."));
+
+        //부모 댓글이라면 자식 댓글까지 삭제
+        if(comment.getParentComment() == null){
+            List<CrewComment> parentComment = crewCommentsRepository.findByParentComment(comment);
+
+            for(CrewComment child : parentComment){
+                crewCommentsRepository.deleteById(child.getId());
+            }
+        }
+
+        crewCommentsRepository.deleteById(comment.getId());
+
+        return comment.getId();
+    }
+
 
 }

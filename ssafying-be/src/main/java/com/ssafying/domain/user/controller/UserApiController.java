@@ -5,7 +5,9 @@ import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -46,12 +48,14 @@ public class UserApiController {
 
     /*
      * 1.6 회원 탈퇴
+     * !!!!!!!!user status WITHDRAWAL로 바꾸기!!!!!!!
      */
     @DeleteMapping("/{userId}")
     @Operation(summary = "회원 탈퇴")
-    public int userRemove(@PathVariable(name = "userId") int userId){
+    public int userRemove(@PathVariable(name = "userId") int userId,
+                          @RequestParam(name = "password") String password){
 
-        userService.removeUser(userId);
+        userService.removeUser(userId, password);
 
         return userId;
 

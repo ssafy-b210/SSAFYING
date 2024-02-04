@@ -55,10 +55,24 @@ public class UserService {
      * 회원 탈퇴
      */
     @Transactional
-    public void removeUser(int userId){
+    public void removeUser(int userId, String password){
 
-        //사용자 아이디 받아서 삭제
-        userRepository.deleteById(userId);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("회원 정보를 찾을 수 없습니다."));
+
+        System.out.println("/////////////////////////////////////////////////////");
+        System.out.println("userPassword = " + user.getPassword());
+        System.out.println("insertedPassword = " + password);
+        System.out.println("/////////////////////////////////////////////////////");
+
+        //패스워드 검증
+        if(user.getPassword().equals(password)){
+            //패스워드 일치한다면 사용자 아이디 받아서 삭제
+            userRepository.deleteById(userId);
+        }else{
+            throw new RuntimeException("비밀번호가 일치하지 않습니다.");
+        }
+
 
     }
 
