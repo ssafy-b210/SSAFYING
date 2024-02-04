@@ -185,14 +185,11 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
             비전공자
           </div>
         </IsMajor>
-        <SubmitBtn
-          link="/tagselect"
-          text="다음으로 넘어가기"
-          disabled={isValid ? false : true}
-        ></SubmitBtn>
 
         <Link to={"/tagselect"}>
-          <button disabled={isValid ? false : true}>다음으로</button>
+          <button disabled={isValid ? false : true} className="nextButton">
+            다음으로
+          </button>
         </Link>
       </Form>
     </div>
@@ -208,6 +205,19 @@ const Form = styled.form`
   position: relative;
   padding-right: 45px;
   padding-left: 45px;
+
+  .nextButton {
+    width: 300px;
+    height: 50px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    color: black;
+    font-family: "Noto Sans KR";
+    font-size: 16px;
+    margin-top: 30px;
+  }
 `;
 const SignUpInput = styled.div`
   position: relative;

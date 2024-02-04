@@ -44,7 +44,7 @@ function App() {
         <Routes>
           <Route path="/" element={<UserLogin />} />
           <Route path="/signup" element={<UserSignup />} />
-          <Route path="/tagselect" element={<SelectTagForm />} />
+          <Route path="/tagselect" element={<UserSelectTag />} />
           <Route path="/auth" element={<UserAuth />} />
           {/* <Route path="/" element={<UserLogin />} /> */}
 
