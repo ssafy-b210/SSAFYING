@@ -9,7 +9,6 @@ function ProfileIntroduction() {
   return (
     <StyledProfileIntroduction>
       <div>{data.intro}</div>
-      {/* TODO : 포트폴리오 링크 추가 */}
     </StyledProfileIntroduction>
   );
 }
