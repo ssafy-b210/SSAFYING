@@ -31,6 +31,9 @@ public class BambooService {
      */
     public List<FindListBambooResponse> findListBamboo() {
 
+        // 24시간이 지나지 않은 글 중에서 시간이 적게 남은 친구들을 먼저 보여주는 걸로 ....
+
+
 
         return null;
     }
@@ -39,16 +42,30 @@ public class BambooService {
      * 4.2 대나무숲 작성
      */
     @Transactional
-    public int addBamboo(@Valid AddBambooRequest request) {
+    public Long addBamboo(@Valid AddBambooRequest request) {
+
+        // 작성하려는 유저가 존재하는지 확인
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
+
+        // 대나무숲 글 작성
+        Bamboo bamboo = Bamboo.createBamboo(user, request.getContent());
+
+        Bamboo save = bambooRepository.save(bamboo);
 
 
-        return 0;
+        return save.getId();
     }
 
     /**
      * 4.3 대나무숲 상세 조회
      */
     public FindDetailBambooResponse findDetailBamboo(Long bambooId) {
+
+
+        //bambooId 가 24시간이 지났는지 확인해야 함
+
+
 
         return null;
     }
@@ -85,9 +102,17 @@ public class BambooService {
      * 4.5 대나무숲 댓글 삭제
      */
     @Transactional
-    public int removeBambooComment(Long bambooCommentId) {
+    public String removeBambooComment(Long bambooCommentId) {
 
-        return 0;
+        //삭제하려는 댓글이 존재하는지 확인
+        BambooComment bambooComment = bambooCommentRepository.findById(bambooCommentId)
+                .orElseThrow(() -> (new RuntimeException("해당 댓글이 존재하지 않습니다.")));
+
+        //댓글 삭제
+        bambooCommentRepository.deleteById(bambooComment.getId());
+
+
+        return "success";
     }
 
     /**
