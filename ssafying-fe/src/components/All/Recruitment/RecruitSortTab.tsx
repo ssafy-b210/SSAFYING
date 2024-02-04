@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { getRecruitList } from "../../../apis/api/recruitment/saramin";
 
 //Props 나중에 추가
 interface RecruitSortTabProps {}
@@ -7,19 +8,20 @@ interface RecruitSortTabProps {}
 function RecruitSortTab({}: RecruitSortTabProps) {
   const [activeButton, setActiveButton] = useState<number | null>(null);
 
-  const handleButtonClick = (index: number) => {
+  const handleButtonClick = (index: number, code:string) => {
     setActiveButton(index);
+    getRecruitList(code);
   };
 
   return (
     <StyledTab>
-      {tabButtons.map((label, index) => (
+      {tabButtons.map((item, index) => (
         <SortTabButton
           key={index}
           $active={index === activeButton}
-          onClick={() => handleButtonClick(index)}
+          onClick={() => handleButtonClick(index, item.code)}
         >
-          <span>{label}</span>
+          <span>{item.name}</span>
         </SortTabButton>
       ))}
     </StyledTab>
@@ -29,16 +31,15 @@ function RecruitSortTab({}: RecruitSortTabProps) {
 export default RecruitSortTab;
 
 const tabButtons = [
-  "웹개발",
-  "프론트엔드",
-  "백엔드",
-  "임베디드",
-  "모바일",
-  "유지보수",
-  "데이터분석",
-  "앱개발",
-  "보안",
-  "기타",
+  { name: "웹개발", code:"87"},
+  { name: "앱개발", code:"86"},
+  { name:"프론트엔드", code:"92"},
+  { name:"백엔드", code:"84"},
+  { name:"임베디드", code:"128"},
+  { name:"빅데이터", code:"116"},
+  { name:"인프라", code:"127"},
+  { name:"클라우드", code:"136"},
+  { name:"AI", code:"181"},
 ];
 
 interface SortTabButtonProps {

@@ -1,22 +1,23 @@
 import Axios from "axios";
-import { SARAMIN_BASE_URL } from "../constants";
-import { SARAMIN_API_KEY } from "../constants";
+import { REACT_APP_SARAMIN_BASE_URL } from "../constants";
 
 export const saramin = Axios.create({
-  baseURL: SARAMIN_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-saramin.interceptors.request.use(
-  (config) => {
-    const accessToken = SARAMIN_API_KEY;
+// saramin.interceptors.request.use(
+//   (config) => {
 
-    config.headers["Authorization"] = `Bearer ${accessToken}`
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-)
+//     const accessToken = REACT_APP_SARAMIN_API_KEY;
+//     console.log(accessToken);
+//     console.log(REACT_APP_SARAMIN_BASE_URL);
+
+//     config.headers["Authorization"] = `Bearer ${accessToken}`
+//     return config;
+//   },
+//   (error) => {
+//     return Promise.reject(error);
+//   }
+// )
