@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import SubmitBtn from "../../Common/SubmitBtn";
-// import { style } from "@mui/system";
+import { Link } from "react-router-dom";
 
 interface SignUpFormProps {}
 
 const SignUpForm: React.FC<SignUpFormProps> = () => {
+  //입력한 데이터담기
   const [inputValue, setInputValue] = useState({
     name: "",
     nickname: "",
@@ -15,92 +16,184 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
     tel: "",
     level: "",
     campus: "",
-    strongPasswordError: "",
-    mismatchError: "",
+    major: "",
   });
 
-  const submitRequirements =
-    inputValue.name &&
-    inputValue.nickname &&
-    inputValue.email &&
-    inputValue.password &&
-    inputValue.password2 &&
-    inputValue.tel &&
-    inputValue.level &&
-    inputValue.campus &&
-    inputValue.strongPasswordError &&
-    inputValue.mismatchError;
-
-  const inputRegexs = {
-    // 비밀번호 : 최소 8자 이상, 최소한 하나의 대문자, 하나의 소문자, 하나의 숫자, 하나의 특수문자를 포함, 공백 허용하지 않음
-    pwRegex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?!.*\s).{8,}$/,
+  // 입력값 바뀔때마다 저장하기
+  const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    setInputValue({ ...inputValue, [e.target.name]: e.target.value });
   };
+
+  const { name, nickname, email, password, password2, tel, level, campus } =
+    inputValue;
+
+  //비밀번호와 비밀번호 확인 같은지 체크하기
+  const isSame = password === password2;
+
+  //input에 모든 입력값이 다 입력되었는지 체크하기
+  const isValid =
+    name !== "" &&
+    nickname !== "" &&
+    email !== "" &&
+    password !== "" &&
+    password2 !== "" &&
+    tel !== "" &&
+    level !== "" &&
+    campus !== "" &&
+    // major !== "" &&
+    isSame;
+
+  console.log(isValid);
 
   return (
     <div>
       <Form>
         <SignUpInput className="input-area">
-          <input type="text" id="name" placeholder=" " />
+          <input
+            type="text"
+            id="name"
+            placeholder=" "
+            name="name"
+            onChange={handleInputChange}
+          />
           <label htmlFor="name">이름을 입력해주세요</label>
         </SignUpInput>
         {/*랜덤닉네임 부여 */}
         <SignUpInput className="input-area">
-          <input type="text" id="nickname" placeholder=" " />
+          <input
+            type="text"
+            id="nickname"
+            placeholder=" "
+            name="nickname"
+            onChange={handleInputChange}
+          />
           <label htmlFor="nickname">닉네임을 입력해주세요</label>
         </SignUpInput>
+        {/* <RandomNicknameGenerator /> */}
         {/* 이메일 중복검사 화면 만들기 */}
         <SignUpInput className="input-area">
-          <input type="email" id="email" placeholder=" " />
+          <input
+            type="email"
+            id="email"
+            placeholder=" "
+            name="email"
+            onChange={handleInputChange}
+          />
           <label htmlFor="email">이메일을 입력해주세요</label>
         </SignUpInput>
         <SignUpInput className="input-area">
-          <input type="password" id="password" placeholder=" " />
+          <input
+            type="password"
+            id="password"
+            placeholder=" "
+            name="password"
+            onChange={handleInputChange}
+          />
           <label htmlFor="password">비밀번호을 입력해주세요</label>
         </SignUpInput>
 
         <SignUpInput className="input-area">
-          <input type="password" id="password2" placeholder=" " />
+          <input
+            type="password"
+            id="password2"
+            placeholder=" "
+            name="password2"
+            onChange={handleInputChange}
+          />
+          {password2 !== "" && !isSame && (
+            <p className="passwdCheck">비밀번호가 일치하지 않습니다.</p>
+          )}
           <label htmlFor="password2">비밀번호를 다시 입력해주세요</label>
         </SignUpInput>
 
         <SignUpInput className="input-area">
-          <input type="tel" id="tel" placeholder=" " />
+          <input
+            type="tel"
+            id="tel"
+            placeholder=" "
+            name="tel"
+            onChange={handleInputChange}
+          />
           <label htmlFor="tel">전화번호를 입력해주세요</label>
         </SignUpInput>
         <SignUpInput className="input-area">
-          <input type="number" id="level" placeholder=" " />
+          <input
+            type="number"
+            id="level"
+            placeholder=" "
+            name="level"
+            onChange={handleInputChange}
+          />
           <label htmlFor="level">기수를 입력해주세요</label>
         </SignUpInput>
         <Campus>
-          <span>캠퍼스를 선택해주세요</span>
+          <div>캠퍼스를 선택해주세요</div>
           <div className="radio-container">
-            <input type="radio" name="campus" className="campusselect" />
+            <input
+              type="radio"
+              name="campus"
+              className="campusselect"
+              onChange={handleInputChange}
+            />
             서울
-            <input type="radio" name="campus" className="campusselect" />
+            <input
+              type="radio"
+              name="campus"
+              className="campusselect"
+              onChange={handleInputChange}
+            />
             대전
-            <input type="radio" name="campus" className="campusselect" />
+            <input
+              type="radio"
+              name="campus"
+              className="campusselect"
+              onChange={handleInputChange}
+            />
             구미
-            <input type="radio" name="campus" className="campusselect" />
+            <input
+              type="radio"
+              name="campus"
+              className="campusselect"
+              onChange={handleInputChange}
+            />
             광주
-            <input type="radio" name="campus" className="campusselect" />
+            <input
+              type="radio"
+              name="campus"
+              className="campusselect"
+              onChange={handleInputChange}
+            />
             부울경
           </div>
         </Campus>
         <IsMajor>
           <span>전공 여부를 선택해주세요</span>
           <div className="radio-container">
-            <input type="radio" name="isMajor" className="isMajor" />
+            <input
+              type="radio"
+              name="major"
+              className="major"
+              onChange={handleInputChange}
+            />
             전공자
-            <input type="radio" name="isMajor" className="isMajor" />
+            <input
+              type="radio"
+              name="major"
+              className="major"
+              onChange={handleInputChange}
+            />
             비전공자
           </div>
         </IsMajor>
         <SubmitBtn
           link="/tagselect"
           text="다음으로 넘어가기"
-          // className={submitRequirements ? styled.allFilled : styled.submitBtn}
-          disabled={!submitRequirements}
+          disabled={isValid ? false : true}
         ></SubmitBtn>
+
+        <Link to={"/tagselect"}>
+          <button disabled={isValid ? false : true}>다음으로</button>
+        </Link>
       </Form>
     </div>
   );
@@ -120,6 +213,11 @@ const SignUpInput = styled.div`
   position: relative;
   margin-top: 20px;
   margin-bottom: 15px;
+
+  .passwdCheck {
+    font-size: 12px;
+    color: red;
+  }
 
   .input-area {
     width: 70%;
@@ -141,6 +239,7 @@ const SignUpInput = styled.div`
     background-color: transparent;
     padding-left: 10px;
     padding-top: 10px;
+    font-family: "Noto Sans KR", "Noto Sans";
   }
   label {
     position: absolute;
@@ -157,20 +256,13 @@ const SignUpInput = styled.div`
     transform: translateY(-150%);
     font-size: 12px;
   }
-  input[type="date"]::-webkit-datetime-edit-text {
-    -webkit-appearance: none;
-    display: none;
-  }
 `;
 const Campus = styled.div``;
 const IsMajor = styled.div`
-  text-align: left;
   span {
     margin-bottom: 20px;
   }
   .isMajor {
     margin: 20px 10px 75px 10px;
-  }
-  .radio-container {
   }
 `;
