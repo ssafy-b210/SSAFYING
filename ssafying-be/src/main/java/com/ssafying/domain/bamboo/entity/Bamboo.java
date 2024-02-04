@@ -5,6 +5,9 @@ import com.ssafying.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "bamboo") //대나무숲
 @Getter
@@ -21,7 +24,23 @@ public class Bamboo extends BaseTimeEntity {
 
     private String content; //대나무숲 글 내용
 
+    @OneToMany(mappedBy = "bamboo", cascade = CascadeType.REMOVE) //글이 사라지면 댓글도 사라짐
+    private List<BambooComment> commentList = new ArrayList<>(); //댓글
+
+
     //생성일자와 수정일자는 BaseTimeEntity에 존재
 
+
+    public static Bamboo createBamboo(
+            User user,
+            String content
+    ) {
+        Bamboo bamboo = new Bamboo();
+
+        bamboo.user = user;
+        bamboo.content = content;
+
+        return bamboo;
+    }
 
 }
