@@ -1,9 +1,13 @@
 package com.ssafying.domain.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafying.domain.chat.entity.ChatMessage;
 import com.ssafying.domain.chat.entity.ChatRoomUser;
 import com.ssafying.domain.crew.entity.Crew;
+import com.ssafying.domain.market.entity.Market;
+import com.ssafying.domain.shuttle.entity.BusStop;
 import com.ssafying.domain.shuttle.entity.Campus;
+import com.ssafying.domain.user.dto.request.CreateUserRequest;
 import com.ssafying.domain.user.dto.request.UpdateUserRequest;
 import com.ssafying.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
@@ -20,7 +24,6 @@ import java.util.ArrayList;
 @Entity
 @Table(name = "users")
 @Getter
-@Setter
 @DynamicUpdate
 public class User extends BaseTimeEntity {
 
@@ -31,6 +34,7 @@ public class User extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "campus_id")
+    @JsonIgnore
     private Campus campus; //캠퍼스
 
     @Column(unique = true)
@@ -58,7 +62,7 @@ public class User extends BaseTimeEntity {
 
     /* board entity */
     @Column(name = "is_major")
-    private boolean isMajor; //전공 유무
+    private Boolean isMajor; //전공 유무
 
     /* chat entity */
     @OneToMany(mappedBy = "user")
@@ -69,6 +73,13 @@ public class User extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "user")
     private List<Crew> crews = new ArrayList<>(); //가입한 크루
+    
+    @OneToMany(mappedBy = "user")
+    private List<Market> markets = new ArrayList<>(); //작성한 중고거래 게시글
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @Column(name = "bus_stop")
+//    private BusStop busStop; //셔틀 탑승 정류장
 
     /*
      * 회원 가입
@@ -76,54 +87,22 @@ public class User extends BaseTimeEntity {
     public static User createUser(
 
             Campus campus,
-            String email,
-            String password,
-            String nickname,
-            String phoneNumber,
-            String name,
-            int generation,
-            boolean isMajor
+            CreateUserRequest request
     ){
 
         User user = new User();
 
         user.campus = campus;
-        user.email = email;
-        user.password = password;
-        user.nickname = nickname;
-        user.phoneNumber = phoneNumber;
-        user.name = name;
-        user.generation = generation;
-        user.isMajor = isMajor;
+        user.email = request.getEmail();
+        user.password = request.getPassword();
+        user.nickname = request.getNickname();
+        user.phoneNumber = request.getPhoneNumber();
+        user.name = request.getName();
+        user.generation = request.getGeneration();
+        user.isMajor = request.getIsMajor();
         user.status = UserStatus.ACTIVE;
 
         return user;
-    }
-
-    /*
-     * 회원 정보 조회
-     */
-    public static User detailUser(
-
-            String email,
-            String nickname,
-            String phoneNumber,
-            String name,
-            String intro,
-            String profileImageUrl
-    ) {
-
-        User user = new User();
-
-        user.email = email;
-        user.nickname = nickname;
-        user.phoneNumber = phoneNumber;
-        user.name = name;
-        user.intro = intro;
-        user.profileImageUrl = profileImageUrl;
-
-        return user;
-
     }
 
     /*
@@ -137,19 +116,19 @@ public class User extends BaseTimeEntity {
 
         // null 값이 아닌 경우에만 업데이트
         if(request.getNickname() != null){
-            user.setNickname(request.getNickname());
+            user.nickname = request.getNickname();
         }
         if(request.getPhoneNumber() != null){
-            user.setPhoneNumber(request.getPhoneNumber());
+            user.phoneNumber = request.getPhoneNumber();
         }
         if(request.getPassword() != null){
-            user.setPassword(request.getPassword());
+            user.password = request.getPassword();
         }
         if(request.getIntro() != null){
-            user.setIntro(request.getIntro());
+            user.intro = request.getIntro();
         }
         if(request.getProfileImageUrl() != null){
-            user.setProfileImageUrl(request.getProfileImageUrl());
+            user.profileImageUrl = request.getProfileImageUrl();
         }
         return user;
     }

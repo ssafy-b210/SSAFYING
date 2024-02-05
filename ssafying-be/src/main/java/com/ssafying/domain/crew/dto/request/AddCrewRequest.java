@@ -1,31 +1,32 @@
 package com.ssafying.domain.crew.dto.request;
 
-import com.ssafying.domain.crew.entity.Category;
+import com.ssafying.domain.crew.entity.CrewCategory;
 import com.ssafying.domain.crew.entity.Region;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Getter
 @Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class AddCrewRequest {
 
-    @NotBlank(message = "유저 PK는 필수입니다.")
+    @NotNull(message = "유저 PK는 필수입니다.")
     int userId;
 
-    @NotBlank(message = "제목은 필수입니다.")
+    @NotNull(message = "제목은 필수입니다.")
     String title;
 
-    @NotBlank(message = "게시글 내용은 필수입니다.")
+    @NotNull(message = "게시글 내용은 필수입니다.")
     String content;
 
-    @NotBlank(message = "지역 선택은 필수입니다.")
+    @NotNull(message = "지역 선택은 필수입니다.")
     Region region;
 
-    @NotBlank(message = "카테고리 선택은 필수입니다.")
-    Category category;
+    @NotNull(message = "카테고리 선택은 필수입니다.")
+    CrewCategory category;
 
-    @NotBlank(message = "모집 여부 체크는 필수입니다.")
-    boolean isRecruit;
+    @NotNull(message = "모집 여부 체크는 필수입니다.")
+    Boolean isRecruit;
 
 }

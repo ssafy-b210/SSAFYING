@@ -6,7 +6,7 @@
 //import com.ssafying.domain.user.repository.jdbc.UserRepository;
 //import com.ssafying.global.config.jwt.JwtFactory;
 //import com.ssafying.global.config.jwt.JwtProperties;
-//import com.ssafying.global.config.jwt.dto.CreateAccessTokenRequest;
+//import com.ssafying.domain.user.dto.request.CreateAccessTokenRequest;
 //import com.ssafying.global.config.jwt.entity.RefreshToken;
 //import com.ssafying.global.config.jwt.repository.RefreshTokenRepository;
 //import org.junit.jupiter.api.BeforeEach;

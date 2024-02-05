@@ -31,8 +31,9 @@ public class BoardComment extends BaseTimeEntity {
     @Column(name = "is_deleted")
     private boolean isDeleted; //삭제 여부
 
-    @Column(name = "parent_id")
-    private int parentId; //부모댓글
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_comment_id") //사실 외래키를 사실
+    private BoardComment parentComment; //부모댓글
 
     //생성일자와 수정일자는 BaseTimeEntity에 있음
 
@@ -44,7 +45,7 @@ public class BoardComment extends BaseTimeEntity {
             String content,
             boolean isAnonymous,
             boolean isDeleted,
-            int parentId
+            BoardComment parentComment
     ) {
         BoardComment comment = new BoardComment();
 
@@ -53,8 +54,15 @@ public class BoardComment extends BaseTimeEntity {
         comment.content = content;
         comment.isAnonymous = isAnonymous;
         comment.isDeleted = isDeleted;
-        comment.parentId = parentId;
+        comment.parentComment = parentComment;
 
         return comment;
+    }
+
+    //댓글 수정 함수
+    public void modifyBoard(
+            String content
+    ) {
+        this.content = content;
     }
 }

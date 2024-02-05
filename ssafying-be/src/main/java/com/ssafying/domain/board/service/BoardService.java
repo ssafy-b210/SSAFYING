@@ -1,6 +1,9 @@
 package com.ssafying.domain.board.service;
 
-import com.ssafying.domain.board.dto.request.*;
+import com.ssafying.domain.board.dto.request.AddBoardRequest;
+import com.ssafying.domain.board.dto.request.ModifyBoardCommentRequest;
+import com.ssafying.domain.board.dto.request.ModifyBoardRequest;
+import com.ssafying.domain.board.dto.request.ScrapBoardRequest;
 import com.ssafying.domain.board.entity.Board;
 import com.ssafying.domain.board.entity.BoardComment;
 import com.ssafying.domain.board.entity.BoardScrap;
@@ -33,23 +36,18 @@ public class BoardService {
      * @return
      */
     @Transactional
-    public int addBoard(int userId, AddBoardRequest request) {
-
-        //** 수정필요
-        //global에서 갖고오기
-//        int userId = authUtil.getLoginUserId();
+    public int addBoard(AddBoardRequest request) {
 
         //유저가 있는지 확인한 후, 유저가 없다면 익셉션을 발생시킴
-        User user = userRepository.findById(userId)
+        User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
-
 
         //디비에 저장할 Board 준비
         Board board = Board.createBoard(
                 request.getTitle(),
                 request.getContent(),
                 request.getCategory(),
-                request.isAnonymous(),
+                request.getIsAnonymous(),
                 user
         );
 
@@ -57,7 +55,6 @@ public class BoardService {
         Board save = boardRepository.save(board);
 
         return save.getId();
-//        return 0;
     }
 
     /**
@@ -79,14 +76,9 @@ public class BoardService {
      * 5.3 게시판 게시글 스크랩
      */
     @Transactional
-    public int scrapBoard(int userId, ScrapBoardRequest request) {
+    public int scrapBoard(ScrapBoardRequest request) {
 
-        //user 정보는 로그인하고 난 후, 가져올 수 있음.
-        //프론트에서 userId를 받지 말고 user 정보를 빼오기
-
-        //**수정필요
-        //request로 넘어온 userId가 존재하는지 확인
-        User user = userRepository.findById(userId)
+        User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
 
         //request 로 넘어온 boardId가 존재하는지 확인
@@ -108,10 +100,10 @@ public class BoardService {
      * @return
      */
     @Transactional
-    public int unScrapBoard(int userId, ScrapBoardRequest request) {
+    public int unScrapBoard(ScrapBoardRequest request) {
 
         //request로 넘어온 userId가 존재하는지 확인
-        User user = userRepository.findById(userId)
+        User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
 
         //request 로 넘어온 boardId가 존재하는지 확인
@@ -131,20 +123,19 @@ public class BoardService {
      *
      * @return
      */
-    public Board findDetailBoard(int userId, int boardId) {
+    public Board findDetailBoard(int boardId) {
 
-        //request로 넘어온 userId가 존재하는지 확인
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
-
-        //boardId가 존재하는지 확인
+        // boardId가 존재하는지 확인
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new RuntimeException("게시글이 없습니다."));
 
-        //존재한다면 해당 게시글을 상세 조회
+        // 존재한다면 해당 게시글을 상세 조회
+        // board 내용 + 댓글들 + 스크랩 여부
+
+        //board + comment
 
 
-        //board를 Response에 담아서 넘겨줘야할 듯요
+        // board를 Response에 담아서 넘겨줘야할 듯요
 
         return board;
 
@@ -152,9 +143,11 @@ public class BoardService {
 
     /**
      * 5.5 게시판 게시글 삭제
+     *
+     * @return
      */
     @Transactional
-    public void removeBoard(int userId, int boardId) {
+    public int removeBoard(int boardId) {
 
         //삭제하려는 게시글이 있는지 확인해줌
         Board board = boardRepository.findById(boardId)
@@ -164,18 +157,30 @@ public class BoardService {
         //게시글이 삭제되면 댓글이랑 스크랩도 줄줄이 삭제돼야 함 (cascade 걸어놓음)
         boardRepository.delete(board);
 
-
-        //jwt에서 read를 제외한 나머지 연산들은 토큰을 까서 안의 값이랑 저장해놨던 값이랑 비교를 해야되려나?
-
-
+        return board.getId();
     }
 
 
     /**
      * 5.6 게시판 게시글 수정
+     *
+     * @return
      */
     @Transactional
-    public void modifyBoard(int boardId, ModifyBoardRequest request) {
+    public int modifyBoard(int boardId, ModifyBoardRequest request) {
+
+        //삭제하려는 게시글이 있는지 확인해줌
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> (new RuntimeException("해당 게시글이 존재하지 않습니다.")));
+
+        //게시글 수정
+        board.modifyBoard(
+                request.getTitle(),
+                request.getContent(),
+                request.getCategory()
+        );
+
+        return board.getId();
     }
 
     /**
@@ -191,8 +196,15 @@ public class BoardService {
                 .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
 
         // 해당 게시글이 있는지 확인해줌
-        Board board = boardRepository.findById(command.getBoardId())
-                .orElseThrow(() -> (new RuntimeException("해당 게시글이 존재하지 않습니다.")));
+        Board board = boardRepository.getReferenceById(command.getBoardId());
+
+        BoardComment parentComment = null;
+
+        // 자식댓글이라면 부모댓글을 찾아줌
+        if (command.getParentId() != -1) {
+            parentComment = boardCommentRepository.findById(command.getParentId())
+                    .orElseThrow(() -> (new RuntimeException("부모댓글이 존재하지 않습니다.")));
+        }
 
         //있다면 comment 를 추가해줌
         BoardComment boardComment = BoardComment.createBoardComment(
@@ -201,7 +213,7 @@ public class BoardService {
                 command.getContent(),
                 false,
                 false,
-                command.getParentId()
+                parentComment
         );
 
         BoardComment save = boardCommentRepository.save(boardComment);
@@ -211,17 +223,46 @@ public class BoardService {
 
     /**
      * 5.8 게시판 게시글 댓글 삭제
+     *
+     * @return
      */
     @Transactional
-    public void removeComment(int boardCommentId, RemoveBoardCommentRequest request) {
+    public String removeComment(int boardCommentId) {
+
+        // 삭제하려는 댓글이 존재하는지 확인
+        BoardComment comment = boardCommentRepository.findById(boardCommentId)
+                .orElseThrow(() -> (new RuntimeException("해당 댓글이 존재하지 않습니다.")));
+
+        // 댓글 삭제
+        // 부모 댓글이라면 자식 댓글까지 삭제해줘야 함
+        if ((comment.getParentComment()) == null) {
+            List<BoardComment> parentComment = boardCommentRepository.findByParentComment(comment);
+
+            for (BoardComment child : parentComment) {
+                boardCommentRepository.deleteById(child.getId());
+            }
+        }
+
+        boardCommentRepository.deleteById(comment.getId());
+
+        return "success";
     }
 
     /**
      * 5.9 게시판 게시글 댓글 수정
+     *
+     * @return
      */
     @Transactional
-    public void modifyComment(int boardCommentId, ModifyBaordCommentRequest request) {
+    public int modifyComment(int boardCommentId, ModifyBoardCommentRequest request) {
+
+        //수정하려는 댓글이 존재하는지 확인
+        BoardComment comment = boardCommentRepository.findById(boardCommentId)
+                .orElseThrow(() -> (new RuntimeException("해당 댓글이 존재하지 않습니다.")));
+
+        //댓글 수정
+        comment.modifyBoard(request.getContent());
+
+        return comment.getId();
     }
-
-
 }

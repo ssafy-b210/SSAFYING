@@ -36,4 +36,4 @@ logging:
 #jwt - 이슈 발급자, 비밀키 설정
 jwt:
   issuer: ssafying@ssafy.com
-  secret_key: ssafying210-yewon-sueun-hyejin-hyunseok-sumin-jieun-teamjejudo
+  secret_key: b210-ssafying-teamjejudo

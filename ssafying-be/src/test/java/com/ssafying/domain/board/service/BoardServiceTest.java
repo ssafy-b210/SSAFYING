@@ -41,6 +41,7 @@ public class BoardServiceTest {
         userRepository.save(user);
 
         AddBoardRequest req = AddBoardRequest.builder()
+                .userId(user.getId())
                 .title("title")
                 .content("content")
                 .category(CategoryStatus.FREEDOM)
@@ -48,7 +49,7 @@ public class BoardServiceTest {
                 .build();
 
         //When
-        int boardId = boardService.addBoard(user.getId(), req);
+        int boardId = boardService.addBoard(req);
 
         Optional<Board> find = boardRepository.findById(boardId);
 
@@ -82,12 +83,13 @@ public class BoardServiceTest {
 
         //메서드 req 생성
         ScrapBoardRequest req = ScrapBoardRequest.builder()
+                .userId(user.getId())
                 .boardId(board.getId())
                 .build();
 
         // when
         //메서드 호출
-        int boardScrapId = boardService.scrapBoard(user.getId(), req);
+        int boardScrapId = boardService.scrapBoard(req);
         Optional<BoardScrap> find = boardScarpRepository.findById(boardScrapId);
 
         // then

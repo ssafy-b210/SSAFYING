@@ -1,13 +1,14 @@
 package com.ssafying.domain.crew.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ssafying.domain.crew.dto.request.AddCrewRequest;
+import com.ssafying.domain.crew.dto.request.ModifyCrewRequest;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.sql.Update;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,11 +16,12 @@ import java.util.List;
 @Getter
 public class Crew extends BaseTimeEntity {
 
-    @Id @GeneratedValue
-    @Column(name = "crew_id") //updatable = false ?
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "crew_id")
     private int crewId; //크루 id
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "user_id")
     private User user; //작성자
 
@@ -31,75 +33,59 @@ public class Crew extends BaseTimeEntity {
     private Region region; //지역
 
     @Enumerated(EnumType.STRING)
-    private Category category; //카테고리
+    private CrewCategory category; //카테고리
 
     @Column(name = "is_recruit")
-    private boolean isRecruit; //모집 상태
+    private Boolean isRecruit; //모집 상태
 
-    @Column(name = "image_url")
-    private String imageUrl; //작성자 프로필 이미지
+    @Column(name = "profile_image_url")
+    private String profileImageUrl; //작성자 프로필 이미지
+
+    @OneToMany(mappedBy = "crew", cascade = CascadeType.REMOVE)
+    private List<CrewComment> comments = new ArrayList<>(); //댓글
 
     /*
-    구해요 게시글 생성
+     * 구해요 게시글 작성
      */
     public static Crew createCrew(
-            String title,
-            String content,
-            Region region,
-            Category category,
-            boolean isRecruit,
+            AddCrewRequest request,
             User user
     ) {
 
         Crew crew = new Crew();
 
-        crew.title = title;
-        crew.content = content;
-        crew.region = region;
-        crew.category = category;
-        crew.isRecruit = isRecruit;
+        crew.title = request.getTitle();
+        crew.content = request.getContent();
+        crew.region = request.getRegion();
+        crew.category = request.getCategory();
+        crew.isRecruit = request.getIsRecruit();
         crew.user = user;
 
         return crew;
     }
 
     /*
-    게시글 수정
+     * 게시글 수정
      */
-    public Crew updateCrew(
-            int crewId,
-            String title,
-            String content,
-            boolean isRecruit
+    public static Crew modifyCrew(
+            Crew crew,
+            ModifyCrewRequest request
     ){
 
-        this.crewId = crewId;
-        this.title = title;
-        this.content = content;
-        this.isRecruit = isRecruit;
+        // null 값이 아닌 경우에만 업데이트
+        if(request.getTitle() != null){
+            crew.title = request.getTitle();
+        }
+        if(request.getContent() != null){
+            crew.content = request.getContent();
+        }
 
-        return this;
+        //드롭 다운
+        crew.region = request.getRegion();
+        crew.category = request.getCategory();
+        crew.isRecruit = request.getIsRecruit();
+
+        return crew;
     }
-
-
-    /*
-    구해요 게시글 전체 조회
-     */
-//    public List<Crew> findAllCrew(
-//            int crewId,
-//            User user,
-//            String title,
-//            boolean isRecruit,
-//            String imageUrl
-//    ){
-//
-//        this.crewId = crewId;
-//        this.user = user;
-//        this.title = title;
-//        this.isRecruit = isRecruit;
-//        this.imageUrl = imageUrl;
-//
-//        return
-//    }
 
 }

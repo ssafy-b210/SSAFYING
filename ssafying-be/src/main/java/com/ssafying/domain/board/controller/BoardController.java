@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 //@Api
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/boards")
+@RequestMapping("/boards")
 public class BoardController {
 
     private final BoardService boardService;
@@ -22,30 +22,38 @@ public class BoardController {
      * 5.1 게시판 게시글 작성
      */
     @PostMapping
-    public ResponseEntity<ResultResponse> boardAdd(
+    public ResponseEntity<ResultResponse<Integer>> boardAdd(
             @RequestBody @Valid AddBoardRequest request) {
 
-        //TODO 유저 id 가져오는 방법은 아직 고민 중
-        int userId = 1;
-        boardService.addBoard(userId, request);
+        int result = boardService.addBoard(request);
 
-        return null;
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
     /**
      * 5.2 게시판 게시글 조회
      */
+//    @GetMapping
+//    public ResponseEntity<ResultResponse> boardList(
+//            @RequestParam(defaultValue = "1") int pageNo, //몇번째 페이지인지
+//            @RequestParam String searchCategory, //게시글 중 어떤 카테고리인지
+//            @RequestParam(required = false) String searchWord //검색어가 있는 경우
+//    ) {
+//        boardService.findBoard(pageNo, searchCategory, searchWord);
+////        CategoryStatus employment = CategoryStatus.valueOf("EMPLOYMENT");
+//
+//        return null;
+//    }
+
     @GetMapping
     public ResponseEntity<ResultResponse> boardList(
-            @RequestParam(defaultValue = "1") int pageNo, //몇번째 페이지인지
-            @RequestParam String searchCategory, //게시글 중 어떤 카테고리인지
-            @RequestParam(required = false) String searchWord //검색어가 있는 경우
+
     ) {
-        boardService.findBoard(pageNo, searchCategory, searchWord);
-//        CategoryStatus employment = CategoryStatus.valueOf("EMPLOYMENT");
+
 
         return null;
     }
+
 
     /**
      * 5.3 게시판 게시글 스크랩
@@ -54,10 +62,8 @@ public class BoardController {
     public ResponseEntity<ResultResponse<Integer>> boardScrap(
             @RequestBody @Valid ScrapBoardRequest request
     ) {
-        //TODO 유저 id 가져오는 방법은 아직 고민 중
-        int userId = 1;
 
-        int result = boardService.scrapBoard(userId, request);
+        int result = boardService.scrapBoard(request);
 
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
@@ -69,10 +75,8 @@ public class BoardController {
     public ResponseEntity<ResultResponse<Integer>> boardUnScrap(
             @RequestBody @Valid ScrapBoardRequest request
     ) {
-        //TODO 유저 id 가져오는 방법은 아직 고민 중
-        int userId = 1;
 
-        int result = boardService.unScrapBoard(userId, request);
+        int result = boardService.unScrapBoard(request);
 
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
@@ -81,13 +85,10 @@ public class BoardController {
      * 5.4 게시판 게시글 상세 조회
      */
     @GetMapping("/{boardId}")
-    public ResponseEntity<ResultResponse> boardDetails(@PathVariable int boardId){
+    public ResponseEntity<ResultResponse> boardDetails(
+            @PathVariable(name = "boardId") int boardId) {
 
-        //TODO 유저 id 가져오는 방법은 아직 고민 중
-        int userId = 1;
-
-
-        boardService.findDetailBoard(userId, boardId);
+        boardService.findDetailBoard(boardId);
 
         return null;
     }
@@ -96,27 +97,24 @@ public class BoardController {
      * 5.5 게시판 게시글 삭제
      */
     @DeleteMapping("/{boardId}")
-    public ResponseEntity<ResultResponse> boardRemove(@PathVariable int boardId){
+    public ResponseEntity<ResultResponse<Integer>> boardRemove(
+            @PathVariable(name = "boardId") int boardId) {
 
-        //TODO 유저 id 가져오는 방법은 아직 고민 중
-        int userId = 1;
+        int result = boardService.removeBoard(boardId);
 
-
-        boardService.removeBoard(userId, boardId);
-
-        return null;
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
     /**
      * 5.6 게시판 게시글 수정
      */
-    @PutMapping("/{boardId}")
-    public ResponseEntity<ResultResponse> boardModify(
-            @PathVariable int boardId,
+    @PatchMapping("/{boardId}")
+    public ResponseEntity<ResultResponse<Integer>> boardModify(
+            @PathVariable(name = "boardId") int boardId,
             @RequestBody ModifyBoardRequest request){
-        boardService.modifyBoard(boardId, request);
+        int result = boardService.modifyBoard(boardId, request);
 
-        return null;
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
     /**
@@ -128,15 +126,12 @@ public class BoardController {
             @RequestBody AddBoardCommentRequest request
     ) {
 
-        //TODO 유저 id 가져오는 방법은 아직 고민 중
-        int userId = 1;
-
-        //유저 + boardId + request
+        //boardId + request 를 controller 로 보내줌
         AddBoardCommentCommand command = AddBoardCommentCommand.builder()
                 .boardId(boardId)
-                .userId(userId)
+                .userId(request.getUserId())
                 .content(request.getContent())
-                .isAnonymous(request.isAnonymous())
+                .isAnonymous(request.getIsAnonymous())
                 .parentId(request.getParentId())
                 .build();
 
@@ -149,26 +144,25 @@ public class BoardController {
      * 5.8 게시판 게시글 댓글 삭제
      */
     @DeleteMapping("/comments/{boardCommentId}")
-    public ResponseEntity<ResultResponse> boardCommentRemove(
-            @PathVariable int boardCommentId,
-            @RequestBody RemoveBoardCommentRequest request
+    public ResponseEntity<ResultResponse<String>> boardCommentRemove(
+            @PathVariable(name = "boardCommentId") int boardCommentId
     ){
-        boardService.removeComment(boardCommentId, request);
 
-        return null;
+        String result = boardService.removeComment(boardCommentId);
+
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
     /**
      * 5.9 게시판 게시글 댓글 수정
      */
-    @PutMapping("/comments/{boardCommentId}")
-    public ResponseEntity<ResultResponse> boardCommentModify(
-        @PathVariable int boardCommentId,
-        @RequestBody ModifyBaordCommentRequest request
+    @PatchMapping("/comments/{boardCommentId}")
+    public ResponseEntity<ResultResponse<Integer>> boardCommentModify(
+            @PathVariable(name = "boardCommentId") int boardCommentId,
+            @RequestBody ModifyBoardCommentRequest request
     ) {
-        boardService.modifyComment(boardCommentId, request);
+        int result = boardService.modifyComment(boardCommentId, request);
 
-        return null;
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
-
 }

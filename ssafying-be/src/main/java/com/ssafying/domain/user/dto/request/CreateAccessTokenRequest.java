@@ -1,4 +1,4 @@
-package com.ssafying.global.config.jwt.dto;
+package com.ssafying.domain.user.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;
