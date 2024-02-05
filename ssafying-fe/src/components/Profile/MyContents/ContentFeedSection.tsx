@@ -128,6 +128,7 @@ const StyledContentFeedSection = styled.div`
 const HashtagList = styled.div`
   position: relative;
   margin-bottom: 16px;
+  padding: 0 10px;
 
   &.hidden {
     max-height: 45px;
