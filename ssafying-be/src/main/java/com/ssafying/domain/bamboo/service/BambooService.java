@@ -36,10 +36,21 @@ public class BambooService {
     public List<FindListBambooResponse> findListBamboo() {
 
         // 24시간이 지나지 않은 글 중에서 시간이 적게 남은 친구들을 먼저 보여주는 걸로 ....
-        List<Bamboo> bambooList = bambooRepository.findAll();
+
+        long hoursGap = 24; //24시간이 지나지 않은 스토리를 찾음
+
+        List<Bamboo> bambooList = bambooRepository.findBambooList(
+                LocalDateTime.now().minusHours(hoursGap) //24시간 전 시간보다 이후에 등록된 스토리만 찾아옴
+        );
+
+        System.out.println("=====================================");
+        List<FindListBambooResponse> findListBambooResponses = bambooRepository.countComment();
+        for (FindListBambooResponse result : findListBambooResponses) {
+            System.out.println("result = " + result);
+        }
 
 
-        return null;
+        return findListBambooResponses;
     }
 
     /**
@@ -66,12 +77,13 @@ public class BambooService {
      */
     public FindDetailBambooResponse findDetailBamboo(Long bambooId) {
 
+        LocalDateTime now = LocalDateTime.now(); //현재 시간
+
         // bambooId 가 존재하는지 확인
-        Bamboo bamboo = bambooRepository.findById(bambooId)
+        Bamboo bamboo = bambooRepository.findBambooAndBambooComment(bambooId)
                 .orElseThrow(() -> (new RuntimeException("해당 대나무숲이 없습니다.")));
 
         // 24시간이 지났는지 확인해야 함
-        LocalDateTime now = LocalDateTime.now(); //현재 시간
         Duration diff = Duration.between(bamboo.getCreatedAt().toLocalTime(), now.toLocalTime()); //시간차
 
         /** 현재 시간과 저장된 시간의 차이를 계산 값으로 test
