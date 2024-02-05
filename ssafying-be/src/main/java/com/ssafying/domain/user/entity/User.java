@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafying.domain.chat.entity.ChatMessage;
 import com.ssafying.domain.chat.entity.ChatRoomUser;
 import com.ssafying.domain.crew.entity.Crew;
+import com.ssafying.domain.follow.entity.Follow;
 import com.ssafying.domain.market.entity.Market;
 import com.ssafying.domain.shuttle.entity.BusStop;
 import com.ssafying.domain.shuttle.entity.Campus;
@@ -76,6 +77,12 @@ public class User extends BaseTimeEntity {
     
     @OneToMany(mappedBy = "user")
     private List<Market> markets = new ArrayList<>(); //작성한 중고거래 게시글
+
+    @OneToMany(mappedBy = "fromUser")
+    private List<Follow> followings = new ArrayList<>(); //팔로잉 리스트
+
+    @OneToMany(mappedBy = "toUser")
+    private List<Follow> followers= new ArrayList<>(); //팔로워 리스트
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @Column(name = "bus_stop")

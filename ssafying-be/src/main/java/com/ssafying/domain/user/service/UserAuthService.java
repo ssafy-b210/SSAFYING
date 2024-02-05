@@ -72,10 +72,6 @@ public class UserAuthService {
 
     // 토큰 검증 및 사용자 정보 추출 메소드
     public User getUserFromToken(String token) {
-        // 토큰 유효성 검증
-        if (!tokenProvider.validToken(token)) {
-            throw new RuntimeException("유효하지 않은 토큰입니다.");
-        }
 
         // 토큰 기반으로 유저 ID 추출
         int userId = tokenProvider.getUserId(token);
