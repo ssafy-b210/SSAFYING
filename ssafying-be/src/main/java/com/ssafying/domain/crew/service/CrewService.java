@@ -30,7 +30,7 @@ public class CrewService {
     private final UserRepository userRepository;
     private final CrewCommentsRepository crewCommentsRepository;
 
-    /*
+    /**
      * 게시글 등록
      */
     @Transactional
@@ -51,7 +51,7 @@ public class CrewService {
         return savedCrew.getCrewId();
     }
 
-    /*
+    /**
      * 게시글 삭제
      */
     @Transactional
@@ -66,7 +66,7 @@ public class CrewService {
         return crewId;
     }
 
-    /*
+    /**
      * 게시글 상세 조회
      */
     @Transactional
@@ -77,7 +77,7 @@ public class CrewService {
         return crew;
     }
 
-    /*
+    /**
      * 게시글 전체 조회
      */
     @Transactional
@@ -87,7 +87,7 @@ public class CrewService {
         return list;
     }
 
-    /*
+    /**
      * 게시글 수정
      */
     @Transactional
@@ -107,7 +107,7 @@ public class CrewService {
         return crew.getCrewId();
     }
 
-    /*
+    /**
      * 게시글 검색
      */
     public List<Crew> searchCrew(String title, String region, String category, boolean isRecruit){
@@ -136,7 +136,7 @@ public class CrewService {
 
     }
 
-    /*
+    /**
      * 댓글 등록
      */
     @Transactional
@@ -172,7 +172,7 @@ public class CrewService {
         return savedComment.getId();
     }
 
-    /*
+    /**
      * 댓글 삭제
      */
     @Transactional

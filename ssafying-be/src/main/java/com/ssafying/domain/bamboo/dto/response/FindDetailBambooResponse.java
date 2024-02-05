@@ -9,7 +9,8 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Builder
-public class FindDetailBambooResponse {
+public class
+FindDetailBambooResponse {
 
     String content;
 
