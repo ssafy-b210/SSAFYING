@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import userImg from "../../../assets/img/testImg/user5.svg";
-import userImg2 from "../../../assets/img/testImg/user4.svg";
-import userImg3 from "../../../assets/img/testImg/user3.svg";
+import userImg from "../../../assets/img/testImg/user6.jpg";
+import userImg2 from "../../../assets/img/testImg/user7.jpg";
+import userImg3 from "../../../assets/img/testImg/user8.jpg";
 
 function FeedListItemImg() {
   const [currentImage, setCurrentImage] = useState(0);
