@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import CreateTitle from "../BoardCreate/CreateTitle";
 import CreateContent from "../BoardCreate/CreateContent";
 import SelectCategory, { Option } from "../../Board/BoardCreate/SelectCategory";
 import IsAnonymous from "../BoardCreate/CheckAnonymous";
+import { createBoard } from "../../../../apis/api/Board";
 
 const options: Option[] = [
   { value: "자유", label: "자유" },

@@ -1,19 +1,71 @@
-import axios from "axios";
+import { axios } from "../utils/axios";
+
+const REST_BOARD_API = `/api/boards`;
 
 //게시판 게시글 작성
-async function createBoard() {
+const data = {
+  userId: "",
+  title: "",
+  content: "",
+  category: "",
+  isAnonymous: "",
+};
+
+export async function createBoard() {
   try {
-    const url = "/board";
-    const data = {
-      userId: 1,
-      title: "test_title",
-      content: "test_content",
-      category: "FREEDOM",
-      isAnonymous: false,
-    };
-    const response = await axios.post(url, data);
+    const response = await axios.post(REST_BOARD_API, data);
     console.log(response.data);
   } catch (e) {
     console.error(e);
   }
 }
+
+//게시판 전체 조회
+
+//게시판 게시글 스크랩
+export async function scrapBoard(userId: number, boardId: number) {
+  try {
+    const data = { userId, boardId };
+    const response = await axios.post(`${REST_BOARD_API}/scrap`, data);
+    console.log(response.data);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+//게시판 게시글 스크랩 취소
+export async function cancelscarpBoard(userId: number, boardId: number) {
+  try {
+    const data = { userId, boardId };
+    const response = await axios.delete(`${REST_BOARD_API}/scrap`, { data });
+    console.log(response.data);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+// 게시판 게시글 상세 조회
+
+// 게시판 게시글 삭제
+export async function deleteBoard(boardId: number) {
+  try {
+    const response = await axios.delete(`${REST_BOARD_API}/${boardId}`);
+    console.log(response.data);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+//게시판 게시글 수정
+export async function updateBoard() {
+  try {
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+// 게시판 게시글 댓글 작성
+
+// 게시판 게시글 댓글 삭제
+
+// 게시판 게시글 댓글 수정
