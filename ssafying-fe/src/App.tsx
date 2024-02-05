@@ -19,13 +19,6 @@ import SsafyAuth from "./pages/User/UserAuth";
 import ContentFeedSection from "./components/Profile/MyContents/ContentFeedSection";
 import ContentPortfolioSection from "./components/Profile/MyContents/ContentPortfolioSection";
 import ContentSavedSection from "./components/Profile/MyContents/ContentSavedSection";
-import BoardCreate from "./pages/All/Board/BoardCreate";
-import MarketCreate from "./pages/Now/Market/MarketCreate";
-import CrewCreate from "./pages/All/Crew/CrewCreate";
-import renderMarketDetail from "./pages/Now/Market/MarketDetail";
-import MarketDetail from "./pages/Now/Market/MarketDetail";
-import BoardDetail from "./pages/All/Board/BoardDetail";
-import CrewDetail from "./pages/All/Crew/CrewDetail";
 import BottomNavBar from "./components/Common/BottomNavBar";
 import FeedHeader from "./components/Feed/FeedMain/FeedHeader";
 import AlarmDetail from "./pages/Feed/AlarmDetail";
@@ -49,23 +42,19 @@ function App() {
     <AppWrapper>
       <Wrapper>
         <Routes>
-          {/* <Route path="/" element={<CrewCreate />} /> */}
           <Route path="/" element={<UserLogin />} />
           <Route path="/signup" element={<UserSignup />} />
-          <Route path="/tagselect" element={<SelectTagForm />} />
+          <Route path="/tagselect" element={<UserSelectTag />} />
           <Route path="/auth" element={<UserAuth />} />
           {/* <Route path="/" element={<UserLogin />} /> */}
 
           <Route path="/all" element={<AllMenu />} />
           <Route path="/board" element={<BoardList />} />
-          <Route path="/board/:id" element={<BoardDetail />} />
-          <Route path="/board/create" element={<BoardCreate />} />
           <Route path="/crew" element={<CrewList />} />
           <Route path="/recruit" element={<RecruitmentList />} />
 
           <Route path="/now" element={<NowMenu />} />
           <Route path="/market" element={<MarketList />} />
-          <Route path="/market/create" element={<MarketCreate />} />
           <Route path="/mealplan" element={<SelectCampusMeal />} />
           <Route path="/bus" element={<BusRealTimeSelect />} />
           <Route path="/bus/:id" element={<BusRealTimeMap />} />

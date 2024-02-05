@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import authCheck from "../../assets/img/userIcons/userAuthCheck.svg";
 import SubmitBtn from "../Common/SubmitBtn";
+import ProgressBar from "./Signup/ProgressBar";
 
 function SsafyAuth() {
   return (
@@ -9,6 +10,7 @@ function SsafyAuth() {
       <Header>
         <h2>싸피인 인증절차를 진행하겠습니다.</h2>
       </Header>
+      <ProgressBar width={99}></ProgressBar>
       <Form>
         <Input className="input-area">
           <input type="text" id="name" placeholder=" " />

@@ -1,32 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Link, useParams } from "react-router-dom";
 
 //Props 나중에 추가
-interface CrewSortTabProps {}
-
-function CrewSortTab({}: CrewSortTabProps) {
-  const [activeButton, setActiveButton] = useState<number | null>(null);
-
-  const handleButtonClick = (index: number) => {
-    setActiveButton(index);
-  };
-
-  return (
-    <StyledTab>
-      {tabButtons.map((label, index) => (
-        <SortTabButton
-          key={index}
-          $active={index === activeButton}
-          onClick={() => handleButtonClick(index)}
-        >
-          <span>{label}</span>
-        </SortTabButton>
-      ))}
-    </StyledTab>
-  );
+interface CrewSortTabProps {
+  onCategoryChange: (category: string) => void;
 }
-
-export default CrewSortTab;
 
 const tabButtons = [
   "스터디",
@@ -39,11 +18,33 @@ const tabButtons = [
   "기타",
 ];
 
-interface SortTabButtonProps {
-  $active: boolean;
-}
+const CrewSortTab: React.FC<CrewSortTabProps> = ({ onCategoryChange }) => {
+  const [activeButton, setActiveButton] = useState<number | null>(null);
 
-const SortTabButton = styled.a<SortTabButtonProps>`
+  const handleButtonClick = (index: number) => {
+    setActiveButton(index);
+    const selectedCategory = tabButtons[index];
+    onCategoryChange(selectedCategory);
+  };
+
+  return (
+    <StyledTab>
+      {tabButtons.map((label, index) => (
+        <SortTabButton
+          key={index}
+          $active={index === activeButton}
+          onClick={() => handleButtonClick(index)}
+        >
+          {label}
+        </SortTabButton>
+      ))}
+    </StyledTab>
+  );
+};
+
+export default CrewSortTab;
+
+const SortTabButton = styled.a<{ $active: boolean }>`
   display: inline-block;
   margin: 0 16px;
   padding: 10px 16px;

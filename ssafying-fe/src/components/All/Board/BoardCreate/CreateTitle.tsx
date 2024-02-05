@@ -29,6 +29,6 @@ const TitleContainer = styled.div`
     border-radius: 15px;
     outline: none;
     padding-left: 10px;
-    background-color: #f4f9f4;
+    background-color: #d9d9d9;
   }
 `;

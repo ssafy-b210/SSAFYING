@@ -1,147 +1,67 @@
 import styled from "styled-components";
 import React from "react";
+import MarketCardListItem from "./MarketCardListItem";
 
-import isSelling from "../../../assets/img/imgBtn/isSelling.svg";
-import isNotSelling from "../../../assets/img/imgBtn/isNotSelling.svg";
-
-interface MarketCardList {
-  title: string;
-  price: number;
-  isSelling: boolean;
-  description: string;
-  username: string;
+interface MarketCardListProps {
+  selectedCategory: string | null;
 }
 
-interface CardsProps {
-  info: MarketCardList;
-}
-
-const truncate = (str: string, n: number) => {
-  return str?.length > n ? str.substr(0, n - 1) + "..." : str;
-};
-
-const Cards: React.FC<CardsProps> = ({ info }) => {
-  const [isFlipped, setIsFlipped] = React.useState(false);
-
-  return (
-    <StyledCards>
-      <CardContainer
-        onMouseEnter={() => setIsFlipped(true)}
-        onMouseLeave={() => setIsFlipped(false)}
-      >
-        <FrontSide isFlipped={isFlipped}>
-          <StyledCardsTitle>{truncate(info.title, 20)}</StyledCardsTitle>
-          <hr />
-          <SmallContainer>
-            <p>{info.price}원</p>
-            {info.isSelling ? (
-              <img src={isSelling} alt="isSelling" />
-            ) : (
-              <img src={isNotSelling} alt="isNotSelling" />
-            )}
-          </SmallContainer>
-        </FrontSide>
-        <BackSide isFlipped={isFlipped}>
-          <h4>{truncate(info.description, 100)}</h4>
-          <p>{info.username}</p>
-        </BackSide>
-      </CardContainer>
-    </StyledCards>
-  );
-};
-
-function MarketCardList() {
-  const [cardInfo, setCardInfo] = React.useState<MarketCardList[]>([
-    {
-      title: "내 한무무 키보드 팔아요",
-      price: 25000,
-      isSelling: true,
-      description: "우와 되나?",
-      username: "되나",
-    },
-    {
-      title: "다른 카드",
-      price: 30000,
-      isSelling: false,
-      description: "우와 되나?",
-      username: "되나",
-    },
-  ]);
-
-  return (
-    <MarketCardContainer>
-      {cardInfo.map((info, idx) => (
-        <Cards key={idx} info={info} />
-      ))}
-    </MarketCardContainer>
-  );
-}
-
-export default MarketCardList;
-
-const MarketCardContainer = styled.div`
+const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-`;
-
-//card
-const CardContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transition: all 0.5s;
-  // perspective-origin: center;
-  transform-style: preserve-3d;
-  border: 3px solid gray;
-  border-radius: 20px;
-`;
-
-//wrapper
-const StyledCards = styled.div`
-  width: 200px;
-  height: 200px;
-  margin: 20px;
-  perspective: 1100px;
-  &:hover ${CardContainer} {
-    transform: rotateY(180deg);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 
-const FrontSide = styled.div<{ isFlipped: boolean }>`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  backface-visibility: hidden;
+const cards = [
+  {
+    title: "내 한무무 키보드 팔아요",
+    price: 25000,
+    isSelling: true,
+    content: "우와 되나?",
+    writer: "되나",
+    category: "팝니다",
+  },
+  {
+    title: "이수민 사요",
+    price: 30000,
+    isSelling: false,
+    content: "우와 되나?",
+    writer: "되나",
+    category: "삽니다",
+  },
+];
 
+const MarketCardList: React.FC<MarketCardListProps> = ({
+  selectedCategory,
+}) => {
+  const filteredCards = selectedCategory
+    ? cards.filter((card) => card.category === selectedCategory)
+    : cards;
+
+  return (
+    <Container>
+      {filteredCards.length > 0 ? (
+        filteredCards.map((card, index) => (
+          <MarketCardListItem key={index} card={card} index={index} />
+        ))
+      ) : (
+        <NoResultsMessage>
+          해당 카테고리에 대한 게시물이 존재하지 않습니다.
+        </NoResultsMessage>
+      )}
+    </Container>
+  );
+};
+
+export default MarketCardList;
+const NoResultsMessage = styled.p`
   display: flex;
-  flex-direction: column;
   justify-content: center;
   text-align: center;
-  word-wrap: break-word;
-`;
-
-const BackSide = styled.div<{ isFlipped: boolean }>`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  backface-visibility: hidden;
-  transform: rotateY(180deg);
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  word-wrap: break-word;
-`;
-
-const StyledCardsTitle = styled.h2`
-  text-align: left;
-  margin-left: 15px;
-`;
-
-const SmallContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  padding-top: 40%;
 `;

@@ -1,23 +1,36 @@
 import styled from "styled-components";
-
+import React, { useState } from "react";
 import BoardSortTab from "../../../components/All/Board/BoardList/BoardSortTab";
 import BoardCardList from "../../../components/All/Board/BoardList/BoardCardList";
 import SearchBarOnly from "../../../components/All/Board/BoardList/SearchBarOnly";
 import BackBtnHeader from "../../../components/Common/BackBtnHeader";
 import PlusBtn from "../../../components/Common/PlusBtn";
+import Modal from "../../../components/Common/Modal";
+import BoardCreateModal from "../../../components/All/Board/BoardList/BoardCreateModal";
 
 function BoardList() {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+  };
+
   return (
     <Wrapper>
       <BackBtnHeader
         backLink="/all"
         htext={<h2>게시판</h2>}
         isCenter={true}
-        extraBtn={<PlusBtn link="/board/create" />}
+        extraBtn={
+          <Modal btnTxt="작성">
+            <BoardCreateModal></BoardCreateModal>
+          </Modal>
+        }
       />
-      <BoardSortTab></BoardSortTab>
+
+      <BoardSortTab onCategoryChange={handleCategoryChange}></BoardSortTab>
       <SearchBarOnly></SearchBarOnly>
-      <BoardCardList></BoardCardList>
+      <BoardCardList selectedCategory={selectedCategory}></BoardCardList>
     </Wrapper>
   );
 }
