@@ -2,6 +2,7 @@ package com.ssafying.domain.bamboo.service;
 
 import com.ssafying.domain.bamboo.dto.request.AddBambooCommentRequest;
 import com.ssafying.domain.bamboo.dto.request.AddBambooRequest;
+import com.ssafying.domain.bamboo.dto.response.BambooCommentResponse;
 import com.ssafying.domain.bamboo.dto.response.FindDetailBambooResponse;
 import com.ssafying.domain.bamboo.dto.response.FindListBambooResponse;
 import com.ssafying.domain.bamboo.entity.Bamboo;
@@ -15,6 +16,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -62,12 +66,54 @@ public class BambooService {
      */
     public FindDetailBambooResponse findDetailBamboo(Long bambooId) {
 
+        // bambooId 가 존재하는지 확인
+        Bamboo bamboo = bambooRepository.findById(bambooId)
+                .orElseThrow(() -> (new RuntimeException("해당 대나무숲이 없습니다.")));
 
-        //bambooId 가 24시간이 지났는지 확인해야 함
+        // 24시간이 지났는지 확인해야 함
+        LocalDateTime now = LocalDateTime.now(); //현재 시간
+        Duration diff = Duration.between(bamboo.getCreatedAt().toLocalTime(), now.toLocalTime()); //시간차
+
+        if (diff.getSeconds() >= 5) {
+            System.out.println("**1**");
+            System.out.println("now = " + now);
+            System.out.println("bamboo.getCreatedAt() = " + bamboo.getCreatedAt());
+        } else {
+            System.out.println("**2**");
+            System.out.println("now = " + now);
+            System.out.println("bamboo.getCreatedAt() = " + bamboo.getCreatedAt());
+        }
 
 
+        if (diff.toHours() >= 24) {
+            throw new RuntimeException("해당 대나무숲이 24시간이 지나 삭제되었습니다.");
+        }
 
-        return null;
+
+        System.out.println("=============BambooService.findDetailBamboo");
+
+        //bambooComment 를 BambooCommentResponse 로 변환
+        List<BambooCommentResponse> bambooCommentResponseList = new ArrayList<>(); // list 준비
+
+        //해당 게시글에 저장되어있던 댓글 리스트 뽑아오기
+        List<BambooComment> commentList = bamboo.getCommentList();
+        for (BambooComment comment : commentList) { // 저장되어있던 댓글 하나씩 돌면서 BambooCommentResponse 로 변환
+            BambooCommentResponse buildBambooComment = BambooCommentResponse.builder()
+                    .content(comment.getContent())
+                    .createAt(comment.getCreatedAt())
+                    .build();
+
+            bambooCommentResponseList.add(buildBambooComment); // list 에 추가
+        }
+
+        // 24시간이 지나지 않은 대나무숲 상세정보 조회
+        FindDetailBambooResponse result = FindDetailBambooResponse.builder()
+                .content(bamboo.getContent())
+                .createdAt(bamboo.getCreatedAt())
+                .comments(bambooCommentResponseList)
+                .build();
+
+        return result;
     }
 
 
@@ -85,12 +131,15 @@ public class BambooService {
         Bamboo bamboo = bambooRepository.findById(bambooId)
                 .orElseThrow(() -> (new RuntimeException("대나무숲 글이 존재하지 않습니다.")));
 
-        // 대나무숲 글이 존재한다면 댓글을 작성함
+        // 대나무숲 글이 존재한다면 댓글을 작성함 (디비 저장)
         BambooComment bambooComment = BambooComment.createBambooComment(
                 bamboo,
                 user,
                 request.getContent()
         );
+
+        // 객체에 저장
+        bamboo.addComment(bambooComment);
 
         BambooComment save = bambooCommentRepository.save(bambooComment);
 
