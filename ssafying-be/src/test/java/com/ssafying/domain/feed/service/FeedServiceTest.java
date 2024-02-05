@@ -1,8 +1,7 @@
 package com.ssafying.domain.feed.service;
 
-import com.ssafying.domain.feed.dto.request.CreateFeedRequest;
+import com.ssafying.domain.feed.dto.request.AddFeedRequest;
 import com.ssafying.domain.feed.entity.Feed;
-import com.ssafying.domain.feed.entity.FeedHashtag;
 import com.ssafying.domain.feed.entity.FeedImage;
 import com.ssafying.domain.feed.repository.FeedRepository;
 import com.ssafying.domain.user.entity.User;
@@ -11,11 +10,8 @@ import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -49,7 +45,7 @@ class FeedServiceTest {
         user = userRepository.save(user);
 
         // given
-        CreateFeedRequest request = CreateFeedRequest.builder()
+        AddFeedRequest request = AddFeedRequest.builder()
                 .userId(user.getId())
                 .content("Example Content")
                 .imageUrls(List.of("url1", "url2"))
@@ -57,7 +53,7 @@ class FeedServiceTest {
                 .build();
 
         // when
-        int savedId = feedService.createFeed(request);
+        int savedId = feedService.addFeed(request);
 
         em.flush();
         em.clear();
