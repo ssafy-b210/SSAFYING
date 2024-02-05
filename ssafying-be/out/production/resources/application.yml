@@ -1,3 +1,9 @@
+# 리버스 프록시 설정을 위한 context path 설정 추가, 포트 변경
+server:
+  servlet:
+    context-path: /api
+  port: 8081
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
