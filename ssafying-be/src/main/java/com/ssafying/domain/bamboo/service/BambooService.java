@@ -82,16 +82,14 @@ public class BambooService {
      */
     public FindDetailBambooResponse findDetailBamboo(Long bambooId) {
 
-        LocalDateTime now = LocalDateTime.now(); //현재 시간
-
         // bambooId 가 존재하는지 확인
-        Bamboo bamboo = bambooRepository.findBambooAndBambooComment(bambooId)
+        Bamboo bamboo = bambooRepository.findById(bambooId)
                 .orElseThrow(() -> (new RuntimeException("해당 대나무숲이 없습니다.")));
 
         // 24시간이 지났는지 확인해야 함
+        LocalDateTime now = LocalDateTime.now(); //현재 시간
         Duration diff = Duration.between(bamboo.getCreatedAt().toLocalTime(), now.toLocalTime()); //시간차
 
-        /** 현재 시간과 저장된 시간의 차이를 계산 값으로 test
         if (diff.getSeconds() >= 5) {
             System.out.println("**1**");
             System.out.println("now = " + now);
@@ -102,13 +100,13 @@ public class BambooService {
             System.out.println("bamboo.getCreatedAt() = " + bamboo.getCreatedAt());
         }
 
-         System.out.println("=============BambooService.findDetailBamboo");
-         */
 
         if (diff.toHours() >= 24) {
             throw new RuntimeException("해당 대나무숲이 24시간이 지나 삭제되었습니다.");
         }
 
+
+        System.out.println("=============BambooService.findDetailBamboo");
 
         //bambooComment 를 BambooCommentResponse 로 변환
         List<BambooCommentResponse> bambooCommentResponseList = new ArrayList<>(); // list 준비
