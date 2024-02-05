@@ -37,7 +37,7 @@ public class BoardServiceTest {
     public void 게시글작성() throws Exception {
         //Given
         User user = new User();
-        user.setName("순");
+//        user.setName("순");
         userRepository.save(user);
 
         AddBoardRequest req = AddBoardRequest.builder()
@@ -68,7 +68,7 @@ public class BoardServiceTest {
 
         //유저 생성
         User user = new User();
-        user.setName("순");
+//        user.setName("순");
         userRepository.save(user);
 
         //게시글 생성
@@ -126,7 +126,7 @@ public class BoardServiceTest {
     void 게시글_삭제() {
         //유저 생성
         User user = new User();
-        user.setName("순_게시글삭제");
+//        user.setName("순_게시글삭제");
         userRepository.save(user);
 
         //게시글 생성

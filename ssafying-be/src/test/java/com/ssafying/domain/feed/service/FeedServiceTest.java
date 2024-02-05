@@ -40,7 +40,7 @@ class FeedServiceTest {
     public void 피드_생성() throws Exception {
 
         User user = new User();
-        user.setName("sss");
+//        user.setName("sss");
 
         user = userRepository.save(user);
 
