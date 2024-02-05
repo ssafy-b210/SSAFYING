@@ -1,0 +1,39 @@
+# 리버스 프록시 설정을 위한 context path 설정 추가, 포트 변경
+server:
+  servlet:
+    context-path: /api
+  port: 8081
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://https://i10b210.p.ssafy.io:3306/ssafying?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: ssafy
+    password: 1234
+
+  #  jpa:
+  #    hibernate:
+  #      ddl-auto: create
+  #    properties:
+  #      hibernate:
+  #        format_sql: true
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+#  sql:
+#    init:
+#      data-locations: classpath*:db/data.sql
+#      mode: always
+#      platform: mysql
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+
+#jwt - 이슈 발급자, 비밀키 설정
+jwt:
+  issuer: ssafying@ssafy.com
+  secret_key: b210-ssafying-teamjejudo
