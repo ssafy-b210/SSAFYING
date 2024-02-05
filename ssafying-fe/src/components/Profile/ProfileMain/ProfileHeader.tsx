@@ -1,13 +1,13 @@
 import styled from "styled-components";
+import { useAppSelector } from "../../../store/hooks";
+import { RootState } from "../../../store";
 
 function ProfileHeader() {
-  const user = {
-    nickname: "aeong123",
-  };
+  const user = useAppSelector((state: RootState) => state.user);
 
   return (
     <StyledProfileHeader>
-      <div>{user.nickname}</div>
+      <div>{user.username}</div>
     </StyledProfileHeader>
   );
 }
