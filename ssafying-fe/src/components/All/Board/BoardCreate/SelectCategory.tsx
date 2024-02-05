@@ -10,17 +10,21 @@ interface SelectCategoryProps {
   options: Option[];
   defaultValue: string;
   category: string;
+  onCategoryChange: (newCategory: string) => void;
 }
 
 const SelectCategory: React.FC<SelectCategoryProps> = ({
   options,
   defaultValue,
   category,
+  onCategoryChange,
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>(defaultValue);
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOption(event.target.value);
+    const newCategory = event.target.value;
+    setSelectedOption(newCategory);
+    onCategoryChange(newCategory);
   };
 
   return (

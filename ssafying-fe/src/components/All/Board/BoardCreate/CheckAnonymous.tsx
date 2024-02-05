@@ -1,13 +1,20 @@
 import styled from "styled-components";
 import { useState } from "react";
 
-function IsAnonymous() {
+interface IsAnonymousProps {
+  onNicknameChange: (newNickname: boolean) => void;
+}
+
+const IsAnonymous: React.FC<IsAnonymousProps> = ({ onNicknameChange }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = () => {
+    const newNickname = !isChecked;
     setIsChecked((prev) => !prev);
+    onNicknameChange(newNickname);
   };
   //만약 익명에 체크되면 nickname="익명"으로 설정하기
+
   return (
     <Anonymous>
       <h4>익명</h4>
@@ -23,7 +30,7 @@ function IsAnonymous() {
       </AnonymousContainer>
     </Anonymous>
   );
-}
+};
 
 export default IsAnonymous;
 

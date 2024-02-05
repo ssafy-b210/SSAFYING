@@ -3,20 +3,26 @@ import { axios } from "../utils/axios";
 const REST_BOARD_API = `/api/boards`;
 
 //게시판 게시글 작성
-const data = {
-  userId: "",
-  title: "",
-  content: "",
-  category: "",
-  isAnonymous: "",
-};
+export async function createBoard(
+  userId: number,
+  title: string,
+  content: string,
+  category: string,
+  isAnonymous: boolean
+) {
+  const data = {
+    userId: userId,
+    title: title,
+    content: content,
+    category: category,
+    isAnonymous: isAnonymous,
+  };
 
-export async function createBoard() {
   try {
-    const response = await axios.post(REST_BOARD_API, data);
+    const response = await axios.post("/api/boards", data);
     console.log(response.data);
   } catch (e) {
-    console.error(e);
+    console.log(e);
   }
 }
 

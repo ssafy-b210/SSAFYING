@@ -17,18 +17,44 @@ const options: Option[] = [
 ];
 
 function BoardCreateModal() {
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [nickname, setNickname] = useState(false); //nickname - false: 실명제
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
+  const handleNicknameChange = (newNickname: boolean) => {
+    setNickname(newNickname);
+  };
+
+  const handleCategoryChange = (newCategory: string) => {
+    setSelectedCategory(newCategory);
+  };
+
+  const handleTitleChange = (newTitle: string) => {
+    setTitle(newTitle);
+  };
+
+  const handleContentChange = (newContent: string) => {
+    setContent(newContent);
+  };
+
+  const handleCreateBoard = () => {
+    createBoard(1, title, content, selectedCategory, nickname);
+  };
+
   return (
     <ModalWrapper>
       <ButtonWrapper>
         <SelectCategory
           category="카테고리"
           options={options}
-          defaultValue="1"
+          defaultValue="자유"
+          onCategoryChange={handleCategoryChange}
         ></SelectCategory>
-        <IsAnonymous></IsAnonymous>
-        <CreateTitle></CreateTitle>
-        <CreateContent></CreateContent>
-        <button>작성</button>
+        <IsAnonymous onNicknameChange={handleNicknameChange}></IsAnonymous>
+        <CreateTitle onTitleChange={handleTitleChange}></CreateTitle>
+        <CreateContent onContentChange={handleContentChange}></CreateContent>
+        <button onClick={handleCreateBoard}>작성</button>
       </ButtonWrapper>
     </ModalWrapper>
   );

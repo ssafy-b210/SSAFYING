@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import SelectCategory, {
   Option,
@@ -20,6 +20,22 @@ const isSold: Option[] = [
 ];
 
 function MarketCreateModal() {
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
+  const handleCategoryChange = (newCategory: string) => {
+    setSelectedCategory(newCategory);
+  };
+
+  const handleTitleChange = (newTitle: string) => {
+    setTitle(newTitle);
+  };
+
+  const handleContentChange = (newContent: string) => {
+    setContent(newContent);
+  };
+
   return (
     <ModalWrapper>
       <ButtonWrapper>
@@ -27,15 +43,17 @@ function MarketCreateModal() {
           category="대분류"
           options={bigcategory}
           defaultValue="1"
+          onCategoryChange={handleCategoryChange}
         ></SelectCategory>
         <SelectCategory
           category="거래여부"
           options={isSold}
           defaultValue="1"
+          onCategoryChange={handleCategoryChange}
         ></SelectCategory>
         <MarketPriceInput></MarketPriceInput>
-        <CreateTitle></CreateTitle>
-        <CreateContent></CreateContent>
+        <CreateTitle onTitleChange={handleTitleChange}></CreateTitle>
+        <CreateContent onContentChange={handleContentChange}></CreateContent>
         <button>작성</button>
       </ButtonWrapper>
     </ModalWrapper>
