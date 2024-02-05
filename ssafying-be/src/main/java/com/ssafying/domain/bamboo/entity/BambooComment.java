@@ -43,4 +43,17 @@ public class BambooComment extends BaseTimeEntity {
         return comment;
     }
 
+    public void setBamboo(Bamboo bamboo) {
+        this.bamboo = bamboo;
+    }
+
+    @Override
+    public String toString() {
+        return "BambooComment{" +
+                "id=" + id +
+                ", bamboo=" + bamboo +
+                ", user=" + user +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }
