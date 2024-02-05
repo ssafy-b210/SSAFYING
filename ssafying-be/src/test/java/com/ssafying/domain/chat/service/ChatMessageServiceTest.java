@@ -38,9 +38,9 @@ class ChatMessageServiceTest {
         User user1 = new User();
         User user2 = new User();
         User user3 = new User();
-        user1.setName("user1");
-        user2.setName("user2");
-        user3.setName("user3");
+//        user1.setName("user1");
+//        user2.setName("user2");
+//        user3.setName("user3");
         List<User> users = new ArrayList<>();
         users.add(user1);
         users.add(user2);

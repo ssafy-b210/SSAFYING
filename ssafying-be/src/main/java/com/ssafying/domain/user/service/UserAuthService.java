@@ -85,4 +85,12 @@ public class UserAuthService {
                 .orElseThrow(() -> new RuntimeException("존재하지 않는 사용자입니다."));
     }
 
+    /*
+     * 로그아웃
+     */
+//    public int logout(int userId){
+//
+//        return userId;
+//    }
+
 }
