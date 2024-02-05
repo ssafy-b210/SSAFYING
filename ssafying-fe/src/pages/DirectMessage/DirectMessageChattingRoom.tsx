@@ -1,7 +1,7 @@
 import BackBtnHeader from "../../components/Common/BackBtnHeader";
 import Chat from "../../components/DirectMessage/Chat";
 import RoundImg from "../../components/Feed/utils/RoundImg";
-import userImg from "../../assets/img/testImg/user.svg"; // TEST
+import userImg from "../../assets/img/testImg/user.jpg"; // TEST
 import styled from "styled-components";
 import ExitBtn from "../../components/Common/ExitBtn";
 import { ChangeEvent, useState } from "react";

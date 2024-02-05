@@ -1,27 +1,34 @@
 import styled from "styled-components";
-import userImage from "../../../assets/img/testImg/user.svg";
+import userImage from "../../../assets/img/testImg/user.jpg";
 import { Link } from "react-router-dom";
 
 function ProfileImageContainer() {
+  const data = {
+    profile: userImage,
+    postNum: 54,
+    followerNum: 834,
+    followingNum: 162,
+  };
+
   return (
     <StyledProfileImageContainer>
       <ProfileImage>
-        <img src={userImage} alt="" />
+        <img src={data.profile} alt="" />
       </ProfileImage>
       <ProfileInfo>
         <ProfileInfoItem>
-          <div>54</div>
+          <div>{data.postNum}</div>
           <div>게시물</div>
         </ProfileInfoItem>
         <ProfileInfoItem>
           <Link to="follower">
-            <div>834</div>
+            <div>{data.followerNum}</div>
             <div>팔로워</div>
           </Link>
         </ProfileInfoItem>
         <ProfileInfoItem>
           <Link to="following">
-            <div>162</div>
+            <div>{data.followingNum}</div>
             <div>팔로잉</div>
           </Link>
         </ProfileInfoItem>
@@ -35,12 +42,16 @@ export default ProfileImageContainer;
 const StyledProfileImageContainer = styled.div`
   position: relative;
   display: flex;
+  width: 100%;
   margin: 16px 0;
+  box-sizing: border-box;
 `;
 
 const ProfileImage = styled.div`
   position: relative;
-  max-width: 180px;
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
 
   img {
     width: 90px;
@@ -51,19 +62,13 @@ const ProfileImage = styled.div`
     object-fit: cover;
     box-sizing: border-box;
   }
-
-  @media screen and (min-width: 500px) {
-    img {
-      margin-left: 45px;
-    }
-  }
 `;
 
 const ProfileInfo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  flex-grow: 2;
 `;
 
 const ProfileInfoItem = styled.div`
@@ -73,9 +78,5 @@ const ProfileInfoItem = styled.div`
   a {
     color: #000;
     text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
   }
 `;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import userImage from "../../../assets/img/testImg/user.svg";
+import userImage from "../../../assets/img/testImg/user.jpg";
 import RoundImg from "../utils/RoundImg";
 import ImgBtn from "../utils/ImgBtn";
 import deleteBtn from "../../../assets/img/imgBtn/deleteBtn.svg";

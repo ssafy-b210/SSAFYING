@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import hamburger from "../../../assets/img/hamburger.svg";
 
 function ProfileHeader() {
+  const user = {
+    nickname: "aeong123",
+  };
+
   return (
     <StyledProfileHeader>
-      <div>aeong123</div>
-      <ProfileMenuBtn onClick={() => alert("Menu Opened")}>
-        <img src={hamburger} alt="hamburger menu" />
-      </ProfileMenuBtn>
+      <div>{user.nickname}</div>
     </StyledProfileHeader>
   );
 }
@@ -20,12 +20,5 @@ const StyledProfileHeader = styled.header`
   justify-content: center;
   align-items: center;
   height: 50px;
-`;
-
-const ProfileMenuBtn = styled.div`
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
+  border-bottom: 1px solid #9a9a9a;
 `;

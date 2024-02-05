@@ -17,7 +17,7 @@ export default ProflieContainer;
 
 const StyledProfileContainer = styled.div`
   position: relative;
-  padding: 0 16px;
-  background-color: #f8f8f8;
-  border-bottom: 1px solid #d8d8d8;
+  padding: 0 16px 10px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
 `;

@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
 import FollowBtn from "../utils/FollowBtn";
-import userImg from "../../../assets/img/testImg/user5.svg";
+import userImg from "../../../assets/img/testImg/user5.jpg";
 import RoundImg from "../utils/RoundImg";
 
 interface Props {

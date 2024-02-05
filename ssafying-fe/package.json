@@ -21,7 +21,9 @@
     "axios": "^1.6.7",
     "browser-image-compression": "^2.0.2",
     "chart.js": "^4.4.1",
+    "cors": "^2.8.5",
     "easing-coordinates": "^2.0.2",
+    "express": "^4.18.2",
     "http-proxy-middleware": "^2.0.6",
     "leva": "^0.9.35",
     "node-tesseract-ocr": "^2.2.1",
@@ -75,5 +77,5 @@
     "@types/react-modal": "^3.16.3",
     "@types/styled-components": "^5.1.34"
   },
-  "proxy": "http://localhost:3000"
+  "proxy": "https://oapi.saramin.co.kr"
 }
