@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import BackBtnHeader from "../../Common/BackBtnHeader";
 
 function ProfileHeader() {
   const user = {
@@ -7,7 +8,11 @@ function ProfileHeader() {
 
   return (
     <StyledProfileHeader>
-      <div>{user.nickname}</div>
+      <BackBtnHeader
+        backLink="/feedhome"
+        isCenter={true}
+        text={user.nickname}
+      />
     </StyledProfileHeader>
   );
 }
