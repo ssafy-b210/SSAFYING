@@ -18,17 +18,12 @@ public class RefreshTokenService {
         refreshTokenRepository.save(token);
     }
 
-
     public RefreshToken findByRefreshToken(String refreshToken) {
         return refreshTokenRepository.findByRefreshToken(refreshToken)
                 .orElseThrow(() -> new IllegalArgumentException("토큰 정보가 없습니다."));
     }
 
     public RefreshToken deleteRefreshToken(int userId){
-        System.out.println("///////////////////////////////////////");
-        System.out.println("deleteRefreshToken");
-        System.out.println("userId = " + refreshTokenRepository.findByUserId(userId));
-        System.out.println("///////////////////////////////////////");
         return refreshTokenRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("토큰 정보가 없습니다."));
     }

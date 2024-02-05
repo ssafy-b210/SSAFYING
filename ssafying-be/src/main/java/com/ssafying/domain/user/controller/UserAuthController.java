@@ -79,12 +79,6 @@ public class UserAuthController {
             responseHeaders.setBearerAuth(tokens.get("accessToken"));
             responseHeaders.add("refreshToken", tokens.get("refreshToken"));
 
-
-            System.out.println("//////////////////////////////////");
-            System.out.println("로그인 시 발급된 accessToken = " + tokens.get("accessToken"));
-            System.out.println("로그인 시 발급된 refreshToken = " + tokens.get("refreshToken"));
-            System.out.println("//////////////////////////////////");
-
             return ResponseEntity.ok().headers(responseHeaders).body(tokens);
 
             //실패
