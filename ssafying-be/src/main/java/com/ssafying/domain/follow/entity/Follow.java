@@ -1,7 +1,6 @@
 package com.ssafying.domain.follow.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ssafying.domain.follow.dto.AddFollowRequest;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;

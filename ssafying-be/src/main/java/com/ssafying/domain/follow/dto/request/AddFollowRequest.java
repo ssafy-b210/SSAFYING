@@ -1,4 +1,4 @@
-package com.ssafying.domain.follow.dto;
+package com.ssafying.domain.follow.dto.request;
 
 import com.ssafying.domain.user.entity.User;
 import lombok.*;
