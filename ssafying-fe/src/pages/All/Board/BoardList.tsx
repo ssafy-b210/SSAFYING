@@ -7,6 +7,7 @@ import BackBtnHeader from "../../../components/Common/BackBtnHeader";
 import PlusBtn from "../../../components/Common/PlusBtn";
 import Modal from "../../../components/Common/Modal";
 import BoardCreateModal from "../../../components/All/Board/BoardList/BoardCreateModal";
+import CenterHeader from "../../../components/Common/CenterHeader";
 
 function BoardList() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -17,6 +18,7 @@ function BoardList() {
 
   return (
     <Wrapper>
+      <CenterHeader />
       <BackBtnHeader
         backLink="/all"
         htext={<h2>게시판</h2>}

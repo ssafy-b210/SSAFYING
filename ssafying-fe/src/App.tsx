@@ -46,7 +46,8 @@ function App() {
           <Route path="/signup" element={<UserSignup />} />
           <Route path="/tagselect" element={<UserSelectTag />} />
           <Route path="/auth" element={<UserAuth />} />
-          {/* <Route path="/" element={<UserLogin />} /> */}
+          <Route path="/user/detail" element={<UserDetail />} />
+          <Route path="/user/leave" element={<UserLeave />} />
 
           <Route path="/all" element={<AllMenu />} />
           <Route path="/board" element={<BoardList />} />
