@@ -57,7 +57,6 @@ public class BambooController {
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
-    //TODO 작성은 완료했으니 4.2 완료 후 테스트 해보기
     /**
      * 4.4 대나무숲 댓글 작성
      */
