@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import userImage from "../../../assets/img/testImg/user.svg";
+import userImage from "../../../assets/img/testImg/user.jpg";
 import more from "../../../assets/img/imgBtn/more.svg";
 import RoundImg from "../utils/RoundImg";
 import ImgBtn from "../utils/ImgBtn";

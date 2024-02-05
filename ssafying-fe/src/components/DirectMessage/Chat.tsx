@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import SpeechBubble from "./SpeechBubble";
 import RoundImg from "../Feed/utils/RoundImg";
-import userImg from "../../assets/img/testImg/user.svg"; // TEST
+import userImg from "../../assets/img/testImg/user.jpg"; // TEST
 
 // 프로필 사진과 말풍선을 묶는 컴포넌트입니다.
 

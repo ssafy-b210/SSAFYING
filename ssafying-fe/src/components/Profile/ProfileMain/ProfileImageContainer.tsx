@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import userImage from "../../../assets/img/testImg/user.svg";
+import userImage from "../../../assets/img/testImg/user.jpg";
 import { Link } from "react-router-dom";
 
 function ProfileImageContainer() {

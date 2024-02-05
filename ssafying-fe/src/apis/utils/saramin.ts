@@ -3,7 +3,7 @@ import { REACT_APP_SARAMIN_BASE_URL } from "../constants";
 
 export const saramin = Axios.create({
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
