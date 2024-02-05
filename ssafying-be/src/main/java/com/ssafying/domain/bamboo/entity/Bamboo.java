@@ -30,6 +30,10 @@ public class Bamboo extends BaseTimeEntity {
 
     //생성일자와 수정일자는 BaseTimeEntity에 존재
 
+    public void addComment(BambooComment comment) {
+        commentList.add(comment);
+        comment.setBamboo(this);
+    }
 
     public static Bamboo createBamboo(
             User user,
@@ -41,6 +45,12 @@ public class Bamboo extends BaseTimeEntity {
         bamboo.content = content;
 
         return bamboo;
+    }
+
+    public void printComment() {
+        for (BambooComment comment : commentList) {
+            System.out.println("comment.toString() = " + comment.toString());
+        }
     }
 
 }
