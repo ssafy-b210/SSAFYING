@@ -4,6 +4,7 @@ import com.ssafying.domain.bamboo.dto.request.AddBambooCommentRequest;
 import com.ssafying.domain.bamboo.dto.request.AddBambooRequest;
 import com.ssafying.domain.bamboo.dto.response.FindDetailBambooResponse;
 import com.ssafying.domain.bamboo.dto.response.FindListBambooResponse;
+import com.ssafying.domain.bamboo.dto.testDTO;
 import com.ssafying.domain.bamboo.service.BambooService;
 import com.ssafying.global.result.ResultResponse;
 import jakarta.validation.Valid;
@@ -25,11 +26,11 @@ public class BambooController {
      * 4.1 대나무숲 조회
      */
     @GetMapping
-    public ResponseEntity<ResultResponse<List<FindListBambooResponse>>> bambooList() {
+    public ResponseEntity<ResultResponse<testDTO>> bambooList() {
 
         List<FindListBambooResponse> result = bambooService.findListBamboo();
 
-        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), new testDTO(result)));
     }
 
     /**
