@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public class CreateFeedRequest {
+public class AddFeedRequest {
 
     @NotNull(message = "유저 pk는 필수 항목입니다.")
     int userId;

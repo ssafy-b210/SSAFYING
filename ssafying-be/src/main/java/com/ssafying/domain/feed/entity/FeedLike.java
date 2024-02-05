@@ -23,4 +23,14 @@ public class FeedLike extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user; // 유저 id
 
+    public static FeedLike createFeedLike(
+        Feed feed,
+        User user
+    ) {
+        FeedLike feedLike = new FeedLike();
+        feedLike.feed = feed;
+        feedLike.user = user;
+        return feedLike;
+    }
+
 }

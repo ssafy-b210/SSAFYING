@@ -23,4 +23,14 @@ public class FeedScrap extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user; // 유저 id
 
+    public static FeedScrap createFeedScrap(
+            Feed feed,
+            User user
+    ) {
+        FeedScrap feedScrap = new FeedScrap();
+        feedScrap.feed = feed;
+        feedScrap.user = user;
+        return feedScrap;
+    }
+
 }

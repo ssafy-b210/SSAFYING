@@ -28,10 +28,10 @@ public class Feed extends BaseTimeEntity {
     @ColumnDefault("0")
     private int hit; // 조회수
 
-    @OneToMany(mappedBy = "feed")
+    @OneToMany(mappedBy = "feed", cascade = CascadeType.ALL)
     private List<FeedHashtag> feedTags = new ArrayList<>();
 
-    @OneToMany(mappedBy = "feed")
+    @OneToMany(mappedBy = "feed", cascade = CascadeType.ALL)
     private List<FeedImage> feedImages = new ArrayList<>();
 
     public static Feed createFeed(
@@ -44,5 +44,16 @@ public class Feed extends BaseTimeEntity {
 
         return feed;
     }
+
+    public static Feed modifyFeed(
+            Feed feed,
+            String content
+    ) {
+        if(content != null) {
+            feed.content = content;
+        }
+        return feed;
+    }
+
 
 }

@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class ToggleFeedLikeRequest {
-    int user_id;
-    int feed_id;
+public class SaveLikeFeedRequest {
+    int userId;
+    int feedId;
 }
