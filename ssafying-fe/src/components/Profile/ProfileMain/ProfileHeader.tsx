@@ -7,7 +7,7 @@ function ProfileHeader() {
 
   return (
     <StyledProfileHeader>
-      <div>{user.username}</div>
+      <div>{user.userId}</div>
     </StyledProfileHeader>
   );
 }

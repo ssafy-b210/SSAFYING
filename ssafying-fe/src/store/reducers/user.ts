@@ -10,8 +10,8 @@ interface UserState {
 
 const initialState: UserState = {
   isAuthorized: false,
-  userId: "",
-  username: "",
+  userId: "aeong",
+  username: "이",
   campus: "",
 };
 
