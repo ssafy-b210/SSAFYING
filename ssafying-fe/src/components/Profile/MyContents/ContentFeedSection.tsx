@@ -81,7 +81,7 @@ function ContentFeedSection() {
   }
 
   return (
-    <StyledContentFeedSection>
+    <div>
       {/* 
         NOTE:
         1. 해시태그
@@ -113,21 +113,16 @@ function ContentFeedSection() {
         </div>
       </HashtagList>
       <FeedListItem />
-    </StyledContentFeedSection>
+    </div>
   );
 }
 
 export default ContentFeedSection;
-const StyledContentFeedSection = styled.div`
-  margin-top: 3px;
-  padding: 10px;
-  border-radius: 0 0 10px 10px;
-  background-color: rgba(255, 255, 255, 0.7);
-`;
 
 const HashtagList = styled.div`
   position: relative;
   margin-bottom: 16px;
+  padding: 0 10px;
 
   &.hidden {
     max-height: 45px;
