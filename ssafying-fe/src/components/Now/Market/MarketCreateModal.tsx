@@ -6,6 +6,7 @@ import SelectCategory, {
 import MarketPriceInput from "./MarketPriceInput";
 import CreateTitle from "../../All/Board/BoardCreate/CreateTitle";
 import CreateContent from "../../All/Board/BoardCreate/CreateContent";
+import AddPhoto from "./AddPhoto";
 
 const bigcategory: Option[] = [
   { value: "1", label: "팝니다" },
@@ -53,6 +54,7 @@ function MarketCreateModal() {
         ></SelectCategory>
         <MarketPriceInput></MarketPriceInput>
         <CreateTitle onTitleChange={handleTitleChange}></CreateTitle>
+        <AddPhoto></AddPhoto>
         <CreateContent onContentChange={handleContentChange}></CreateContent>
         <button>작성</button>
       </ButtonWrapper>
