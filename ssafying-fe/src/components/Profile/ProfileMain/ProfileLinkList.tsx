@@ -59,10 +59,10 @@ function ProfileLinkList() {
 
   return (
     <LinkList>
-      {testInfo.map((data) => {
+      {testInfo.map((data, index) => {
         const idx = icons.findIndex((el) => el.name === data.type);
         return (
-          <LinkListItem>
+          <LinkListItem key={index}>
             <a href={data.link} type="_blank" rel="noreferrer">
               <IconWarpper>
                 <img src={icons[idx].src} alt="" />
