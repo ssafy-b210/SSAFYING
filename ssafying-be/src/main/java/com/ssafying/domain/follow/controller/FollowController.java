@@ -1,6 +1,7 @@
 package com.ssafying.domain.follow.controller;
 
 import com.ssafying.domain.follow.dto.request.AddFollowRequest;
+import com.ssafying.domain.follow.dto.request.FindByNicknameRequest;
 import com.ssafying.domain.follow.dto.request.UnFollowRequest;
 import com.ssafying.domain.follow.dto.response.FindFollowerListResponse;
 import com.ssafying.domain.follow.dto.response.FindFollowingListResponse;
@@ -48,8 +49,29 @@ public class FollowController {
     }
 
     /**
-     * 2.3 회원 검색
+     * 2.3.1 팔로잉 리스트 - 닉네임 검색
      */
+    @GetMapping("/following")
+    public ResponseEntity<List<FindFollowingListResponse>> searchFollowingByNickname(
+            @RequestBody FindByNicknameRequest request
+            ){
+        List<FindFollowingListResponse> responseList = followService.searchFollowingByNickname(request);
+
+        return ResponseEntity.ok(responseList);
+    }
+
+    /**
+     * 2.3.2 팔로워 리스트 - 닉네임 검색
+     */
+    @GetMapping("/follower")
+    public ResponseEntity<List<FindFollowerListResponse>> searchFollowerByNickname(
+            @RequestBody FindByNicknameRequest request
+    ){
+        List<FindFollowerListResponse> responseList = followService.searchFollowerByNickname(request);
+
+        return ResponseEntity.ok(responseList);
+    }
+
 
     /**
      * 2.4 팔로우

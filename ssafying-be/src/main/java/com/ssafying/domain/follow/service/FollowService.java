@@ -84,15 +84,57 @@ public class FollowService {
     }
 
     /**
-     * 2.3 회원 검색
+     * 2.3.1 팔로잉 리스트 검색
      */
-//    @Transactional
-//    public User findByNickname(FindByNicknameRequest request){
-//
-//        User user = followRepository.findByNickname(request.getNickname())
-//                .orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
-//
-//    }
+    @Transactional
+    public List<FindFollowingListResponse> searchFollowingByNickname(FindByNicknameRequest request){
+
+        User selectedUser = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new RuntimeException("조회하려는 회원 정보를 찾을 수 없습니다."));
+
+        List<Follow> followList = followRepository.findByToUserAndNickname(selectedUser, "%" + request.getNickname() + "%");
+
+        List<FindFollowingListResponse> responseList = new ArrayList<>();
+
+        for(Follow follow : followList){
+            User toUser = follow.getToUser();
+            responseList.add(
+                    FindFollowingListResponse.builder()
+                            .id(toUser.getId())
+                            .nickname(toUser.getNickname())
+                            .profileImageUrl(toUser.getProfileImageUrl())
+                            .build()
+            );
+        }
+        return responseList;
+    }
+
+    /**
+     * 2.3.2 팔로워 리스트 검색
+     */
+    @Transactional
+    public List<FindFollowerListResponse> searchFollowerByNickname(FindByNicknameRequest request){
+
+        User selectedUser = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new RuntimeException("조회하려는 회원 정보를 찾을 수 없습니다."));
+
+        List<Follow> followList = followRepository.findByFromUserAndNickname(selectedUser, "%" + request.getNickname() + "%");
+
+        List<FindFollowerListResponse> responseList = new ArrayList<>();
+
+        for(Follow follow : followList){
+            User fromUser = follow.getFromUser();  // 팔로워 정보 가져오기
+            responseList.add(
+                    FindFollowerListResponse.builder()
+                            .id(fromUser.getId())
+                            .nickname(fromUser.getNickname())
+                            .profileImageUrl(fromUser.getProfileImageUrl())
+                            .build()
+            );
+        }
+        return responseList;
+    }
+
 
     /**
      * 2.4 팔로우
