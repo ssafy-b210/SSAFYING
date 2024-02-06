@@ -28,12 +28,53 @@ public interface BambooRepository extends JpaRepository<Bamboo, Long> {
             """)
     List<Bamboo> findBambooList(@Param("threshold") LocalDateTime threshold);
 
-    @Query("""
-            select
+    /*
+    select
             new com.ssafying.domain.bamboo.dto.response.FindListBambooResponse(b.content, b.createdAt, count(*))
             from Bamboo b
             left join b.commentList
+            where b.createdAt > :threshold
             group by b.id
+            order by b.createdAt ASC
+
+     */
+
+    //게시글당 댓글의 개수
+//    @Query("""
+//            select
+//            new com.ssafying.domain.bamboo.dto.response.FindListBambooResponse(bc.bamboo.id, count(*))
+//            from BambooComment bc
+//            group by bc.bamboo.id
+//            """)
+//    SUM(CASE WHEN bc.id  THEN 0 ELSE 1 END)
+//    count(bc.id)
+
+    /*
+            select
+            new com.ssafying.domain.bamboo.dto.response.FindListBambooResponse(
+                b.content,
+                b.createdAt,
+                count(bc.id)
+            )
+            from Bamboo b
+            left join BambooComment bc on b = bc.bamboo
+            where b.createdAt > :threshold
+            group by b.id
+            order by b.createdAt ASC
+     */
+
+    @Query("""
+            select
+            new com.ssafying.domain.bamboo.dto.response.FindListBambooResponse(
+                b.content,
+                b.createdAt,
+                count(bc.id)
+            )
+            from Bamboo b
+            left join BambooComment bc on b = bc.bamboo
+            where b.createdAt > :threshold
+            group by b.id
+            order by b.createdAt ASC
             """)
-    List<FindListBambooResponse> countComment();
+    List<FindListBambooResponse> countBoardAndCommentCount(@Param("threshold") LocalDateTime threshold);
 }
