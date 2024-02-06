@@ -65,4 +65,8 @@ public class BoardComment extends BaseTimeEntity {
     ) {
         this.content = content;
     }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
 }
