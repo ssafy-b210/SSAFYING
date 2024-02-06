@@ -131,11 +131,11 @@ public class BoardService {
 
         // 존재한다면 해당 게시글을 상세 조회
         // ResponseDTO에 필요한 내용 : board 내용 + 댓글들
-
+        Board response = boardRepository.findBoardAndComments();
 
         // board를 Response에 담아서 넘겨줘야할 듯요
 
-        return board;
+        return response;
 
     }
 
