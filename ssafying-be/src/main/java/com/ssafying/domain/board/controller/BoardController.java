@@ -1,6 +1,8 @@
 package com.ssafying.domain.board.controller;
 
 import com.ssafying.domain.board.dto.request.*;
+import com.ssafying.domain.board.dto.response.FindDetailBoardResponse;
+import com.ssafying.domain.board.entity.Board;
 import com.ssafying.domain.board.service.BoardService;
 import com.ssafying.domain.board.service.command.AddBoardCommentCommand;
 import com.ssafying.global.result.ResultResponse;
@@ -85,12 +87,15 @@ public class BoardController {
      * 5.4 게시판 게시글 상세 조회
      */
     @GetMapping("/{boardId}")
-    public ResponseEntity<ResultResponse> boardDetails(
+    public ResponseEntity<ResultResponse<FindDetailBoardResponse>> boardDetails(
             @PathVariable(name = "boardId") int boardId) {
 
-        boardService.findDetailBoard(boardId);
+        //우선 board 로 받아오고 controller 에서 예쁘게 정리함
+        Board boardList = boardService.findDetailBoard(boardId);
 
-        return null;
+        FindDetailBoardResponse result = null;
+
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
     /**
