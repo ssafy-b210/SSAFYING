@@ -65,10 +65,10 @@ export async function deleteBoard(boardId: number) {
 
 //게시판 게시글 수정
 export async function updateBoard(
-  boardId: number,
-  title: string,
-  content: string,
-  category: string
+  boardId?: number,
+  title?: string,
+  content?: string,
+  category?: string
 ) {
   const data = {
     boardId,

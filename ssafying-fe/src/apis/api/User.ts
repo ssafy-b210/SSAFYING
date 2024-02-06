@@ -1,10 +1,6 @@
 import { axios } from "../utils/axios";
 
-// 회원가입
-
-// 로그인
-
-// 로그아웃
+const REST_USER_API = `api/users`;
 
 // 회원 정보 조회
 
