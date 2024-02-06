@@ -8,6 +8,7 @@ import PlusBtn from "../../../components/Common/PlusBtn";
 import Modal from "../../../components/Common/Modal";
 import BoardCreateModal from "../../../components/All/Board/BoardList/BoardCreateModal";
 import CenterHeader from "../../../components/Common/CenterHeader";
+import Footer from "../../../components/Common/Footer";
 
 function BoardList() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -33,6 +34,7 @@ function BoardList() {
       <BoardSortTab onCategoryChange={handleCategoryChange}></BoardSortTab>
       <SearchBarOnly></SearchBarOnly>
       <BoardCardList selectedCategory={selectedCategory}></BoardCardList>
+      <Footer></Footer>
     </Wrapper>
   );
 }

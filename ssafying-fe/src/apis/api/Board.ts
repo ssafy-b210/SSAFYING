@@ -63,15 +63,57 @@ export async function deleteBoard(boardId: number) {
 }
 
 //게시판 게시글 수정
-export async function updateBoard() {
+export async function updateBoard(
+  boardId: number,
+  title: string,
+  content: string,
+  category: string
+) {
+  const data = {
+    boardId,
+    title,
+    content,
+    category,
+  };
   try {
+    const response = await axios.patch(`${REST_BOARD_API}/${boardId}`, data);
+    console.log(response.data);
   } catch (e) {
     console.log(e);
   }
 }
 
 // 게시판 게시글 댓글 작성
+export async function createBoardComment(
+  boardId: number,
+  userId: number,
+  content: string,
+  parentId: number,
+  isAnonymous: boolean
+) {
+  try {
+    const data = { boardId, userId, content, parentId, isAnonymous };
+    const response = await axios.post(
+      `${REST_BOARD_API}/comments/${boardId}`,
+      data
+    );
+    console.log(response.data);
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 // 게시판 게시글 댓글 삭제
+export async function deleteBoardComment(boardCommentId: number) {
+  try {
+    const response = await axios.delete(
+      `${REST_BOARD_API}/comments/${boardCommentId}`
+    );
+    console.log(response.data);
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 // 게시판 게시글 댓글 수정
+// export async function updateBoardComment()
