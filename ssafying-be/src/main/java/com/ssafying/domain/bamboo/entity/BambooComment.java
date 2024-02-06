@@ -20,7 +20,7 @@ public class BambooComment extends BaseTimeEntity {
     private Bamboo bamboo; //댓글 단 대나무숲 글
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "uesr_id")
+    @JoinColumn(name = "user_id")
     private User user; //댓글 단 회원
 
     private String content; //댓글 내용
