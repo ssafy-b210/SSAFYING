@@ -1,12 +1,24 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 function ProflieSetting() {
   return (
     <StyledProfileSetting>
-      <Button onClick={() => alert("회원정보 페이지로 이동")}>회원정보</Button>
-      <Button className="danger" onClick={() => alert("로그아웃")}>
-        로그아웃
-      </Button>
+      <Link to="/user/detail">
+        <Button>회원정보</Button>
+      </Link>
+      <Link to="/">
+        <Button
+          className="danger"
+          onClick={() => {
+            if (window.confirm("로그아웃하시겠습니까?")) {
+              window.location.href = "/";
+            }
+          }}
+        >
+          로그아웃
+        </Button>
+      </Link>
     </StyledProfileSetting>
   );
 }
