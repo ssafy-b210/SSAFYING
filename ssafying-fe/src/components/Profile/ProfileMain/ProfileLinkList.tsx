@@ -81,7 +81,6 @@ export default ProfileLinkList;
 const LinkList = styled.ul`
   margin: 0;
   padding: 10px 0 10px;
-  border-top: 1px solid #9a9a9a;
   list-style: none;
 
   @media screen and (min-width: 500px) {
@@ -95,12 +94,8 @@ const LinkListItem = styled.li`
 
   a {
     display: flex;
-    margin-left: 10px;
     color: #000;
     text-decoration: none;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
   a:hover {
@@ -109,6 +104,9 @@ const LinkListItem = styled.li`
 
   .text-url {
     padding-left: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: break-spaces;
   }
 `;
 
@@ -117,7 +115,6 @@ const IconWarpper = styled.div`
   height: 20px;
 
   img {
-    width: 100%;
     height: 100%;
     object-fit: cover;
   }
