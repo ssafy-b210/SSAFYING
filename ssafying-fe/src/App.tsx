@@ -34,6 +34,9 @@ import NowMenu from "./pages/Now/NowMenu";
 import RecruitmentList from "./pages/All/Recruitment/RecruitementList";
 import BusRealTimeSelect from "./pages/Now/BusRealTime/BusRealTimeSelect";
 import BusRealTimeMap from "./pages/Now/BusRealTime/BusRealTimeMap";
+import SavedFeedList from "./components/Profile/Saved/SavedFeedList";
+import SavedBoardList from "./components/Profile/Saved/SavedBoardList";
+import SavedRecruitmentList from "./components/Profile/Saved/SavedRecruitmentList";
 
 function App() {
   return (
@@ -67,9 +70,9 @@ function App() {
             <Route path="" element={<ContentFeedSection />} />
             <Route path="portfolio" element={<ContentPortfolioSection />} />
             <Route path="saved" element={<ContentSavedSection />}>
-              <Route path="" element={<ContentFeedSection />} />
-              <Route path="board" element={<ContentFeedSection />} />
-              <Route path="recruiting" element={<ContentFeedSection />} />
+              <Route path="" element={<SavedFeedList />} />
+              <Route path="board" element={<SavedBoardList />} />
+              <Route path="recruiting" element={<SavedRecruitmentList />} />
             </Route>
           </Route>
           <Route path="/profile/following" element={<FollowingList />} />
