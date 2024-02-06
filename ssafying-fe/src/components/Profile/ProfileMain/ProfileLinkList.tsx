@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import github from "../../../assets/img/MyPageIcons/github.svg";
-import notion from "../../../assets/img/MyPageIcons/notion.svg";
-import tistory from "../../../assets/img/MyPageIcons/tistory.svg";
-import blog from "../../../assets/img/MyPageIcons/blog.svg";
-import etc from "../../../assets/img/MyPageIcons/etc.svg";
+import github from "../../../assets/img/ProfileIcons/github.svg";
+import notion from "../../../assets/img/ProfileIcons/notion.svg";
+import tistory from "../../../assets/img/ProfileIcons/tistory.svg";
+import blog from "../../../assets/img/ProfileIcons/blog.svg";
+import etc from "../../../assets/img/ProfileIcons/etc.svg";
 
 function ProfileLinkList() {
   const icons = [

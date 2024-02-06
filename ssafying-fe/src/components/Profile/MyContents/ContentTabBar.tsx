@@ -1,6 +1,6 @@
-import hashtag from "../../../assets/img/MyPageIcons/hashtag.svg";
-import picturesFolder from "../../../assets/img/MyPageIcons/picturesFolder.svg";
-import floppyDisk from "../../../assets/img/MyPageIcons/floppyDisk.svg";
+import hashtag from "../../../assets/img/ProfileIcons/hashtag.svg";
+import picturesFolder from "../../../assets/img/ProfileIcons/picturesFolder.svg";
+import floppyDisk from "../../../assets/img/ProfileIcons/floppyDisk.svg";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
