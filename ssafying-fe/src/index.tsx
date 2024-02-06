@@ -4,7 +4,8 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { REACT_APP_TMAP_API_KEY } from "./apis/constants";
 import { loadTMAPScript } from "./apis/api/shuttle/tmap";
-
+import { Provider } from "react-redux";
+import store from "./store";
 
 loadTMAPScript(REACT_APP_TMAP_API_KEY)
   .then(() => {
@@ -14,13 +15,14 @@ loadTMAPScript(REACT_APP_TMAP_API_KEY)
     );
     root.render(
       <React.StrictMode>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <Provider store={store}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </Provider>
       </React.StrictMode>
     );
   })
-  .catch(error => {
-    console.error('Failed to load TMAP script:', error);
+  .catch((error) => {
+    console.error("Failed to load TMAP script:", error);
   });
-

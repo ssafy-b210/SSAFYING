@@ -1,45 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getRecruitList } from "../../../apis/api/recruitment/saramin";
+import FlipCardList from "./FlipCardList";
 
-//Props 나중에 추가
-interface RecruitSortTabProps {}
+function RecruitSortTab() {
+  const [activeButton, setActiveButton] = useState<number | null>(0);
+  const [recruitCode, setRecruitCode] = useState<string>("87");
+  const [recruitList, setRecruitList] = useState<any[]>([]);
 
-function RecruitSortTab({}: RecruitSortTabProps) {
-  const [activeButton, setActiveButton] = useState<number | null>(null);
+  useEffect(() => {
+    handleList();
+    console.log(1);
+  }, [recruitCode]);
 
-  const handleButtonClick = (index: number, code:string) => {
+  const handleButtonClick = async (index: number, code: string) => {
     setActiveButton(index);
-    getRecruitList(code);
+    setRecruitCode(code);
+  };
+
+  const handleList = async () => {
+    const list = await getRecruitList(recruitCode);
+    setRecruitList(list.jobs.job);
   };
 
   return (
-    <StyledTab>
-      {tabButtons.map((item, index) => (
-        <SortTabButton
-          key={index}
-          $active={index === activeButton}
-          onClick={() => handleButtonClick(index, item.code)}
-        >
-          <span>{item.name}</span>
-        </SortTabButton>
-      ))}
-    </StyledTab>
+    <>
+      <StyledTab>
+        {tabButtons.map((item, index) => (
+          <SortTabButton
+            key={index}
+            $active={index === activeButton}
+            onClick={() => handleButtonClick(index, item.code)}
+          >
+            <span>{item.name}</span>
+          </SortTabButton>
+        ))}
+      </StyledTab>
+      {recruitList.length > 0 && <FlipCardList recruitList={recruitList} />}
+    </>
   );
 }
 
 export default RecruitSortTab;
 
 const tabButtons = [
-  { name: "웹개발", code:"87"},
-  { name: "앱개발", code:"86"},
-  { name:"프론트엔드", code:"92"},
-  { name:"백엔드", code:"84"},
-  { name:"임베디드", code:"128"},
-  { name:"빅데이터", code:"116"},
-  { name:"인프라", code:"127"},
-  { name:"클라우드", code:"136"},
-  { name:"AI", code:"181"},
+  { name: "웹개발", code: "87" },
+  { name: "앱개발", code: "86" },
+  { name: "프론트엔드", code: "92" },
+  { name: "백엔드", code: "84" },
+  { name: "임베디드", code: "128" },
+  { name: "빅데이터", code: "116" },
+  { name: "인프라", code: "127" },
+  { name: "클라우드", code: "136" },
+  { name: "AI", code: "181" },
 ];
 
 interface SortTabButtonProps {
