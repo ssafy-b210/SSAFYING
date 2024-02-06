@@ -35,20 +35,25 @@ public class BambooService {
      */
     public List<FindListBambooResponse> findListBamboo() {
 
-        // 24시간이 지나지 않은 글 중에서 시간이 적게 남은 친구들을 먼저 보여주는 걸로 ....
 
-        long hoursGap = 24; //24시간이 지나지 않은 스토리를 찾음
-
-        List<Bamboo> bambooList = bambooRepository.findBambooList(
-                LocalDateTime.now().minusHours(hoursGap) //24시간 전 시간보다 이후에 등록된 스토리만 찾아옴
-        );
+//        List<Bamboo> bambooList = bambooRepository.findBambooList(
+//                LocalDateTime.now().minusHours(hoursGap) //24시간 전 시간보다 이후에 등록된 스토리만 찾아옴
+//        );
 
         System.out.println("=====================================");
-        List<FindListBambooResponse> findListBambooResponses = bambooRepository.countComment();
-        for (FindListBambooResponse result : findListBambooResponses) {
-            System.out.println("result = " + result);
-        }
+        long hoursGap = 24; //24시간이 지나지 않은 스토리를 찾음
 
+        // 24시간이 지나지 않은 글 중에서 시간이 적게 글을 먼저 보여줌
+        // bamboo 에서 bambooList 와 join 후 24시간이 지나지 않은 글을 남은 시간이 적은 순으로 DTO로 넘김
+//        List<FindListBambooResponse> findListBambooResponses = bambooRepository.countComment(LocalDateTime.now().minusHours(hoursGap));
+//        for (FindListBambooResponse result : findListBambooResponses) {
+//            System.out.println("result = " + result);
+//        }
+
+        List<FindListBambooResponse> findListBambooResponses = bambooRepository.countBoardAndCommentCount(LocalDateTime.now().minusHours(hoursGap));
+        for (FindListBambooResponse result : findListBambooResponses) {
+            System.out.println("result = " + result.toString());
+        }
 
         return findListBambooResponses;
     }
