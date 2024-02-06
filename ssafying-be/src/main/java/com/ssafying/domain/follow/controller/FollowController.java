@@ -1,12 +1,16 @@
 package com.ssafying.domain.follow.controller;
 
 import com.ssafying.domain.follow.dto.request.AddFollowRequest;
+import com.ssafying.domain.follow.dto.request.UnFollowRequest;
 import com.ssafying.domain.follow.dto.response.FindFollowerListResponse;
 import com.ssafying.domain.follow.dto.response.FindFollowingListResponse;
 import com.ssafying.domain.follow.entity.Follow;
 import com.ssafying.domain.follow.service.FollowService;
+import com.ssafying.global.config.jwt.TokenProvider;
+import com.ssafying.global.result.ResultResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +23,7 @@ import java.util.List;
 public class FollowController {
 
     private final FollowService followService;
+    private final TokenProvider tokenProvider;
 
     /**
      * 2.1 팔로잉 조회
@@ -60,5 +65,21 @@ public class FollowController {
     /**
      * 2.5 언팔로우
      */
+    @DeleteMapping("/unfollow/{userId}")
+    public ResponseEntity<ResultResponse<Integer>> unFollow(@PathVariable(name = "userId")int userId,
+                                                   @RequestHeader(value = "refreshToken") String token
+                        ){
+        // Access Token에서 유저 정보 추출
+        int loginId = tokenProvider.getUserId(token);
+
+        UnFollowRequest request = UnFollowRequest.builder()
+                .fromUserId(loginId)
+                .toUserId(userId)
+                .build();
+
+        int deletedUserId = followService.unFollow(request);
+
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, "언팔로우 되었습니다.", userId));
+    }
 
 }

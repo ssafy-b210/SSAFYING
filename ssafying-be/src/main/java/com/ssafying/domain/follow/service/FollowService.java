@@ -1,6 +1,8 @@
 package com.ssafying.domain.follow.service;
 
 import com.ssafying.domain.follow.dto.request.AddFollowRequest;
+import com.ssafying.domain.follow.dto.request.FindByNicknameRequest;
+import com.ssafying.domain.follow.dto.request.UnFollowRequest;
 import com.ssafying.domain.follow.dto.response.FindFollowerListResponse;
 import com.ssafying.domain.follow.dto.response.FindFollowingListResponse;
 import com.ssafying.domain.follow.entity.Follow;
@@ -84,6 +86,13 @@ public class FollowService {
     /**
      * 2.3 회원 검색
      */
+//    @Transactional
+//    public User findByNickname(FindByNicknameRequest request){
+//
+//        User user = followRepository.findByNickname(request.getNickname())
+//                .orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
+//
+//    }
 
     /**
      * 2.4 팔로우
@@ -116,9 +125,21 @@ public class FollowService {
 
     /**
      * 2.5 언팔로우
+     * 팔로우 관계를 끊는다 -> 팔로우 하는 사람이 팔로우 받는 사람 연결을 끊는다
      */
-//    @Transactional
-//    public Follow unFollow
+    @Transactional
+    public int unFollow(UnFollowRequest request){
+
+        User fromUser = userRepository.findById(request.getFromUserId())
+                .orElseThrow(() -> new RuntimeException("회원 정보를 찾을 수 없습니다."));
+
+        User toUser = userRepository.findById(request.getToUserId())
+                .orElseThrow(() -> new RuntimeException("팔로우 취소하려는 유저를 찾을 수 없습니다."));
+
+        followRepository.deleteFollowByFromUser(fromUser, toUser);
+
+        return toUser.getId();
+    }
 
 
     /**

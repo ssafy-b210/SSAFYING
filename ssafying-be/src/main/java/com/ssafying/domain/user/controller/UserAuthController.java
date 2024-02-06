@@ -123,7 +123,7 @@ public class UserAuthController {
     @Operation(summary = "로그아웃")
     public ResponseEntity<ResultResponse<Integer>> logout(
             @PathVariable(name = "loginId") int loginId,
-            @RequestHeader(value = "Authorization") String token
+            @RequestHeader(value = "refreshToken") String token
     ) {
             //jwt 확인하고 암호화 비교 해서 맞으면 통과 아니면 내치기
 
