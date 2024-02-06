@@ -1,13 +1,19 @@
 import styled from "styled-components";
-import FollowHeader from "../../components/Profile/Follow/FollowHeader";
 import UserItemList from "../../components/Feed/Search/UserItemList";
+import BackBtnHeader from "../../components/Common/BackBtnHeader";
+import search from "../../assets/img/imgBtn/search.svg";
 
 function FollowerList() {
   return (
-    <div>
-      <FollowHeader text="나를 팔로우하는 친구" />
+    <Wrapper>
+      <BackBtnHeader
+        backLink="/profile"
+        isCenter={true}
+        text="나를 팔로우하는 친구"
+      />
       <SearchBar>
         <input type="text" placeholder="검색어를 입력해주세요." />
+        <img src={search} alt="검색" />
       </SearchBar>
       <UserItemList
         userList={[
@@ -23,23 +29,39 @@ function FollowerList() {
           },
         ]}
       />
-    </div>
+    </Wrapper>
   );
 }
 
 export default FollowerList;
 
+const Wrapper = styled.div`
+  padding: 12px;
+`;
+
 const SearchBar = styled.div`
   position: relative;
   display: flex;
-  margin: 0 10px;
 
   input {
+    position: relative;
     width: 100%;
-    background-color: lightgray;
-    border-radius: 10px;
+    margin: 10px 0;
     padding: 10px;
+    padding-left: 45px;
+    font-family: "Noto Sans KR", "Noto Sans", sans-serif;
     border: none;
-    margin: 0 5px;
+    border-radius: 10px;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  img {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
   }
 `;
