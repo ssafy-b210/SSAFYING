@@ -18,12 +18,20 @@ function BoardCardListItem({ card, index }: BoardItemProps) {
       <Card key={index}>
         <Wrapper>
           <Front>
-            <Title>{card.title}</Title>
+            <Title>
+              {card.title.length < 18
+                ? card.title
+                : card.title.slice(0, 17) + "..."}
+            </Title>
             <hr />
             <Writer>{card.writer}</Writer>
           </Front>
           <Back>
-            <Content>{card.content}</Content>
+            <Content>
+              {card.content.length < 100
+                ? card.content
+                : card.content.slice(0, 99) + "..."}
+            </Content>
             <Button>
               <Modal btnTxt="더보기">
                 <BoardMoreModal card={card} />
@@ -88,8 +96,16 @@ const Back = styled.div`
   word-wrap: break-word;
 `;
 
-const Title = styled.h2``;
+const Title = styled.h2`
+  height: 30%;
+  display: flex;
+  text-align: start;
+  justify-content: center;
+  padding: 0 12px;
+`;
 const Writer = styled.p``;
-const Content = styled.p``;
+const Content = styled.p`
+  padding: 0 10px;
+`;
 
 const Button = styled.div``;

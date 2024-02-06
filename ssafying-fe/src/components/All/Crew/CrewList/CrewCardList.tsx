@@ -4,12 +4,15 @@ import CrewCardListItem from "./CrewCardListItem";
 
 interface CrewCardListProps {
   selectedCategory: string | null;
+  isRecruitingChecked: boolean;
+  selectedLocation: string;
 }
 
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
+  padding: 0 30px;
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -23,7 +26,7 @@ const cards = [
     writer: "su00",
     isRecruiting: true,
     content: "누구누구?",
-    location: "대전",
+    location: "전국",
     category: "스터디",
   },
   {
@@ -36,16 +39,36 @@ const cards = [
   },
 ];
 
-const CrewCardList: React.FC<CrewCardListProps> = ({ selectedCategory }) => {
+const CrewCardList: React.FC<CrewCardListProps> = ({
+  selectedCategory,
+  isRecruitingChecked,
+  selectedLocation,
+}) => {
   const filteredCards = selectedCategory
-    ? cards.filter((card) => card.category === selectedCategory)
-    : cards;
+    ? cards.filter(
+        (card) =>
+          card.category === selectedCategory &&
+          (!isRecruitingChecked || card.isRecruiting) &&
+          (!selectedLocation || card.location === selectedLocation)
+      )
+    : cards.filter(
+        (card) =>
+          (!isRecruitingChecked || card.isRecruiting) &&
+          (selectedLocation === "지역" || card.location === selectedLocation)
+      );
+
+  console.log("*", selectedLocation);
 
   return (
     <Container>
       {filteredCards.length > 0 ? (
         filteredCards.map((card, index) => (
-          <CrewCardListItem key={index} card={card} index={index} />
+          <CrewCardListItem
+            key={index}
+            card={card}
+            index={index}
+            selectedLocation={selectedLocation}
+          />
         ))
       ) : (
         <NoResultsMessage>
@@ -63,4 +86,6 @@ const NoResultsMessage = styled.p`
   justify-content: center;
   text-align: center;
   padding-top: 40%;
+  margin-right: 15%;
+  margin-left: 15%;
 `;

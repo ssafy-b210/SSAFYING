@@ -1,4 +1,5 @@
 import BackBtnHeader from "../../../components/Common/BackBtnHeader";
+import CenterHeader from "../../../components/Common/CenterHeader";
 import PlusBtn from "../../../components/Common/PlusBtn";
 import MealPlannerComp from "../../../components/Now/MealPlanner/MealPlannerComp";
 import NoMealPlannerComp from "../../../components/Now/MealPlanner/NoMealPlannerComp";
@@ -10,6 +11,7 @@ const hasMealPlanner = true;
 function SelectCampusMeal() {
   return (
     <div>
+      <CenterHeader />
       <BackBtnHeader
         backLink="/now"
         isCenter={true}

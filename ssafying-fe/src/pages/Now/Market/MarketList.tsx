@@ -6,6 +6,7 @@ import BackBtnHeader from "../../../components/Common/BackBtnHeader";
 import PlusBtn from "../../../components/Common/PlusBtn";
 import Modal from "../../../components/Common/Modal";
 import MarketCreateModal from "../../../components/Now/Market/MarketCreateModal";
+import CenterHeader from "../../../components/Common/CenterHeader";
 
 function MarketList() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -16,6 +17,7 @@ function MarketList() {
 
   return (
     <Wrapper>
+      <CenterHeader />
       <BackBtnHeader
         backLink="/now"
         htext={<h2>중고거래</h2>}
