@@ -9,7 +9,8 @@ interface BoardCardListProps {
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
+  padding: 0 30px;
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -19,15 +20,16 @@ const Container = styled.div`
 
 const cards = [
   {
-    title: "유온역 맛집 추천받아요",
+    title: "유온역 맛집",
     writer: "sueun",
     content: "숙취용 부탁해",
     category: "자유",
   },
   {
-    title: "유온역 맛집 추천받아요",
+    title: "유온역 맛집 추천받아요 123456",
     writer: "sueun",
-    content: "숙취용 부탁해",
+    content:
+      "숙취용 부탁해 dkdkdkdkkdkdkdflksajfkdjfsjfldjalkjfaklsjfsdjflakjfksdjfklajfkjflkdsajfkjflksajfkljklsdfasdfasdfasdfafsdasdfadfa",
     category: "취업",
   },
   {
@@ -71,4 +73,6 @@ const NoResultsMessage = styled.p`
   justify-content: center;
   text-align: center;
   padding-top: 40%;
+  margin-right: 15%;
+  margin-left: 15%;
 `;

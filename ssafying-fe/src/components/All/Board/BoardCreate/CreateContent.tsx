@@ -1,11 +1,20 @@
 import styled from "styled-components";
 
-function CreateContent() {
+interface CreateContentProps {
+  onContentChange: (newContent: string) => void;
+}
+
+function CreateContent({ onContentChange }: CreateContentProps) {
+  const handleContentChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    onContentChange(event.target.value);
+  };
   return (
     <Content>
       <h4>내용</h4>
       <ContentContainer>
-        <StyledInput />
+        <StyledInput onChange={handleContentChange} />
       </ContentContainer>
     </Content>
   );

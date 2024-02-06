@@ -15,15 +15,20 @@ interface CrewItemProps {
     isRecruiting: boolean;
   };
   index: number;
+  selectedLocation: string;
 }
 
-function CrewCardListItem({ card, index }: CrewItemProps) {
+function CrewCardListItem({ card, index, selectedLocation }: CrewItemProps) {
   return (
     <div>
       <Card key={index}>
         <Wrapper>
           <Front>
-            <Title>{card.title}</Title>
+            <Title>
+              {card.title.length < 18
+                ? card.title
+                : card.title.slice(0, 17) + "..."}
+            </Title>
             <hr />
             <SmallContainer>
               <Writer>{card.writer}</Writer>
@@ -35,7 +40,12 @@ function CrewCardListItem({ card, index }: CrewItemProps) {
             </SmallContainer>
           </Front>
           <Back>
-            <Content>{card.content}</Content>
+            <Content>
+              {card.content.length < 100
+                ? card.content
+                : card.content.slice(0, 99) + "..."}
+            </Content>
+            <Location>지역 : {card.location}</Location>
             <Button>
               <Modal btnTxt="더보기">
                 <CrewMoreModal card={card} />
@@ -112,10 +122,19 @@ const Back = styled.div`
   word-wrap: break-word;
 `;
 
-const Title = styled.h2``;
+const Title = styled.h2`
+  height: 30%;
+  display: flex;
+  text-align: start;
+  justify-content: center;
+  padding: 0 12px;
+`;
 const Writer = styled.p`
   margin-left: 30px;
 `;
-const Content = styled.p``;
+const Content = styled.p`
+  padding: 0 10px;
+`;
 
+const Location = styled.p``;
 const Button = styled.div``;

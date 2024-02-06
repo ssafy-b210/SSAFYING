@@ -5,6 +5,7 @@ import ChartComponent, {
   ChartComponentProps,
 } from "../../../components/Now/MealPlanner/BarChart";
 import MealPlannerComp from "../../../components/Now/MealPlanner/MealPlannerComp";
+import CenterHeader from "../../../components/Common/CenterHeader";
 
 function MealPlannerView() {
   const [voteCountA, setVoteCountA] = useState<number>(0);
