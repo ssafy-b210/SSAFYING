@@ -79,7 +79,7 @@ public class UserAuthController {
             responseHeaders.setBearerAuth(tokens.get("accessToken"));
             responseHeaders.add("refreshToken", tokens.get("refreshToken"));
 
-            return ResponseEntity.ok().headers(responseHeaders).body(tokens);
+            return ResponseEntity.ok().headers(responseHeaders).build();
 
             //실패
         } else {

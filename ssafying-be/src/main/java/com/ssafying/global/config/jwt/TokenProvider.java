@@ -60,9 +60,6 @@ public class TokenProvider {
 
     // JWT 토큰 유효성 검증 메소드
     public boolean validToken(String token){
-        System.out.println("유효성 검증 메서드 진입");
-        System.out.println("issuer = " + jwtProperties.getIssuer());
-        System.out.println("secretkey = " + jwtProperties.getSecretKey());
         try{
             Jwts.parser()
                     .setSigningKey(jwtProperties.getSecretKey()) // 복호화
@@ -80,11 +77,6 @@ public class TokenProvider {
     public int getUserId(String token) {
         Claims claims = getClaims(token);
 
-        System.out.println("/////////////////////////////////");
-        System.out.println("토큰으로 가져온 userId");
-        System.out.println(claims.get("id", Integer.class));
-        System.out.println("/////////////////////////////////");
-
         return claims.get("id", Integer.class);
     }
 
@@ -99,13 +91,6 @@ public class TokenProvider {
     // 토큰 만료 여부 확인
     public boolean isTokenExpired(String token) {
         Claims claims = getClaims(token);
-
-        System.out.println("////////////////////////////////////////////");
-        Date expiration = claims.get("exp", Date.class);
-        System.out.println(expiration);
-        String data = claims.get("data", String.class);
-        System.out.println(data);
-        System.out.println("////////////////////////////////////////////");
 
         return claims.getExpiration().before(new Date());
 
