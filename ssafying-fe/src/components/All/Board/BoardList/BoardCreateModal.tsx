@@ -17,7 +17,7 @@ const options: Option[] = [
 ];
 
 function BoardCreateModal() {
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<Option>(options[0]);
   const [nickname, setNickname] = useState(false); //nickname - false: 실명제
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -26,7 +26,7 @@ function BoardCreateModal() {
     setNickname(newNickname);
   };
 
-  const handleCategoryChange = (newCategory: string) => {
+  const handleCategoryChange = (newCategory: Option) => {
     setSelectedCategory(newCategory);
   };
 
@@ -38,8 +38,9 @@ function BoardCreateModal() {
     setContent(newContent);
   };
 
+  //api 호출
   const handleCreateBoard = () => {
-    createBoard(1, title, content, selectedCategory, nickname);
+    createBoard(1, title, content, selectedCategory.value, nickname);
   };
 
   return (
@@ -48,7 +49,7 @@ function BoardCreateModal() {
         <SelectCategory
           category="카테고리"
           options={options}
-          defaultValue="자유"
+          defaultValue={options[0].value}
           onCategoryChange={handleCategoryChange}
         ></SelectCategory>
         <IsAnonymous onNicknameChange={handleNicknameChange}></IsAnonymous>

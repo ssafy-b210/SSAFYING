@@ -3,19 +3,17 @@ import styled from "styled-components";
 import UserDefaultImg from "../../../assets/img/userIcons/userProfileImg.svg";
 function UserProfile() {
   return (
-    <div>
-      <Profile>
-        <ProfileImg>
-          <div className="img-container">
-            <img src={UserDefaultImg} alt="user-profile-img"></img>
-          </div>
-        </ProfileImg>
-        <MyIntroduction>
-          <h3>이예원</h3>
-          <p>youremail@domain.com</p>
-        </MyIntroduction>
-      </Profile>
-    </div>
+    <Profile>
+      <ProfileImg>
+        <div className="img-container">
+          <img src={UserDefaultImg} alt="user-profile-img"></img>
+        </div>
+      </ProfileImg>
+      <MyIntroduction>
+        <h3>이예원</h3>
+        <p>youremail@domain.com</p>
+      </MyIntroduction>
+    </Profile>
   );
 }
 export default UserProfile;

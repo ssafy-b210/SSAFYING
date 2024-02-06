@@ -1,6 +1,4 @@
-import { log } from "console";
 import { axios } from "../utils/axios";
-import { number } from "yargs";
 
 const REST_CREW_API = `/api/crew`;
 

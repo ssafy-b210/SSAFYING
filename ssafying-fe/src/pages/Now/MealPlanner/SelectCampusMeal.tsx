@@ -1,5 +1,6 @@
 import BackBtnHeader from "../../../components/Common/BackBtnHeader";
 import CenterHeader from "../../../components/Common/CenterHeader";
+import Footer from "../../../components/Common/Footer";
 import PlusBtn from "../../../components/Common/PlusBtn";
 import MealPlannerComp from "../../../components/Now/MealPlanner/MealPlannerComp";
 import NoMealPlannerComp from "../../../components/Now/MealPlanner/NoMealPlannerComp";
@@ -22,6 +23,7 @@ function SelectCampusMeal() {
       {hasMealPlanner ? (
         <div>
           <MealPlannerView></MealPlannerView>
+          <Footer></Footer>
         </div>
       ) : (
         <div>

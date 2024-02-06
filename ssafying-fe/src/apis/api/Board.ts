@@ -116,4 +116,17 @@ export async function deleteBoardComment(boardCommentId: number) {
 }
 
 // 게시판 게시글 댓글 수정
-// export async function updateBoardComment()
+export async function updateBoardComment(
+  boardCommentId: number,
+  content?: string
+) {
+  const data = { content };
+  try {
+    const response = await axios.patch(
+      `${REST_BOARD_API}/comments/${boardCommentId}`
+    );
+    console.log(response.data);
+  } catch (e) {
+    console.log(e);
+  }
+}

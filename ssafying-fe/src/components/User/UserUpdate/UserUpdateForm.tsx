@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import styled from "styled-components";
+import SubmitBtn from "../../Common/SubmitBtn";
 
 interface InputItem {
   id: number;
@@ -86,7 +87,7 @@ function UserUpdateForm() {
         ))}
       </BioLinkInput>
       <ButtonContainer>
-        <SubmitButton>회원정보 수정완료</SubmitButton>
+        <SubmitBtn link="/user/detail" text="회원정보 수정완료" />
       </ButtonContainer>
     </div>
   );
@@ -116,7 +117,7 @@ const SignUpInput = styled.div`
   .input-area {
     width: 70%;
     position: relative;
-    font-size: 100%;
+    font-size: 18px;
     margin-top: 20px;
   }
 
@@ -124,11 +125,16 @@ const SignUpInput = styled.div`
     width: 100%;
     height: 40px;
     border: none;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 2px solid gray;
+    border-radius: 0;
     outline: none;
     min-width: 60vmin;
-    font-size: 100%;
+    font-size: 15px;
     padding-bottom: 5px;
+    background-color: transparent;
+    padding-left: 10px;
+    padding-top: 10px;
+    font-family: "Noto Sans KR", "Noto Sans";
   }
   label {
     position: absolute;
@@ -137,10 +143,13 @@ const SignUpInput = styled.div`
     transform: translateY(-50%);
     pointer-events: none;
     transition: transform 0.3s ease-out;
+    padding-left: 10px;
+    font-family: "Noto Sans KR", "Noto Sans";
   }
   input:focus + label,
   input:not(:placeholder-shown) + label {
     transform: translateY(-150%);
+    font-size: 12px;
   }
 `;
 
@@ -148,16 +157,6 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin: 20px;
-`;
-const SubmitButton = styled.button`
-  width: 300px;
-  height: 40px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-  background-color: #b6cdbd;
-  border: none;
-  color: white;
-  margin-top: 45px;
 `;
 
 const DIV_Label = styled.div`
@@ -209,7 +208,7 @@ const BioLinkInput = styled.div`
 
     button {
       margin-top: 10px;
-      background-color: #168d63;
+      background-color: #d9d9d9;
       color: white;
       border: none;
       padding: 8px 12px;

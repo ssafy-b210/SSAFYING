@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-function ToggleBtn() {
+interface ToggleBtnProps {
+  isRecruit: boolean;
+  onToggle: (value: boolean) => void;
+}
+
+function ToggleBtn({ isRecruit, onToggle }: ToggleBtnProps) {
   const [isRecruiting, setIsRecruiting] = useState<boolean>(false);
 
   const handleToggle = () => {
-    setIsRecruiting(!isRecruiting);
+    const updatedValue = !isRecruit;
+    setIsRecruiting(updatedValue);
+    onToggle(updatedValue);
   };
 
   return (

@@ -4,6 +4,7 @@ import SelectCategory, { Option } from "../../Board/BoardCreate/SelectCategory";
 import ToggleBtn from "../ToggleBtn";
 import CreateTitle from "../../Board/BoardCreate/CreateTitle";
 import CreateContent from "../../Board/BoardCreate/CreateContent";
+import { createCrew } from "../../../../apis/api/Crew";
 
 const category: Option[] = [
   { value: "스터디", label: "스터디" },
@@ -33,12 +34,18 @@ const location: Option[] = [
 ];
 
 function CrewCreateModal() {
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<Option>(category[0]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [selectedRegion, setSelectedRegion] = useState<Option>(location[0]);
+  const [isRecruit, setIsRecruit] = useState(false);
 
-  const handleCategoryChange = (newCategory: string) => {
+  const handleCategoryChange = (newCategory: Option) => {
     setSelectedCategory(newCategory);
+  };
+
+  const handleRegionChange = (newRegion: Option) => {
+    setSelectedRegion(newRegion);
   };
 
   const handleTitleChange = (newTitle: string) => {
@@ -49,25 +56,42 @@ function CrewCreateModal() {
     setContent(newContent);
   };
 
+  //모집중인지 확인
+  const handleToggle = (value: boolean) => {
+    setIsRecruit(value);
+  };
+
+  //api 호출
+  const handleCreateCrew = () => {
+    createCrew(
+      1,
+      title,
+      content,
+      selectedRegion.value,
+      selectedCategory.value,
+      isRecruit
+    );
+  };
+
   return (
     <ModalWrapper>
       <ButtonWrapper>
         <SelectCategory
           category="지역"
           options={location}
-          defaultValue="전국"
-          onCategoryChange={handleCategoryChange}
+          defaultValue={location[0].value}
+          onCategoryChange={handleRegionChange}
         ></SelectCategory>
         <SelectCategory
           category="카테고리"
           options={category}
-          defaultValue="스터디"
+          defaultValue={category[0].value}
           onCategoryChange={handleCategoryChange}
         ></SelectCategory>
-        <ToggleBtn />
+        <ToggleBtn isRecruit={isRecruit} onToggle={handleToggle} />
         <CreateTitle onTitleChange={handleTitleChange} />
         <CreateContent onContentChange={handleContentChange} />
-        <button>작성</button>
+        <button onClick={handleCreateCrew}>작성</button>
       </ButtonWrapper>
     </ModalWrapper>
   );
