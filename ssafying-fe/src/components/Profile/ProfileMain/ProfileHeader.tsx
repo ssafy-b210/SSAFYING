@@ -8,11 +8,7 @@ function ProfileHeader() {
 
   return (
     <StyledProfileHeader>
-      <BackBtnHeader
-        backLink="/feedhome"
-        isCenter={true}
-        text={user.username}
-      />
+      <BackBtnHeader backLink="/feedhome" isCenter={true} text={user.userId} />
     </StyledProfileHeader>
   );
 }
