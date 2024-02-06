@@ -4,20 +4,23 @@ import com.ssafying.domain.user.entity.User;
 import com.ssafying.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "feed")
 @Getter
+@ToString
 public class Feed extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
     @Column(name = "feed_id")
-    private int id; // 피드 id
+    private Long id; // 피드 id
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -53,6 +56,16 @@ public class Feed extends BaseTimeEntity {
             feed.content = content;
         }
         return feed;
+    }
+
+    public List<String> getHashtagNames() {
+        return feedTags != null
+                ? feedTags.stream().map(feedHashtag -> feedHashtag.getHashtag().getTagName()).collect(Collectors.toList())
+                : null;
+    }
+
+    public List<String> getImageUrls() {
+        return feedImages != null ? feedImages.stream().map(FeedImage::getImageUrl).collect(Collectors.toList()) : null;
     }
 
 

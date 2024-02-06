@@ -1,8 +1,10 @@
 package com.ssafying.global.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
+@Getter
 @Table(name = "hashtag")
 public class Hashtag {
 

@@ -1,19 +1,29 @@
 package com.ssafying.domain.feed.service;
 
+import com.ssafying.domain.crew.entity.Crew;
+import com.ssafying.domain.feed.dto.FeedDto;
+import com.ssafying.domain.feed.dto.FeedSpecification;
 import com.ssafying.domain.feed.dto.request.*;
 import com.ssafying.domain.feed.dto.response.GetFeedLikesResponse;
 import com.ssafying.domain.feed.entity.*;
 import com.ssafying.domain.feed.repository.*;
+import com.ssafying.domain.follow.dto.response.FindFollowingListResponse;
+import com.ssafying.domain.follow.repository.jdbc.FollowRepository;
+import com.ssafying.domain.follow.service.FollowService;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
 import com.ssafying.global.entity.Hashtag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.ssafying.global.entity.Hashtag.createTag;
 
@@ -32,14 +42,18 @@ public class FeedService {
 
     private final UserRepository userRepository;
     private final HashtagRepository hashtagRepository;
+    private final FollowRepository followRepository;
 
+    private final FollowService followService;
+
+    private final int MAXIMUM_NUMBER_FEEDS = 10;
 
     /**
      * 3.1 피드 작성
      *
      */
     @Transactional
-    public int addFeed(AddFeedRequest request) {
+    public Long addFeed(AddFeedRequest request) {
 
         User user = getUser(request.getUserId());
         // 피드 객체 생성
@@ -86,22 +100,28 @@ public class FeedService {
     }
 
     /**
-     * 3.3 피드 전체조회
+     * 3.3 팔로잉한 유저 피드 조회
      *
      */
-    public List<Feed> findFeed() {
-        /*
-        우선순위
-        팔로잉
-        시간
-        좋아요
-        .....
-        ..
-        다 끝나면
-        추천피드
-         */
+    public List<FeedDto> findFeed(int userId) {
 
-        List<Feed> feeds = feedRepository.findAll();
+        // 팔로잉한 유저들이 쓴 게시글 중 7일 이내에 작성한 게시글, 최대 20개 리턴
+
+//        List<FeedDto> allFeeds = new ArrayList<>();
+//        List<FindFollowingListResponse> followingList = followService.followingList(userId);
+//
+//        // 팔로잉한 유저들이 쓴 게시글 중 7일 이내에 작성한 게시글, 최대 20개 리턴
+//        for (FindFollowingListResponse followingUser : followingList) {
+//            List<FeedDto> userFeeds = feedRepository.findFeedsByUserIdAndDate(
+//                    followingUser.getId(), LocalDateTime.now().minusDays(7)
+//            );
+//            allFeeds.addAll(userFeeds);
+//        }
+//        allFeeds.sort(Comparator.comparing(FeedDto::getCreatedAt).reversed());
+//        allFeeds = allFeeds.stream().limit(MAXIMUM_NUMBER_FEEDS).collect(Collectors.toList());
+
+
+
         return null;
     }
 
@@ -176,6 +196,13 @@ public class FeedService {
      * 3.7 피드 검색
      *
      */
+    public List<FeedDto> searchFeed(String hashtag, String nickname) {
+        Specification<Feed> specification = FeedSpecification.containingHashtagOrNickname(hashtag, nickname);
+        List<Feed> feeds = feedRepository.findAll(specification);
+        return feeds.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
 
     /**
      * 3.8 피드 수정
@@ -362,6 +389,21 @@ public class FeedService {
                 hashtag
         );
         feedHashtagRepository.save(feedHashtag);
+    }
+
+    private FeedDto convertToDto(Feed feed) {
+        return FeedDto.builder()
+                .id(feed.getId())
+                .userId(feed.getUser().getId())
+                .content(feed.getContent())
+                .hit(feed.getHit())
+                .feedTags(feed.getHashtagNames())  // feedTags 대신 getHashtagNames 메서드 활용
+                .feedImages(feed.getImageUrls())  // feedImages 대신 getImageUrls 메서드 활용
+                .createdAt(feed.getCreatedAt())
+                .updatedAt(feed.getUpdatedAt())
+                // .commentCount()
+                // .likeCount()
+                .build();
     }
 
 }
