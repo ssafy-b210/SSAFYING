@@ -21,8 +21,9 @@ export async function createBoard(
   try {
     const response = await axios.post("/api/boards", data);
     console.log(response.data);
-  } catch (e) {
-    console.log(e);
+  } catch (e: any) {
+    console.error("Error:", e);
+    console.error("Error-response:", e.response);
   }
 }
 

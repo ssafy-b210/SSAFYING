@@ -8,15 +8,14 @@ import CreateTitle from "../../All/Board/BoardCreate/CreateTitle";
 import CreateContent from "../../All/Board/BoardCreate/CreateContent";
 
 const bigcategory: Option[] = [
-  { value: "팝니다", label: "팝니다" },
-  { value: "삽니다", label: "삽니다" },
-  { value: "나눔합니다", label: "나눔합니다" },
+  { value: "SELL", label: "팝니다" },
+  { value: "BUY", label: "삽니다" },
+  { value: "SHARE", label: "나눔합니다" },
 ];
 
 const isSold: Option[] = [
   { value: "판매중", label: "판매중" },
   { value: "판매완료", label: "판매완료" },
-  { value: "예약중", label: "예약중" },
 ];
 
 function MarketCreateModal() {

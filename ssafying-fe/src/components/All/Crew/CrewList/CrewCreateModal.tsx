@@ -7,30 +7,31 @@ import CreateContent from "../../Board/BoardCreate/CreateContent";
 import { createCrew } from "../../../../apis/api/Crew";
 
 const category: Option[] = [
-  { value: "스터디", label: "스터디" },
-  { value: "챌린지", label: "챌린지" },
-  { value: "동창회/동호회", label: "동창회/동호회" },
-  { value: "액티비티", label: "액티비티" },
-  { value: "번개 회식", label: "번개 회식" },
-  { value: "공모전/프로젝트", label: "공모전/프로젝트" },
-  { value: "기타", label: "기타" },
+  { value: "STUDY", label: "스터디" },
+  { value: "CHALLENGE", label: "챌린지" },
+  { value: "SOCIETY", label: "동창회/동호회" },
+  { value: "ACTIVITY", label: "액티비티" },
+  { value: "FLASHMOB", label: "번개 회식" },
+  { value: "PROJECT", label: "공모전/프로젝트" },
+  { value: "ETC", label: "기타" },
 ];
 
 const location: Option[] = [
-  { value: "전국", label: "전국" },
-  { value: "서울", label: "서울" },
-  { value: "경기", label: "경기" },
-  { value: "인천", label: "인천" },
-  { value: "부산", label: "부산" },
-  { value: "대구", label: "대구" },
-  { value: "광주", label: "광주" },
-  { value: "대전", label: "대전" },
-  { value: "울산", label: "울산" },
-  { value: "강원", label: "강원" },
-  { value: "경상", label: "경상" },
-  { value: "전라", label: "전라" },
-  { value: "충청", label: "충청" },
-  { value: "제주", label: "제주" },
+  { value: "ALL", label: "전국" },
+  { value: "SEOUL", label: "서울" },
+  { value: "GYEONGGI", label: "경기" },
+  { value: "INCHEON", label: "인천" },
+  { value: "BUSAN", label: "부산" },
+  { value: "GWANGJU", label: "광주" },
+  { value: "DAEJEON", label: "대전" },
+  { value: "DAEGU", label: "대구" },
+  { value: "ULSAN", label: "울산" },
+  { value: "SEJONG", label: "세종" },
+  { value: "GANGWON", label: "강원" },
+  { value: "GYEONGSANG", label: "경상" },
+  { value: "JEOLLA", label: "전라" },
+  { value: "CHUNGCHEONG", label: "충청" },
+  { value: "JEJU", label: "제주" },
 ];
 
 function CrewCreateModal() {

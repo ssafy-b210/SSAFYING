@@ -7,13 +7,13 @@ import IsAnonymous from "../BoardCreate/CheckAnonymous";
 import { createBoard } from "../../../../apis/api/Board";
 
 const options: Option[] = [
-  { value: "자유", label: "자유" },
-  { value: "취업", label: "취업" },
-  { value: "정보", label: "정보" },
-  { value: "개발", label: "개발" },
-  { value: "싸피꿀팁", label: "싸피꿀팁" },
-  { value: "생활", label: "생활" },
-  { value: "홍보", label: "홍보" },
+  { value: "FREEDOM", label: "자유" },
+  { value: "EMPLOYMENT", label: "취업" },
+  { value: "INFO", label: "정보" },
+  { value: "DEVELOPMENT", label: "개발" },
+  { value: "TIP", label: "싸피꿀팁" },
+  { value: "LIVING", label: "생활" },
+  { value: "PROMOTION", label: "홍보" },
 ];
 
 function BoardCreateModal() {
