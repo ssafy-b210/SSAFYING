@@ -1,5 +1,6 @@
 package com.ssafying.domain.user.controller;
 
+import com.ssafying.domain.user.dto.request.RemoveUserRequest;
 import com.ssafying.domain.user.dto.request.UpdateUserRequest;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.service.UserService;
@@ -21,7 +22,7 @@ public class UserApiController {
 
     private final UserService userService;
 
-    /*
+    /**
      * 1.4 회원 정보 조회
      */
 
@@ -35,7 +36,7 @@ public class UserApiController {
 
     }
 
-    /*
+    /**
      * 1.5 회원 정보 수정
      */
     @PatchMapping("/{userId}")
@@ -49,16 +50,17 @@ public class UserApiController {
     }
 
 
-    /*
+    /**
      * 1.6 회원 탈퇴
-     * !!!!!!!!user status WITHDRAWAL로 바꾸기!!!!!!!
+     * TODO : 회원상태 바꿔서 데이터는 가지고 있도록
      */
     @DeleteMapping("/{userId}")
     @Operation(summary = "회원 탈퇴")
-    public ResponseEntity<ResultResponse<Integer>> userRemove(@PathVariable(name = "userId") int userId,
-                          @RequestParam(name = "password") String password){
+    public ResponseEntity<ResultResponse<Integer>> userRemove(
+            @RequestBody RemoveUserRequest request
+            ){
 
-        int result =  userService.removeUser(userId, password);
+        int result =  userService.removeUser(request);
 
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
 
