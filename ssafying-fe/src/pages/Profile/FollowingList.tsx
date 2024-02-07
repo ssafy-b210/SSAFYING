@@ -3,20 +3,20 @@ import BackBtnHeader from "../../components/Common/BackBtnHeader";
 import search from "../../assets/img/imgBtn/search.svg";
 import FollowProfileList from "../../components/Profile/Follow/FollowProfileList";
 import CenterHeader from "../../components/Common/CenterHeader";
+import { useEffect, useState } from "react";
+import { selectFollowingList } from "../../apis/api/Follow";
 
 function FollowingList() {
-  const testInfo = [
-    {
-      nickname: "aeong",
-      userImageUrl:
-        "https://image.utoimage.com/preview/cp872722/2022/12/202212008462_500.jpg",
-    },
-    {
-      nickname: "aeong2",
-      userImageUrl:
-        "https://image.utoimage.com/preview/cp872722/2018/06/201806010732_206.jpg",
-    },
-  ];
+  const [followings, setFollowings] = useState([]);
+
+  async function getFollowingList(userId: number) {
+    const res: any = await selectFollowingList(userId);
+    setFollowings(res.data);
+  }
+
+  useEffect(() => {
+    getFollowingList(1);
+  }, []);
 
   return (
     <Wrapper>
@@ -30,7 +30,7 @@ function FollowingList() {
         <input type="text" placeholder="검색어를 입력해주세요." />
         <img src={search} alt="검색" />
       </SearchBar>
-      <FollowProfileList data={testInfo} isFollowing={true} />
+      <FollowProfileList data={followings} isFollowing={true} />
     </Wrapper>
   );
 }

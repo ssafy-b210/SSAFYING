@@ -57,6 +57,7 @@ const Wrapper = styled.div`
 `;
 
 const CancelButton = styled.button`
+  margin: 0 10px;
   padding: 7px 12px;
   border: 0;
   border-radius: 5px;

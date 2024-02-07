@@ -1,22 +1,22 @@
 import styled from "styled-components";
-import BackBtnHeader from "../../components/Common/BackBtnHeader";
 import search from "../../assets/img/imgBtn/search.svg";
+import BackBtnHeader from "../../components/Common/BackBtnHeader";
 import FollowProfileList from "../../components/Profile/Follow/FollowProfileList";
 import CenterHeader from "../../components/Common/CenterHeader";
+import { useEffect, useState } from "react";
+import { selectFollowerList } from "../../apis/api/Follow";
 
 function FollowerList() {
-  const testInfo = [
-    {
-      nickname: "aeong",
-      userImageUrl:
-        "https://image.utoimage.com/preview/cp872722/2022/12/202212008462_500.jpg",
-    },
-    {
-      nickname: "aeong2",
-      userImageUrl:
-        "https://image.utoimage.com/preview/cp872722/2018/06/201806010732_206.jpg",
-    },
-  ];
+  const [followers, setFollowers] = useState([]);
+
+  async function getFollowerList(userId: number) {
+    const res: any = await selectFollowerList(userId);
+    setFollowers(res.data);
+  }
+
+  useEffect(() => {
+    getFollowerList(1);
+  }, []);
 
   return (
     <Wrapper>
@@ -31,7 +31,7 @@ function FollowerList() {
         <img src={search} alt="검색" />
       </SearchBar>
       <FollowProfileList
-        data={testInfo}
+        data={followers}
         isFollowing={false}
       ></FollowProfileList>
     </Wrapper>

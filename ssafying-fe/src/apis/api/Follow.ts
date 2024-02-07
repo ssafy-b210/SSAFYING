@@ -5,8 +5,7 @@ const REST_USERS_API = `/api/users`;
 // 팔로잉 리스트 조회
 export async function selectFollowingList(userId: number) {
   try {
-    const response = await axios.get(`${REST_USERS_API}/following/${userId}`);
-    console.log(response);
+    return await axios.get(`${REST_USERS_API}/following/${userId}`);
   } catch (e: any) {
     console.log(e);
   }
@@ -15,8 +14,7 @@ export async function selectFollowingList(userId: number) {
 // 팔로워 리스트 조회
 export async function selectFollowerList(userId: number) {
   try {
-    const response = await axios.get(`${REST_USERS_API}/followers/${userId}`);
-    console.log(response);
+    return await axios.get(`${REST_USERS_API}/followers/${userId}`);
   } catch (e: any) {
     console.log(e);
   }
