@@ -80,21 +80,11 @@ public class UserService {
      * 회원 탈퇴
      */
     @Transactional
-    public int removeUser(RemoveUserRequest request){
+    public int removeUser(int userId){
 
-        User user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new RuntimeException("회원 정보를 찾을 수 없습니다."));
+        userRepository.deleteById(userId);
 
-        //패스워드 검증
-        if(user.getPassword().equals(request.getPassword())){
-            //패스워드 일치한다면 사용자 아이디 받아서 삭제
-            userRepository.deleteById(request.getUserId());
-        }else{
-            throw new RuntimeException("비밀번호가 일치하지 않습니다.");
-        }
-
-        return request.getUserId();
-
+        return userId;
     }
 
 

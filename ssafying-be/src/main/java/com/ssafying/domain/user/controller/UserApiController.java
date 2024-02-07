@@ -59,10 +59,10 @@ public class UserApiController {
     @DeleteMapping("/{userId}")
     @Operation(summary = "회원 탈퇴")
     public ResponseEntity<ResultResponse<Integer>> userRemove(
-            @RequestBody RemoveUserRequest request
-            ){
+            @PathVariable(name = "userId") int userId
+ ){
 
-        int result =  userService.removeUser(request);
+        int result =  userService.removeUser(userId);
 
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
 
