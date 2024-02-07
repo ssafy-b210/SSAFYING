@@ -5,8 +5,11 @@ import FollowProfileList from "../../components/Profile/Follow/FollowProfileList
 import CenterHeader from "../../components/Common/CenterHeader";
 import { useEffect, useState } from "react";
 import { selectFollowingList } from "../../apis/api/Follow";
+import { useParams } from "react-router-dom";
 
 function FollowingList() {
+  const userId = useParams().userId;
+
   const [followings, setFollowings] = useState([]);
 
   async function getFollowingList(userId: number) {
@@ -22,7 +25,7 @@ function FollowingList() {
     <Wrapper>
       <CenterHeader />
       <BackBtnHeader
-        backLink="/profile"
+        backLink={`/profile/${userId}`}
         isCenter={true}
         text="내가 팔로우하는 친구"
       />

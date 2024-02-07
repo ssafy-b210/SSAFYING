@@ -11,8 +11,11 @@ import {
   useState,
 } from "react";
 import { searchFollowerList, selectFollowerList } from "../../apis/api/Follow";
+import { useParams } from "react-router-dom";
 
 function FollowerList() {
+  const userId = useParams().userId;
+
   const [followers, setFollowers] = useState([]);
   const [searchValue, setSearchValue] = useState("");
 
@@ -67,7 +70,7 @@ function FollowerList() {
     <Wrapper>
       <CenterHeader />
       <BackBtnHeader
-        backLink="/profile"
+        backLink={`/profile/${userId}`}
         isCenter={true}
         text="나를 팔로우하는 친구"
       />

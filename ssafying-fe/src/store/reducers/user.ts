@@ -3,14 +3,16 @@ import { RootState } from "../../store";
 
 interface UserState {
   isAuthorized: boolean;
-  userId: string;
+  userId: number;
+  nickname: string;
   username: string;
   campus: string;
 }
 
 const initialState: UserState = {
   isAuthorized: false,
-  userId: "aeong",
+  userId: 1,
+  nickname: "aeong",
   username: "이",
   campus: "",
 };

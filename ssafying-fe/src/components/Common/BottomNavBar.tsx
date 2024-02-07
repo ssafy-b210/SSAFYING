@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../store/hooks";
+import { RootState } from "../../store";
 
 const BottomNavBar = () => {
+  const user = useAppSelector((state: RootState) => state.user);
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
@@ -45,7 +48,7 @@ const BottomNavBar = () => {
           <span>FOREST</span>
         </Menu>
       </Link>
-      <Link to="/profile" className="profile">
+      <Link to={`/profile/${user.userId}`} className="profile">
         <Menu data-hover="PROFILE">
           <span>PROFILE</span>
         </Menu>

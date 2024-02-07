@@ -68,7 +68,7 @@ function App() {
           <Route path="/alarmdetail" element={<AlarmDetail />} />
           <Route path="/forest" element={<BambooForest />} />
 
-          <Route path="/profile" element={<ProfileMain />}>
+          <Route path="/profile/:userId" element={<ProfileMain />}>
             <Route path="" element={<ContentFeedSection />} />
             <Route path="portfolio" element={<ContentPortfolioSection />} />
             <Route path="saved" element={<ContentSavedSection />}>
@@ -77,8 +77,11 @@ function App() {
               <Route path="recruiting" element={<SavedRecruitmentList />} />
             </Route>
           </Route>
-          <Route path="/profile/following" element={<FollowingList />} />
-          <Route path="/profile/follower" element={<FollowerList />} />
+          <Route
+            path="/profile/:userId/following"
+            element={<FollowingList />}
+          />
+          <Route path="/profile/:userId/follower" element={<FollowerList />} />
           <Route path="/direct" element={<DirectMessageChats />} />
           <Route path="/direct/:id" element={<DirectMessageChattingRoom />} />
           <Route path="/meal/create" element={<MealPlannerCreate />} />
