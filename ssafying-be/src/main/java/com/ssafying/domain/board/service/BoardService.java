@@ -129,14 +129,18 @@ public class BoardService {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new RuntimeException("게시글이 없습니다."));
 
+
         // 존재한다면 해당 게시글을 상세 조회
         // ResponseDTO에 필요한 내용 : board 내용 + 댓글들
-        Board response = boardRepository.findBoardAndComments();
+//        Board response = boardRepository.findBoardAndComments();
 
         // board를 Response에 담아서 넘겨줘야할 듯요
 
-        return response;
+        System.out.println("board.toString() = " + board.toString());
 
+//        return response;
+
+        return board;
     }
 
     /**
