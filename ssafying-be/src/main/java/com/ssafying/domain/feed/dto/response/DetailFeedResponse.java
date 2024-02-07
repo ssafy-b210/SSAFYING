@@ -1,9 +1,9 @@
-package com.ssafying.domain.feed.dto;
+package com.ssafying.domain.feed.dto.response;
 
-import com.ssafying.domain.feed.entity.FeedHashtag;
-import com.ssafying.domain.feed.entity.FeedImage;
+import com.ssafying.domain.feed.dto.FeedHashtagDto;
+import com.ssafying.domain.feed.dto.FeedImageDto;
+import com.ssafying.domain.feed.dto.ParentCommentDto;
 import com.ssafying.domain.user.dto.SimpleUserDto;
-import com.ssafying.domain.user.entity.User;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -12,9 +12,9 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class FeedDto {
+public class DetailFeedResponse {
 
     Long id;
 
@@ -28,7 +28,7 @@ public class FeedDto {
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
 
-    long commentCount;
+    int commentCount;
     int likeCount;
 
     List<ParentCommentDto> parentCommentList;

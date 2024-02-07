@@ -1,8 +1,8 @@
 package com.ssafying.domain.feed.service;
 
-import com.ssafying.domain.crew.entity.Crew;
-import com.ssafying.domain.feed.dto.FeedDto;
-import com.ssafying.domain.feed.dto.FeedSpecification;
+import com.ssafying.domain.feed.dto.*;
+import com.ssafying.domain.feed.dto.response.DetailFeedResponse;
+import com.ssafying.domain.feed.dto.response.SearchFeedResponse;
 import com.ssafying.domain.feed.dto.request.*;
 import com.ssafying.domain.feed.dto.response.GetFeedLikesResponse;
 import com.ssafying.domain.feed.entity.*;
@@ -10,6 +10,7 @@ import com.ssafying.domain.feed.repository.*;
 import com.ssafying.domain.follow.dto.response.FindFollowingListResponse;
 import com.ssafying.domain.follow.repository.jdbc.FollowRepository;
 import com.ssafying.domain.follow.service.FollowService;
+import com.ssafying.domain.user.dto.SimpleUserDto;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
 import com.ssafying.global.entity.Hashtag;
@@ -107,22 +108,24 @@ public class FeedService {
 
         // 팔로잉한 유저들이 쓴 게시글 중 7일 이내에 작성한 게시글, 최대 20개 리턴
 
-//        List<FeedDto> allFeeds = new ArrayList<>();
-//        List<FindFollowingListResponse> followingList = followService.followingList(userId);
-//
-//        // 팔로잉한 유저들이 쓴 게시글 중 7일 이내에 작성한 게시글, 최대 20개 리턴
-//        for (FindFollowingListResponse followingUser : followingList) {
-//            List<FeedDto> userFeeds = feedRepository.findFeedsByUserIdAndDate(
-//                    followingUser.getId(), LocalDateTime.now().minusDays(7)
-//            );
-//            allFeeds.addAll(userFeeds);
-//        }
-//        allFeeds.sort(Comparator.comparing(FeedDto::getCreatedAt).reversed());
-//        allFeeds = allFeeds.stream().limit(MAXIMUM_NUMBER_FEEDS).collect(Collectors.toList());
+        List<Feed> allFeeds = new ArrayList<>();
+        List<FindFollowingListResponse> followingList = followService.followingList(userId);
+
+        // 팔로잉한 유저들이 쓴 게시글 중 7일 이내에 작성한 게시글, 최대 20개 리턴
+        for (FindFollowingListResponse followingUser : followingList) {
+            List<Feed> userFeeds = feedRepository.findFeedsByUserIdAndDate(
+                    followingUser.getId(), LocalDateTime.now().minusDays(7)
+            );
+            allFeeds.addAll(userFeeds);
+        }
+        allFeeds.sort(Comparator.comparing(Feed::getCreatedAt).reversed());
+        allFeeds = allFeeds.stream().limit(MAXIMUM_NUMBER_FEEDS).collect(Collectors.toList());
 
 
 
-        return null;
+        return  allFeeds.stream()
+                .map(this::convertToFeedDto)  // Use "this" to refer to the current instance
+                .collect(Collectors.toList());
     }
 
 
@@ -130,8 +133,17 @@ public class FeedService {
      * 3.4 피드 상세조회
      *
      */
-    public Feed findDetailFeed(int feedId) {
-        return getFeed(feedId);
+    @Transactional
+    public FeedDto findDetailFeed(int feedId) {
+
+        Feed feed = getFeed(feedId);
+        Feed.increaseHit(feed);
+        feedRepository.save(feed);
+
+        FeedDto response = convertToFeedDto(feed);
+        response.setParentCommentList(convertToParentCommentDtoList(feed.getFeedComments()));
+
+        return response;
     }
 
     /**
@@ -196,7 +208,7 @@ public class FeedService {
      * 3.7 피드 검색
      *
      */
-    public List<FeedDto> searchFeed(String hashtag, String nickname) {
+    public List<SearchFeedResponse> searchFeed(String hashtag, String nickname) {
         Specification<Feed> specification = FeedSpecification.containingHashtagOrNickname(hashtag, nickname);
         List<Feed> feeds = feedRepository.findAll(specification);
         return feeds.stream()
@@ -268,6 +280,14 @@ public class FeedService {
         return id;
     }
 
+    /**
+     * 3.10 피드 댓글 조회
+     */
+    public List<ParentCommentDto> findFeedList(int feedId) {
+        Feed feed = getFeed(feedId);
+        return convertToParentCommentDtoList(feed.getFeedComments());
+    }
+    
     /**
      * 3.10 피드 댓글 작성
      */
@@ -391,8 +411,8 @@ public class FeedService {
         feedHashtagRepository.save(feedHashtag);
     }
 
-    private FeedDto convertToDto(Feed feed) {
-        return FeedDto.builder()
+    private SearchFeedResponse convertToDto(Feed feed) {
+        return SearchFeedResponse.builder()
                 .id(feed.getId())
                 .userId(feed.getUser().getId())
                 .content(feed.getContent())
@@ -403,6 +423,77 @@ public class FeedService {
                 .updatedAt(feed.getUpdatedAt())
                 // .commentCount()
                 // .likeCount()
+                .build();
+    }
+
+    private FeedDto convertToFeedDto(Feed feed) {
+        long commentCount = feed.getFeedComments().stream()
+                .filter(comment -> !comment.isDeleted())
+                .count();
+
+        int likeCount = feed.getFeedLikes().size();
+
+        return FeedDto.builder()
+                .id(feed.getId())
+                .user(SimpleUserDto.builder()
+                        .id(feed.getUser().getId())
+                        .nickname(feed.getUser().getNickname())
+                        .profileImageUrl(feed.getUser().getProfileImageUrl())
+                        .build())
+                .content(feed.getContent())
+                .hit(feed.getHit())
+                .feedTags(feed.getFeedTags().stream()
+                        .map(feedHashtag ->
+                                FeedHashtagDto.builder()
+                                        .id(feedHashtag.getId())
+                                        .tagName(feedHashtag.getHashtag().getTagName())
+                                        .build())
+                        .collect(Collectors.toList()))
+                .feedImages(feed.getFeedImages().stream()
+                        .map(feedImage ->
+                                FeedImageDto.builder()
+                                        .id(feedImage.getId())
+                                        .imageUrl(feedImage.getImageUrl())
+                                        .build())
+                        .collect(Collectors.toList()))
+                .createdAt(feed.getCreatedAt())
+                .updatedAt(feed.getUpdatedAt())
+                 .commentCount(commentCount)
+                 .likeCount(likeCount)
+                .build();
+    }
+
+    private List<ParentCommentDto> convertToParentCommentDtoList(List<FeedComment> parentComments) {
+        return parentComments.stream()
+                .map(parentComment -> ParentCommentDto.builder()
+                        .user(convertToSimpleUserDto(parentComment.getUser()))
+                        .content(parentComment.getContent())
+                        .likeCounts(parentComment.getCommentLikes().size())
+                        .childComments(convertToChildCommentDtoList(parentComment.getChildComments()))
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+    private SimpleUserDto convertToSimpleUserDto(User user) {
+        return SimpleUserDto.builder()
+                .id(user.getId())
+                .nickname(user.getNickname())
+                .profileImageUrl(user.getProfileImageUrl())
+                .build();
+    }
+
+    private List<ChildCommentDto> convertToChildCommentDtoList(List<FeedComment> childComments) {
+        return childComments.stream()
+                .map(this::convertToChildCommentDto)
+                .collect(Collectors.toList());
+    }
+
+    private ChildCommentDto convertToChildCommentDto(FeedComment childComment) {
+        return ChildCommentDto.builder()
+                .user(convertToSimpleUserDto(childComment.getUser()))
+                .content(childComment.getContent())
+                .isDeleted(childComment.isDeleted())
+                .likeCounts(childComment.getCommentLikes().size())
                 .build();
     }
 
