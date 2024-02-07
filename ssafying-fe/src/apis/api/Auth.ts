@@ -42,16 +42,16 @@ export async function login(email: string, password: string) {
     // console.log(token);
     const response = await axios.post(`${REST_AUTH_API}/login`, data);
     //로컬스토리지에서 토큰 가져오기
-    localStorage.setItem("refresh-token", response.data["refresh-token"]);
-    document.cookie = `access-token=${response.data["access-token"]}`;
+    localStorage.setItem("refresh-token", response.data.refreshToken);
+    document.cookie = `access-token=${response.data.accessToken}`;
     console.log(response.data);
+    console.log(response.data.refreshToken);
   } catch (e) {
     console.log(e);
   }
 }
 
 // 로그아웃
-
 // 쿠키 삭제 함수
 function removeCookie(name: string) {
   document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
@@ -59,7 +59,21 @@ function removeCookie(name: string) {
 
 export async function logout(loginId: number) {
   try {
-    const response = await axios.post(`${REST_AUTH_API}/logout/${loginId}`);
+    const refreshToken = localStorage.getItem("refresh-token");
+    if (!refreshToken) {
+      throw new Error("Refresh token not found!");
+    }
+
+    const response = await axios.post(
+      `${REST_AUTH_API}/logout/${loginId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${refreshToken}`,
+          refreshToken: refreshToken,
+        },
+      }
+    );
     console.log(response.data);
     removeCookie("access-token");
   } catch (e) {

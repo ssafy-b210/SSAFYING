@@ -2,10 +2,12 @@ import UserBtn from "../../components/User/UserInfo/UserBtn";
 import UserProfile from "../../components/User/UserInfo/UserProfile";
 import UserInformation from "../../components/User/UserInfo/UserInformation";
 import BackBtnHeader from "../../components/Common/BackBtnHeader";
+import CenterHeader from "../../components/Common/CenterHeader";
 
 function UserDetail() {
   return (
     <div>
+      <CenterHeader />
       <BackBtnHeader
         backLink="/profile"
         isCenter={true}

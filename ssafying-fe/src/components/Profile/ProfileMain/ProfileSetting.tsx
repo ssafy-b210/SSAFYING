@@ -1,10 +1,33 @@
 import styled from "styled-components";
+import { logout } from "../../../apis/api/Auth";
+import { useNavigate } from "react-router-dom";
+import { selectOneUserInfo } from "../../../apis/api/User";
 
 function ProflieSetting() {
+  const navigate = useNavigate();
+  const callLogout = () => {
+    try {
+      // logout(1)안에는 loginId로 나중에 바꾸기
+      logout(1);
+      navigate("/");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const callUserInfo = () => {
+    try {
+      // logout(1)안에는 loginId로 나중에 바꾸기
+      selectOneUserInfo(1);
+      navigate("/user/detail");
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <StyledProfileSetting>
-      <Button onClick={() => alert("회원정보 페이지로 이동")}>회원정보</Button>
-      <Button className="danger" onClick={() => alert("로그아웃")}>
+      <Button onClick={() => callUserInfo()}>회원정보</Button>
+      <Button className="danger" onClick={() => callLogout()}>
         로그아웃
       </Button>
     </StyledProfileSetting>

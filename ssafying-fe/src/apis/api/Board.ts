@@ -65,13 +65,12 @@ export async function deleteBoard(boardId: number) {
 
 //게시판 게시글 수정
 export async function updateBoard(
-  boardId?: number,
+  boardId: number,
   title?: string,
   content?: string,
   category?: string
 ) {
   const data = {
-    boardId,
     title,
     content,
     category,
@@ -124,7 +123,8 @@ export async function updateBoardComment(
   const data = { content };
   try {
     const response = await axios.patch(
-      `${REST_BOARD_API}/comments/${boardCommentId}`
+      `${REST_BOARD_API}/comments/${boardCommentId}`,
+      data
     );
     console.log(response.data);
   } catch (e) {

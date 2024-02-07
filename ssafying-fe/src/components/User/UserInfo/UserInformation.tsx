@@ -9,8 +9,6 @@ function UserInformation() {
           <div className="content">aeong123</div>
           <div className="category">전화번호</div>
           <div className="content">010-0000-0000</div>
-          <div className="category">비밀번호</div>
-          <div className="content">*********</div>
           <div className="category">한줄 소개</div>
           <div className="content">나는 짱이야</div>
           <div className="category">바이오링크</div>
@@ -24,18 +22,21 @@ function UserInformation() {
 export default UserInformation;
 
 const UserInfoContainer = styled.div`
-  border: 1px solid gray;
   border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
   height: 500px;
   width: 80%;
   padding: 20px;
   .category {
-    color: gray;
+    color: black;
+    font-weight: bold;
     padding-top: 15px;
+    font-family: "Noto Sans KR", "Noto Sans";
   }
   .content {
     padding-top: 10px;
     padding-left: 15px;
+    font-family: "Noto Sans KR", "Noto Sans";
   }
 `;
 
