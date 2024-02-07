@@ -19,6 +19,16 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 //
 //    }
 
+//    @Query("""
+//    select *
+//    from Board b
+//    left join BoardComment bc
+//    on b = bc.board
+//    where b.id = :boardId
+//
+//    """)
+//    List<BoardComment> findBoardComments (@Param("boardId") int boardId);
+
 
 
 }
