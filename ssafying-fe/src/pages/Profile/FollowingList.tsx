@@ -1,11 +1,26 @@
 import styled from "styled-components";
-import UserItemList from "../../components/Feed/Search/UserItemList";
 import BackBtnHeader from "../../components/Common/BackBtnHeader";
 import search from "../../assets/img/imgBtn/search.svg";
+import FollowProfileList from "../../components/Profile/Follow/FollowProfileList";
+import CenterHeader from "../../components/Common/CenterHeader";
 
 function FollowingList() {
+  const testInfo = [
+    {
+      nickname: "aeong",
+      userImageUrl:
+        "https://image.utoimage.com/preview/cp872722/2022/12/202212008462_500.jpg",
+    },
+    {
+      nickname: "aeong2",
+      userImageUrl:
+        "https://image.utoimage.com/preview/cp872722/2018/06/201806010732_206.jpg",
+    },
+  ];
+
   return (
     <Wrapper>
+      <CenterHeader />
       <BackBtnHeader
         backLink="/profile"
         isCenter={true}
@@ -15,20 +30,7 @@ function FollowingList() {
         <input type="text" placeholder="검색어를 입력해주세요." />
         <img src={search} alt="검색" />
       </SearchBar>
-      <UserItemList
-        userList={[
-          {
-            userId: "aeong",
-            userImage:
-              "https://image.utoimage.com/preview/cp872722/2022/12/202212008462_500.jpg",
-          },
-          {
-            userId: "aeong2",
-            userImage:
-              "https://image.utoimage.com/preview/cp872722/2018/06/201806010732_206.jpg",
-          },
-        ]}
-      />
+      <FollowProfileList data={testInfo} isFollowing={true} />
     </Wrapper>
   );
 }
