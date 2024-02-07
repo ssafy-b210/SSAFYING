@@ -2,8 +2,6 @@ package com.ssafying.domain.board.controller;
 
 import com.ssafying.domain.board.dto.request.*;
 import com.ssafying.domain.board.dto.response.FindDetailBoardResponse;
-import com.ssafying.domain.board.entity.Board;
-import com.ssafying.domain.board.entity.BoardComment;
 import com.ssafying.domain.board.service.BoardService;
 import com.ssafying.domain.board.service.command.AddBoardCommentCommand;
 import com.ssafying.global.result.ResultResponse;
@@ -93,15 +91,7 @@ public class BoardController {
             @PathVariable(name = "boardId") int boardId) {
 
         //우선 board 로 받아오고 controller 에서 예쁘게 정리함
-        Board board = boardService.findDetailBoard(boardId);
-
-        System.out.println(" ====================================== ");
-
-        for (BoardComment comment : board.getCommentList()) {
-            System.out.println("comment.getId() = " + comment.getId());
-        }
-        
-        FindDetailBoardResponse result = null;
+        FindDetailBoardResponse result = boardService.findDetailBoard(boardId);
 
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
