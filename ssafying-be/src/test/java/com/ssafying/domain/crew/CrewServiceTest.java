@@ -1,9 +1,9 @@
 //package com.ssafying.domain.crew;
 //
+//
 //import com.ssafying.domain.crew.dto.request.AddCrewRequest;
-//import com.ssafying.domain.crew.dto.request.UpdateCrewRequest;
-//import com.ssafying.domain.crew.entity.Category;
 //import com.ssafying.domain.crew.entity.Crew;
+//import com.ssafying.domain.crew.entity.CrewCategory;
 //import com.ssafying.domain.crew.entity.Region;
 //import com.ssafying.domain.crew.repository.jdbc.CrewRepository;
 //import com.ssafying.domain.crew.service.CrewService;
@@ -14,6 +14,7 @@
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.test.context.SpringBootTest;
 //
+//import java.util.List;
 //import java.util.Optional;
 //
 //import static org.assertj.core.api.Assertions.assertThat;
@@ -90,5 +91,29 @@
 //        assertThat(addedCrew.getCrewId()).isEqualTo(updatedCrew.getCrewId());
 //    }
 //
+//    @Test
+//    public void testCrewListWithFilter() {
+//        // ...
+//
+//        // Given
+//        Crew crew1 = new Crew();
+//        crew1.setTitle("Test Crew 1");
+//        crew1.setRegion(Region.SEOUL);
+//        crew1.setCategory(CrewCategory.ACTIVITY);
+//        crew1.setIsRecruit(true);
+//
+//        Crew crew2 = new Crew();
+//        crew2.setTitle("Test Crew 2");
+//        crew2.setRegion(Region.BUSAN);
+//        crew2.setCategory(CrewCategory.CHALLENGE);
+//        crew2.setIsRecruit(false);
+//
+//        // When
+//        List<Crew> responseList = crewService.searchCrew("Test", "SEOUL", "ETC", true);
+//
+//        // Then
+//        assertThat(responseList).hasSize(1);
+//        assertThat(responseList.get(0).getTitle()).isEqualTo("Test Crew 1");
+//    }
 //
 //}

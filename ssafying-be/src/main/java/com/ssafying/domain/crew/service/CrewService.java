@@ -112,24 +112,18 @@ public class CrewService {
      */
     public List<Crew> searchCrew(String title, String region, String category, boolean isRecruit){
 
-        Specification<Crew> spec = (root, query, criteriaBuilder) -> null;
+        Specification<Crew> spec = Specification.where(null);
 
-        // title
-        if (title != null) {
+        if (title != null && !title.isEmpty()) {
             spec = spec.and(CrewSpecification.containingTitle(title));
         }
-
-        // region
-        if (region != null) {
-            spec = spec.and(CrewSpecification.findByRegion(Region.valueOf(region)));
+        if (region != null && !region.isEmpty()) {
+            spec = spec.and(CrewSpecification.findByRegion(Region.valueOf(region.toUpperCase())));
+        }
+        if (category != null && !category.isEmpty()) {
+            spec = spec.and(CrewSpecification.findByCategory(CrewCategory.valueOf(category.toUpperCase())));
         }
 
-        // category
-        if (category != null) {
-            spec = spec.and(CrewSpecification.findByCategory(CrewCategory.valueOf(category)));
-        }
-
-        // isRecruit
         spec = spec.and(CrewSpecification.isRecruit(isRecruit));
 
         return crewRepository.findAll(spec);
