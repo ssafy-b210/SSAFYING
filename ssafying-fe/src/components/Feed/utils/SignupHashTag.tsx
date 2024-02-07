@@ -14,7 +14,7 @@ function Hashtag({ text }: HashtagProps) {
 
   return (
     <StyledHashTagButton
-      isSelected={isSelected}
+      $isSelected={isSelected}
       onClick={handleToggleSelection}
     >
       <a href="#!">#{text}</a>
@@ -22,15 +22,15 @@ function Hashtag({ text }: HashtagProps) {
   );
 }
 
-const StyledHashTagButton = styled.span<{ isSelected: boolean }>`
+const StyledHashTagButton = styled.span<{ $isSelected: boolean }>`
   a {
     display: inline-block;
     padding: 3px 7px 4px;
-    background-color: ${(props) => (props.isSelected ? "#ffa6c9" : "#fff")};
+    background-color: ${(props) => (props.$isSelected ? "#ffa6c9" : "#fff")};
     border-radius: 30px;
     border: 1px solid #ffa6c9;
     box-sizing: border-box;
-    color: ${(props) => (props.isSelected ? "white" : "black")};
+    color: ${(props) => (props.$isSelected ? "white" : "black")};
     text-decoration: none;
     margin: 10px 5px 5px 0;
     font-size: 12px;
