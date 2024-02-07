@@ -1,9 +1,12 @@
 package com.ssafying.domain.board.service;
 
+import com.ssafying.domain.board.dto.ChildCommentDTO;
+import com.ssafying.domain.board.dto.ParentCommentDTO;
 import com.ssafying.domain.board.dto.request.AddBoardRequest;
 import com.ssafying.domain.board.dto.request.ModifyBoardCommentRequest;
 import com.ssafying.domain.board.dto.request.ModifyBoardRequest;
 import com.ssafying.domain.board.dto.request.ScrapBoardRequest;
+import com.ssafying.domain.board.dto.response.FindDetailBoardResponse;
 import com.ssafying.domain.board.entity.Board;
 import com.ssafying.domain.board.entity.BoardComment;
 import com.ssafying.domain.board.entity.BoardScrap;
@@ -17,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -123,24 +127,131 @@ public class BoardService {
      *
      * @return
      */
-    public Board findDetailBoard(int boardId) {
+    public FindDetailBoardResponse findDetailBoard(int boardId) {
 
         // boardId가 존재하는지 확인
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new RuntimeException("게시글이 없습니다."));
 
+        List<ParentCommentDTO> parentCommentDTOList = new ArrayList<>();
+
+        // 일단 해당 board 에 대한 모든 댓글을 가져옴
+        List<BoardComment> commentList = board.getCommentList();
+
+        //for문 돌면서 부모댓글은 자식댓글을 찾아줘야함
+        for (BoardComment comment : commentList) {
+            List<ChildCommentDTO> childCommentDTOList = new ArrayList<>();
+
+            if (comment.getParentComment() == null) { // 부모댓글인 경우
+
+                // 자식댓글 갖고옴
+                List<BoardComment> childComment = boardCommentRepository.findChildComment(comment.getId());
+
+                // 자식댓글 list 를 하나씩 돌면서 response 에 들어갈 DTO 에 넣어줌
+                for (BoardComment boardComment : childComment) { //자식댓글 하나씩 돌면서 DTO 에 내용 넣어줌
+                    ChildCommentDTO build = ChildCommentDTO.builder()
+                            .comment(boardComment.getContent())
+                            .userName(boardComment.getUser().getName())
+                            .isAnonymous(boardComment.isAnonymous())
+                            .createdAt(boardComment.getCreatedAt())
+                            .build();
+
+                    childCommentDTOList.add(build);
+                }
+            }
+
+            // 해당 댓글 DTO 를 만들어줌
+            ParentCommentDTO parentCommentDTO = ParentCommentDTO.builder()
+                    .comment(comment.getContent())
+                    .userName(comment.getUser().getName())
+                    .isAnonymous(comment.isAnonymous())
+                    .createdAt(comment.getCreatedAt())
+                    .childCommentList(childCommentDTOList)
+                    .build();
+
+            parentCommentDTOList.add(parentCommentDTO);
+        }
+
+        // response 에 넣을 댓글들 셋팅 완료
+        // board 에 대한 board 정보를 만들어서 넘김
+        FindDetailBoardResponse result = FindDetailBoardResponse.builder()
+                .userName(board.getUser().getName())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .category(board.getCategory())
+                .isAnonymous(board.isAnonymous())
+                .createAt(board.getCreatedAt())
+                .comments(parentCommentDTOList)
+                .build();
+
+        return result;
 
         // 존재한다면 해당 게시글을 상세 조회
         // ResponseDTO에 필요한 내용 : board 내용 + 댓글들
+//        boardRepository.findBoardComments(boardId);
 //        Board response = boardRepository.findBoardAndComments();
 
         // board를 Response에 담아서 넘겨줘야할 듯요
 
-        System.out.println("board.toString() = " + board.toString());
-
+//        System.out.println("board.toString() = " + board.toString());
+//
+//
+//        List<ParentCommentDTO> list = new ArrayList<>();
+//
+//
+//        List<BoardComment> commentList = board.getCommentList();
+//
+//        for(BoardComment comment : commentList){
+//            if(comment.getParentComment()==null){ // 부모댓글인 경우
+//
+//                //자식댓글을 찾아옴
+////                boardCommentRepository.findByParentComment();
+//
+//
+//                System.out.println("comment.getId() = " + comment.getId());
+//
+//                //부모댓글을 저장함
+//                ParentCommentDTO parentComment = ParentCommentDTO.createParentComment(
+//                        comment.getContent(),
+//                        comment.getUser().getName(),
+//                        comment.isAnonymous(),
+//                        comment.getCreatedAt()
+//                );
+//
+//                list.add(parentComment);
+//            }
+//            else { // 자식댓글인 경우
+//
+//                // 부모의 객체를 가져옴
+//                ParentCommentDTO parentCommentDTO = list.get(comment.getParentComment().getId());
+//
+//                // 자식 객체를 만들어줌
+//                ChildCommentDTO childComment = ChildCommentDTO.createChileComment(
+//                        comment.getContent(),
+//                        comment.getUser().getName(),
+//                        comment.isAnonymous(),
+//                        comment.getCreatedAt()
+//                );
+//
+//                // 부모댓글에 추가해줌
+//                parentCommentDTO.getChildCommentList().add(childComment);
+//            }
+//        }
+//
+//        FindDetailBoardResponse response = FindDetailBoardResponse.builder()
+//                .userName(board.getUser().getName())
+//                .title(board.getTitle())
+//                .content(board.getContent())
+//                .category(board.getCategory())
+//                .isAnonymous(board.isAnonymous())
+//                .createAt(board.getCreatedAt())
+//                .comments(list)
+//                .build();
+//
+//
 //        return response;
 
-        return board;
+//        return null;
     }
 
     /**
