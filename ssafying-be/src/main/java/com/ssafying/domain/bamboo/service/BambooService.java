@@ -87,7 +87,6 @@ public class BambooService {
                 .orElseThrow(() -> (new RuntimeException("해당 대나무숲이 없습니다.")));
 
         // 24시간이 지났는지 확인해야 함
-        LocalDateTime now = LocalDateTime.now(); //현재 시간
         Duration diff = Duration.between(bamboo.getCreatedAt().toLocalTime(), now.toLocalTime()); //시간차
 
         /** 현재 시간과 저장된 시간의 차이를 계산 값으로 test
