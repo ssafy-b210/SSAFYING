@@ -40,8 +40,8 @@ export async function searchFollowerList(userId: number, nickname: string) {
   try {
     const response = await axios.get(`${REST_USERS_API}/follower`, {
       data: {
-        userId,
-        nickname,
+        userId: userId,
+        nickname: nickname,
       },
     });
     console.log(response);
