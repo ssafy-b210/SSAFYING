@@ -5,14 +5,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
-    //    @Query("""
+//        @Query("""
 //           select *
 //           from Board b
 //           left join BoardComment bc on b=bc.board
 //           group by b.id
 //
 //           """)
-    Board findBoardAndComments();
+//    Board findBoardAndComments();
 
 //    @Query(""){
 //        public List<Board> find
