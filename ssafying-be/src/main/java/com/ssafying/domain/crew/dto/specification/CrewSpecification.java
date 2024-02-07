@@ -5,10 +5,6 @@ import com.ssafying.domain.crew.entity.Crew;
 import com.ssafying.domain.crew.entity.Region;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Predicate;
-
 public class CrewSpecification {
 
     /*

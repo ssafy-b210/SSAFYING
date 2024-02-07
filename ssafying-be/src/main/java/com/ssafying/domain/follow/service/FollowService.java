@@ -87,12 +87,13 @@ public class FollowService {
      * 2.3.1 팔로잉 리스트 검색
      */
     @Transactional
-    public List<FindFollowingListResponse> searchFollowingByNickname(FindByNicknameRequest request){
+    public List<FindFollowingListResponse> searchFollowingByNickname(int userId, String nickname){
 
-        User selectedUser = userRepository.findById(request.getUserId())
+
+        User selectedUser = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("조회하려는 회원 정보를 찾을 수 없습니다."));
 
-        List<Follow> followList = followRepository.findByToUserAndNickname(selectedUser, "%" + request.getNickname() + "%");
+        List<Follow> followList = followRepository.findByToUserAndNickname(selectedUser, "%" + nickname + "%");
 
         List<FindFollowingListResponse> responseList = new ArrayList<>();
 
@@ -113,12 +114,12 @@ public class FollowService {
      * 2.3.2 팔로워 리스트 검색
      */
     @Transactional
-    public List<FindFollowerListResponse> searchFollowerByNickname(FindByNicknameRequest request){
+    public List<FindFollowerListResponse> searchFollowerByNickname(int userId, String nickname){
 
-        User selectedUser = userRepository.findById(request.getUserId())
+        User selectedUser = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("조회하려는 회원 정보를 찾을 수 없습니다."));
 
-        List<Follow> followList = followRepository.findByFromUserAndNickname(selectedUser, "%" + request.getNickname() + "%");
+        List<Follow> followList = followRepository.findByFromUserAndNickname(selectedUser, "%" + nickname + "%");
 
         List<FindFollowerListResponse> responseList = new ArrayList<>();
 

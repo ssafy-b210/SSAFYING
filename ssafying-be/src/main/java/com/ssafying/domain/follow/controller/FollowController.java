@@ -54,9 +54,10 @@ public class FollowController {
      */
     @GetMapping("/following")
     public ResponseEntity<List<FindFollowingListResponse>> searchFollowingByNickname(
-            @RequestBody FindByNicknameRequest request
+            @RequestParam(name = "userId") int userId,
+            @RequestParam(name = "nickname") String nickname
             ){
-        List<FindFollowingListResponse> responseList = followService.searchFollowingByNickname(request);
+        List<FindFollowingListResponse> responseList = followService.searchFollowingByNickname(userId, nickname);
 
         return ResponseEntity.ok(responseList);
     }
@@ -66,9 +67,10 @@ public class FollowController {
      */
     @GetMapping("/follower")
     public ResponseEntity<List<FindFollowerListResponse>> searchFollowerByNickname(
-            @RequestBody FindByNicknameRequest request
+            @RequestParam(name = "userId") int userId,
+            @RequestParam(name = "nickname") String nickname
     ){
-        List<FindFollowerListResponse> responseList = followService.searchFollowerByNickname(request);
+        List<FindFollowerListResponse> responseList = followService.searchFollowerByNickname(userId, nickname);
 
         return ResponseEntity.ok(responseList);
     }

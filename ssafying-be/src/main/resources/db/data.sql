@@ -19,3 +19,7 @@ values ('구인글1', '내용1', 'SEOUL', 'STUDY', true),
        ('구인글3', '내용3', 'DAEJEON', 'SOCIETY', false),
        ('구인글4', '내용4', 'SEOUL', 'CHALLENGE', false),
        ('구인글5', '내용5', 'GWANGJU', 'STUDY', false);
+
+insert into follow (from_user, to_user)
+values (1, 2), (1, 3), (1, 4), (1, 5), (1,6),
+       (2, 6), (3, 6), (4, 6), (5, 6);
