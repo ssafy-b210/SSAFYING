@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import SubmitBtn from "../../Common/SubmitBtn";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface SignUpFormProps {}
 
@@ -24,8 +25,17 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
     setInputValue({ ...inputValue, [e.target.name]: e.target.value });
   };
 
-  const { name, nickname, email, password, password2, tel, level, campus } =
-    inputValue;
+  const {
+    name,
+    nickname,
+    email,
+    password,
+    password2,
+    tel,
+    level,
+    campus,
+    major,
+  } = inputValue;
 
   //비밀번호와 비밀번호 확인 같은지 체크하기
   const isSame = password === password2;
@@ -40,10 +50,18 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
     tel !== "" &&
     level !== "" &&
     campus !== "" &&
-    // major !== "" &&
+    major !== "" &&
     isSame;
 
-  console.log(isValid);
+  const navigate = useNavigate();
+
+  const handleClickNext = () => {
+    if (!isValid) {
+      alert("빈칸을 모두 채워주세요.");
+    } else {
+      navigate("/tagselect");
+    }
+  };
 
   return (
     <div>
@@ -89,7 +107,7 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
             name="password"
             onChange={handleInputChange}
           />
-          <label htmlFor="password">비밀번호을 입력해주세요</label>
+          <label htmlFor="password">비밀번호을 입력해주세요 (8-12자)</label>
         </SignUpInput>
 
         <SignUpInput className="input-area">
@@ -126,14 +144,15 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
           />
           <label htmlFor="level">기수를 입력해주세요</label>
         </SignUpInput>
-        <Campus>
-          <div>캠퍼스를 선택해주세요</div>
+        <Campus className="campus">
+          <span>캠퍼스를 선택해주세요</span>
           <div className="radio-container">
             <input
               type="radio"
               name="campus"
               className="campusselect"
               onChange={handleInputChange}
+              value="SEOUL"
             />
             서울
             <input
@@ -141,6 +160,7 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
               name="campus"
               className="campusselect"
               onChange={handleInputChange}
+              value="DAEJEON"
             />
             대전
             <input
@@ -148,13 +168,7 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
               name="campus"
               className="campusselect"
               onChange={handleInputChange}
-            />
-            구미
-            <input
-              type="radio"
-              name="campus"
-              className="campusselect"
-              onChange={handleInputChange}
+              value="GWANGJU"
             />
             광주
             <input
@@ -162,11 +176,20 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
               name="campus"
               className="campusselect"
               onChange={handleInputChange}
+              value="GUMI"
+            />
+            구미
+            <input
+              type="radio"
+              name="campus"
+              className="campusselect"
+              onChange={handleInputChange}
+              value="BOOLKYUNG"
             />
             부울경
           </div>
         </Campus>
-        <IsMajor>
+        <IsMajor className="isMajor">
           <span>전공 여부를 선택해주세요</span>
           <div className="radio-container">
             <input
@@ -187,7 +210,11 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
         </IsMajor>
 
         <Link to={"/tagselect"}>
-          <button disabled={isValid ? false : true} className="nextButton">
+          <button
+            onClick={handleClickNext}
+            disabled={isValid ? false : true}
+            className="nextButton"
+          >
             다음으로
           </button>
         </Link>
@@ -200,11 +227,11 @@ export default SignUpForm;
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: start;
+  // align-items: center;
   position: relative;
   padding-right: 45px;
-  padding-left: 45px;
+  // padding-left: 45px;
 
   .nextButton {
     width: 300px;
@@ -217,6 +244,18 @@ const Form = styled.form`
     font-family: "Noto Sans KR";
     font-size: 16px;
     margin-top: 30px;
+  }
+
+  .campus {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+  }
+
+  .isMajor {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
   }
 `;
 const SignUpInput = styled.div`
@@ -237,7 +276,7 @@ const SignUpInput = styled.div`
   }
 
   input {
-    width: 100%;
+    width: 60%;
     height: 40px;
     border: none;
     border-bottom: 2px solid gray;
@@ -267,12 +306,13 @@ const SignUpInput = styled.div`
     font-size: 12px;
   }
 `;
-const Campus = styled.div``;
-const IsMajor = styled.div`
-  span {
-    margin-bottom: 20px;
+const Campus = styled.div`
+  .campusselect {
+    margin-left: 15px;
   }
-  .isMajor {
-    margin: 20px 10px 75px 10px;
+`;
+const IsMajor = styled.div`
+  .major {
+    margin-left: 15px;
   }
 `;

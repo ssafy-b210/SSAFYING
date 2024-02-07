@@ -20,7 +20,7 @@ const FooterWrapper = styled.div`
   position: relative;
   bottom: 0px;
   margin: 0 auto;
-  padding-top: 100px;
+  padding-top: 80%;
   hr {
     width: 100%;
   }
