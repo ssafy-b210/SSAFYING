@@ -3,9 +3,10 @@ import RoundImg from "../../Feed/utils/RoundImg";
 import { Link } from "react-router-dom";
 
 type FollowProfileProps = {
-  isFollowing: boolean;
+  id: number;
   nickname: string;
   userImageUrl: string;
+  isFollowing: boolean;
 };
 
 function FollowProfileListItem(props: FollowProfileProps) {
