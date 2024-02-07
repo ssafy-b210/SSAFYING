@@ -3,6 +3,7 @@ package com.ssafying.domain.market.service;
 import com.ssafying.domain.feed.entity.FeedImage;
 import com.ssafying.domain.market.dto.request.AddMarketRequest;
 import com.ssafying.domain.market.dto.request.ModifyMarketRequest;
+import com.ssafying.domain.market.dto.response.MarketListResponse;
 import com.ssafying.domain.market.entity.Market;
 import com.ssafying.domain.market.entity.MarketImage;
 import com.ssafying.domain.market.repository.jdbc.MarketImageRepository;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -94,10 +96,21 @@ public class MarketService {
      * 게시글 전체 조회
      */
     @Transactional
-    public List<Market> findAllMarkets(){
-        List<Market> list = marketRepository.findAll();
+    public List<MarketListResponse> findAllMarkets() {
+        List<Market> markets = marketRepository.findAll();
+        List<MarketListResponse> responseList = new ArrayList<>();
 
-        return list;
+        for (Market market : markets) {
+            responseList.add(MarketListResponse.builder()
+                    .marketId(market.getMarketId())
+                    .marketWay(market.getMarketWay())
+                    .title(market.getTitle())
+                    .price(market.getPrice())
+                    .isSoldout(market.getIsSoldout())
+                    .build());
+        }
+
+        return responseList;
     }
 
     /*

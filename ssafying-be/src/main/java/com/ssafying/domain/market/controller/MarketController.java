@@ -2,6 +2,7 @@ package com.ssafying.domain.market.controller;
 
 import com.ssafying.domain.market.dto.request.AddMarketRequest;
 import com.ssafying.domain.market.dto.request.ModifyMarketRequest;
+import com.ssafying.domain.market.dto.response.MarketListResponse;
 import com.ssafying.domain.market.entity.Market;
 import com.ssafying.domain.market.service.MarketService;
 import com.ssafying.global.result.ResultResponse;
@@ -67,11 +68,11 @@ public class MarketController {
      */
     @GetMapping
     @Operation(summary = "거래글 전체 조회")
-    public List<Market> marketList(){
+    public ResponseEntity<ResultResponse<List<MarketListResponse>>> marketList(){
 
-        List<Market> list = marketService.findAllMarkets();
+        List<MarketListResponse> result = marketService.findAllMarkets();
 
-        return list;
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
     /*

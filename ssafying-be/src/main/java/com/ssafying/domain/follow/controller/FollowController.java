@@ -78,11 +78,11 @@ public class FollowController {
      * 2.4 팔로우
      */
     @PostMapping("/follow")
-    public Follow follow(@RequestBody AddFollowRequest request){
+    public ResponseEntity<ResultResponse<Integer>> follow(@RequestBody AddFollowRequest request){
 
-        Follow follow = followService.follow(request);
+        int result = followService.follow(request);
 
-        return follow;
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
     /**

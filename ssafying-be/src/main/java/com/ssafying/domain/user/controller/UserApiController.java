@@ -2,6 +2,7 @@ package com.ssafying.domain.user.controller;
 
 import com.ssafying.domain.user.dto.request.RemoveUserRequest;
 import com.ssafying.domain.user.dto.request.UpdateUserRequest;
+import com.ssafying.domain.user.dto.response.UserDetailResponse;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.service.UserService;
 import com.ssafying.global.result.ResultResponse;
@@ -29,11 +30,11 @@ public class UserApiController {
 
     @GetMapping("/{userId}")
     @Operation(summary = "회원 정보 조회")
-    public ResponseEntity<ResultResponse> userDetails(@PathVariable(name = "userId") int userId){
+    public ResponseEntity<ResultResponse<UserDetailResponse>> userDetails(@PathVariable(name = "userId") int userId){
 
-        userService.findUser(userId);
+        UserDetailResponse result = userService.findUserInfo(userId);
 
-        return null;
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
 
     }
 

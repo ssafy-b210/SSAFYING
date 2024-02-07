@@ -140,7 +140,7 @@ public class FollowService {
      * 2.4 팔로우
      */
     @Transactional
-    public Follow follow(AddFollowRequest request){
+    public int follow(AddFollowRequest request){
 
         User fromUser = userRepository.findById(request.getFromUserId())
                 .orElseThrow(() -> new RuntimeException("회원을 찾을 수 없습니다."));
@@ -162,7 +162,7 @@ public class FollowService {
 
         followRepository.save(follow);
 
-        return follow;
+        return toUser.getId();
     }
 
     /**
