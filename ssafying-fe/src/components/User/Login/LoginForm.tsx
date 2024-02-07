@@ -78,7 +78,7 @@ function LoginForm() {
       try {
         const userData = await login(form.email, form.password);
 
-        console.log(userData);
+        console.log("userData" + userData.email);
       } catch (error) {
         console.error("로그인 요청 실패:", error);
         setError("로그인에 실패했습니다. 다시 시도해주세요.");

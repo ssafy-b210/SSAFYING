@@ -42,11 +42,14 @@ export async function login(email: string, password: string) {
     // console.log(token);
     const response = await axios.post(`${REST_AUTH_API}/login`, data);
     //로컬스토리지에서 토큰 가져오기
-    localStorage.setItem("refresh-token", response.data.refreshToken);
-    document.cookie = `access-token=${response.data.accessToken}`;
+    localStorage.setItem(
+      "refresh-token",
+      response.data.resultData.responseHeaders.refreshToken
+    );
+    document.cookie = `access-token=${response.data.resultData.responseHeaders.accessToken}`;
     console.log(response.data);
-    console.log(response.data.refreshToken);
-    return response.data;
+    console.log(response.data.resultData.responseHeaders.accessToken);
+    return response.data.resultData.response;
   } catch (e) {
     console.log(e);
   }
