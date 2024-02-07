@@ -45,6 +45,7 @@ export async function login(email: string, password: string) {
     localStorage.setItem("refresh-token", response.data["refresh-token"]);
     document.cookie = `access-token=${response.data["access-token"]}`;
     console.log(response.data);
+    return response.data;
   } catch (e) {
     console.log(e);
   }
