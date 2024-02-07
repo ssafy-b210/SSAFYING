@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import MoreCommentInput from "../../../Feed/Comment/CommentInput";
 import CrewCommentList from "../../Crew/CrewList/CrewCommentList";
+import saveBtnBlack from "../../../../assets/img/imgBtn/saveBtnBlack.svg";
+import saveBtnWhite from "../../../../assets/img/imgBtn/saveBtnWhite.svg";
+import ImgBtn from "../../../Feed/utils/ImgBtn";
 
 // 카드눌렀을 때 detail 보이게 하기
 interface moreProps {
@@ -18,10 +21,20 @@ const handleCommentSubmit = (comment: string) => {
 };
 
 function BoardMoreModal({ card }: moreProps) {
+  const [isSaved, setIsSaved] = useState(false);
+  const toggleSaved = () => {
+    setIsSaved(!isSaved);
+  };
+
   return (
     <div>
       <Card>
         <Content>
+          <ImgBtn
+            src={isSaved ? saveBtnBlack : saveBtnWhite}
+            size="30px"
+            onClick={toggleSaved}
+          />
           <Title>{card.title}</Title>
           <Writer>
             <div className="small-title">By.</div>
