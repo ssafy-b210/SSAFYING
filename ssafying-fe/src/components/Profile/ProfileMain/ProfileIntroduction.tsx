@@ -1,14 +1,9 @@
 import styled from "styled-components";
 
-function ProfileIntroduction() {
-  const data = {
-    intro:
-      "이애옹이올시다\n싸피 10기 팀제주도 팀장이라구요\naeong123@github.com",
-  };
-
+function ProfileIntroduction(props: { intro: string }) {
   return (
     <StyledProfileIntroduction>
-      <div>{data.intro}</div>
+      <div>{props.intro}</div>
     </StyledProfileIntroduction>
   );
 }

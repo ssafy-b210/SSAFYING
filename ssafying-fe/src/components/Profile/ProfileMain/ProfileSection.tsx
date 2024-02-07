@@ -2,11 +2,11 @@ import ProfileImageContainer from "./ProfileImageContainer";
 import ProfileIntroduction from "./ProfileIntroduction";
 import ProfileLinkList from "./ProfileLinkList";
 
-function ProflieSection() {
+function ProflieSection(props: { profileImageUrl: string; intro: string }) {
   return (
     <div>
-      <ProfileImageContainer />
-      <ProfileIntroduction />
+      <ProfileImageContainer profileImageUrl={props.profileImageUrl} />
+      <ProfileIntroduction intro={props.intro} />
       <ProfileLinkList />
     </div>
   );

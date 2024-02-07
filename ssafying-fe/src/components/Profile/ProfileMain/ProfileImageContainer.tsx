@@ -2,7 +2,7 @@ import styled from "styled-components";
 import userImage from "../../../assets/img/testImg/user.jpg";
 import { Link } from "react-router-dom";
 
-function ProfileImageContainer() {
+function ProfileImageContainer(props: { profileImageUrl: string }) {
   const data = {
     profile: userImage,
     postNum: 54,
