@@ -8,6 +8,7 @@ import PlusBtn from "../../../components/Common/PlusBtn";
 import Modal from "../../../components/Common/Modal";
 import CrewCreateModal from "../../../components/All/Crew/CrewList/CrewCreateModal";
 import CenterHeader from "../../../components/Common/CenterHeader";
+import Footer from "../../../components/Common/Footer";
 
 function CrewList() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -49,6 +50,7 @@ function CrewList() {
         isRecruitingChecked={isRecruitingChecked}
         selectedLocation={selectedLocation}
       ></CrewCardList>
+      <Footer></Footer>
     </Wrapper>
   );
 }

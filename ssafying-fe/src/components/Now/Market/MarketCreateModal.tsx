@@ -6,26 +6,30 @@ import SelectCategory, {
 import MarketPriceInput from "./MarketPriceInput";
 import CreateTitle from "../../All/Board/BoardCreate/CreateTitle";
 import CreateContent from "../../All/Board/BoardCreate/CreateContent";
+import AddPhoto from "./AddPhoto";
+import ImgEdit from "../../Feed/FeedCreate/ImgEdit";
 
 const bigcategory: Option[] = [
-  { value: "1", label: "팝니다" },
-  { value: "2", label: "삽니다" },
-  { value: "3", label: "나눔합니다" },
+  { value: "SELL", label: "팝니다" },
+  { value: "BUY", label: "삽니다" },
+  { value: "SHARE", label: "나눔합니다" },
 ];
 
 const isSold: Option[] = [
-  { value: "1", label: "판매중" },
-  { value: "2", label: "판매완료" },
-  { value: "3", label: "예약중" },
+  { value: "판매중", label: "판매중" },
+  { value: "판매완료", label: "판매완료" },
 ];
 
 function MarketCreateModal() {
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<Option>(
+    bigcategory[0]
+  );
+  const [selectedIsSold, setSelectedIsSold] = useState<Option>(isSold[0]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const handleCategoryChange = (newCategory: string) => {
-    setSelectedCategory(newCategory);
+  const handleCategoryChange = (newCategory: Option) => {
+    // setSelectedCategory(newCategory);
   };
 
   const handleTitleChange = (newTitle: string) => {
@@ -38,22 +42,24 @@ function MarketCreateModal() {
 
   return (
     <ModalWrapper>
+      <SelectCategory
+        category="대분류"
+        options={bigcategory}
+        defaultValue="1"
+        onCategoryChange={handleCategoryChange}
+      ></SelectCategory>
+      <SelectCategory
+        category="거래여부"
+        options={isSold}
+        defaultValue="1"
+        onCategoryChange={handleCategoryChange}
+      ></SelectCategory>
+      <MarketPriceInput></MarketPriceInput>
+      <CreateTitle onTitleChange={handleTitleChange}></CreateTitle>
+      <CreateContent onContentChange={handleContentChange}></CreateContent>
+      <Text>이미지 업로드</Text>
       <ButtonWrapper>
-        <SelectCategory
-          category="대분류"
-          options={bigcategory}
-          defaultValue="1"
-          onCategoryChange={handleCategoryChange}
-        ></SelectCategory>
-        <SelectCategory
-          category="거래여부"
-          options={isSold}
-          defaultValue="1"
-          onCategoryChange={handleCategoryChange}
-        ></SelectCategory>
-        <MarketPriceInput></MarketPriceInput>
-        <CreateTitle onTitleChange={handleTitleChange}></CreateTitle>
-        <CreateContent onContentChange={handleContentChange}></CreateContent>
+        <ImgEdit />
         <button>작성</button>
       </ButtonWrapper>
     </ModalWrapper>
@@ -81,4 +87,10 @@ const ButtonWrapper = styled.div`
     color: white;
     margin-top: 10px;
   }
+`;
+
+const Text = styled.p`
+  font-size: 17px;
+  font-weight: bold;
+  text-align: center;
 `;

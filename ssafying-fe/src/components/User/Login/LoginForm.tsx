@@ -3,10 +3,39 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import profile from "../../../assets/img/userLoginIcons/profile.svg";
 import lock from "../../../assets/img/userLoginIcons/lock.svg";
+import { login } from "../../../apis/api/Auth";
 
 import SubmitBtn from "../../Common/SubmitBtn";
 
 function LoginForm() {
+  const data = {
+    statusCode: "OK",
+    resultMsg: "200 OK",
+    resultData: {
+      response: {
+        id: 1,
+        campus: {
+          campusId: 2,
+          campusRegion: "DAEJEON",
+        },
+        email: "ssafy1@ssafy.com",
+        password: "1234",
+        nickname: "1234",
+        phoneNumber: "010-1111-1111",
+        name: "이싸피",
+        generation: 10,
+        profileImageUrl: null,
+        intro: null,
+        status: "ACTIVE",
+        isMajor: false,
+      },
+      responseHeaders: {
+        Authorization: ["aaaa"],
+        refreshToken: ["aaaa"],
+      },
+    },
+  };
+
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -36,7 +65,7 @@ function LoginForm() {
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const errorMessage =
       validation.email(form.email) ||
       validation.password(form.password) ||
@@ -46,6 +75,14 @@ function LoginForm() {
       setError(errorMessage);
     } else {
       setError(null);
+      try {
+        const userData = await login(form.email, form.password);
+
+        console.log("userData" + userData.email);
+      } catch (error) {
+        console.error("로그인 요청 실패:", error);
+        setError("로그인에 실패했습니다. 다시 시도해주세요.");
+      }
     }
   };
 

@@ -42,7 +42,7 @@ function ContentTabBar() {
           className={activeTab === item.name ? "active" : ""}
           onClick={() => switchActiveTab(item.name)}
         >
-          <img src={item.icon} alt={item.alt} />
+          {/* <img src={item.icon} alt={item.alt} /> */}
         </Link>
       ))}
     </StyledContentTabBar>

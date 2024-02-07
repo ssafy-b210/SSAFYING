@@ -3,7 +3,6 @@ import styled from "styled-components";
 function Footer() {
   return (
     <FooterWrapper>
-      <hr />
       <FooterText>Copyright Team JEJU, B210. All rights reserved.</FooterText>
       <FooterText>Designed by B210</FooterText>
     </FooterWrapper>
@@ -21,7 +20,7 @@ const FooterWrapper = styled.div`
   position: relative;
   bottom: 0px;
   margin: 0 auto;
-  padding-top: 100px;
+  padding-top: 80%;
   hr {
     width: 100%;
   }

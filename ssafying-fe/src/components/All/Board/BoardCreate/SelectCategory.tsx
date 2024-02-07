@@ -10,7 +10,7 @@ interface SelectCategoryProps {
   options: Option[];
   defaultValue: string;
   category: string;
-  onCategoryChange: (newCategory: string) => void;
+  onCategoryChange: (newCategory: Option) => void;
 }
 
 const SelectCategory: React.FC<SelectCategoryProps> = ({
@@ -19,10 +19,14 @@ const SelectCategory: React.FC<SelectCategoryProps> = ({
   category,
   onCategoryChange,
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string>(defaultValue);
+  const [selectedOption, setSelectedOption] = useState<Option>(
+    options.find((option) => option.value === defaultValue) || options[0]
+  );
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newCategory = event.target.value;
+    const selectedValue = event.target.value;
+    const newCategory =
+      options.find((option) => option.value === selectedValue) || options[0];
     setSelectedOption(newCategory);
     onCategoryChange(newCategory);
   };
@@ -32,7 +36,7 @@ const SelectCategory: React.FC<SelectCategoryProps> = ({
       <h4>{category}</h4>
       <CategoryContainer
         className="select-box"
-        value={selectedOption}
+        value={selectedOption.value}
         onChange={handleOptionChange}
       >
         {options.map((option) => (

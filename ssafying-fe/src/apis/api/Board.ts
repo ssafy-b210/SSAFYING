@@ -21,8 +21,9 @@ export async function createBoard(
   try {
     const response = await axios.post("/api/boards", data);
     console.log(response.data);
-  } catch (e) {
-    console.log(e);
+  } catch (e: any) {
+    console.error("Error:", e);
+    console.error("Error-response:", e.response);
   }
 }
 
@@ -65,12 +66,11 @@ export async function deleteBoard(boardId: number) {
 //게시판 게시글 수정
 export async function updateBoard(
   boardId: number,
-  title: string,
-  content: string,
-  category: string
+  title?: string,
+  content?: string,
+  category?: string
 ) {
   const data = {
-    boardId,
     title,
     content,
     category,
@@ -116,4 +116,18 @@ export async function deleteBoardComment(boardCommentId: number) {
 }
 
 // 게시판 게시글 댓글 수정
-// export async function updateBoardComment()
+export async function updateBoardComment(
+  boardCommentId: number,
+  content?: string
+) {
+  const data = { content };
+  try {
+    const response = await axios.patch(
+      `${REST_BOARD_API}/comments/${boardCommentId}`,
+      data
+    );
+    console.log(response.data);
+  } catch (e) {
+    console.log(e);
+  }
+}

@@ -49,6 +49,7 @@ function App() {
           <Route path="/auth" element={<UserAuth />} />
           <Route path="/user/detail" element={<UserDetail />} />
           <Route path="/user/leave" element={<UserLeave />} />
+          <Route path="/user/update" element={<UserUpdate />} />
 
           <Route path="/all" element={<AllMenu />} />
           <Route path="/board" element={<BoardList />} />

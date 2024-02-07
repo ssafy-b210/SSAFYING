@@ -1,7 +1,30 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { logout } from "../../../apis/api/Auth";
+import { useNavigate } from "react-router-dom";
+import { selectOneUserInfo } from "../../../apis/api/User";
 
 function ProflieSetting() {
+  const navigate = useNavigate();
+  const callLogout = () => {
+    try {
+      // logout(1)안에는 loginId로 나중에 바꾸기
+      logout(1);
+      navigate("/");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const callUserInfo = () => {
+    try {
+      // logout(1)안에는 loginId로 나중에 바꾸기
+      selectOneUserInfo(1);
+      navigate("/user/detail");
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <StyledProfileSetting>
       <Link to="/user/detail">

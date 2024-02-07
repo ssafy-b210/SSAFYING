@@ -7,6 +7,7 @@ import PlusBtn from "../../../components/Common/PlusBtn";
 import Modal from "../../../components/Common/Modal";
 import MarketCreateModal from "../../../components/Now/Market/MarketCreateModal";
 import CenterHeader from "../../../components/Common/CenterHeader";
+import Footer from "../../../components/Common/Footer";
 
 function MarketList() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -30,6 +31,7 @@ function MarketList() {
       />
       <MarketSortTab onCategoryChange={handleCategoryChange}></MarketSortTab>
       <MarketCardList selectedCategory={selectedCategory}></MarketCardList>
+      <Footer></Footer>
     </Wrapper>
   );
 }

@@ -3,19 +3,17 @@ import styled from "styled-components";
 import UserDefaultImg from "../../../assets/img/userIcons/userProfileImg.svg";
 function UserProfile() {
   return (
-    <div>
-      <Profile>
-        <ProfileImg>
-          <div className="img-container">
-            <img src={UserDefaultImg} alt="user-profile-img"></img>
-          </div>
-        </ProfileImg>
-        <MyIntroduction>
-          <h3>이예원</h3>
-          <p>youremail@domain.com</p>
-        </MyIntroduction>
-      </Profile>
-    </div>
+    <Profile>
+      <ProfileImg>
+        <div className="img-container">
+          <img src={UserDefaultImg} alt="user-profile-img"></img>
+        </div>
+      </ProfileImg>
+      <MyIntroduction>
+        <h3>이예원</h3>
+        <p>youremail@domain.com</p>
+      </MyIntroduction>
+    </Profile>
   );
 }
 export default UserProfile;
@@ -27,20 +25,23 @@ const Profile = styled.div`
 const ProfileImg = styled.div`
   display: flex;
   justify-content: center;
+  alilgn-items: center;
   .img-container {
     border: none;
     border-radius: 50%;
     height: 100px;
     width: 100px;
-    background-color: #d9d9d9;
+    background-color: white;
     position: absolute;
   }
   img {
     position: relative;
     z-index: 1;
-    left: 16px;
-    top: 4px;
+    left: 22px;
+    top: 10px;
     object-fit: cover;
+    width: 70%;
+    height: 70%;
   }
 `;
 const MyIntroduction = styled.div`
