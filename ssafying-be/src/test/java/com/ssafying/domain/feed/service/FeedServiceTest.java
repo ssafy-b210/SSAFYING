@@ -53,7 +53,7 @@ class FeedServiceTest {
                 .build();
 
         // when
-        int savedId = feedService.addFeed(request);
+        int savedId = Math.toIntExact(feedService.addFeed(request));
 
         em.flush();
         em.clear();
