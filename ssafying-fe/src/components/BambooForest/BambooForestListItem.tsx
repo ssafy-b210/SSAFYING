@@ -68,7 +68,6 @@ const Time = styled.h2`
 const Copy = styled.p`
   font-family: var(--font-serif);
   font-size: 1.125rem;
-
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;

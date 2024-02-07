@@ -3,8 +3,9 @@ import styled from "styled-components";
 
 function AddPhoto() {
   const imagePreviewRef = useRef<HTMLUListElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleUploadImage = (e: ChangeEvent<HTMLInputElement>) => {
     const uploadFiles = Array.from(e.currentTarget.files as FileList);
 
     if (
@@ -47,13 +48,12 @@ function AddPhoto() {
         📷 Upload Images
       </UploadButton>
       <PhotoInputContainer>
-        <PhotoRealInput
+        <input
           type="file"
-          className="real-upload"
-          accept="image/*"
-          required
+          ref={inputRef}
+          style={{ display: "none" }}
+          onChange={handleUploadImage}
           multiple
-          onChange={handleImageChange}
         />
         <PhotoInput>
           <ul ref={imagePreviewRef}></ul>
@@ -83,10 +83,6 @@ const PhotoInputContainer = styled.div`
   flex-direction: column;
   align-items: left;
   margin-left: 20px;
-`;
-
-const PhotoRealInput = styled.input`
-  display: none;
 `;
 
 const PhotoInput = styled.div`

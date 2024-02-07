@@ -7,6 +7,7 @@ import MarketPriceInput from "./MarketPriceInput";
 import CreateTitle from "../../All/Board/BoardCreate/CreateTitle";
 import CreateContent from "../../All/Board/BoardCreate/CreateContent";
 import AddPhoto from "./AddPhoto";
+import ImgEdit from "../../Feed/FeedCreate/ImgEdit";
 
 const bigcategory: Option[] = [
   { value: "SELL", label: "팝니다" },
@@ -41,23 +42,24 @@ function MarketCreateModal() {
 
   return (
     <ModalWrapper>
+      <SelectCategory
+        category="대분류"
+        options={bigcategory}
+        defaultValue="1"
+        onCategoryChange={handleCategoryChange}
+      ></SelectCategory>
+      <SelectCategory
+        category="거래여부"
+        options={isSold}
+        defaultValue="1"
+        onCategoryChange={handleCategoryChange}
+      ></SelectCategory>
+      <MarketPriceInput></MarketPriceInput>
+      <CreateTitle onTitleChange={handleTitleChange}></CreateTitle>
+      <CreateContent onContentChange={handleContentChange}></CreateContent>
+      <Text>이미지 업로드</Text>
       <ButtonWrapper>
-        <SelectCategory
-          category="대분류"
-          options={bigcategory}
-          defaultValue="1"
-          onCategoryChange={handleCategoryChange}
-        ></SelectCategory>
-        <SelectCategory
-          category="거래여부"
-          options={isSold}
-          defaultValue="1"
-          onCategoryChange={handleCategoryChange}
-        ></SelectCategory>
-        <MarketPriceInput></MarketPriceInput>
-        <CreateTitle onTitleChange={handleTitleChange}></CreateTitle>
-        <AddPhoto></AddPhoto>
-        <CreateContent onContentChange={handleContentChange}></CreateContent>
+        <ImgEdit />
         <button>작성</button>
       </ButtonWrapper>
     </ModalWrapper>
@@ -85,4 +87,10 @@ const ButtonWrapper = styled.div`
     color: white;
     margin-top: 10px;
   }
+`;
+
+const Text = styled.p`
+  font-size: 17px;
+  font-weight: bold;
+  text-align: center;
 `;

@@ -46,6 +46,7 @@ export async function login(email: string, password: string) {
     document.cookie = `access-token=${response.data.accessToken}`;
     console.log(response.data);
     console.log(response.data.refreshToken);
+    return response.data;
   } catch (e) {
     console.log(e);
   }
