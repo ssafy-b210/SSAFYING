@@ -42,6 +42,11 @@ public class FeedComment extends BaseTimeEntity {
     @JoinColumn(name = "parent_id")
     private List<FeedComment> childComments = new ArrayList<>(); // 자식댓글
 
+    @OneToMany(mappedBy = "feedComment", cascade = CascadeType.ALL)
+    private List<FeedCommentLike> commentLikes = new ArrayList<>();
+
+
+
     public static FeedComment createComment(
             User user,
             Feed feed,
