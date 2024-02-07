@@ -2,8 +2,10 @@ package com.ssafying.domain.user.controller;
 
 import com.ssafying.domain.user.dto.request.CreateUserRequest;
 import com.ssafying.domain.user.dto.request.LoginRequest;
-import com.ssafying.domain.user.dto.request.LogoutRequest;
+import com.ssafying.domain.user.dto.LoginHeaderDto;
+import com.ssafying.domain.user.dto.response.LoginResponse;
 import com.ssafying.domain.user.entity.User;
+import com.ssafying.domain.user.repository.jdbc.UserRepository;
 import com.ssafying.domain.user.service.UserAuthService;
 import com.ssafying.global.config.jwt.TokenProvider;
 import com.ssafying.domain.user.dto.request.CreateAccessTokenRequest;
@@ -34,6 +36,8 @@ public class UserAuthController {
     private final TokenService tokenService;
     private final RefreshTokenService refreshTokenService;
 
+    private final UserRepository userRepository;
+
 
     private final Duration TOKEN_EXPIRES = Duration.ofHours(7); // 7시간
 
@@ -59,10 +63,13 @@ public class UserAuthController {
      */
     @PostMapping("/login")
     @Operation(summary = "로그인")
-    public ResponseEntity<Map<String, String>> login(@RequestBody @Valid LoginRequest request) {
+    public ResponseEntity<ResultResponse<LoginHeaderDto>> login(@RequestBody @Valid LoginRequest request) {
 
         //로그인 시도
-        User user = userAuthService.login(request.getEmail(), request.getPassword());
+        LoginResponse response = userAuthService.login(request);
+
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("유저 정보를 찾을 수 없습니다."));
 
         //성공
         if (user != null) {
@@ -79,7 +86,12 @@ public class UserAuthController {
             responseHeaders.setBearerAuth(tokens.get("accessToken"));
             responseHeaders.add("refreshToken", tokens.get("refreshToken"));
 
-            return ResponseEntity.ok().headers(responseHeaders).build();
+            LoginHeaderDto result = LoginHeaderDto.builder()
+                    .response(response)
+                    .responseHeaders(responseHeaders)
+                    .build();
+
+            return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
 
             //실패
         } else {

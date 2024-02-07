@@ -29,8 +29,8 @@ public class User extends BaseTimeEntity {
     private int id; //회원 id
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "campus_id")
     @JsonIgnore
+    @JoinColumn(name = "campus_id")
     private Campus campus; //캠퍼스
 
     @Column(unique = true)

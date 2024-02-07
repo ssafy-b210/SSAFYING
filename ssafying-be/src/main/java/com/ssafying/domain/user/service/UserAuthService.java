@@ -2,7 +2,10 @@ package com.ssafying.domain.user.service;
 
 import com.ssafying.domain.shuttle.entity.Campus;
 import com.ssafying.domain.shuttle.repository.jdbc.CampusRepository;
+import com.ssafying.domain.user.dto.CampusDto;
 import com.ssafying.domain.user.dto.request.CreateUserRequest;
+import com.ssafying.domain.user.dto.request.LoginRequest;
+import com.ssafying.domain.user.dto.response.LoginResponse;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
 import com.ssafying.global.config.jwt.TokenProvider;
@@ -10,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -56,14 +61,35 @@ public class UserAuthService {
      * 로그인
      */
     @Transactional
-    public User login(String email, String password){
+    public LoginResponse login(LoginRequest request){
 
-        User user = userRepository.findByEmail(email)
+        User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("로그인 실패"));
 
+        CampusDto dto = CampusDto.builder()
+                .campusId(user.getCampus().getCampusId())
+                .campusRegion(user.getCampus().getCampusRegion())
+                .build();
+
+        //user build
+        LoginResponse response = LoginResponse.builder()
+                .id(user.getId())
+                .campus(dto)
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .nickname(user.getPassword())
+                .phoneNumber(user.getPhoneNumber())
+                .name(user.getName())
+                .generation(user.getGeneration())
+                .profileImageUrl(user.getProfileImageUrl())
+                .intro(user.getIntro())
+                .status(user.getStatus())
+                .isMajor(user.getIsMajor())
+                .build();
+
         //패스워드 검증
-        if(user.getPassword().equals(password)){
-            return user;
+        if(user.getPassword().equals(request.getPassword())){
+            return response;
         }else{
             return null;
         }
