@@ -29,6 +29,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/auth")
 @Tag(name = "회원가입, 로그인")
+@CrossOrigin("*")
 public class UserAuthController {
 
     private final UserAuthService userAuthService;

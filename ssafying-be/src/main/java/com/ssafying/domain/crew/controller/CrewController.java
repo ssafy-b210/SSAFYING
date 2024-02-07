@@ -29,6 +29,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/crew")
 @Tag(name = "구해요 게시판")
+@CrossOrigin("*")
 public class CrewController {
 
     private final CrewService crewService;

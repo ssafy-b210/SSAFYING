@@ -21,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/users")
 @Tag(name = "팔로우")
+@CrossOrigin("*")
 public class FollowController {
 
     private final FollowService followService;

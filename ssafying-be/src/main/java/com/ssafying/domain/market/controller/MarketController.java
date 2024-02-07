@@ -19,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/market")
 @Tag(name = "중고거래 게시판")
+@CrossOrigin("*")
 public class MarketController {
 
     private final MarketService marketService;

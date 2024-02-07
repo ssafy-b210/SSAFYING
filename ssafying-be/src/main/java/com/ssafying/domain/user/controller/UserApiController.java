@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/users")
 @Tag(name = "유저")
+@CrossOrigin("*")
 public class UserApiController {
 
     private final UserService userService;
