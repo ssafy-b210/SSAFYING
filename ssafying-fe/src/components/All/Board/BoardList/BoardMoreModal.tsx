@@ -6,7 +6,7 @@ import saveBtnWhite from "../../../../assets/img/imgBtn/saveBtnWhite.svg";
 import ImgBtn from "../../../Feed/utils/ImgBtn";
 import { scrapBoard } from "../../../../apis/api/Board";
 import { cancelscrapBoard } from "../../../../apis/api/Board";
-import BoardCommentList from "./BoardCommentList";
+// import BoardCommentList from "./BoardCommentList";
 
 // 카드눌렀을 때 detail 보이게 하기
 interface moreProps {
@@ -16,22 +16,17 @@ interface moreProps {
     content: string;
     category: string;
   };
+  boardId: number;
 }
 
 const handleCommentSubmit = (comment: string) => {
   console.log("Comment submitted:", comment);
 };
 
-function BoardMoreModal({ card }: moreProps) {
+function BoardMoreModal({ card, boardId }: moreProps) {
   const [isSaved, setIsSaved] = useState(false);
   const toggleSaved = () => {
     setIsSaved(!isSaved);
-    if (!isSaved) {
-      //scrapBoard(userId, boardId)
-      scrapBoard(1, 1);
-    } else {
-      cancelscrapBoard(1, 1);
-    }
   };
 
   return (
@@ -56,6 +51,7 @@ function BoardMoreModal({ card }: moreProps) {
         </Content>
         <CommentContainer>
           <BoardCommentList />
+          {/* <BoardCommentList /> */}
           <MoreCommentInput onSubmit={handleCommentSubmit}></MoreCommentInput>
         </CommentContainer>
       </Card>
