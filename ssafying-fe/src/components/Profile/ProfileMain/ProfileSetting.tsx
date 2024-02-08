@@ -1,18 +1,26 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { logout } from "../../../apis/api/Auth";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { selectOneUserInfo } from "../../../apis/api/User";
+import { logout } from "../../../store/reducers/user";
+import { selectUser } from "../../../store/reducers/user";
 
 function ProflieSetting() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
+
   const callLogout = () => {
-    try {
-      // logout(1)안에는 loginId로 나중에 바꾸기
-      logout(1);
-      navigate("/");
-    } catch (e) {
-      console.log(e);
+    if (window.confirm("로그아웃하시겠습니까?")) {
+      window.location.href = "/";
+      try {
+        // logout(1)안에는 loginId로 나중에 바꾸기
+        dispatch(logout()); // logout() 함수를 dispatch 합니다.
+        navigate("/");
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
@@ -31,14 +39,7 @@ function ProflieSetting() {
         <Button>회원정보</Button>
       </Link>
       <Link to="/">
-        <Button
-          className="danger"
-          onClick={() => {
-            if (window.confirm("로그아웃하시겠습니까?")) {
-              window.location.href = "/";
-            }
-          }}
-        >
+        <Button className="danger" onClick={callLogout}>
           로그아웃
         </Button>
       </Link>

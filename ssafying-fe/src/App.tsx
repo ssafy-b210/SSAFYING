@@ -1,4 +1,10 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
 import UserSignup from "./pages/User/UserSignup";
@@ -37,13 +43,19 @@ import BusRealTimeMap from "./pages/Now/BusRealTime/BusRealTimeMap";
 import SavedFeedList from "./components/Profile/Saved/SavedFeedList";
 import SavedBoardList from "./components/Profile/Saved/SavedBoardList";
 import SavedRecruitmentList from "./components/Profile/Saved/SavedRecruitmentList";
+import { useAppSelector } from "./store/hooks";
+import { RootState } from "./store";
 
 function App() {
+  const isLoggedIn = useAppSelector(
+    (state: RootState) => state.user.isLoggedIn
+  );
+
   return (
     <AppWrapper>
       <Wrapper>
         <Routes>
-          <Route path="/" element={<UserLogin />} />
+          <Route path="/login" element={<UserLogin />} />
           <Route path="/signup" element={<UserSignup />} />
           <Route path="/tagselect" element={<UserSelectTag />} />
           <Route path="/auth" element={<UserAuth />} />
@@ -85,8 +97,19 @@ function App() {
           <Route path="/direct" element={<DirectMessageChats />} />
           <Route path="/direct/:id" element={<DirectMessageChattingRoom />} />
           <Route path="/meal/create" element={<MealPlannerCreate />} />
+          {/* 로그인된 사용자의 경우 '/' 경로로 리디렉션 */}
+          <Route
+            path="*"
+            element={
+              isLoggedIn ? (
+                <Navigate to="/feedhome" />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
         </Routes>
-        <BottomNavBar />
+        {isLoggedIn && <BottomNavBar />}
       </Wrapper>
     </AppWrapper>
   );

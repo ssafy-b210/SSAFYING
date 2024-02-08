@@ -6,6 +6,8 @@ import { REACT_APP_TMAP_API_KEY } from "./apis/constants";
 import { loadTMAPScript } from "./apis/api/shuttle/tmap";
 import { Provider } from "react-redux";
 import store from "./store";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
 
 // loadTMAPScript(REACT_APP_TMAP_API_KEY)
 // .then(() => {
