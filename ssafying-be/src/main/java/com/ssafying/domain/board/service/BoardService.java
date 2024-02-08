@@ -142,23 +142,25 @@ public class BoardService {
         for (BoardComment comment : commentList) {
             List<ChildCommentDTO> childCommentDTOList = new ArrayList<>();
 
-            if (comment.getParentComment() == null) { // 부모댓글인 경우
+            if (comment.getParentComment() != null) continue; //자식댓글인 경우
 
-                // 자식댓글 갖고옴
-                List<BoardComment> childComment = boardCommentRepository.findChildComment(comment.getId());
+//            if (comment.getParentComment() == null) { // 부모댓글인 경우
 
-                // 자식댓글 list 를 하나씩 돌면서 response 에 들어갈 DTO 에 넣어줌
-                for (BoardComment boardComment : childComment) { //자식댓글 하나씩 돌면서 DTO 에 내용 넣어줌
-                    ChildCommentDTO build = ChildCommentDTO.builder()
-                            .comment(boardComment.getContent())
-                            .userName(boardComment.getUser().getName())
-                            .isAnonymous(boardComment.isAnonymous())
-                            .createdAt(boardComment.getCreatedAt())
-                            .build();
+            // 자식댓글 갖고옴
+            List<BoardComment> childComment = boardCommentRepository.findChildComment(comment.getId());
 
-                    childCommentDTOList.add(build);
-                }
+            // 자식댓글 list 를 하나씩 돌면서 response 에 들어갈 DTO 에 넣어줌
+            for (BoardComment boardComment : childComment) { //자식댓글 하나씩 돌면서 DTO 에 내용 넣어줌
+                ChildCommentDTO build = ChildCommentDTO.builder()
+                        .comment(boardComment.getContent())
+                        .userName(boardComment.getUser().getName())
+                        .isAnonymous(boardComment.isAnonymous())
+                        .createdAt(boardComment.getCreatedAt())
+                        .build();
+
+                childCommentDTOList.add(build);
             }
+//            }
 
             // 해당 댓글 DTO 를 만들어줌
             ParentCommentDTO parentCommentDTO = ParentCommentDTO.builder()
