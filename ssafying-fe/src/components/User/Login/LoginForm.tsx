@@ -12,34 +12,6 @@ import SubmitBtn from "../../Common/SubmitBtn";
 function LoginForm() {
   const dispatch = useAppDispatch();
 
-  const data = {
-    statusCode: "OK",
-    resultMsg: "200 OK",
-    resultData: {
-      response: {
-        id: 1,
-        campus: {
-          campusId: 2,
-          campusRegion: "DAEJEON",
-        },
-        email: "ssafy1@ssafy.com",
-        password: "1234",
-        nickname: "1234",
-        phoneNumber: "010-1111-1111",
-        name: "이싸피",
-        generation: 10,
-        profileImageUrl: null,
-        intro: null,
-        status: "ACTIVE",
-        isMajor: false,
-      },
-      responseHeaders: {
-        Authorization: ["aaaa"],
-        refreshToken: ["aaaa"],
-      },
-    },
-  };
-
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -86,7 +58,7 @@ function LoginForm() {
 
         dispatch(
           saveUserInfo({
-            isAuthorized: true,
+            isLoggedIn: true,
             userId: userData.id,
             username: userData.name,
             nickname: userData.nickname,

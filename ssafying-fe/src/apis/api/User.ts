@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { axios } from "../utils/axios";
 import { log } from "console";
-
 const REST_USER_API = `/api/users`;
 
 // 회원 정보 조회

@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
 interface UserState {
-  isAuthorized: boolean;
+  isLoggedIn: boolean;
   userId: number;
   username: string;
   nickname: string;
@@ -11,7 +11,7 @@ interface UserState {
 }
 
 const initialState: UserState = {
-  isAuthorized: false,
+  isLoggedIn: false,
   userId: 0,
   username: "",
   nickname: "",
@@ -28,7 +28,7 @@ export const userSlice = createSlice({
     },
     logout: () => initialState,
     saveUserInfo: (state, action: PayloadAction<UserState>) => {
-      state.isAuthorized = action.payload.isAuthorized;
+      state.isLoggedIn = action.payload.isLoggedIn;
       state.userId = action.payload.userId;
       state.username = action.payload.username;
       state.nickname = action.payload.nickname;
