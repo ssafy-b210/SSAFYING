@@ -31,6 +31,7 @@ export async function createBoard(
 
 //게시판 게시글 스크랩
 export async function scrapBoard(userId: number, boardId: number) {
+  console.log(userId, boardId);
   try {
     const response = await axios.post("/api/boards/scrap", { userId, boardId });
     console.log(response.data);

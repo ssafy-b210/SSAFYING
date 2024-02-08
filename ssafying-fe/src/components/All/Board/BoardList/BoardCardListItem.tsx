@@ -13,7 +13,6 @@ interface BoardItemProps {
 }
 
 function BoardCardListItem({ card, index }: BoardItemProps) {
-  const boardId = index;
   return (
     <div>
       <Card key={index}>
@@ -35,7 +34,7 @@ function BoardCardListItem({ card, index }: BoardItemProps) {
             </Content>
             <Button>
               <Modal btnTxt="더보기">
-                <BoardMoreModal card={card} boardId={boardId} />
+                <BoardMoreModal card={card} />
               </Modal>
             </Button>
           </Back>
