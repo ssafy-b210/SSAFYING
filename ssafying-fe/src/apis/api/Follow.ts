@@ -24,7 +24,7 @@ export async function selectFollowerList(userId: number) {
 export async function searchFollowingList(userId: number, nickname: string) {
   try {
     const response = await axios.get(`${REST_USERS_API}/following`, {
-      data: {
+      params: {
         userId,
         nickname,
       },
@@ -38,10 +38,13 @@ export async function searchFollowingList(userId: number, nickname: string) {
 // 팔로워 리스트 검색 결과 조회
 export async function searchFollowerList(userId: number, nickname: string) {
   try {
+    console.log("userId", userId);
+    console.log("nickname", nickname);
+
     const response = await axios.get(`${REST_USERS_API}/follower`, {
-      data: {
+      params: {
         userId: userId,
-        nickname: nickname,
+        nickname: nickname.length > 0 ? nickname : "",
       },
     });
     console.log(response);

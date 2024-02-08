@@ -29,7 +29,8 @@ function FollowerList() {
 
   function handleEnterKeyFromSearch(e: KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") {
-      searchFollowers(4);
+      console.log(e.key);
+      searchFollowers(1);
     }
   }
 
@@ -39,27 +40,31 @@ function FollowerList() {
   }
 
   async function searchFollowers(userId: number) {
+    searchFollowerList(userId, searchValue);
+
     // const res: any = await searchFollowerList(userId, searchValue);
 
-    const res: any = [
-      {
-        id: 5,
-        nickname: "폭주기관차",
-        profileImageUrl: null,
-      },
-      {
-        id: 2,
-        nickname: "리오레이비",
-        profileImageUrl: null,
-      },
-      {
-        id: 3,
-        nickname: "숭",
-        profileImageUrl: null,
-      },
-    ];
+    // console.log(res);
 
-    setFollowers(res);
+    // const res: any = [
+    //   {
+    //     id: 5,
+    //     nickname: "폭주기관차",
+    //     profileImageUrl: null,
+    //   },
+    //   {
+    //     id: 2,
+    //     nickname: "리오레이비",
+    //     profileImageUrl: null,
+    //   },
+    //   {
+    //     id: 3,
+    //     nickname: "숭",
+    //     profileImageUrl: null,
+    //   },
+    // ];
+
+    // setFollowers(res);
   }
 
   useEffect(() => {
