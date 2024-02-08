@@ -39,7 +39,7 @@ function ProflieContainer() {
 
   return (
     <StyledProfileContainer>
-      <ProfileHeader nickname={profileDetail.nickname} />
+      <ProfileHeader />
       <ProflieSection
         profileImageUrl={profileDetail.profileImageUrl}
         intro={profileDetail.intro}
