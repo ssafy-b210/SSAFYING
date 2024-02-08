@@ -7,9 +7,11 @@ import com.ssafying.domain.board.dto.request.ModifyBoardCommentRequest;
 import com.ssafying.domain.board.dto.request.ModifyBoardRequest;
 import com.ssafying.domain.board.dto.request.ScrapBoardRequest;
 import com.ssafying.domain.board.dto.response.FindDetailBoardResponse;
+import com.ssafying.domain.board.dto.response.FindListBoardResponse;
 import com.ssafying.domain.board.entity.Board;
 import com.ssafying.domain.board.entity.BoardComment;
 import com.ssafying.domain.board.entity.BoardScrap;
+import com.ssafying.domain.board.entity.CategoryStatus;
 import com.ssafying.domain.board.repository.jdbc.BoardCommentRepository;
 import com.ssafying.domain.board.repository.jdbc.BoardRepository;
 import com.ssafying.domain.board.repository.jdbc.BoardScarpRepository;
@@ -64,16 +66,40 @@ public class BoardService {
     /**
      * 5.2 게시판 게시글 조회
      */
-    public List<Board> findBoard(int pageNo, String searchCategory, String searchWord) {
+    public List<FindListBoardResponse> findBoard(CategoryStatus searchCategory, String searchWord) {
 
-        //searchCategory 검사하기
-        //searchCategory 가 enum 값 중에서 없다면? 에러
+        System.out.println("BoardService.findBoard");
+        System.out.println("searchCategory = " + searchCategory);
+        System.out.println("searchWord = " + searchWord);
 
-        //**스크랩여부, 유저이름, 익명여부, 제목,필요
+        // 제목 검색 조건과 카테고리를 이용하여 board 검색
+        List<Board> boardList = null;
 
-//        boardRepository.
+        if (searchCategory == null && searchWord == null) {
+            boardList = boardRepository.findBoard();
+        } else if (searchCategory != null && searchWord != null) {
+            boardList = boardRepository.findBoardList(searchCategory, searchWord);
+        } else if (searchCategory == null && searchWord != null) {
+            boardList = boardRepository.findByTitleContaining(searchWord);
+        } else if (searchCategory != null && searchWord == null) {
+            boardList = boardRepository.findByCategory(searchCategory);
+        }
 
-        return null;
+        //Response DTO 로 변환
+        List<FindListBoardResponse> response = new ArrayList<>();
+        for (Board board : boardList) {
+            FindListBoardResponse build = FindListBoardResponse.builder()
+                    .userName(board.getUser().getName())
+                    .isAnonymous(board.isAnonymous())
+                    .title(board.getTitle())
+                    .category(board.getCategory())
+                    .createAt(board.getCreatedAt())
+                    .build();
+
+            response.add(build);
+        }
+
+        return response;
     }
 
     /**
