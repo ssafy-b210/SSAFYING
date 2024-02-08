@@ -2,6 +2,8 @@ package com.ssafying.domain.board.controller;
 
 import com.ssafying.domain.board.dto.request.*;
 import com.ssafying.domain.board.dto.response.FindDetailBoardResponse;
+import com.ssafying.domain.board.dto.response.FindListBoardResponse;
+import com.ssafying.domain.board.entity.CategoryStatus;
 import com.ssafying.domain.board.service.BoardService;
 import com.ssafying.domain.board.service.command.AddBoardCommentCommand;
 import com.ssafying.global.result.ResultResponse;
@@ -10,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 //@Api
 @RestController
@@ -35,25 +39,18 @@ public class BoardController {
     /**
      * 5.2 게시판 게시글 조회
      */
-//    @GetMapping
-//    public ResponseEntity<ResultResponse> boardList(
-//            @RequestParam(defaultValue = "1") int pageNo, //몇번째 페이지인지
-//            @RequestParam String searchCategory, //게시글 중 어떤 카테고리인지
-//            @RequestParam(required = false) String searchWord //검색어가 있는 경우
-//    ) {
-//        boardService.findBoard(pageNo, searchCategory, searchWord);
-////        CategoryStatus employment = CategoryStatus.valueOf("EMPLOYMENT");
-//
-//        return null;
-//    }
-
     @GetMapping
-    public ResponseEntity<ResultResponse> boardList(
-
+    public ResponseEntity<ResultResponse<List<FindListBoardResponse>>> boardList(
+            /* @RequestParam(defaultValue = "1") int pageNo, //몇번째 페이지인지 */
+            @RequestParam(name = "searchCategory", required = false) CategoryStatus searchCategory, //게시글 중 어떤 카테고리인지
+            @RequestParam(name = "searchWord", required = false) String searchWord //검색어가 있는 경우
     ) {
+        System.out.println("searchCategory = " + searchCategory);
+        System.out.println("searchWord = " + searchWord);
 
+        List<FindListBoardResponse> result = boardService.findBoard(/*pageNo,*/ searchCategory, searchWord);
 
-        return null;
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
 
