@@ -40,4 +40,7 @@ function BoardList() {
 }
 
 export default BoardList;
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  // padding: 12px;
+  // 반응형으로 나중에!! 설정
+`;

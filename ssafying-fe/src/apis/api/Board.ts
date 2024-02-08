@@ -31,20 +31,24 @@ export async function createBoard(
 
 //게시판 게시글 스크랩
 export async function scrapBoard(userId: number, boardId: number) {
+  console.log(userId, boardId);
   try {
-    const data = { userId, boardId };
-    const response = await axios.post(`${REST_BOARD_API}/scrap`, data);
+    const response = await axios.post("/api/boards/scrap", { userId, boardId });
     console.log(response.data);
   } catch (e) {
-    console.error(e);
+    console.log(e);
   }
 }
 
 //게시판 게시글 스크랩 취소
-export async function cancelscarpBoard(userId: number, boardId: number) {
+export async function cancelscrapBoard(userId: number, boardId: number) {
   try {
-    const data = { userId, boardId };
-    const response = await axios.delete(`${REST_BOARD_API}/scrap`, { data });
+    const response = await axios.delete("/api/boards/scrap", {
+      data: {
+        userId: userId,
+        boardId: boardId,
+      },
+    });
     console.log(response.data);
   } catch (e) {
     console.log(e);

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import MoreCommentInput from "../../../Feed/Comment/CommentInput";
-import CrewCommentList from "../../Crew/CrewList/CrewCommentList";
 import saveBtnBlack from "../../../../assets/img/imgBtn/saveBtnBlack.svg";
 import saveBtnWhite from "../../../../assets/img/imgBtn/saveBtnWhite.svg";
 import ImgBtn from "../../../Feed/utils/ImgBtn";
+import { scrapBoard } from "../../../../apis/api/Board";
+import { cancelscrapBoard } from "../../../../apis/api/Board";
+import BoardCommentList from "./BoardCommentList";
 
 // 카드눌렀을 때 detail 보이게 하기
 interface moreProps {
@@ -24,6 +26,12 @@ function BoardMoreModal({ card }: moreProps) {
   const [isSaved, setIsSaved] = useState(false);
   const toggleSaved = () => {
     setIsSaved(!isSaved);
+    if (!isSaved) {
+      //scrapBoard(userId, boardId)
+      scrapBoard(1, 1);
+    } else {
+      cancelscrapBoard(1, 1);
+    }
   };
 
   return (
@@ -47,6 +55,7 @@ function BoardMoreModal({ card }: moreProps) {
           <hr />
         </Content>
         <CommentContainer>
+          <BoardCommentList />
           <MoreCommentInput onSubmit={handleCommentSubmit}></MoreCommentInput>
         </CommentContainer>
       </Card>
