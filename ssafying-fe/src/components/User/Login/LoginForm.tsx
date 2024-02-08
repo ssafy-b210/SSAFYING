@@ -4,10 +4,14 @@ import { Link } from "react-router-dom";
 import profile from "../../../assets/img/userLoginIcons/profile.svg";
 import lock from "../../../assets/img/userLoginIcons/lock.svg";
 import { login } from "../../../apis/api/Auth";
+import { useAppDispatch } from "../../../store/hooks";
+import { saveUserInfo } from "../../../store/reducers/user";
 
 import SubmitBtn from "../../Common/SubmitBtn";
 
 function LoginForm() {
+  const dispatch = useAppDispatch();
+
   const data = {
     statusCode: "OK",
     resultMsg: "200 OK",
@@ -79,6 +83,17 @@ function LoginForm() {
         const userData = await login(form.email, form.password);
 
         console.log("userData" + userData.email);
+
+        dispatch(
+          saveUserInfo({
+            isAuthorized: true,
+            userId: userData.id,
+            username: userData.name,
+            nickname: userData.nickname,
+            campus: userData.campus.campusRegion,
+            profileImgUrl: userData.profileImgUrl,
+          })
+        );
       } catch (error) {
         console.error("로그인 요청 실패:", error);
         setError("로그인에 실패했습니다. 다시 시도해주세요.");

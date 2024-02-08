@@ -1,14 +1,20 @@
 import styled from "styled-components";
 import { useAppSelector } from "../../../store/hooks";
-import { RootState } from "../../../store";
 import BackBtnHeader from "../../Common/BackBtnHeader";
+import { selectUser } from "../../../store/reducers/user";
 
 function ProfileHeader() {
-  const user = useAppSelector((state: RootState) => state.user);
+  const user = useAppSelector(selectUser);
+
+  console.log(user);
 
   return (
     <StyledProfileHeader>
-      <BackBtnHeader backLink="/feedhome" isCenter={true} text={user.userId} />
+      <BackBtnHeader
+        backLink="/feedhome"
+        isCenter={true}
+        text={user.username}
+      />
     </StyledProfileHeader>
   );
 }
