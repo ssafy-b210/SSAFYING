@@ -27,6 +27,12 @@ function BoardMoreModal({ card, boardId }: moreProps) {
   const [isSaved, setIsSaved] = useState(false);
   const toggleSaved = () => {
     setIsSaved(!isSaved);
+    if (!isSaved) {
+      //scrapBoard(userId, boardId)
+      scrapBoard(1, 1);
+    } else {
+      cancelscrapBoard(1, 1);
+    }
   };
 
   return (

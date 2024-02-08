@@ -11,8 +11,29 @@ const REST_FEED_API = `/api/feeds`;
 //피드상세
 
 //피드 좋아요
+export async function likeFeed(userId: number, feedId: number) {
+  try {
+    const response = await axios.post("/api/feeds/like", { userId, feedId });
+    console.log(response.data);
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 //피드 좋아요 취소
+export async function cancelLikeFeed(userId: number, feedId: number) {
+  try {
+    const response = await axios.delete("/api/feeds/like", {
+      data: {
+        userId: userId,
+        feedId: feedId,
+      },
+    });
+    console.log(response.data);
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 //피드 좋아요 리스트
 
@@ -21,8 +42,29 @@ const REST_FEED_API = `/api/feeds`;
 //피드 수정
 
 //피드 스크랩
+export async function scrapFeed(userId: number, feedId: number) {
+  try {
+    const response = await axios.post("/api/feeds/scrap", { userId, feedId });
+    console.log(response.data);
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 //피드 스크랩 취소
+export async function cancelscrapFeed(userId: number, feedId: number) {
+  try {
+    const response = await axios.delete("/api/feeds/scrap", {
+      data: {
+        userId: userId,
+        feedId: feedId,
+      },
+    });
+    console.log(response.data);
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 //피드 댓글 조회
 
