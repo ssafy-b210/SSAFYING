@@ -7,6 +7,7 @@ import { KeyboardEvent, MouseEvent, useEffect, useState } from "react";
 import {
   searchFollowingList,
   selectFollowingList,
+  unfollowUser,
 } from "../../apis/api/Follow";
 import { useParams } from "react-router-dom";
 
@@ -29,25 +30,35 @@ function FollowingList() {
   }
 
   // 검색 결과 리스트 갱신
-  async function searchFollowers() {
+  async function searchFollowings() {
     const res = await searchFollowingList(profileUserId, searchValue);
     if (res !== undefined) setFollowings(res.data);
   }
 
   // 검색 버튼 클릭 시 검색 결과 조회
   function handleInputClickButton(e: MouseEvent<HTMLButtonElement>) {
-    searchFollowers();
+    searchFollowings();
   }
 
   // 검색칸에서 Enter키 입력 시 검색 결과 조회
   function handleInputKeyUpEnter(e: KeyboardEvent<HTMLInputElement>) {
-    if (e.key === "Enter") searchFollowers();
+    if (e.key === "Enter") searchFollowings();
+  }
+
+  // 언팔로우
+  function handleClickUnfollowButton(
+    targetUserId: number,
+    targetUserNickname: string
+  ) {
+    if (window.confirm(`${targetUserNickname}님을 언팔로우 하시겠습니까?`)) {
+      unfollowUser(targetUserId);
+    }
   }
 
   // 처음에 한 번 팔로잉 리스트 가져와 출력
   useEffect(() => {
     getFollowings();
-  }, []);
+  }, [handleClickUnfollowButton]);
 
   return (
     <Wrapper>
@@ -68,7 +79,11 @@ function FollowingList() {
           <img src={search} alt="검색" />
         </button>
       </SearchBar>
-      <FollowProfileList data={followings} isFollowing={true} />
+      <FollowProfileList
+        data={followings}
+        isFollowing={true}
+        onClickUnfollowButton={handleClickUnfollowButton}
+      />
     </Wrapper>
   );
 }

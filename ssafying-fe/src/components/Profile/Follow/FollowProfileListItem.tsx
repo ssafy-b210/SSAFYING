@@ -7,9 +7,20 @@ type FollowProfileProps = {
   nickname: string;
   userImageUrl: string;
   isFollowing: boolean;
+
+  // 언팔로우 버튼 클릭 이벤트 함수
+  onClickUnfollowButton?: (
+    targetUserId: number,
+    targetUserNickname: string
+  ) => void;
 };
 
 function FollowProfileListItem(props: FollowProfileProps) {
+  function unfollow() {
+    if (props.onClickUnfollowButton !== undefined)
+      props.onClickUnfollowButton(props.id, props.nickname);
+  }
+
   return (
     <Wrapper>
       <div className="profile-container">
@@ -21,15 +32,7 @@ function FollowProfileListItem(props: FollowProfileProps) {
         </div>
       </div>
       {props.isFollowing ? (
-        <CancelButton
-          onClick={() => {
-            if (window.confirm(`${props.nickname}님을 언팔로우하시겠습니까?`)) {
-              alert("언팔로우했습니다.");
-            }
-          }}
-        >
-          언팔로우
-        </CancelButton>
+        <CancelButton onClick={unfollow}>언팔로우</CancelButton>
       ) : null}
     </Wrapper>
   );
