@@ -45,20 +45,23 @@ function FollowingList() {
     if (e.key === "Enter") searchFollowings();
   }
 
-  // 언팔로우
-  function handleClickUnfollowButton(
+  // 언팔로우 후 팔로잉 리스트 갱신
+  async function handleClickUnfollowButton(
     targetUserId: number,
     targetUserNickname: string
   ) {
     if (window.confirm(`${targetUserNickname}님을 언팔로우 하시겠습니까?`)) {
-      unfollowUser(targetUserId);
+      const res = await unfollowUser(targetUserId).then(() =>
+        selectFollowingList(profileUserId)
+      );
+      if (res !== undefined) setFollowings(res.data);
     }
   }
 
   // 처음에 한 번 팔로잉 리스트 가져와 출력
   useEffect(() => {
     getFollowings();
-  }, [handleClickUnfollowButton]);
+  }, []);
 
   return (
     <Wrapper>
