@@ -5,8 +5,10 @@ import com.ssafying.domain.follow.dto.request.FindByNicknameRequest;
 import com.ssafying.domain.follow.dto.request.UnFollowRequest;
 import com.ssafying.domain.follow.dto.response.FindFollowerListResponse;
 import com.ssafying.domain.follow.dto.response.FindFollowingListResponse;
+import com.ssafying.domain.follow.dto.response.FollowResponse;
 import com.ssafying.domain.follow.entity.Follow;
 import com.ssafying.domain.follow.repository.jdbc.FollowRepository;
+import com.ssafying.domain.shuttle.entity.Campus;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -149,14 +152,14 @@ public class FollowService {
         User toUser = userRepository.findById(request.getToUserId())
                 .orElseThrow(() -> new RuntimeException("팔로우 하려는 회원을 찾을 수 없습니다."));
 
-        //자기 자신 팔로우 시 에러
+        //자기 자신 팔로우 시 에러 (에러코드 : 400)
         if(fromUser == toUser){
-            throw new RuntimeException("자기 자신을 팔로우 할 수 없습니다.");
+            return -1;
         }
 
-        //중복 팔로우 x
+        //중복 팔로우 x (에러코드 : 401)
         if(followRepository.findFollow(fromUser, toUser).isPresent()){
-            throw new RuntimeException("이미 팔로우 한 유저입니다.");
+            return -2;
         }
 
         Follow follow = Follow.addFollow(fromUser, toUser);
@@ -188,25 +191,50 @@ public class FollowService {
     /**
      * 2.6 추천친구
      */
-
-    /**
-     * 로그인 한 사용자와의 관계를 알기 위한 메서드
-     */
-//    protected String findStatus(FollowDTO dto) {
+//    public List<User> findRecommendedFriends(int userId){
 //
-//        User selectedUser = userRepository.findById(dto.getSelectedUserId())
-//                .orElseThrow(() -> new RuntimeException("회원을 찾을 수 없습니다."));
+//        // 사용자 정보
+//        User user = userRepository.findById(userId)
+//                .orElseThrow(() -> new RuntimeException("사용자 정보를 찾을 수 없습니다."));
 //
-//        User requestUSer = userRepository.findById(dto.getRequestUserId())
-//                .orElseThrow(() -> new RuntimeException("회원을 찾을 수 없습니다."));
+//        Campus campus = user.getCampus();
+//        int generation = user.getGeneration();
+//        boolean isMajor = user.getIsMajor();
 //
-//        if (dto.getSelectedUserId() == dto.getRequestUserId())
-//            return "self"; //나
+//        // 내 팔로워
+//        List<User> followers = followRepository.findRecommendedFriends(userId, campus, generation, isMajor);
 //
-//        if (followRepository.findFollow(selectedUser, requestUSer).isEmpty())
-//            return "none"; //팔로우 x
+//        System.out.println("////////////////////////////////////////");
+//        System.out.println("follower.size = " + followers.size());
 //
-//        return "following"; //팔로잉
+//        List<User> recommendedUsers = new ArrayList<>();
+//        for (User findUser : followers) {
+//            User toUser = findUser.getToUser();
+//
+//            // Null 체크
+//            if (toUser == null) {
+//                continue;
+//            }
+//
+//            // 캠퍼스, 기수, 전공 유무 비교
+//            if (toUser.getCampus().equals(campus)
+//                    && toUser.getGeneration() == generation
+//                    && toUser.getIsMajor().equals(isMajor)) {
+//                recommendedUsers.add(toUser);
+//            }
+//        }
+//
+//        // 출력
+//        for (User recommendedUser : recommendedUsers) {
+//            System.out.println("////////////////////////////////////");
+//            System.out.println("추천 친구 ID: " + recommendedUser.getId());
+//            System.out.println("닉네임: " + recommendedUser.getNickname());
+//            System.out.println("캠퍼스: " + recommendedUser.getCampus().getCampusRegion());
+//            System.out.println("기수: " + recommendedUser.getGeneration());
+//            System.out.println("전공: " + recommendedUser.getIsMajor());
+//            System.out.println("////////////////////////////////////");
+//        }
+//
+//        return recommendedUsers;
 //    }
-
 }

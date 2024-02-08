@@ -3,6 +3,7 @@ package com.ssafying.domain.crew.service;
 import com.ssafying.domain.crew.dto.request.AddCrewCommentRequest;
 import com.ssafying.domain.crew.dto.request.AddCrewRequest;
 import com.ssafying.domain.crew.dto.request.ModifyCrewRequest;
+import com.ssafying.domain.crew.dto.response.CrewDetailResponse;
 import com.ssafying.domain.crew.dto.specification.CrewSpecification;
 import com.ssafying.domain.crew.entity.CrewCategory;
 import com.ssafying.domain.crew.entity.Crew;
@@ -12,8 +13,12 @@ import com.ssafying.domain.crew.repository.jdbc.CrewCommentsRepository;
 import com.ssafying.domain.crew.repository.jdbc.CrewRepository;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
+import com.ssafying.global.result.ResultResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -70,11 +75,22 @@ public class CrewService {
      * 게시글 상세 조회
      */
     @Transactional
-    public Crew findCrew(int crewId){
+    public CrewDetailResponse findCrew(int crewId){
         Crew crew = crewRepository.findById(crewId)
                 .orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
 
-        return crew;
+        CrewDetailResponse response = CrewDetailResponse.builder()
+                .crewId(crew.getCrewId())
+                .title(crew.getTitle())
+                .user(crew.getUser())
+                .content(crew.getContent())
+                .region(crew.getRegion())
+                .category(crew.getCategory())
+                .isRecruit(crew.getIsRecruit())
+                .comments(crew.getComments())
+                .build();
+
+        return response;
     }
 
     /**

@@ -3,6 +3,7 @@ package com.ssafying.domain.crew.controller;
 import com.ssafying.domain.crew.dto.request.AddCrewCommentRequest;
 import com.ssafying.domain.crew.dto.request.AddCrewRequest;
 import com.ssafying.domain.crew.dto.request.ModifyCrewRequest;
+import com.ssafying.domain.crew.dto.response.CrewDetailResponse;
 import com.ssafying.domain.crew.dto.response.CrewListResponse;
 import com.ssafying.domain.crew.dto.specification.CrewSpecification;
 import com.ssafying.domain.crew.entity.Crew;
@@ -64,12 +65,12 @@ public class CrewController {
      */
     @GetMapping("/{crewId}")
     @Operation(summary = "구인글 상세 조회")
-    public ResponseEntity<ResultResponse> crewDetails(
+    public ResponseEntity<ResultResponse<CrewDetailResponse>> crewDetails(
             @PathVariable(name = "crewId")int crewId){
 
-        crewService.findCrew(crewId);
+        CrewDetailResponse result = crewService.findCrew(crewId);
 
-        return null;
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
     /**

@@ -13,6 +13,9 @@ values (2, 'ssafy1@ssafy.com', '1234', '애옹', '010-1111-1111', '이싸피', 1
        (4, 'ssafy5@ssafy.com', '1234', '폭주기관차', '010-5555-5555', '김싸피', 11, true, 'ACTIVE'),
        (1, 'ssafy6@ssafy.com', '1234', '예스맨', '010-6666-6666', '노싸피', 11, true, 'ACTIVE');
 
+insert into users (campus_id, generation, is_major, email, name, nickname, password, phone_number)
+values (2, 10, false, "ssafy7@ssafy.com", "최싸피", "추천테스트", "5678", "010-7777-7777");
+
 insert into crew (title, content, region, category, is_recruit)
 values ('구인글1', '내용1', 'SEOUL', 'STUDY', true),
        ('구인글2', '내용2', 'DAEJEON', 'CHALLENGE', true),
@@ -22,4 +25,4 @@ values ('구인글1', '내용1', 'SEOUL', 'STUDY', true),
 
 insert into follow (from_user, to_user)
 values (1, 2), (1, 3), (1, 4), (1, 5), (1,6),
-       (2, 6), (3, 6), (4, 6), (5, 6);
+       (2, 6), (3, 6), (4, 6), (5, 6), (1,7);
