@@ -56,7 +56,10 @@ function BoardMoreModal({ card }: moreProps) {
         </Content>
         <CommentContainer>
           <BoardCommentList />
-          <MoreCommentInput onSubmit={handleCommentSubmit}></MoreCommentInput>
+          <MoreCommentInput
+            onSubmit={handleCommentSubmit}
+            target="board"
+          ></MoreCommentInput>
         </CommentContainer>
       </Card>
     </div>

@@ -106,4 +106,13 @@ export async function createCrewComment(
 }
 
 // 댓글 삭제
-export async function deleteCrewComment() {}
+export async function deleteCrewComment(crewCommentId: number) {
+  try {
+    const response = await axios.delete(
+      `${REST_CREW_API}/comments/${crewCommentId}`
+    );
+    console.log(response.data);
+  } catch (e) {
+    console.log(e);
+  }
+}

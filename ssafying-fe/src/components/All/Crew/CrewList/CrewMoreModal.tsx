@@ -45,7 +45,10 @@ function CrewMoreModal({ card }: moreProps) {
         </Content>
         <CommentContainer>
           <CrewCommentList />
-          <MoreCommentInput onSubmit={handleCommentSubmit}></MoreCommentInput>
+          <MoreCommentInput
+            onSubmit={handleCommentSubmit}
+            target="crew"
+          ></MoreCommentInput>
         </CommentContainer>
       </Card>
     </div>

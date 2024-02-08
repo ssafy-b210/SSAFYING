@@ -1,23 +1,38 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { createBoardComment } from "../../../apis/api/Board";
+import { createCrewComment } from "../../../apis/api/Crew";
+import { createFeedComment } from "../../../apis/api/Feed";
+
 interface CommentInputProps {
   onSubmit: (comment: string) => void;
+  target: "board" | "crew" | "feed";
 }
 
-const CommentInput: React.FC<CommentInputProps> = ({ onSubmit }) => {
+const CommentInput: React.FC<CommentInputProps> = ({ onSubmit, target }) => {
   const [comment, setComment] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setComment(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (comment.trim() !== "") {
       onSubmit(comment);
       setComment("");
+      try {
+        if (target === "board") {
+          await createBoardComment(1, 1, comment, -1, true);
+        } else if (target === "crew") {
+          await createCrewComment(1, 1, comment, -1);
+        } else if (target === "feed") {
+          await createFeedComment(1, 1, comment);
+        }
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
-
   return (
     <CommentInputContainer>
       <Input type="text" value={comment} onChange={handleChange} />
