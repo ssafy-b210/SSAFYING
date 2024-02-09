@@ -1,5 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import BoardBtn from "../../All/Board/BoardBtn";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
 
 //카드 눌렀을 때 중고장터 detail
 interface moreProps {
@@ -18,6 +21,7 @@ const handleCommentSubmit = (comment: string) => {
 };
 
 function MarketMoreModal({ card }: moreProps) {
+  const user = useAppSelector(selectUser);
   return (
     <div>
       <Card>
@@ -39,6 +43,12 @@ function MarketMoreModal({ card }: moreProps) {
             {card.price}원
           </Price>
           <Copy>{card.content}</Copy>
+          {user.nickname === card.writer && (
+            <Flex>
+              <BoardBtn btnmsg="수정" />
+              <BoardBtn btnmsg="삭제" />
+            </Flex>
+          )}
           <hr></hr>
         </Content>
       </Card>
@@ -124,4 +134,13 @@ const Category = styled.p`
 const CommentContainer = styled.div`
   width: 100%;
   background-color: white;
+`;
+
+const Flex = styled.div`
+  display: flex;
+  button {
+    background-color: black;
+    color: white;
+    padding: 5px 20px;
+  }
 `;
