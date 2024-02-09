@@ -3,11 +3,16 @@ import FeedListItemImg from "./FeedListItemImg";
 import FeedListItemBtn from "./FeedListItemBtn";
 import FeedContent from "./FeedContent";
 import styled from "styled-components";
+import userImage from "../../../assets/img/testImg/user.jpg";
 
-function FeedListItem() {
+interface FeedProps {
+  feed: any;
+}
+
+function FeedListItem({ feed }: FeedProps) {
   return (
     <FeedListItemWrapper>
-      <FeedListItemUser />
+      <FeedListItemUser userImg={userImage} nickname="aeong" userId={5} />
       <FeedContent />
       <FeedListItemImg />
       <FeedListItemBtn />

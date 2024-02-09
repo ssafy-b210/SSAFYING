@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Hashtag from "../../Feed/utils/SignupHashTag";
-import FeedListItem from "../../Feed/FeedMain/FeedListItem";
+import FeedList from "../../Feed/FeedMain/FeedList";
 import { useState } from "react";
 import downArrow from "../../../assets/img/imgBtn/downArrow.svg";
 
@@ -112,7 +112,7 @@ function ContentFeedSection() {
           <img src={downArrow} alt="아래 화살표" />
         </div>
       </HashtagList>
-      <FeedListItem />
+      <FeedList />
     </div>
   );
 }

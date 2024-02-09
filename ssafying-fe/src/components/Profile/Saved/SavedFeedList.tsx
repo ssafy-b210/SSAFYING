@@ -1,9 +1,9 @@
-import FeedListItem from "../../Feed/FeedMain/FeedListItem";
+import FeedList from "../../Feed/FeedMain/FeedList";
 
 function SavedFeedList() {
   return (
     <div>
-      <FeedListItem />
+      <FeedList />
     </div>
   );
 }

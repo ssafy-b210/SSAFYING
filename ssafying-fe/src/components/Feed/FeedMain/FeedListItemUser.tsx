@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import userImage from "../../../assets/img/testImg/user.jpg";
 import more from "../../../assets/img/imgBtn/more.svg";
 import RoundImg from "../utils/RoundImg";
 import ImgBtn from "../utils/ImgBtn";
 import Modal from "react-modal";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
 
-function FeedListItemUser() {
+interface userProps {
+  userImg: string;
+  nickname: string;
+  userId: number;
+}
+
+function FeedListItemUser({ userImg, nickname, userId }: userProps) {
+  const user = useAppSelector(selectUser);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   function clickMoreBtn() {
@@ -20,23 +28,26 @@ function FeedListItemUser() {
   return (
     <UserWrapper>
       <div>
-        <RoundImg src={userImage} size="30px" />
-        <UserId>aeong123</UserId>
+        <RoundImg src={userImg} size="30px" />
+        <UserId>{nickname}</UserId>
       </div>
-      <div>
-        <ImgBtn src={more} onClick={clickMoreBtn} size="20px" />
-      </div>
-      {/* 모달 */}
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-      >
-        <ButtonWrapper>
-          <Button>수정</Button>
-          <Button>삭제</Button>
-        </ButtonWrapper>
-      </Modal>
+      {user.userId === userId && (
+        <>
+          <div>
+            <ImgBtn src={more} onClick={clickMoreBtn} size="20px" />
+          </div>
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            style={customStyles}
+          >
+            <ButtonWrapper>
+              <Button>수정</Button>
+              <Button>삭제</Button>
+            </ButtonWrapper>
+          </Modal>
+        </>
+      )}
     </UserWrapper>
   );
 }

@@ -1,4 +1,4 @@
-import FeedList from "../../components/Feed/FeedList";
+import FeedList from "../../components/Feed/FeedMain/FeedList";
 import DetailComment from "../../components/Feed/FeedDetail/DetailComment";
 function FeedDetail() {
   return (

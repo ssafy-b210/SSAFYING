@@ -7,6 +7,15 @@ const REST_FEED_API = `/api/feeds`;
 //피드 삭제
 
 //팔로잉한 유저 피드 조회
+export async function getFeedList(userId: number) {
+  try {
+    const response = await axios.get(`/api/feeds/${userId}/list`);
+    console.log(response.data.resultData);
+    return response.data.resultData;
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 //피드상세
 

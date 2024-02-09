@@ -10,7 +10,6 @@ function RecruitSortTab() {
 
   useEffect(() => {
     handleList();
-    console.log(1);
   }, [recruitCode]);
 
   const handleButtonClick = async (index: number, code: string) => {
