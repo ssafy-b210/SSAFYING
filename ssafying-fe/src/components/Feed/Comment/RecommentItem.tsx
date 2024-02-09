@@ -8,17 +8,23 @@ import { selectUser } from "../../../store/reducers/user";
 
 interface RecommentProps {
   commentId: number;
+  nickname: string;
   content: string;
   onClickDelete: () => void;
 }
 
-function RecommentItem({ commentId, content, onClickDelete }: RecommentProps) {
+function RecommentItem({
+  commentId,
+  nickname,
+  content,
+  onClickDelete,
+}: RecommentProps) {
   const user = useAppSelector(selectUser);
   return (
     <RecommentWrapper>
       <RoundImg src={userImage} size="28px" />
       <RecommentContent>
-        <UserId>{commentId}</UserId>
+        <UserId>{nickname}</UserId>
         <Content>{content}</Content>
       </RecommentContent>
       <ButtonsWrapper>

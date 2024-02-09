@@ -1,28 +1,31 @@
 import styled from "styled-components";
 import ImgBtn from "../../../Feed/utils/ImgBtn";
 import deleteBtn from "../../../../assets/img/imgBtn/deleteBtn.svg";
+import { useAppSelector } from "../../../../store/hooks";
+import { selectUser } from "../../../../store/reducers/user";
 
 interface RecommentProps {
-  userId: string;
-  commentId: string;
+  commentId: number;
+  nickname: string;
   content: string;
   onClickDelete: () => void;
 }
 
 function BoardRecommentItem({
-  userId,
   commentId,
   content,
+  nickname,
   onClickDelete,
 }: RecommentProps) {
+  const user = useAppSelector(selectUser);
   return (
     <RecommentWrapper>
       <RecommentContent>
-        <UserId>{commentId}</UserId>
+        <UserId>{nickname}</UserId>
         <Content>{content}</Content>
       </RecommentContent>
       <ButtonsWrapper>
-        {commentId === userId && (
+        {commentId === user.userId && (
           <ImgBtn src={deleteBtn} onClick={onClickDelete} size="12px" />
         )}
       </ButtonsWrapper>
