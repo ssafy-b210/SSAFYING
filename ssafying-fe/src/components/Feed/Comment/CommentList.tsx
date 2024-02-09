@@ -2,32 +2,46 @@ import { useState } from "react";
 import CommentItem from "./CommentItem";
 
 function CommentList() {
-  const [highlightedCommentId, setHighlightedCommentId] = useState<
-    string | null
-  >(null);
+  const [highlightedCommentId, setHighlightedCommentId] =
+    useState<Number | null>(null);
 
   const comments = [
     {
-      commentId: "aeong",
+      commentId: 1,
+      nickname: "aeong",
       content: "ㅋㅋㅋㅋㅋ",
       replies: [
-        { replyId: 1, commentId: "aeong", content: "ㅎㅎㅎㅎ" },
-        { replyId: 2, commentId: "yes", content: "뭐야" },
-        { replyId: 2, commentId: "yes", content: "뭐야" },
+        {
+          replyId: 1,
+          commentId: 2,
+          nickname: "aeong",
+          content: "ㅎㅎㅎㅎ",
+        },
+        { replyId: 2, commentId: 1, nickname: "aeong", content: "뭐야" },
+        { replyId: 2, commentId: 1, nickname: "aeong", content: "뭐야" },
       ],
     },
     {
-      commentId: "yes",
+      commentId: 1,
+      nickname: "yes",
       content: "화이팅",
       replies: [
-        { replyId: 1, commentId: "yes.hh", content: "안녕" },
-        { replyId: 2, commentId: "yes", content: "애옹" },
+        { replyId: 1, commentId: 5, nickname: "yes.hh", content: "안녕" },
+        { replyId: 2, commentId: 3, nickname: "yes", content: "애옹" },
       ],
     },
-    { commentId: "yes.hh", content: "안녕ㅎㅎ", replies: [] },
+    {
+      commentId: 1,
+      nickname: "yes.hh",
+      content: "안녕ㅎㅎ",
+      replies: [
+        { replyId: 1, commentId: 5, nickname: "yes.hh", content: "안녕" },
+        { replyId: 2, commentId: 3, nickname: "yes", content: "애옹" },
+      ],
+    },
   ];
 
-  const handleCommentClick = (commentId: string) => {
+  const handleCommentClick = (commentId: number) => {
     setHighlightedCommentId(
       commentId === highlightedCommentId ? null : commentId
     );
@@ -35,10 +49,11 @@ function CommentList() {
 
   return (
     <div>
-      {comments.map((comment) => (
+      {comments.map((comment, index) => (
         <CommentItem
-          key={comment.commentId}
+          key={index}
           commentId={comment.commentId}
+          nickname={comment.nickname}
           content={comment.content}
           isHighlighted={comment.commentId === highlightedCommentId}
           onClick={() => handleCommentClick(comment.commentId)}

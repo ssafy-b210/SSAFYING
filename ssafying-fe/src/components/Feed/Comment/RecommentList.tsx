@@ -5,20 +5,18 @@ interface RepliesProps {
   onClick: () => void;
   replies: {
     replyId: number;
-    commentId: string;
+    commentId: number;
     content: string;
   }[];
 }
 
 function RecommentList({ onClick, replies }: RepliesProps) {
-  const userId = "aeong";
   return (
     <RecommentListWrapper>
       {replies.map((reply) => (
         <RecommentItem
           key={reply.replyId}
           commentId={reply.commentId}
-          userId={userId}
           content={reply.content}
           onClickDelete={() => onClick}
         />

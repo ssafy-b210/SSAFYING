@@ -5,27 +5,32 @@ import deleteBtn from "../../../assets/img/imgBtn/deleteBtn.svg";
 import RoundImg from "../utils/RoundImg";
 import ImgBtn from "../utils/ImgBtn";
 import RecommentList from "./RecommentList";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
 
 interface CommentProps {
-  commentId: string;
+  commentId: number;
+  nickname: string;
   content: string;
   isHighlighted: boolean;
   onClick: () => void;
   replies: {
     replyId: number;
-    commentId: string;
+    commentId: number;
+    nickname: string;
     content: string;
   }[];
 }
 
 function CommentItem({
   commentId,
+  nickname,
   content,
   isHighlighted,
   onClick,
   replies,
 }: CommentProps) {
-  const userId = "aeong";
+  const user = useAppSelector(selectUser);
 
   function clickDeleteBtn() {
     console.log("delete comment");
@@ -36,12 +41,12 @@ function CommentItem({
       <UserWrapper isHighlighted={isHighlighted} onClick={onClick}>
         <RoundImg src={userImage} size="32px" />
         <CommentContent>
-          <UserId>{commentId}</UserId>
+          <UserId>{nickname}</UserId>
           <Content>{content}</Content>
         </CommentContent>
         <ButtonsWrapper>
           <TextBtn onClick={onClick}>답글달기</TextBtn>
-          {commentId === userId && (
+          {commentId === user.userId && (
             <ImgBtn src={deleteBtn} onClick={clickDeleteBtn} size="15px" />
           )}
         </ButtonsWrapper>

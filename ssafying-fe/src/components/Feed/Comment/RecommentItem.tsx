@@ -3,20 +3,17 @@ import userImage from "../../../assets/img/testImg/user.jpg";
 import RoundImg from "../utils/RoundImg";
 import ImgBtn from "../utils/ImgBtn";
 import deleteBtn from "../../../assets/img/imgBtn/deleteBtn.svg";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
 
 interface RecommentProps {
-  userId: string;
-  commentId: string;
+  commentId: number;
   content: string;
   onClickDelete: () => void;
 }
 
-function RecommentItem({
-  userId,
-  commentId,
-  content,
-  onClickDelete,
-}: RecommentProps) {
+function RecommentItem({ commentId, content, onClickDelete }: RecommentProps) {
+  const user = useAppSelector(selectUser);
   return (
     <RecommentWrapper>
       <RoundImg src={userImage} size="28px" />
@@ -25,7 +22,7 @@ function RecommentItem({
         <Content>{content}</Content>
       </RecommentContent>
       <ButtonsWrapper>
-        {commentId === userId && (
+        {commentId === user.userId && (
           <ImgBtn src={deleteBtn} onClick={onClickDelete} size="12px" />
         )}
       </ButtonsWrapper>
