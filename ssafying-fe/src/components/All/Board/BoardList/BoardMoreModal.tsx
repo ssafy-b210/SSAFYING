@@ -7,6 +7,9 @@ import ImgBtn from "../../../Feed/utils/ImgBtn";
 import { scrapBoard } from "../../../../apis/api/Board";
 import { cancelscrapBoard } from "../../../../apis/api/Board";
 import BoardCommentList from "./BoardCommentList";
+import BoardBtn from "../BoardBtn";
+import { useAppSelector } from "../../../../store/hooks";
+import { selectUser } from "../../../../store/reducers/user";
 
 // 카드눌렀을 때 detail 보이게 하기
 interface moreProps {
@@ -24,6 +27,7 @@ const handleCommentSubmit = (comment: string) => {
 };
 
 function BoardMoreModal({ card, boardId }: moreProps) {
+  const user = useAppSelector(selectUser);
   const [isSaved, setIsSaved] = useState(false);
   const toggleSaved = () => {
     setIsSaved(!isSaved);
@@ -53,6 +57,12 @@ function BoardMoreModal({ card, boardId }: moreProps) {
             <div className="small-title">카테고리</div> {card.category}
           </Category>
           <Copy>{card.content}</Copy>
+          {user.nickname === card.writer && (
+            <Flex>
+              <BoardBtn btnmsg="수정" />
+              <BoardBtn btnmsg="삭제" />
+            </Flex>
+          )}
           <hr />
         </Content>
         <CommentContainer>
@@ -130,4 +140,13 @@ const Category = styled.p`
 const CommentContainer = styled.div`
   width: 100%;
   background-color: white;
+`;
+
+const Flex = styled.div`
+  display: flex;
+  button {
+    background-color: black;
+    color: white;
+    padding: 5px 20px;
+  }
 `;
