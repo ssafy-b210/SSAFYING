@@ -11,13 +11,6 @@ spring:
     username: ssafy
     password: 1234
 
-  #  jpa:
-  #    hibernate:
-  #      ddl-auto: create
-  #    properties:
-  #      hibernate:
-  #        format_sql: true
-
   jpa:
     hibernate:
       ddl-auto: create
