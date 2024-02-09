@@ -5,7 +5,8 @@ interface RepliesProps {
   onClick: () => void;
   replies: {
     replyId: number;
-    commentId: string;
+    commentId: number;
+    nickname: string;
     content: string;
   }[];
 }
@@ -18,7 +19,7 @@ function CrewRecommentList({ onClick, replies }: RepliesProps) {
         <CrewRecommentItem
           key={reply.replyId}
           commentId={reply.commentId}
-          userId={userId}
+          nickname={reply.nickname}
           content={reply.content}
           onClickDelete={() => onClick}
         />

@@ -3,16 +3,20 @@ import styled from "styled-components";
 import ImgBtn from "../../../Feed/utils/ImgBtn";
 import deleteBtn from "../../../../assets/img/imgBtn/deleteBtn.svg";
 import CrewRecommentList from "./CrewRecommentList";
+import { useAppSelector } from "../../../../store/hooks";
+import { selectUser } from "../../../../store/reducers/user";
 
 interface CommentProps {
-  commentId: string;
+  commentId: number;
+  nickname: string;
   content: string;
   isHighlighted: boolean;
   onClick: () => void;
   //대댓글
   replies: {
     replyId: number;
-    commentId: string;
+    commentId: number;
+    nickname: string;
     content: string;
   }[];
 }
@@ -24,7 +28,7 @@ function CrewCommentItem({
   onClick,
   replies,
 }: CommentProps) {
-  const userId = "aeong";
+  const user = useAppSelector(selectUser);
 
   function clickDeleteBtn() {
     console.log("delete comment");
@@ -38,7 +42,7 @@ function CrewCommentItem({
         </CommentContent>
         <ButtonsWrapper>
           <TextBtn onClick={onClick}>답글달기</TextBtn>
-          {commentId === userId && (
+          {commentId === user.userId && (
             <ImgBtn src={deleteBtn} onClick={clickDeleteBtn} size="15px" />
           )}
         </ButtonsWrapper>
