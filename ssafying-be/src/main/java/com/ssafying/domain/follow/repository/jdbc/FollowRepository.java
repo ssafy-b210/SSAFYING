@@ -32,18 +32,5 @@ public interface FollowRepository extends JpaRepository<Follow, Integer> {
     @Query("select f from Follow f where f.fromUser = :from and f.toUser = :to")
     Optional<Follow> findFollow(@Param("from") User from_user, @Param("to") User to_user);
 
-    //추천친구
-    @Query("SELECT u FROM User u "
-            + "INNER JOIN Follow f ON f.toUser.id = u.id "
-            + "WHERE f.fromUser.id = :userId "
-            + "AND u.campus = :campus "
-            + "AND u.generation = :generation "
-            + "AND u.isMajor = :isMajor "
-            + "ORDER BY f.createdAt DESC "
-            + "LIMIT 5")
-    List<User> findRecommendedFriends(@Param("userId") int userId,
-                                      @Param("campus") Campus campus,
-                                      @Param("generation") int generation,
-                                      @Param("isMajor") boolean isMajor);
 }
 

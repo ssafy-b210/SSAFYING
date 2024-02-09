@@ -5,6 +5,7 @@ import com.ssafying.domain.follow.dto.request.FindByNicknameRequest;
 import com.ssafying.domain.follow.dto.request.UnFollowRequest;
 import com.ssafying.domain.follow.dto.response.FindFollowerListResponse;
 import com.ssafying.domain.follow.dto.response.FindFollowingListResponse;
+import com.ssafying.domain.follow.dto.response.FindRecommendResponse;
 import com.ssafying.domain.follow.entity.Follow;
 import com.ssafying.domain.follow.service.FollowService;
 import com.ssafying.domain.user.entity.User;
@@ -120,13 +121,13 @@ public class FollowController {
     /**
      * 2.6 추천 친구
      */
-//    @GetMapping("/recommend")
-//    public ResponseEntity<ResultResponse<List<User>>> getRecommendFriends(
-//            @RequestParam(name = "userId") int userId){
-//
-//        List<User> result = followService.findRecommendedFriends(userId);
-//
-//        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
-//
-//    }
+    @GetMapping("/recommend")
+    public ResponseEntity<ResultResponse<List<FindRecommendResponse>>> getRecommendFriends(
+            @RequestParam(name = "userId") int userId){
+
+        List<FindRecommendResponse> result = followService.findRecommendedFriends(userId);
+
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
+
+    }
 }

@@ -5,6 +5,7 @@ import com.ssafying.domain.follow.dto.request.FindByNicknameRequest;
 import com.ssafying.domain.follow.dto.request.UnFollowRequest;
 import com.ssafying.domain.follow.dto.response.FindFollowerListResponse;
 import com.ssafying.domain.follow.dto.response.FindFollowingListResponse;
+import com.ssafying.domain.follow.dto.response.FindRecommendResponse;
 import com.ssafying.domain.follow.dto.response.FollowResponse;
 import com.ssafying.domain.follow.entity.Follow;
 import com.ssafying.domain.follow.repository.jdbc.FollowRepository;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -191,50 +193,50 @@ public class FollowService {
     /**
      * 2.6 추천친구
      */
-//    public List<User> findRecommendedFriends(int userId){
-//
-//        // 사용자 정보
-//        User user = userRepository.findById(userId)
-//                .orElseThrow(() -> new RuntimeException("사용자 정보를 찾을 수 없습니다."));
-//
-//        Campus campus = user.getCampus();
-//        int generation = user.getGeneration();
-//        boolean isMajor = user.getIsMajor();
-//
-//        // 내 팔로워
-//        List<User> followers = followRepository.findRecommendedFriends(userId, campus, generation, isMajor);
-//
-//        System.out.println("////////////////////////////////////////");
-//        System.out.println("follower.size = " + followers.size());
-//
-//        List<User> recommendedUsers = new ArrayList<>();
-//        for (User findUser : followers) {
-//            User toUser = findUser.getToUser();
-//
-//            // Null 체크
-//            if (toUser == null) {
-//                continue;
-//            }
-//
-//            // 캠퍼스, 기수, 전공 유무 비교
-//            if (toUser.getCampus().equals(campus)
-//                    && toUser.getGeneration() == generation
-//                    && toUser.getIsMajor().equals(isMajor)) {
-//                recommendedUsers.add(toUser);
-//            }
-//        }
-//
-//        // 출력
-//        for (User recommendedUser : recommendedUsers) {
-//            System.out.println("////////////////////////////////////");
-//            System.out.println("추천 친구 ID: " + recommendedUser.getId());
-//            System.out.println("닉네임: " + recommendedUser.getNickname());
-//            System.out.println("캠퍼스: " + recommendedUser.getCampus().getCampusRegion());
-//            System.out.println("기수: " + recommendedUser.getGeneration());
-//            System.out.println("전공: " + recommendedUser.getIsMajor());
-//            System.out.println("////////////////////////////////////");
-//        }
-//
-//        return recommendedUsers;
-//    }
+    public List<FindRecommendResponse> findRecommendedFriends(int userId) {
+
+        // 사용자 정보
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("사용자 정보를 찾을 수 없습니다."));
+
+        // 사용자의 campus, isMajor, generation 가져오기
+        Campus campus = user.getCampus();
+        Boolean isMajor = user.getIsMajor();
+        int generation = user.getGeneration();
+
+        // 같은 값을 가진 사용자라면 리스트에 담는다.
+        List<User> list = userRepository.findByCampusAndGenerationAndIsMajor(campus, generation, isMajor);
+
+        /*
+         * 나 자신 제외
+         */
+        list.removeIf(findedMe -> findedMe.getId() == user.getId());
+
+        /*
+         * 내 팔로잉 목록에 있으면 제외
+         */
+        List<Follow> followingList = followRepository.findByFromUser(user);
+        for(Follow finded : followingList) {
+
+            if(finded.getFromUser().getId() == user.getId()){
+                list.remove(finded.getToUser());
+            }
+
+        }
+
+        List<FindRecommendResponse> resultList = new ArrayList<>();
+
+        for(User resultUsers : list){
+
+            resultList.add(
+                    FindRecommendResponse.builder()
+                            .nickname(resultUsers.getNickname())
+                            .profileImageUrl(resultUsers.getProfileImageUrl())
+                            .build()
+            );
+
+        }
+
+        return resultList;
+    }
 }
