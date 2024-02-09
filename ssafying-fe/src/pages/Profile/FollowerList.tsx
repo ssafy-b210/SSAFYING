@@ -3,79 +3,54 @@ import search from "../../assets/img/imgBtn/search.svg";
 import BackBtnHeader from "../../components/Common/BackBtnHeader";
 import FollowProfileList from "../../components/Profile/Follow/FollowProfileList";
 import CenterHeader from "../../components/Common/CenterHeader";
-import {
-  ChangeEvent,
-  KeyboardEvent,
-  MouseEvent,
-  useEffect,
-  useState,
-} from "react";
-import { searchFollowerList, selectFollowerList } from "../../apis/api/Follow";
 import { useParams } from "react-router-dom";
+import { searchFollowerList, selectFollowerList } from "../../apis/api/Follow";
+import { KeyboardEvent, MouseEvent, useEffect, useState } from "react";
+
+type FollowProfileType = {
+  id: number;
+  nickname: string;
+  profileImageUrl: string;
+};
 
 function FollowerList() {
-  const userId = useParams().userId;
+  const profileUserId = Number(useParams().userId); // 현재 프로필의 유저 아이디
 
-  const [followers, setFollowers] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
+  const [followers, setFollowers] = useState<FollowProfileType[]>([]); // 팔로워 리스트
+  const [searchValue, setSearchValue] = useState<string>(""); // 검색 입력값
 
-  function handleChangeSearchValue(e: ChangeEvent<HTMLInputElement>) {
-    setSearchValue(e.target.value);
+  // 팔로워 리스트 갱신
+  async function getFollowers() {
+    const res = await selectFollowerList(profileUserId);
+    if (res !== undefined) setFollowers(res.data);
   }
 
-  function handleClickSearch(e: MouseEvent<HTMLButtonElement>) {
-    searchFollowers(4);
+  // 검색 결과 리스트 갱신
+  async function searchFollowers() {
+    const res = await searchFollowerList(profileUserId, searchValue);
+    if (res !== undefined) setFollowers(res.data);
   }
 
-  function handleEnterKeyFromSearch(e: KeyboardEvent<HTMLInputElement>) {
-    if (e.key === "Enter") {
-      console.log(e.key);
-      searchFollowers(1);
-    }
+  // 검색 버튼 클릭 시 검색 결과 조회
+  function handleInputClickButton(e: MouseEvent<HTMLButtonElement>) {
+    searchFollowers();
   }
 
-  async function getFollowerList(userId: number) {
-    const res: any = await selectFollowerList(userId);
-    setFollowers(res.data);
+  // 검색칸에서 Enter키 입력 시 검색 결과 조회
+  function handleInputKeyUpEnter(e: KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter") searchFollowers();
   }
 
-  async function searchFollowers(userId: number) {
-    searchFollowerList(userId, searchValue);
-
-    // const res: any = await searchFollowerList(userId, searchValue);
-
-    // console.log(res);
-
-    // const res: any = [
-    //   {
-    //     id: 5,
-    //     nickname: "폭주기관차",
-    //     profileImageUrl: null,
-    //   },
-    //   {
-    //     id: 2,
-    //     nickname: "리오레이비",
-    //     profileImageUrl: null,
-    //   },
-    //   {
-    //     id: 3,
-    //     nickname: "숭",
-    //     profileImageUrl: null,
-    //   },
-    // ];
-
-    // setFollowers(res);
-  }
-
+  // 처음에 한 번 팔로워 리스트 가져와 출력
   useEffect(() => {
-    getFollowerList(1);
+    getFollowers();
   }, []);
 
   return (
     <Wrapper>
       <CenterHeader />
       <BackBtnHeader
-        backLink={`/profile/${userId}`}
+        backLink={`/profile/${profileUserId}`}
         isCenter={true}
         text="나를 팔로우하는 친구"
       />
@@ -83,10 +58,10 @@ function FollowerList() {
         <input
           type="text"
           placeholder="검색어를 입력해주세요."
-          onChange={handleChangeSearchValue}
-          onKeyUp={handleEnterKeyFromSearch}
+          onChange={(e) => setSearchValue(e.target.value)}
+          onKeyUp={handleInputKeyUpEnter}
         />
-        <button className="search-btn" onClick={handleClickSearch}>
+        <button className="search-btn" onClick={handleInputClickButton}>
           <img src={search} alt="검색" />
         </button>
       </SearchBar>

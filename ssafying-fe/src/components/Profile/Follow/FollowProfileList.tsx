@@ -1,17 +1,15 @@
 import FollowProfileListItem from "./FollowProfileListItem";
 
-type FollowProfileItemProps = {
+type FollowProfileType = {
   id: number;
   nickname: string;
-  userImageUrl: string;
+  profileImageUrl: string;
 };
 
-type FollowProfileProps = {
-  data: Array<FollowProfileItemProps>;
+function FollowProfileList(props: {
+  data: FollowProfileType[];
   isFollowing: boolean;
-};
-
-function FollowProfileList(props: FollowProfileProps) {
+}) {
   return (
     <div>
       {props.data.map((item) => (
@@ -20,7 +18,7 @@ function FollowProfileList(props: FollowProfileProps) {
           id={item.id}
           isFollowing={props.isFollowing}
           nickname={item.nickname}
-          userImageUrl={item.userImageUrl}
+          userImageUrl={item.profileImageUrl}
         />
       ))}
     </div>

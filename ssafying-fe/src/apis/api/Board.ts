@@ -95,7 +95,13 @@ export async function createBoardComment(
   isAnonymous: boolean
 ) {
   try {
-    const data = { boardId, userId, content, parentId, isAnonymous };
+    const data = {
+      boardId: boardId,
+      userId: userId,
+      content: content,
+      parentId: parentId,
+      isAnonymous: isAnonymous,
+    };
     const response = await axios.post(
       `${REST_BOARD_API}/comments/${boardId}`,
       data

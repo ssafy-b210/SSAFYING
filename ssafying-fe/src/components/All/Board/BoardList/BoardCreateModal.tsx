@@ -40,7 +40,13 @@ function BoardCreateModal() {
 
   //api 호출
   const handleCreateBoard = () => {
-    createBoard(1, title, content, selectedCategory.value, nickname);
+    const inputData = {
+      selectedCategory,
+      nickname,
+      title,
+      content,
+    };
+    console.log("Input Data:", inputData);
   };
 
   return (

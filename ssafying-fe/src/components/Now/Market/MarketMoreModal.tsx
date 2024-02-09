@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import MoreCommentInput from "../../Feed/Comment/CommentInput";
-import MarketCommentList from "./MarketCommentList";
 
 //카드 눌렀을 때 중고장터 detail
 interface moreProps {
@@ -43,10 +41,6 @@ function MarketMoreModal({ card }: moreProps) {
           <Copy>{card.content}</Copy>
           <hr></hr>
         </Content>
-        <CommentContainer>
-          <MarketCommentList />
-          <MoreCommentInput onSubmit={handleCommentSubmit}></MoreCommentInput>
-        </CommentContainer>
       </Card>
     </div>
   );

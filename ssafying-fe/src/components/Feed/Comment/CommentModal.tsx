@@ -28,7 +28,7 @@ const CommentModal: React.FC<CommentModalProps> = ({ onClose }) => {
         <CommentList />
       </ModalContent>
       <CommentInputContainer>
-        <CommentInput onSubmit={handleCommentSubmit} />
+        <CommentInput onSubmit={handleCommentSubmit} target="feed" />
       </CommentInputContainer>
     </ModalOverlay>
   );

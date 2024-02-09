@@ -25,6 +25,7 @@
     "cors": "^2.8.5",
     "easing-coordinates": "^2.0.2",
     "express": "^4.18.2",
+    "firebase": "^10.8.0",
     "http-proxy-middleware": "^2.0.6",
     "leva": "^0.9.35",
     "node-tesseract-ocr": "^2.2.1",
