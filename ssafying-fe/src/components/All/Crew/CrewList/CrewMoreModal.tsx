@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import MoreCommentInput from "../../../Feed/Comment/CommentInput";
 import CrewCommentList from "./CrewCommentList";
+import { useAppSelector } from "../../../../store/hooks";
+import { selectUser } from "../../../../store/reducers/user";
+import BoardBtn from "../../Board/BoardBtn";
 
 // 카드 눌렀을때 crew detail
 interface moreProps {
@@ -20,6 +23,7 @@ const handleCommentSubmit = (comment: string) => {
 };
 
 function CrewMoreModal({ card }: moreProps) {
+  const user = useAppSelector(selectUser);
   return (
     <div>
       <Card>
@@ -41,6 +45,12 @@ function CrewMoreModal({ card }: moreProps) {
             {card.isRecruiting}
           </IsRecruiting>
           <Copy>{card.content}</Copy>
+          {user.nickname === card.writer && (
+            <Flex>
+              <BoardBtn btnmsg="수정" />
+              <BoardBtn btnmsg="삭제" />
+            </Flex>
+          )}
           <hr />
         </Content>
         <CommentContainer>
@@ -132,4 +142,13 @@ const Category = styled.p`
 const CommentContainer = styled.div`
   width: 100%;
   background-color: white;
+`;
+
+const Flex = styled.div`
+  display: flex;
+  button {
+    background-color: black;
+    color: white;
+    padding: 5px 20px;
+  }
 `;
