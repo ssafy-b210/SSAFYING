@@ -51,11 +51,14 @@ function App() {
     (state: RootState) => state.user.isLoggedIn
   );
 
+  console.log(isLoggedIn);
+
   return (
     <AppWrapper>
       <Wrapper>
         <Routes>
-          <Route path="/login" element={<UserLogin />} />
+          {/* {!isLoggedIn && <Navigate to="/login" />} */}
+          <Route path="/" element={<UserLogin />} />
           <Route path="/signup" element={<UserSignup />} />
           <Route path="/tagselect" element={<UserSelectTag />} />
           <Route path="/auth" element={<UserAuth />} />
@@ -97,17 +100,6 @@ function App() {
           <Route path="/direct" element={<DirectMessageChats />} />
           <Route path="/direct/:id" element={<DirectMessageChattingRoom />} />
           <Route path="/meal/create" element={<MealPlannerCreate />} />
-          {/* 로그인된 사용자의 경우 '/' 경로로 리디렉션 */}
-          <Route
-            path="*"
-            element={
-              isLoggedIn ? (
-                <Navigate to="/feedhome" />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
         </Routes>
         {isLoggedIn && <BottomNavBar />}
       </Wrapper>
