@@ -3,8 +3,35 @@ import { axios } from "../utils/axios";
 const REST_FEED_API = `/api/feeds`;
 
 //피드 작성
+export async function createFeedItem(
+  userId: number,
+  content: string,
+  imageUrls: [],
+  hashtags: []
+) {
+  const data = {
+    userId: userId,
+    content: content,
+    imageUrls: imageUrls,
+    hashtags: hashtags,
+  };
+  try {
+    const response = await axios.post(`api/feeds`, data);
+    console.log(response.data);
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 //피드 삭제
+export async function deleteFeedItem(feedId: number) {
+  try {
+    const response = await axios.delete(`api/feeds/${feedId}`);
+    console.log(response.data);
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 //팔로잉한 유저 피드 조회
 export async function getFeedList(userId: number) {

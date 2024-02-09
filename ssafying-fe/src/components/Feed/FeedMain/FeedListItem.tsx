@@ -12,7 +12,11 @@ interface FeedProps {
 function FeedListItem({ feed }: FeedProps) {
   return (
     <FeedListItemWrapper>
-      <FeedListItemUser userImg={userImage} nickname="aeong" userId={5} />
+      <FeedListItemUser
+        userImg={feed.user.profileImageUrl}
+        nickname={feed.user.nickname}
+        userId={feed.user.id}
+      />
       <FeedContent />
       <FeedListItemImg />
       <FeedListItemBtn />
