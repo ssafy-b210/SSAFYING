@@ -121,9 +121,9 @@ public class FollowController {
     /**
      * 2.6 추천 친구
      */
-    @GetMapping("/recommend")
+    @GetMapping("/recommend/{userId}")
     public ResponseEntity<ResultResponse<List<FindRecommendResponse>>> getRecommendFriends(
-            @RequestParam(name = "userId") int userId){
+            @PathVariable(name = "userId") int userId){
 
         List<FindRecommendResponse> result = followService.findRecommendedFriends(userId);
 
