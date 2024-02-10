@@ -10,14 +10,14 @@ import java.time.LocalDateTime;
 @Getter
 public class AddCrewResponse {
 
-    private int crewId;
-    private User userId;
-    private String title;
-    private String content;
-    private Region region;
-    private CrewCategory category;
-    private boolean status;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    int crewId;
+    User userId;
+    String title;
+    String content;
+    Region region;
+    CrewCategory category;
+    boolean status;
+    LocalDateTime createdAt;
+    LocalDateTime updatedAt;
 
 }

@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 public class UnFollowRequest {
 
-    private int fromUserId; //팔로우 취소하려는 user
+    int fromUserId; //팔로우 취소하려는 user
 
-    private int toUserId; //언팔로우 대상 user
+    int toUserId; //언팔로우 대상 user
 }

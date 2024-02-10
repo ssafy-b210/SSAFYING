@@ -13,29 +13,29 @@ import lombok.*;
 @AllArgsConstructor
 public class LoginResponse {
 
-    private int id; //회원 id
+    int id; //회원 id
 
-    private CampusDto campus; //캠퍼스
+    CampusDto campus; //캠퍼스
 
-    private String email; //이메일
+    String email; //이메일
 
-    private String password; //비밀번호
+    String password; //비밀번호
 
-    private String nickname; //닉네임
+    String nickname; //닉네임
 
-    private String phoneNumber; //전화번호
+    String phoneNumber; //전화번호
 
-    private String name; //이름
+    String name; //이름
 
-    private int generation; //기수
+    int generation; //기수
 
-    private String profileImageUrl; //프로필이미지
+    String profileImageUrl; //프로필이미지
 
-    private String intro; //한줄 소개
+    String intro; //한줄 소개
 
-    private UserStatus status; //회원 상태
+    UserStatus status; //회원 상태
 
-    private Boolean isMajor; //전공 유무
+    Boolean isMajor; //전공 유무
 
 
 }

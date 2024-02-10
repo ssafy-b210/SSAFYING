@@ -11,9 +11,9 @@ import lombok.*;
 @AllArgsConstructor
 public class CrewListResponse {
 
-    private int crewId;
-    private String title;
-    private Region region;
-    private CrewCategory category;
-    private boolean isRecruit;
+    int crewId;
+    String title;
+    Region region;
+    CrewCategory category;
+    boolean isRecruit;
 }

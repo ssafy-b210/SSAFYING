@@ -6,6 +6,7 @@ import com.ssafying.domain.chat.entity.ChatRoomUser;
 import com.ssafying.domain.crew.entity.Crew;
 import com.ssafying.domain.follow.entity.Follow;
 import com.ssafying.domain.market.entity.Market;
+import com.ssafying.domain.shuttle.entity.BusStop;
 import com.ssafying.domain.shuttle.entity.Campus;
 import com.ssafying.domain.user.dto.request.CreateUserRequest;
 import com.ssafying.domain.user.dto.request.UpdateUserRequest;
@@ -79,9 +80,10 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "toUser")
     private List<Follow> followers= new ArrayList<>(); //팔로워 리스트
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @Column(name = "bus_stop")
-//    private BusStop busStop; //셔틀 탑승 정류장
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinColumn(name = "bus_stop_id")
+    private BusStop busStop; //이용하는 버스 정류장
 
     /*
      * 회원 가입

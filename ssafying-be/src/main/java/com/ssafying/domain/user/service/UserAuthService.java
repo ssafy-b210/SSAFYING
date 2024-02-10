@@ -5,8 +5,11 @@ import com.ssafying.domain.shuttle.repository.jdbc.CampusRepository;
 import com.ssafying.domain.user.dto.CampusDto;
 import com.ssafying.domain.user.dto.request.CreateUserRequest;
 import com.ssafying.domain.user.dto.request.LoginRequest;
+import com.ssafying.domain.user.dto.request.StudentAuthRequest;
 import com.ssafying.domain.user.dto.response.LoginResponse;
+import com.ssafying.domain.user.entity.Student;
 import com.ssafying.domain.user.entity.User;
+import com.ssafying.domain.user.repository.jdbc.StudentRepository;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
 import com.ssafying.global.config.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +27,7 @@ public class UserAuthService {
 
     private final UserRepository userRepository;
     private final CampusRepository campusRepository;
+    private final StudentRepository studentRepository;
 
     private final TokenProvider tokenProvider;
 
@@ -96,6 +100,24 @@ public class UserAuthService {
 
     }
 
+    /*
+     * 싸피인 인증
+     */
+    public String authStudent(StudentAuthRequest request){
+
+        Student student = studentRepository.findByStudentNameAndStudentEmailAndStudentNumber(
+                request.getStudentName(), request.getStudentEmail(), request.getStudentNumber());
+
+        if(student == null){
+            return "사용자를 찾을 수 없습니다.";
+        }
+
+        return request.getStudentName();
+
+    }
+
+
+
     // 토큰 검증 및 사용자 정보 추출 메소드
     public User getUserFromToken(String token) {
 
@@ -106,13 +128,5 @@ public class UserAuthService {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("존재하지 않는 사용자입니다."));
     }
-
-    /*
-     * 로그아웃
-     */
-//    public int logout(int userId){
-//
-//        return userId;
-//    }
 
 }

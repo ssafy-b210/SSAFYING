@@ -8,8 +8,8 @@ import lombok.*;
 @AllArgsConstructor
 public class FindFollowerListResponse {
 
-    private int id; // 팔로잉 유저 id
-    private String nickname; // 팔로잉 유저 닉네임
-    private String profileImageUrl; // 팔로잉 유저 프로필 이미지 URL
+    int id; // 팔로잉 유저 id
+    String nickname; // 팔로잉 유저 닉네임
+    String profileImageUrl; // 팔로잉 유저 프로필 이미지 URL
 
 }

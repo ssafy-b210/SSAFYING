@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 public class FindByNicknameRequest {
 
-    private int userId;
-    private String nickname;
+    int userId;
+    String nickname;
 
 }

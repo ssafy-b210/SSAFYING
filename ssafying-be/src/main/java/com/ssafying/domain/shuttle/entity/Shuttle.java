@@ -1,5 +1,6 @@
 package com.ssafying.domain.shuttle.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -15,14 +16,12 @@ public class Shuttle {
     @Column(name = "shuttle_id")
     private int shuttleId; //셔틀버스 id
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "campus_id")
-//    private Campus campus; //캠퍼스
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinColumn(name = "campus_id")
+    private Campus campus; //해당 캠퍼스
 
-    @Column(name = "shuttle_no")
-    private int shuttleNo; //셔틀 호차
-
-//    @OneToMany(mappedBy = "shuttle")
-//    private List<BusStop> busStops = new ArrayList<>(); //정류장
+    @OneToMany(mappedBy = "shuttle")
+    private List<BusStop> busStops = new ArrayList<>(); //셔틀버스가 들리는 정류장리스트
 
 }

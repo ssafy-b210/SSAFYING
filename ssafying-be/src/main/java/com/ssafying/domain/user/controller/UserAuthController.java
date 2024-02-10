@@ -3,6 +3,7 @@ package com.ssafying.domain.user.controller;
 import com.ssafying.domain.user.dto.request.CreateUserRequest;
 import com.ssafying.domain.user.dto.request.LoginRequest;
 import com.ssafying.domain.user.dto.LoginHeaderDto;
+import com.ssafying.domain.user.dto.request.StudentAuthRequest;
 import com.ssafying.domain.user.dto.response.LoginResponse;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
@@ -43,7 +44,7 @@ public class UserAuthController {
     private final Duration TOKEN_EXPIRES = Duration.ofHours(7); // 7시간
 
 
-    /*
+    /**
      * 1.1 회원 가입
      */
 
@@ -59,7 +60,7 @@ public class UserAuthController {
 
     }
 
-    /*
+    /**
      * 1.2 로그인
      */
     @PostMapping("/login")
@@ -99,7 +100,7 @@ public class UserAuthController {
             throw new RuntimeException("로그인 실패");
         }
     }
-    /*
+    /**
      * 토큰 재발급
      */
     @PostMapping("/newToken")
@@ -129,7 +130,7 @@ public class UserAuthController {
         return ResponseEntity.ok().headers(responseHeaders).body(new CreateAccessTokenResponse(newAccessToken.get("accessToken")));
     }
 
-    /*
+    /**
      * 1.3 로그아웃
      */
     @PostMapping("/logout/{loginId}")
@@ -150,6 +151,19 @@ public class UserAuthController {
 
             return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, "로그아웃되었습니다.", userId));
 
+    }
+
+    /**
+     * 1.4 싸피인 인증
+     */
+    @PostMapping("/check")
+    @Operation(summary = "싸피인 인증")
+    public ResponseEntity<ResultResponse<String>> authStudent(
+            @RequestBody StudentAuthRequest request){
+
+        String msg = userAuthService.authStudent(request);
+
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), msg));
     }
 
 

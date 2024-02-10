@@ -4,12 +4,12 @@ import lombok.*;
 
 @Getter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RemoveUserRequest {
+@AllArgsConstructor
+public class StudentAuthRequest {
 
-    int userId;
-    String password;
-
+    String studentName;
+    String studentEmail;
+    int studentNumber;
 
 }

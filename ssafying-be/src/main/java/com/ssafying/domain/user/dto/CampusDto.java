@@ -12,7 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 public class CampusDto {
 
-    private int campusId; //캠퍼스 아이디
+    int campusId; //캠퍼스 아이디
 
-    private CampusRegion campusRegion; //캠퍼스 지역
+    CampusRegion campusRegion; //캠퍼스 지역
 }

@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 public class AddFollowRequest {
 
-    private int fromUserId; //팔로우 거는 follower
+    int fromUserId; //팔로우 거는 follower
 
-    private int toUserId; //팔로우 받는 followee
+    int toUserId; //팔로우 받는 followee
 }

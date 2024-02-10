@@ -29,3 +29,6 @@ insert into follow (from_user, to_user)
 values (1, 2), (1, 3), (1, 4), (1, 5), (1, 6),
        (2, 6), (3, 6), (4, 6), (5, 6), (1, 7),
        (2, 3), (5, 6), (1, 8);
+
+insert into student (student_name, student_email, student_number)
+values ("이예원", "2_yewon@naver.com", 1035775);
