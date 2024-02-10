@@ -19,6 +19,8 @@ public class FindListBoardResponse {
 
     String title;
 
+    String content;
+
     CategoryStatus category;
 
     LocalDateTime createAt;
