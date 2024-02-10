@@ -29,7 +29,7 @@ insert into board(user_id, is_anonymous, content, title, category)
 values (1, false, 'content', '바보', 'FREEDOM'),
        (1, false, 'content', '바보인데 자유는 아님', 'DEVELOPMENT'),
        (1, false, 'content', '아예 아무것도 아님', 'FREEDOM'),
-       (1, false, 'content', '마지막 보바보바', 'FREEDOM')
+       (1, false, 'content', '마지막 보바보바', 'FREEDOM');
 
 insert into follow (from_user, to_user)
 values (1, 2), (1, 3), (1, 4), (1, 5), (1, 6),
