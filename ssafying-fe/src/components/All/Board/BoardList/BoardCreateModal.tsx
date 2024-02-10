@@ -22,20 +22,20 @@ function BoardCreateModal() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const handleNicknameChange = (event: any) => {
-    setNickname(event.currentTarget.value);
+  const handleNicknameChange = (newNickname: boolean) => {
+    setNickname(newNickname);
   };
 
-  const handleCategoryChange = (event: any) => {
-    setSelectedCategory(event.currentTarget.value);
+  const handleCategoryChange = (newCategory: Option) => {
+    setSelectedCategory(newCategory);
   };
 
-  const handleTitleChange = (event: any) => {
-    setTitle(event.currentTarget.value);
+  const handleTitleChange = (newTitle: string) => {
+    setTitle(newTitle);
   };
 
-  const handleContentChange = (event: any) => {
-    setContent(event.currentTarget.value);
+  const handleContentChange = (newContent: string) => {
+    setContent(newContent);
   };
 
   //api 호출
