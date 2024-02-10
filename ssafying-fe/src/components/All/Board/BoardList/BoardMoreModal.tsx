@@ -10,6 +10,7 @@ import BoardCommentList from "./BoardCommentList";
 import BoardBtn from "../BoardBtn";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectUser } from "../../../../store/reducers/user";
+import { deleteBoard } from "../../../../apis/api/Board";
 
 // 카드눌렀을 때 detail 보이게 하기
 interface moreProps {
@@ -39,6 +40,16 @@ function BoardMoreModal({ card, boardId }: moreProps) {
     }
   };
 
+  const handleDeleteBoard = () => {
+    deleteBoard(boardId)
+      .then((response: any) => {
+        console.log("board deleted successfully", response);
+      })
+      .catch((error) => {
+        console.error("Error deleting board", error);
+      });
+  };
+
   return (
     <div>
       <Card>
@@ -59,8 +70,13 @@ function BoardMoreModal({ card, boardId }: moreProps) {
           <Copy>{card.content}</Copy>
           {user.nickname === card.writer && (
             <Flex>
-              <BoardBtn btnmsg="수정" />
-              <BoardBtn btnmsg="삭제" />
+              {/* 수정화면만들기 */}
+              <BoardBtn btnmsg="수정" link="" />
+              <BoardBtn
+                btnmsg="삭제"
+                onClick={handleDeleteBoard}
+                link="/board"
+              />
             </Flex>
           )}
           <hr />

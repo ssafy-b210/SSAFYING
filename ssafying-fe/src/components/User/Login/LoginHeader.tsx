@@ -18,7 +18,7 @@ const Header = styled.header`
   justify-content: center;
   padding: 30px;
   img {
-    margin-bottom: 5px;
-    height: 100px;
+    margin-bottom: 20px;
+    height: 200px;
   }
 `;

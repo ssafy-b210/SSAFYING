@@ -3,6 +3,7 @@ import styled from "styled-components";
 import BoardBtn from "../../All/Board/BoardBtn";
 import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
+import { deleteMarket } from "../../../apis/api/Market";
 
 //카드 눌렀을 때 중고장터 detail
 interface moreProps {
@@ -14,14 +15,25 @@ interface moreProps {
     category: string;
     isSelling: boolean;
   };
+  marketId: number;
 }
 
 const handleCommentSubmit = (comment: string) => {
   console.log("Comment submitted:", comment);
 };
 
-function MarketMoreModal({ card }: moreProps) {
+function MarketMoreModal({ card, marketId }: moreProps) {
   const user = useAppSelector(selectUser);
+
+  const handleDeleteMarket = () => {
+    deleteMarket(marketId)
+      .then((response: any) => {
+        console.log("maket deleted successfully", response);
+      })
+      .catch((error) => {
+        console.error("Error deleting market", error);
+      });
+  };
   return (
     <div>
       <Card>
@@ -43,13 +55,21 @@ function MarketMoreModal({ card }: moreProps) {
             {card.price}원
           </Price>
           <Copy>{card.content}</Copy>
-          {user.nickname === card.writer && (
+          {user.nickname === card.writer ? (
             <Flex>
-              <BoardBtn btnmsg="수정" />
-              <BoardBtn btnmsg="삭제" />
+              {/* 수정화면만들기 */}
+              <BoardBtn btnmsg="수정" link="" />
+              <BoardBtn
+                btnmsg="삭제"
+                link="/market"
+                onClick={handleDeleteMarket}
+              />
+            </Flex>
+          ) : (
+            <Flex>
+              <BoardBtn btnmsg="채팅하기" link="/direct" />
             </Flex>
           )}
-          <hr></hr>
         </Content>
       </Card>
     </div>

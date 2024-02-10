@@ -5,6 +5,7 @@ import CrewCommentList from "./CrewCommentList";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectUser } from "../../../../store/reducers/user";
 import BoardBtn from "../../Board/BoardBtn";
+import { deleteCrew } from "../../../../apis/api/Crew";
 
 // 카드 눌렀을때 crew detail
 interface moreProps {
@@ -16,14 +17,26 @@ interface moreProps {
     category: string;
     isRecruiting: boolean;
   };
+  crewId: number;
 }
 
 const handleCommentSubmit = (comment: string) => {
   console.log("Comment submitted:", comment);
 };
 
-function CrewMoreModal({ card }: moreProps) {
+function CrewMoreModal({ card, crewId }: moreProps) {
   const user = useAppSelector(selectUser);
+
+  const handleDeleteCrew = () => {
+    deleteCrew(crewId)
+      .then((response: any) => {
+        console.log("crew deleted successfully", response);
+      })
+      .catch((error) => {
+        console.error("Error deleting crew", error);
+      });
+  };
+
   return (
     <div>
       <Card>
@@ -47,8 +60,9 @@ function CrewMoreModal({ card }: moreProps) {
           <Copy>{card.content}</Copy>
           {user.nickname === card.writer && (
             <Flex>
-              <BoardBtn btnmsg="수정" />
-              <BoardBtn btnmsg="삭제" />
+              {/* 수정화면만들기 */}
+              <BoardBtn btnmsg="수정" link="" />
+              <BoardBtn btnmsg="삭제" link="/crew" onClick={handleDeleteCrew} />
             </Flex>
           )}
           <hr />

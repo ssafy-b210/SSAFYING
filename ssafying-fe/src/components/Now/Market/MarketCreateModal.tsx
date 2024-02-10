@@ -8,6 +8,7 @@ import CreateTitle from "../../All/Board/BoardCreate/CreateTitle";
 import CreateContent from "../../All/Board/BoardCreate/CreateContent";
 import AddPhoto from "./AddPhoto";
 import ImgEdit from "../../Feed/FeedCreate/ImgEdit";
+import UploadImage from "../../../firebase/UploadImage";
 
 const bigcategory: Option[] = [
   { value: "SELL", label: "팝니다" },
@@ -27,6 +28,7 @@ function MarketCreateModal() {
   const [selectedIsSold, setSelectedIsSold] = useState<Option>(isSold[0]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [imageUrl, setImageUrl] = useState(""); //업로드된 이미지의 url 상태
 
   const handleCategoryChange = (newCategory: Option) => {
     // setSelectedCategory(newCategory);
@@ -39,6 +41,13 @@ function MarketCreateModal() {
   const handleContentChange = (newContent: string) => {
     setContent(newContent);
   };
+
+  const setImage = (url: string) => {
+    setImageUrl(url);
+  };
+
+  // const db = firebase.firestore();
+  // const storage = firebase.storage();
 
   return (
     <ModalWrapper>
@@ -62,6 +71,7 @@ function MarketCreateModal() {
         <ImgEdit />
         <button>작성</button>
       </ButtonWrapper>
+      <UploadImage setImage={setImage}></UploadImage>
     </ModalWrapper>
   );
 }

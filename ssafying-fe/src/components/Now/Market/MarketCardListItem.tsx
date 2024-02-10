@@ -18,6 +18,7 @@ interface MarketItemProps {
 }
 
 function MarketCardListItem({ card, index }: MarketItemProps) {
+  const marketId = index;
   return (
     <div>
       <Card key={index}>
@@ -46,7 +47,7 @@ function MarketCardListItem({ card, index }: MarketItemProps) {
             </Content>
             <Button>
               <Modal btnTxt="더보기">
-                <MarketMoreModal card={card} />
+                <MarketMoreModal card={card} marketId={marketId} />
               </Modal>
             </Button>
           </Back>

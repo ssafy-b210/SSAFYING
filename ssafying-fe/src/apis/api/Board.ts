@@ -1,3 +1,5 @@
+import { error } from "console";
+import { useNavigate } from "react-router";
 import { axios } from "../utils/axios";
 
 const REST_BOARD_API = `/api/boards`;
@@ -28,6 +30,28 @@ export async function createBoard(
 }
 
 //게시판 전체 조회
+export async function selectAllBoard(
+  searchCategory?: string,
+  searchWord?: string
+) {
+  try {
+    let url = "/api/boards";
+    if (searchCategory && searchWord) {
+      url += `?searchCategory=${searchCategory}&searchWord=${searchWord}`;
+    } else if (searchCategory) {
+      url += `?searchCategory=${searchCategory}`;
+    } else if (searchWord) {
+      url += `?searchWord=${searchWord}`;
+    }
+
+    const response = await axios.get(url);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error", error);
+    throw error;
+  }
+}
 
 //게시판 게시글 스크랩
 export async function scrapBoard(userId: number, boardId: number) {
@@ -55,12 +79,20 @@ export async function cancelscrapBoard(userId: number, boardId: number) {
 }
 
 // 게시판 게시글 상세 조회
+export async function selectOneBoard(boardId: number) {
+  try {
+    const response = await axios.get(`/api/boards/${boardId}`);
+    return response.data;
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 // 게시판 게시글 삭제
 export async function deleteBoard(boardId: number) {
   try {
     const response = await axios.delete(`${REST_BOARD_API}/${boardId}`);
-    console.log(response.data);
+    return response.data;
   } catch (e) {
     console.log(e);
   }
@@ -118,7 +150,7 @@ export async function deleteBoardComment(boardCommentId: number) {
     const response = await axios.delete(
       `${REST_BOARD_API}/comments/${boardCommentId}`
     );
-    console.log(response.data);
+    return response.data;
   } catch (e) {
     console.log(e);
   }

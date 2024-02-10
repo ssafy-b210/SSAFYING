@@ -19,6 +19,7 @@ interface CrewItemProps {
 }
 
 function CrewCardListItem({ card, index, selectedLocation }: CrewItemProps) {
+  const crewId = index;
   return (
     <div>
       <Card key={index}>
@@ -48,7 +49,7 @@ function CrewCardListItem({ card, index, selectedLocation }: CrewItemProps) {
             <Location>지역 : {card.location}</Location>
             <Button>
               <Modal btnTxt="더보기">
-                <CrewMoreModal card={card} />
+                <CrewMoreModal card={card} crewId={crewId} />
               </Modal>
             </Button>
           </Back>

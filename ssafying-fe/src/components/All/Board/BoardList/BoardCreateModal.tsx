@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import CreateTitle from "../BoardCreate/CreateTitle";
 import CreateContent from "../BoardCreate/CreateContent";
@@ -6,49 +6,46 @@ import SelectCategory, { Option } from "../../Board/BoardCreate/SelectCategory";
 import IsAnonymous from "../BoardCreate/CheckAnonymous";
 import { createBoard } from "../../../../apis/api/Board";
 
-const options: Option[] = [
-  { value: "FREEDOM", label: "자유" },
-  { value: "EMPLOYMENT", label: "취업" },
-  { value: "INFO", label: "정보" },
-  { value: "DEVELOPMENT", label: "개발" },
-  { value: "TIP", label: "싸피꿀팁" },
-  { value: "LIVING", label: "생활" },
-  { value: "PROMOTION", label: "홍보" },
-];
-
 function BoardCreateModal() {
+  const options: Option[] = [
+    { value: "FREEDOM", label: "자유" },
+    { value: "EMPLOYMENT", label: "취업" },
+    { value: "INFO", label: "정보" },
+    { value: "DEVELOPMENT", label: "개발" },
+    { value: "TIP", label: "싸피꿀팁" },
+    { value: "LIVING", label: "생활" },
+    { value: "PROMOTION", label: "홍보" },
+  ];
+
   const [selectedCategory, setSelectedCategory] = useState<Option>(options[0]);
   const [nickname, setNickname] = useState(false); //nickname - false: 실명제
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const handleNicknameChange = (newNickname: boolean) => {
-    setNickname(newNickname);
+  const handleNicknameChange = (event: any) => {
+    setNickname(event.currentTarget.value);
   };
 
-  const handleCategoryChange = (newCategory: Option) => {
-    setSelectedCategory(newCategory);
+  const handleCategoryChange = (event: any) => {
+    setSelectedCategory(event.currentTarget.value);
   };
 
-  const handleTitleChange = (newTitle: string) => {
-    setTitle(newTitle);
+  const handleTitleChange = (event: any) => {
+    setTitle(event.currentTarget.value);
   };
 
-  const handleContentChange = (newContent: string) => {
-    setContent(newContent);
+  const handleContentChange = (event: any) => {
+    setContent(event.currentTarget.value);
   };
 
   //api 호출
   const handleCreateBoard = () => {
-    const inputData = {
-      selectedCategory,
-      nickname,
-      title,
-      content,
-    };
-    console.log("Input Data:", inputData);
+    createBoard(1, title, content, selectedCategory.value, nickname);
+    setTitle("");
+    setContent("");
+    setSelectedCategory(options[0]);
+    setNickname(false);
   };
-
   return (
     <ModalWrapper>
       <ButtonWrapper>

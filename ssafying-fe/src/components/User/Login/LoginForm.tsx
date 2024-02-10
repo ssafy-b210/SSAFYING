@@ -7,8 +7,6 @@ import { login } from "../../../apis/api/Auth";
 import { useAppDispatch } from "../../../store/hooks";
 import { saveUserInfo } from "../../../store/reducers/user";
 
-import SubmitBtn from "../../Common/SubmitBtn";
-
 function LoginForm() {
   const dispatch = useAppDispatch();
 
