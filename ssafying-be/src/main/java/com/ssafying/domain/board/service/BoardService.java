@@ -92,6 +92,7 @@ public class BoardService {
                     .userName(board.getUser().getName())
                     .isAnonymous(board.isAnonymous())
                     .title(board.getTitle())
+                    .content(board.getContent())
                     .category(board.getCategory())
                     .createAt(board.getCreatedAt())
                     .build();
