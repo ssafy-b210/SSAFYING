@@ -1,6 +1,5 @@
 package com.ssafying.domain.board.dto.response;
 
-import com.ssafying.domain.board.dto.ParentCommentDTO;
 import com.ssafying.domain.board.entity.CategoryStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,14 +7,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Getter
-public class FindDetailBoardResponse {
+public class FindListBoardResponse {
     String userName;
+
+    boolean isAnonymous;
 
     String title;
 
@@ -23,11 +23,5 @@ public class FindDetailBoardResponse {
 
     CategoryStatus category;
 
-    boolean isAnonymous;
-
     LocalDateTime createAt;
-
-    List<ParentCommentDTO> comments;
-
-
 }

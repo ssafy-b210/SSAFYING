@@ -44,6 +44,12 @@ public class Board extends BaseTimeEntity {
     //생성일자와 수정일자는 BaseTimeEntity 에 있음
 
 
+    //댓글 추가
+    public void addComment(BoardComment comment) {
+        commentList.add(comment);
+        comment.setBoard(this);
+    }
+
     //그냥 생성자를 사용하면 어떤 경우에 사용되는지 알 수 없음.
     //이렇게 특정한 경우 사용되는 함수를 정의해주면 더 명확하게 의도를 알 수 있음.
     public static Board createBoard(

@@ -85,7 +85,7 @@ public class BambooService {
         LocalDateTime now = LocalDateTime.now(); //현재 시간
 
         // bambooId 가 존재하는지 확인
-        Bamboo bamboo = bambooRepository.findBambooAndBambooComment(bambooId)
+        Bamboo bamboo = bambooRepository.findById(bambooId)
                 .orElseThrow(() -> (new RuntimeException("해당 대나무숲이 없습니다.")));
 
         // 24시간이 지났는지 확인해야 함
