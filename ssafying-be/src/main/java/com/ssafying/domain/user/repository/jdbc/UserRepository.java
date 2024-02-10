@@ -22,10 +22,32 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findByEmail(String email);
     Optional<User> findByPassword(String password);
 
-    //추천친구
+    /*
+     * 추천친구
+     */
+
+    //campus, generation, isMajor 필터링
     @Query("select u from User u where u.campus = :campus and u.generation = :generation and u.isMajor = :isMajor")
     List<User> findByCampusAndGenerationAndIsMajor(@Param("campus") Campus campus,
                                                    @Param("generation") int generation,
                                                    @Param("isMajor") Boolean isMajor);
+
+
+    //campus, generation 필터링
+    @Query("select u from User u where u.campus = :campus and u.generation = :generation")
+    List<User> findByCampusAndGeneration(@Param("campus") Campus campus,
+                                         @Param("generation") int generation);
+
+    //campus, isMajor 필터링
+    @Query("select u from User u where u.campus = :campus and u.isMajor = :isMajor")
+    List<User> findByCampusAndIsMajor(@Param("campus") Campus campus,
+                                      @Param("isMajor") Boolean isMajor);
+
+    //generation, isMajor 필터링
+    @Query("select u from User u where u.generation = :generation and u.isMajor = :isMajor")
+    List<User> findByGenerationAndIsMajor(@Param("generation") int generation,
+                                      @Param("isMajor") Boolean isMajor);
+
+
 
 }

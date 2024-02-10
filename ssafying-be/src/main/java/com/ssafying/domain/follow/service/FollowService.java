@@ -205,12 +205,24 @@ public class FollowService {
         int generation = user.getGeneration();
 
         // 같은 값을 가진 사용자라면 리스트에 담는다.
+        /*
+         * 1. 모든 조건 필터링
+         * 2. campus , generation 필터링
+         * 3. campus, isMajor 필터링
+         * 4. generation, isMajor 필터링
+         */
         List<User> list = userRepository.findByCampusAndGenerationAndIsMajor(campus, generation, isMajor);
+        List<User> listByCG = userRepository.findByCampusAndGeneration(campus, generation);
+        List<User> listByCM = userRepository.findByCampusAndIsMajor(campus, isMajor);
+        List<User> listByGM = userRepository.findByGenerationAndIsMajor(generation, isMajor);
 
         /*
          * 나 자신 제외
          */
         list.removeIf(findedMe -> findedMe.getId() == user.getId());
+        listByCG.removeIf(findedMe -> findedMe.getId() == user.getId());
+        listByCM.removeIf(findedMe -> findedMe.getId() == user.getId());
+        listByGM.removeIf(findedMe -> findedMe.getId() == user.getId());
 
         /*
          * 내 팔로잉 목록에 있으면 제외
@@ -220,13 +232,24 @@ public class FollowService {
 
             if(finded.getFromUser().getId() == user.getId()){
                 list.remove(finded.getToUser());
+                listByCG.remove(finded.getToUser());
+                listByCM.remove(finded.getToUser());
+                listByGM.remove(finded.getToUser());
             }
 
         }
 
+        // 모든 필터링 걸친 리스트 합치기
+        list.addAll(listByCG);
+        list.addAll(listByCM);
+        list.addAll(listByGM);
+
+        //중복 제거
+        List<User> result = list.stream().distinct().toList();
+
         List<FindRecommendResponse> resultList = new ArrayList<>();
 
-        for(User resultUsers : list){
+        for(User resultUsers : result){
 
             resultList.add(
                     FindRecommendResponse.builder()

@@ -12,11 +12,13 @@ values (2, 'ssafy1@ssafy.com', '1234', '애옹', '010-1111-1111', '이싸피', 1
        (2, 'ssafy4@ssafy.com', '1234', '깃마스터', '010-4444-4444', '임싸피', 11, false, 'ACTIVE'),
        (4, 'ssafy5@ssafy.com', '1234', '폭주기관차', '010-5555-5555', '김싸피', 11, true, 'ACTIVE'),
        (1, 'ssafy6@ssafy.com', '1234', '예스맨', '010-6666-6666', '노싸피', 11, true, 'ACTIVE'),
-       (2, 'test1@test.com', '1234','테스트1', '010-8888-9999', '최싸피', 10, false, 'ACTIVE'),
-       (2, 'test2@test.com', '1234', '테스트2', '010-3453-2222', '박싸피', 10, false, 'ACTIVE');
-
-insert into users (campus_id, generation, is_major, email, name, nickname, password, phone_number)
-values (2, 10, false, "ssafy7@ssafy.com", "최싸피", "추천테스트", "5678", "010-7777-7777");
+       (2, 'test1@test.com', '1234','추천테스트1', '010-8888-9999', '최싸피', 7, false, 'ACTIVE'),
+       (2, 'test3@test.com', '1234', '추천테스트2', '010-3453-5678', '이싸피', 8, true, 'ACTIVE'),
+       (3, 'test4@test.com', '1234', '추천테스트3', '010-3453-1212', '남궁싸피', 9, false, 'ACTIVE'),
+       (2, 'test5@test.com', '1234', '추천테스트4', '010-3453-2323', '독고싸피', 9, true, 'ACTIVE'),
+       (1, 'test6@test.com', '1234', '추천테스트5', '010-3453-3434', '구싸피', 11, true, 'ACTIVE'),
+       (4, 'test7@test.com', '1234', '추천테스트6', '010-3453-2232', '신싸피', 10, false, 'ACTIVE'),
+       (1, 'test8@test.com', '1234', '추천테스트7', '010-3453-6543', '양싸피', 10, true, 'ACTIVE');
 
 insert into crew (title, content, region, category, is_recruit)
 values ('구인글1', '내용1', 'SEOUL', 'STUDY', true),
