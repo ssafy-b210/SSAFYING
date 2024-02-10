@@ -189,7 +189,7 @@ const SubmitButton = styled.input`
   width: 300px;
   height: 30px;
   border: none;
-  border-radius: 10px;
+  border-radius: 20px;
   margin-bottom: 10px;
   background-color: #ff8e99;
   color: white;

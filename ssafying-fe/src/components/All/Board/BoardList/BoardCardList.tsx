@@ -19,66 +19,40 @@ const Container = styled.div`
   }
 `;
 
-// const cards = [
-//   {
-//     title: "유온역 맛집",
-//     writer: "애옹",
-//     content: "숙취용 부탁해",
-//     category: "자유",
-//   },
-//   {
-//     title: "유온역 맛집 추천받아요 123456",
-//     writer: "ssafy1@ssafy.com",
-//     content:
-//       "숙취용 부탁해 dkdkdkdkkdkdkdflksajfkdjfsjfldjalkjfaklsjfsdjflakjfksdjfklajfkjflkdsajfkjflksajfkljklsdfasdfasdfasdfafsdasdfadfa",
-//     category: "취업",
-//   },
-//   {
-//     title: "유온역 맛집 추천받아요",
-//     writer: "sueun",
-//     content: "숙취용 부탁해",
-//     category: "정보",
-//   },
-//   {
-//     title: "유온역 맛집 추천받아요",
-//     writer: "sueun",
-//     content: "숙취용 부탁해",
-//     category: "자유",
-//   },
-// ];
-
 const BoardCardList: React.FC<BoardCardListProps> = ({ selectedCategory }) => {
   const [cards, setCards] = useState<
     { title: string; writer: string; content: string; category: string }[]
   >([]);
 
+  const [lastIdx, setLastIdx] = useState(0);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const boardData = await selectAllBoard();
-        setCards(boardData);
+        if (boardData && boardData.resultData) {
+          setLastIdx(lastIdx + 1);
+          const newCards = await boardData.resultData.map((res: any) => ({
+            title: res.title,
+            writer: res.anonymous ? "익명" : res.userName,
+            // 여기 수은이가 content넣어주면 수정하기
+            content: "바보",
+            category: res.category,
+          }));
+          setCards(newCards);
+        }
       } catch (error) {
-        console.error("Error fetching board data:", error);
+        console.error(error);
+        setCards([]);
       }
     };
     fetchData();
   }, []);
-
-  const filteredCards = selectedCategory
-    ? cards.filter((card) => card.category === selectedCategory)
-    : cards;
-
   return (
     <Container>
-      {filteredCards.length > 0 ? (
-        filteredCards.map((card, index) => (
-          <BoardCardListItem key={index} card={card} index={index} />
-        ))
-      ) : (
-        <NoResultsMessage>
-          해당 카테고리에 대한 게시물이 존재하지 않습니다.
-        </NoResultsMessage>
-      )}
+      {cards.map((card, index) => (
+        <BoardCardListItem key={index} card={card} index={index} />
+      ))}
     </Container>
   );
 };
