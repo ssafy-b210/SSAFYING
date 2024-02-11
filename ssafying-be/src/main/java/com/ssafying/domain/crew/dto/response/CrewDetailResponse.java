@@ -16,7 +16,7 @@ public class CrewDetailResponse {
 
     int crewId;
     String title;
-    User user;
+    String nickname;
     String content;
     Region region;
     CrewCategory category;

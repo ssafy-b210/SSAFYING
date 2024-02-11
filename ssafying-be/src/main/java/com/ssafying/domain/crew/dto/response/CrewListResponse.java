@@ -13,6 +13,8 @@ public class CrewListResponse {
 
     int crewId;
     String title;
+    String content;
+    String nickname;
     Region region;
     CrewCategory category;
     boolean isRecruit;

@@ -68,9 +68,11 @@ public class MarketController {
      */
     @GetMapping
     @Operation(summary = "거래글 전체 조회")
-    public ResponseEntity<ResultResponse<List<MarketListResponse>>> marketList(){
+    public ResponseEntity<ResultResponse<List<MarketListResponse>>> marketList(
+            @RequestParam(name = "isSoldout") Boolean isSoldout
+    ){
 
-        List<MarketListResponse> result = marketService.findAllMarkets();
+        List<MarketListResponse> result = marketService.findAllMarkets(isSoldout);
 
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }

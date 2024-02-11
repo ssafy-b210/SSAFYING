@@ -96,8 +96,10 @@ public class MarketService {
      * 게시글 전체 조회
      */
     @Transactional
-    public List<MarketListResponse> findAllMarkets() {
-        List<Market> markets = marketRepository.findAll();
+    public List<MarketListResponse> findAllMarkets(Boolean isSoldout) {
+
+        List<Market> markets = marketRepository.findByIsSoldout(isSoldout);
+
         List<MarketListResponse> responseList = new ArrayList<>();
 
         for (Market market : markets) {
