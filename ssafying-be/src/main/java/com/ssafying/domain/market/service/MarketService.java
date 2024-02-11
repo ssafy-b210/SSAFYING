@@ -3,6 +3,7 @@ package com.ssafying.domain.market.service;
 import com.ssafying.domain.feed.entity.FeedImage;
 import com.ssafying.domain.market.dto.request.AddMarketRequest;
 import com.ssafying.domain.market.dto.request.ModifyMarketRequest;
+import com.ssafying.domain.market.dto.response.MarketDetailResponse;
 import com.ssafying.domain.market.dto.response.MarketListResponse;
 import com.ssafying.domain.market.entity.Market;
 import com.ssafying.domain.market.entity.MarketImage;
@@ -98,7 +99,14 @@ public class MarketService {
     @Transactional
     public List<MarketListResponse> findAllMarkets(Boolean isSoldout) {
 
-        List<Market> markets = marketRepository.findByIsSoldout(isSoldout);
+        List<Market> markets = null;
+
+        //isSoldout 값에 따라
+        if(isSoldout == null){
+            markets = marketRepository.findMarket();
+        }else{
+            markets = marketRepository.findByIsSoldout(isSoldout);
+        }
 
         List<MarketListResponse> responseList = new ArrayList<>();
 
@@ -107,6 +115,7 @@ public class MarketService {
                     .marketId(market.getMarketId())
                     .marketWay(market.getMarketWay())
                     .title(market.getTitle())
+                    .content(market.getContent())
                     .price(market.getPrice())
                     .isSoldout(market.getIsSoldout())
                     .build());
@@ -119,11 +128,21 @@ public class MarketService {
      * 게시글 상세 조회
      */
     @Transactional
-    public Market findMarket(int marketId){
+    public MarketDetailResponse findMarket(int marketId){
         Market market = marketRepository.findById(marketId)
                 .orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
 
-        return market;
+        MarketDetailResponse response = MarketDetailResponse.builder()
+                .title(market.getTitle())
+                .nickname(market.getUser().getNickname())
+                .marketWay(market.getMarketWay())
+                .isSoldout(market.getIsSoldout())
+                .price(market.getPrice())
+                .content(market.getContent())
+                .imageUrl(market.getMarketImages())
+                .build();
+
+        return response;
     }
 
 

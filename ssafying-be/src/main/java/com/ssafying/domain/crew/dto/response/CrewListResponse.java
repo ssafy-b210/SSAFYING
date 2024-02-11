@@ -17,5 +17,5 @@ public class CrewListResponse {
     String nickname;
     Region region;
     CrewCategory category;
-    boolean isRecruit;
+    Boolean isRecruit;
 }

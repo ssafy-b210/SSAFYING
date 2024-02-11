@@ -1,5 +1,6 @@
 package com.ssafying.domain.market.dto.request;
 
+import com.ssafying.domain.market.entity.MarketWay;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 

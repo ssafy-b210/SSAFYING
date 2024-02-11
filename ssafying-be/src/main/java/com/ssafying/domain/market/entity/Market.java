@@ -2,7 +2,6 @@ package com.ssafying.domain.market.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafying.domain.market.dto.request.AddMarketRequest;
-import com.ssafying.domain.market.dto.request.MarketWay;
 import com.ssafying.domain.market.dto.request.ModifyMarketRequest;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.global.entity.BaseTimeEntity;

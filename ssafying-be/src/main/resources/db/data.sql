@@ -43,4 +43,5 @@ values ("이예원", "2_yewon@naver.com", 1035775),
        ("이수민", "judy3504@naver.com", 1038591),
        ("노현석", "nhs503601@gmail.com", 1030533),
        ("임지은", "ljieun01@naver.com", 1031156),
-       ("김수은", "tndms0308@naver.com", 1036351);
+       ("김수은", "tndms0308@naver.com", 1036351),
+       ("김혜진", "hyejin9203@naver.com", 1034262);

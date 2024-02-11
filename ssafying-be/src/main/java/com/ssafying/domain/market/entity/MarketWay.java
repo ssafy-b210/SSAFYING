@@ -1,4 +1,4 @@
-package com.ssafying.domain.market.dto.request;
+package com.ssafying.domain.market.entity;
 
 public enum MarketWay {
     BUY, SELL, SHARE

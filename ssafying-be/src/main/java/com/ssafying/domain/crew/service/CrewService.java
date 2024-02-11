@@ -141,22 +141,28 @@ public class CrewService {
     /**
      * 게시글 검색
      */
-    public List<CrewListResponse> searchCrew(String title, String region, String category, boolean isRecruit){
+    public List<CrewListResponse> searchCrew(String title, String region, String category){
 
         Specification<Crew> spec = Specification.where(null);
 
         if (title != null && !title.isEmpty()) {
             spec = spec.and(CrewSpecification.containingTitle(title));
         }
+
         if (region != null && !region.isEmpty()) {
             spec = spec.and(CrewSpecification.findByRegion(Region.valueOf(region.toUpperCase())));
         }
+
         if (category != null && !category.isEmpty()) {
             spec = spec.and(CrewSpecification.findByCategory(CrewCategory.valueOf(category.toUpperCase())));
         }
 
-        spec = spec.and(CrewSpecification.isRecruit(isRecruit));
-
+//        if (isRecruit != null) {
+//            spec = spec.and(CrewSpecification.isRecruit(isRecruit));
+//        }else{
+//            spec = spec.and(CrewSpecification.isRecruit(true));
+//            spec = spec.and(CrewSpecification.isRecruit(false));
+//        }
 
         List<CrewListResponse> responseList = new ArrayList<>();
 
@@ -164,6 +170,7 @@ public class CrewService {
 
         for(Crew crew : list){
             responseList.add(CrewListResponse.builder()
+                    .crewId(crew.getCrewId())
                     .title(crew.getTitle())
                     .nickname(crew.getUser().getNickname())
                     .content(crew.getContent())

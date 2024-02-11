@@ -9,6 +9,9 @@ import java.util.List;
 
 public interface MarketRepository extends JpaRepository<Market, Integer> {
 
+    @Query("select m from Market m")
+    List<Market> findMarket();
+
     //거래 여부에 따른 필터링
     @Query("select m from Market m where m.isSoldout = :isSoldout")
     List<Market> findByIsSoldout(@Param("isSoldout") Boolean isSoldout);
