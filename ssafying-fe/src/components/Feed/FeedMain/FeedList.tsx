@@ -17,7 +17,7 @@ function FeedList() {
   const handleList = async () => {
     const list = await getFeedList(user.userId);
     console.log(list);
-    setFeedList(list);
+    setFeedList(list || []);
   };
 
   return (

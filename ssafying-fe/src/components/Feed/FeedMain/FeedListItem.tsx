@@ -3,7 +3,6 @@ import FeedListItemImg from "./FeedListItemImg";
 import FeedListItemBtn from "./FeedListItemBtn";
 import FeedContent from "./FeedContent";
 import styled from "styled-components";
-import userImage from "../../../assets/img/testImg/user.jpg";
 
 interface FeedProps {
   feed: any;
