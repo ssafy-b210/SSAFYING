@@ -7,26 +7,27 @@ declare global {
   }
 }
 
-function Tmap() {
+type Location = {
+  lat: number;
+  lng: number;
+};
+
+function Tmap(props: { currLocation: Location; nextLocation: Location }) {
   const { Tmapv3 } = window;
   let map: any;
 
-  // 현재 위치 요청 후 지도 생성
-  function getCurrentPosition() {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-      initTmap(latitude, longitude);
-    });
-  }
-
   // 지도 생성
-  function initTmap(latitude: number, longitude: number) {
+  function initTmap() {
     const mapDiv = document.getElementById("map_div");
+
+    const currLat = props.currLocation.lat;
+    const currLng = props.currLocation.lng;
+    const nextLat = props.nextLocation.lat;
+    const nextLng = props.nextLocation.lng;
 
     if (!mapDiv?.firstChild) {
       map = new window.Tmapv3.Map("map_div", {
-        center: new Tmapv3.LatLng(latitude, longitude),
+        center: new Tmapv3.LatLng(currLat, currLng),
         width: "890px",
         height: "400px",
         zoom: 15,
@@ -34,7 +35,7 @@ function Tmap() {
 
       //Marker 객체 생성.
       const marker = new Tmapv3.Marker({
-        position: new Tmapv3.LatLng(latitude, longitude),
+        position: new Tmapv3.LatLng(nextLat, nextLng),
         icon: markerImg,
         map: map,
       });
@@ -58,8 +59,14 @@ function Tmap() {
 
   //경로안내 요청 함수
   function getRP() {
-    var s_latlng = new Tmapv3.LatLng(37.553756, 126.925356);
-    var e_latlng = new Tmapv3.LatLng(37.554034, 126.975598);
+    var s_latlng = new Tmapv3.LatLng(
+      props.currLocation.lat,
+      props.currLocation.lng
+    );
+    var e_latlng = new Tmapv3.LatLng(
+      props.nextLocation.lat,
+      props.nextLocation.lng
+    );
 
     var optionObj = {
       reqCoordType: "WGS84GEO", //요청 좌표계 옵셥 설정입니다.
@@ -99,7 +106,9 @@ function Tmap() {
       trafficType4Color: "#FF0000", // 정체
     };
     jsonObject.drawRouteByTraffic(map, jsonForm, trafficColors);
-    map.setCenter(new Tmapv3.LatLng(37.55676159947993, 126.94734232774672));
+    map.setCenter(
+      new Tmapv3.LatLng(props.currLocation.lat, props.currLocation.lng)
+    );
     map.setZoom(13);
   }
 
@@ -112,7 +121,7 @@ function Tmap() {
   }
 
   useEffect(() => {
-    getCurrentPosition();
+    initTmap();
   }, []);
 
   return <div id="map_div"></div>;

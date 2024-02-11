@@ -75,7 +75,7 @@ function App() {
           <Route path="/market" element={<MarketList />} />
           <Route path="/mealplan" element={<SelectCampusMeal />} />
           <Route path="/bus" element={<BusRealTimeSelect />} />
-          <Route path="/bus/:id" element={<BusRealTimeMap />} />
+          <Route path="/bus/:shuttleId" element={<BusRealTimeMap />} />
 
           <Route path="/feedhome" element={<FeedMain />}></Route>
           <Route path="/search" element={<FeedSearch />} />

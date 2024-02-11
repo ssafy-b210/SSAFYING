@@ -3,6 +3,8 @@ import SubmitBtn from "../../../components/Common/SubmitBtn";
 import downArrow from "../../../assets/img/imgBtn/downArrow.svg";
 
 function BusRealTimeSelect() {
+  // NOTE : 셔틀 버스 이전에 선택한 값 가져오기
+
   return (
     <Wrapper>
       <h1>셔틀버스 위치공유</h1>
@@ -10,12 +12,12 @@ function BusRealTimeSelect() {
         <label htmlFor="bus-number-selector">셔틀버스를 선택해주세요.</label>
         <SelectWrapper>
           <select name="number" id="bus-number-selector">
-            <option value="">1호차</option>
-            <option value="">2호차</option>
-            <option value="">3호차</option>
-            <option value="">4호차</option>
-            <option value="">5호차</option>
-            <option value="">6호차</option>
+            <option value="1">1호차</option>
+            <option value="2">2호차</option>
+            <option value="3">3호차</option>
+            <option value="4">4호차</option>
+            <option value="5">5호차</option>
+            <option value="6">6호차</option>
           </select>
           <div className="down-arrow-icon">
             <img src={downArrow} alt="아래 화살표" />
