@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import SubmitBtn from "../../Common/SubmitBtn";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { signup } from "../../../apis/api/Auth";
 
 interface SignUpFormProps {}
 
@@ -17,7 +17,7 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
     tel: "",
     level: "",
     campus: "",
-    major: "",
+    major: false, //초기값을 비전공자로 설정...
   });
 
   // 입력값 바뀔때마다 저장하기
@@ -25,41 +25,43 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
     setInputValue({ ...inputValue, [e.target.name]: e.target.value });
   };
 
-  const {
-    name,
-    nickname,
-    email,
-    password,
-    password2,
-    tel,
-    level,
-    campus,
-    major,
-  } = inputValue;
-
   //비밀번호와 비밀번호 확인 같은지 체크하기
-  const isSame = password === password2;
+  const isSame = inputValue.password === inputValue.password2;
 
   //input에 모든 입력값이 다 입력되었는지 체크하기
   const isValid =
-    name !== "" &&
-    nickname !== "" &&
-    email !== "" &&
-    password !== "" &&
-    password2 !== "" &&
-    tel !== "" &&
-    level !== "" &&
-    campus !== "" &&
-    major !== "" &&
+    inputValue.name !== "" &&
+    inputValue.nickname !== "" &&
+    inputValue.email !== "" &&
+    inputValue.password !== "" &&
+    inputValue.password2 !== "" &&
+    inputValue.tel !== "" &&
+    inputValue.level !== "" &&
+    inputValue.campus !== "" &&
+    // inputValue.major !== null &&
     isSame;
 
   const navigate = useNavigate();
 
-  const handleClickNext = () => {
+  const handleClickNext = async () => {
     if (!isValid) {
       alert("빈칸을 모두 채워주세요.");
     } else {
-      navigate("/tagselect");
+      try {
+        await signup(
+          inputValue.campus,
+          inputValue.email,
+          inputValue.password,
+          inputValue.nickname,
+          inputValue.tel,
+          inputValue.name,
+          parseInt(inputValue.level),
+          inputValue.major
+        );
+        navigate("/tagselect");
+      } catch (error) {
+        console.error("Error signing up:", error);
+      }
     }
   };
 
@@ -118,7 +120,7 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
             name="password2"
             onChange={handleInputChange}
           />
-          {password2 !== "" && !isSame && (
+          {inputValue.password2 !== "" && !isSame && (
             <p className="passwdCheck">비밀번호가 일치하지 않습니다.</p>
           )}
           <label htmlFor="password2">비밀번호를 다시 입력해주세요</label>
@@ -196,14 +198,16 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
               type="radio"
               name="major"
               className="major"
-              onChange={handleInputChange}
+              onChange={() => setInputValue({ ...inputValue, major: true })}
+              checked={inputValue.major === true}
             />
             전공자
             <input
               type="radio"
               name="major"
               className="major"
-              onChange={handleInputChange}
+              onChange={() => setInputValue({ ...inputValue, major: false })}
+              checked={inputValue.major === false}
             />
             비전공자
           </div>
@@ -228,10 +232,10 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: start;
-  // align-items: center;
+  align-items: center;
   position: relative;
   padding-right: 45px;
-  // padding-left: 45px;
+  padding-left: 45px;
 
   .nextButton {
     width: 300px;
@@ -256,6 +260,12 @@ const Form = styled.form`
     width: 100%;
     padding: 10px;
     font-size: 15px;
+  }
+
+  a {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
   }
 `;
 const SignUpInput = styled.div`

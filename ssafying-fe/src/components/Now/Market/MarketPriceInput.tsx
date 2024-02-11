@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 interface CreatePriceProps {
   onPriceChange: (newPrice: number) => void;
+  disabled: boolean;
 }
 
 function MarketPriceInput({ onPriceChange }: CreatePriceProps) {

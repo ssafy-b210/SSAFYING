@@ -51,6 +51,10 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
   //marketWay
   const handleCategoryChange = (newCategory: Option) => {
     setSelectedCategory(newCategory);
+    // 카테고리가 SHARE일 때 가격을 0으로 설정
+    if (newCategory.value === "SHARE") {
+      setPrice(0);
+    }
   };
 
   const handleToggle = (value: boolean) => {
@@ -123,7 +127,13 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
         onCategoryChange={handleCategoryChange}
       ></SelectCategory>
       <ToggleBtn isSold={isSold} onToggle={handleToggle} />
-      <MarketPriceInput onPriceChange={handlePriceChange} />
+      <MarketPriceInput
+        onPriceChange={handlePriceChange}
+        disabled={selectedCategory.value === "SHARE"}
+      />
+      {selectedCategory.value === "SHARE" && (
+        <Message>📌가격은 0으로 설정됩니다.</Message>
+      )}
       <CreateTitle onTitleChange={handleTitleChange}></CreateTitle>
       <CreateContent onContentChange={handleContentChange}></CreateContent>
       <Text>이미지 업로드</Text>
@@ -163,4 +173,9 @@ const Text = styled.p`
   font-size: 17px;
   font-weight: bold;
   text-align: center;
+`;
+
+const Message = styled.span`
+  font-size: 12px;
+  margin-left: 30px;
 `;
