@@ -9,16 +9,15 @@ interface CrewItemProps {
   card: {
     title: string;
     writer: string;
-    content: string;
-    location: string;
+    isRecruit: boolean;
     category: string;
-    isRecruiting: boolean;
+    region: string;
+    content: string;
   };
   index: number;
-  selectedLocation: string;
 }
 
-function CrewCardListItem({ card, index, selectedLocation }: CrewItemProps) {
+function CrewCardListItem({ card, index }: CrewItemProps) {
   const crewId = index;
   return (
     <div>
@@ -33,7 +32,7 @@ function CrewCardListItem({ card, index, selectedLocation }: CrewItemProps) {
             <hr />
             <SmallContainer>
               <Writer>{card.writer}</Writer>
-              {card.isRecruiting ? (
+              {card.isRecruit ? (
                 <img src={isRecruiting} alt="isRecruiting" />
               ) : (
                 <img src={isNotRecruiting} alt="isNotRecruiting" />
@@ -46,7 +45,7 @@ function CrewCardListItem({ card, index, selectedLocation }: CrewItemProps) {
                 ? card.content
                 : card.content.slice(0, 99) + "..."}
             </Content>
-            <Location>지역 : {card.location}</Location>
+            <Location>구인 지역 : {card.region}</Location>
             <Button>
               <Modal btnTxt="더보기">
                 <CrewMoreModal card={card} crewId={crewId} />

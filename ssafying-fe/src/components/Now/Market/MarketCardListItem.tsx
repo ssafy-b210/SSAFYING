@@ -8,11 +8,11 @@ import isNotSelling from "../../../assets/img/imgBtn/isNotSelling.svg";
 interface MarketItemProps {
   card: {
     title: string;
-    price: number;
-    isSelling: boolean;
-    content: string;
     writer: string;
-    category: string;
+    isSold: boolean;
+    marketWay: string;
+    price: number;
+    content: string;
   };
   index: number;
 }
@@ -31,8 +31,8 @@ function MarketCardListItem({ card, index }: MarketItemProps) {
             </Title>
             <hr />
             <SmallContainer>
-              <Price>{card.price}</Price>
-              {card.isSelling ? (
+              <Price>{card.price}원</Price>
+              {card.isSold ? (
                 <img src={isSelling} alt="isSelling" />
               ) : (
                 <img src={isNotSelling} alt="isNotSelling" />

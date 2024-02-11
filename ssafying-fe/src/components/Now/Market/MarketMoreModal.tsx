@@ -9,18 +9,14 @@ import { deleteMarket } from "../../../apis/api/Market";
 interface moreProps {
   card: {
     title: string;
-    price: number;
     writer: string;
+    isSold: boolean;
+    marketWay: string;
+    price: number;
     content: string;
-    category: string;
-    isSelling: boolean;
   };
   marketId: number;
 }
-
-const handleCommentSubmit = (comment: string) => {
-  console.log("Comment submitted:", comment);
-};
 
 function MarketMoreModal({ card, marketId }: moreProps) {
   const user = useAppSelector(selectUser);
@@ -44,11 +40,11 @@ function MarketMoreModal({ card, marketId }: moreProps) {
           </Writer>
           <IsSelling>
             <div className="small-title">거래여부</div>
-            {card.isSelling}
+            {card.isSold}
           </IsSelling>
           <Category>
             <div className="small-title">카테고리</div>
-            {card.category}
+            {card.marketWay}
           </Category>
           <Price>
             <div className="small-title">가격</div>

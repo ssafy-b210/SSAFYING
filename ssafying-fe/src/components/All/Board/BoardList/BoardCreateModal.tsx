@@ -32,7 +32,6 @@ const BoardCreateModal: React.FC<BoardCreateModalProps> = ({
     { value: "PROMOTION", label: "홍보" },
   ];
 
-  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<Option>(options[0]);
   const [nickname, setNickname] = useState(false); //nickname - false: 실명제
   const [title, setTitle] = useState("");
@@ -56,9 +55,11 @@ const BoardCreateModal: React.FC<BoardCreateModalProps> = ({
 
   //api 호출
   const handleCreateBoard = () => {
-    const writerName = nickname ? "익명" : "aeong";
+    //Redux userId에 따라 바꾸기
+    const writerName = nickname ? "익명" : "애옹";
 
     //실제 게시글 생성 api 호출
+    // boardId 나중에 꼭 바꾸기
     createBoard(1, title, content, selectedCategory.value, nickname);
 
     //작성 후 상태 초기화

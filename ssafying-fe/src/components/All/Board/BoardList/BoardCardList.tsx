@@ -29,14 +29,14 @@ const BoardCardList: React.FC<BoardCardListProps> = ({ selectedCategory }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const boardData = await selectAllBoard();
+        const boardData = await selectAllBoard(selectedCategory ?? undefined);
+        console.log(boardData);
         if (boardData && boardData.resultData) {
           setLastIdx(lastIdx + 1);
           const newCards = await boardData.resultData.map((res: any) => ({
             title: res.title,
             writer: res.anonymous ? "익명" : res.userName,
-            // 여기 수은이가 content넣어주면 수정하기
-            content: "바보",
+            content: res.content,
             category: res.category,
           }));
           setCards(newCards);
@@ -47,12 +47,16 @@ const BoardCardList: React.FC<BoardCardListProps> = ({ selectedCategory }) => {
       }
     };
     fetchData();
-  }, []);
+  }, [selectedCategory]);
   return (
     <Container>
-      {cards.map((card, index) => (
-        <BoardCardListItem key={index} card={card} index={index} />
-      ))}
+      {cards.length > 0 ? (
+        cards.map((card, index) => (
+          <BoardCardListItem key={index} card={card} index={index} />
+        ))
+      ) : (
+        <NoResultsMessage>검색 결과가 없습니다.</NoResultsMessage>
+      )}
     </Container>
   );
 };

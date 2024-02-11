@@ -1,3 +1,4 @@
+import { error } from "console";
 import { axios } from "../utils/axios";
 
 const REST_AUTH_API = `/api/auth`;
@@ -82,5 +83,34 @@ export async function logout(loginId: number) {
     removeCookie("access-token");
   } catch (e) {
     console.log(e);
+  }
+}
+
+//싸피 인증
+interface AuthData {
+  studentName: string;
+  studentEmail: string;
+  studentNumber: number;
+}
+
+interface AuthResponse {
+  success: boolean;
+}
+
+export async function ssafyAuth(authData: AuthData): Promise<AuthResponse> {
+  try {
+    const response = await axios.post(`${REST_AUTH_API}/check`, authData);
+    const resultMsg = response.data.resultMsg;
+    if (resultMsg === "200 OK") {
+      // 성공적으로 인증된 경우
+      return { success: true };
+    } else {
+      // 인증 실패 또는 다른 에러가 발생한 경우
+      console.error("인증 실패:", resultMsg);
+      return { success: false };
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 }

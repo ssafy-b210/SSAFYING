@@ -45,7 +45,6 @@ export async function selectAllBoard(
     }
 
     const response = await axios.get(url);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error", error);

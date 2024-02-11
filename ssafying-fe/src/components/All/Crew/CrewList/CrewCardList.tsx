@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CrewCardListItem from "./CrewCardListItem";
+import { selectCrewList } from "../../../../apis/api/Crew";
 
 interface CrewCardListProps {
   selectedCategory: string | null;
-  isRecruitingChecked: boolean;
   selectedLocation: string;
 }
 
@@ -20,60 +20,54 @@ const Container = styled.div`
   }
 `;
 
-const cards = [
-  {
-    title: "대전캠 스터디 구해요",
-    writer: "su00",
-    isRecruiting: true,
-    content: "누구누구?",
-    location: "전국",
-    category: "스터디",
-  },
-  {
-    title: "서울캠 스터디 구해",
-    writer: "sooming",
-    isRecruiting: false,
-    content: "TESTSSTSJDFHAJFHDSJKFASJDFHSJKDFHJFHAJadfadfafdafsadfafK",
-    location: "서울",
-    category: "번개 회식",
-  },
-];
-
 const CrewCardList: React.FC<CrewCardListProps> = ({
   selectedCategory,
-  isRecruitingChecked,
   selectedLocation,
 }) => {
-  const filteredCards = selectedCategory
-    ? cards.filter(
-        (card) =>
-          card.category === selectedCategory &&
-          (!isRecruitingChecked || card.isRecruiting) &&
-          (!selectedLocation || card.location === selectedLocation)
-      )
-    : cards.filter(
-        (card) =>
-          (!isRecruitingChecked || card.isRecruiting) &&
-          (selectedLocation === "지역" || card.location === selectedLocation)
-      );
+  const [cards, setCards] = useState<
+    {
+      title: string;
+      writer: string;
+      isRecruit: boolean;
+      category: string;
+      region: string;
+      content: string;
+    }[]
+  >([]);
 
-  console.log("*", selectedLocation);
+  const [lastIdx, setLastIdx] = useState(0);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const crewData = await selectCrewList(selectedCategory ?? undefined);
+        if (crewData) {
+          setLastIdx(lastIdx + 1);
+          const newCards = await crewData.map((res: any) => ({
+            title: res.title,
+            writer: res.nickname,
+            isRecruit: res.isRecruit,
+            category: res.category,
+            region: res.region,
+            content: res.content,
+          }));
+          setCards(newCards);
+        }
+      } catch (error) {
+        console.error(error);
+        setCards([]);
+      }
+    };
+    fetchData();
+  }, [selectedCategory]);
   return (
     <Container>
-      {filteredCards.length > 0 ? (
-        filteredCards.map((card, index) => (
-          <CrewCardListItem
-            key={index}
-            card={card}
-            index={index}
-            selectedLocation={selectedLocation}
-          />
+      {cards.length > 0 ? (
+        cards.map((card, index) => (
+          <CrewCardListItem key={index} card={card} index={index} />
         ))
       ) : (
-        <NoResultsMessage>
-          해당 카테고리에 대한 게시물이 존재하지 않습니다.
-        </NoResultsMessage>
+        <NoResultsMessage>검색 결과가 없습니다.</NoResultsMessage>
       )}
     </Container>
   );

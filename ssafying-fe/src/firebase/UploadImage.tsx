@@ -7,7 +7,7 @@ const UploadImage = ({ setImage }: { setImage: (p: string) => void }) => {
   const [imageURL, setImageURL] = useState<string>("");
   const [progressPercent, setProgressPercent] = useState<number>(0);
 
-  console.log(setImage);
+  // console.log(setImage);
 
   const onImageChange = (
     e: React.ChangeEvent<EventTarget & HTMLInputElement>

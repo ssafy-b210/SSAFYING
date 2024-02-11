@@ -14,6 +14,7 @@ function CrewList() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [isRecruitingChecked, setIsRecruitingChecked] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState<string>("지역");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
@@ -27,6 +28,26 @@ function CrewList() {
     setSelectedLocation(location);
   };
 
+  const handleCreateCrew = (newCardInfo: {
+    title: string;
+    writer: string;
+    isRecruit: boolean;
+    category: string;
+    region: string;
+    content: string;
+  }) => {
+    console.log("New Crew:", newCardInfo);
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true); // 모달 열기
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false); //모달 닫기
+    console.log("모달 닫힘");
+  };
+
   return (
     <Wrapper>
       <CenterHeader />
@@ -35,19 +56,26 @@ function CrewList() {
         htext={<h2>사람 구해요</h2>}
         isCenter={true}
         extraBtn={
-          <Modal btnTxt="작성">
-            <CrewCreateModal></CrewCreateModal>
-          </Modal>
+          <div>
+            <PlusBtn onClick={handleOpenModal} />
+            <Modal
+              btnTxt="작성"
+              isOpen={isModalOpen}
+              onClose={handleCloseModal}
+            >
+              {" "}
+              <CrewCreateModal
+                onCreateCrew={handleCreateCrew}
+                onCloseModal={handleCloseModal}
+              ></CrewCreateModal>
+            </Modal>
+          </div>
         }
       />
       <CrewSortTab onCategoryChange={handleCategoryChange}></CrewSortTab>
-      <SearchBar
-        onCheckboxChange={handleCheckboxChange}
-        onLocationChange={handleLocationChange}
-      ></SearchBar>
+      <SearchBar onLocationChange={handleLocationChange}></SearchBar>
       <CrewCardList
         selectedCategory={selectedCategory}
-        isRecruitingChecked={isRecruitingChecked}
         selectedLocation={selectedLocation}
       ></CrewCardList>
       <Footer></Footer>

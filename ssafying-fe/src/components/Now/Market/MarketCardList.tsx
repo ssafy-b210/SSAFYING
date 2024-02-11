@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MarketCardListItem from "./MarketCardListItem";
+import { selectMarketList } from "../../../apis/api/Market";
 
 interface MarketCardListProps {
   selectedCategory: string | null;
@@ -18,48 +19,55 @@ const Container = styled.div`
   }
 `;
 
-const cards = [
-  {
-    title: "내 한무무 키보드 팔아요",
-    price: 25000,
-    isSelling: true,
-    content: "우와 되나?",
-    writer: "되나",
-    category: "팝니다",
-  },
-  {
-    title: "이수민 사요",
-    price: 30000,
-    isSelling: false,
-    content: "우와 되나?",
-    writer: "되나",
-    category: "삽니다",
-  },
-];
-
 const MarketCardList: React.FC<MarketCardListProps> = ({
   selectedCategory,
 }) => {
-  const filteredCards = selectedCategory
-    ? cards.filter((card) => card.category === selectedCategory)
-    : cards;
+  const [cards, setCards] = useState<
+    {
+      title: string;
+      writer: string;
+      isSold: boolean;
+      marketWay: string;
+      price: number;
+      content: string;
+    }[]
+  >([]);
 
+  const [lastIdx, setLastIdx] = useState(0);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const marketData = await selectMarketList();
+        if (marketData && marketData.resultData) {
+          setLastIdx(lastIdx + 1);
+          const newCards = await marketData.resultData.map((res: any) => ({
+            title: res.title,
+            writer: res.nickname,
+            isSold: res.soldout,
+            marketWay: res.marketWay,
+            price: res.price,
+            content: res.content,
+          }));
+          setCards(newCards);
+        }
+      } catch (error) {
+        console.error(error);
+        setCards([]);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <Container>
-      {filteredCards.length > 0 ? (
-        filteredCards.map((card, index) => (
-          <MarketCardListItem key={index} card={card} index={index} />
-        ))
-      ) : (
-        <NoResultsMessage>
-          해당 카테고리에 대한 게시물이 존재하지 않습니다.
-        </NoResultsMessage>
-      )}
+      {cards.map((card, index) => (
+        <MarketCardListItem key={index} card={card} index={index} />
+      ))}
     </Container>
   );
 };
 
 export default MarketCardList;
+
 const NoResultsMessage = styled.p`
   display: flex;
   justify-content: center;
