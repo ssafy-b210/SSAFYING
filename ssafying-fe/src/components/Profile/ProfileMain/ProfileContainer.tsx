@@ -9,28 +9,41 @@ import { useEffect, useState } from "react";
 type ProfileDetailType = {
   nickname: string;
   profileImageUrl: string;
-  intro: string;
+  intro: string; // 소개글
+  feedCount: number;
+  followerCount: number;
+  followingCount: number;
 };
 
 function ProflieContainer() {
-  // const userId = useParams().userId;
+  const profileUserId = useParams().userId; // 현재 프로필 유저 아이디
+
   const [profileDetail, setProfileDetail] = useState<ProfileDetailType>({
     nickname: "",
     profileImageUrl: "",
     intro: "",
+    feedCount: 0,
+    followerCount: 0,
+    followingCount: 0,
   });
 
+  // 프로필 유저 정보 가져오기
   async function getProfile() {
-    // const res = await selectMyPageDetail(Number(userId));
+    const res = await selectMyPageDetail(Number(profileUserId));
 
-    const res: ProfileDetailType = {
-      nickname: "aeong",
-      profileImageUrl: "",
-      intro:
-        "이애옹이올시다\n싸피 10기 팀제주도 팀장이라구요\naeong123@github.com",
-    };
+    if (res !== undefined) {
+      const data = res.data.resultData;
+      const userInfo = data.userInfo;
 
-    setProfileDetail(res);
+      setProfileDetail({
+        nickname: userInfo.nickname,
+        profileImageUrl: userInfo.profileImageUrl,
+        intro: userInfo.intro,
+        feedCount: data.feedCount,
+        followerCount: data.followerCount,
+        followingCount: data.followingCount,
+      });
+    }
   }
 
   useEffect(() => {
@@ -39,10 +52,13 @@ function ProflieContainer() {
 
   return (
     <StyledProfileContainer>
-      <ProfileHeader />
+      <ProfileHeader nickname={profileDetail.nickname} />
       <ProflieSection
         profileImageUrl={profileDetail.profileImageUrl}
         intro={profileDetail.intro}
+        feedCount={profileDetail.feedCount}
+        followerCount={profileDetail.followerCount}
+        followingCount={profileDetail.followingCount}
       />
       <ProflieSetting />
     </StyledProfileContainer>

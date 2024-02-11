@@ -5,8 +5,7 @@ const REST_MYPAGE_API = `/api/mypage`;
 // 마이페이지의 유저 프로필 조회
 export async function selectMyPageDetail(userId: number) {
   try {
-    const response = await axios.get(`${REST_MYPAGE_API}/${userId}`);
-    console.log(response.data);
+    return await axios.get(`${REST_MYPAGE_API}/${userId}`);
   } catch (e: any) {
     console.log(e);
   }

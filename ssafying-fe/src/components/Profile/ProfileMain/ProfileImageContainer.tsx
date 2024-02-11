@@ -1,34 +1,31 @@
 import styled from "styled-components";
-import userImage from "../../../assets/img/testImg/user.jpg";
 import { Link } from "react-router-dom";
 
-function ProfileImageContainer(props: { profileImageUrl: string }) {
-  const data = {
-    profile: userImage,
-    postNum: 54,
-    followerNum: 834,
-    followingNum: 162,
-  };
-
+function ProfileImageContainer(props: {
+  profileImageUrl: string;
+  feedCount: number;
+  followerCount: number;
+  followingCount: number;
+}) {
   return (
     <StyledProfileImageContainer>
       <ProfileImage>
-        <img src={data.profile} alt="" />
+        <img src={props.profileImageUrl} alt="" />
       </ProfileImage>
       <ProfileInfo>
         <ProfileInfoItem>
-          <div>{data.postNum}</div>
+          <div>{props.feedCount}</div>
           <div>게시물</div>
         </ProfileInfoItem>
         <ProfileInfoItem>
           <Link to="follower">
-            <div>{data.followerNum}</div>
+            <div>{props.followerCount}</div>
             <div>팔로워</div>
           </Link>
         </ProfileInfoItem>
         <ProfileInfoItem>
           <Link to="following">
-            <div>{data.followingNum}</div>
+            <div>{props.followingCount}</div>
             <div>팔로잉</div>
           </Link>
         </ProfileInfoItem>
