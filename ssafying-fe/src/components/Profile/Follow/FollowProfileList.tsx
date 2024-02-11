@@ -1,3 +1,4 @@
+import { MouseEvent } from "react";
 import FollowProfileListItem from "./FollowProfileListItem";
 
 type FollowProfileType = {
@@ -9,6 +10,12 @@ type FollowProfileType = {
 function FollowProfileList(props: {
   data: FollowProfileType[];
   isFollowing: boolean;
+
+  // 언팔로우 버튼 클릭 이벤트 함수
+  onClickUnfollowButton?: (
+    targetUserId: number,
+    targetUserNickname: string
+  ) => void;
 }) {
   return (
     <div>
@@ -19,6 +26,7 @@ function FollowProfileList(props: {
           isFollowing={props.isFollowing}
           nickname={item.nickname}
           userImageUrl={item.profileImageUrl}
+          onClickUnfollowButton={props.onClickUnfollowButton}
         />
       ))}
     </div>

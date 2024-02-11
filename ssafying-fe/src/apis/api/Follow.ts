@@ -63,17 +63,13 @@ export async function followUser(userId: number) {
 }
 
 // 언팔로우하기
-export async function unfollowUser(userId: number) {
+export async function unfollowUser(targetUserId: number) {
   try {
-    const response = await axios.delete(
-      `${REST_USERS_API}/following/${userId}`,
-      {
-        headers: {
-          refreshToken: "",
-        },
-      }
-    );
-    console.log(response);
+    return await axios.delete(`${REST_USERS_API}/unfollow/${targetUserId}`, {
+      headers: {
+        refreshToken: localStorage.getItem("refresh-token"),
+      },
+    });
   } catch (e: any) {
     console.log(e);
   }
