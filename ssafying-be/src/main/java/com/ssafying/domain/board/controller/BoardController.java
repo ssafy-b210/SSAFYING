@@ -85,10 +85,11 @@ public class BoardController {
      */
     @GetMapping("/{boardId}")
     public ResponseEntity<ResultResponse<FindDetailBoardResponse>> boardDetails(
-            @PathVariable(name = "boardId") int boardId) {
+            @PathVariable(name = "boardId") int boardId,
+            @RequestParam(name = "userId") int userId) {
 
         //우선 board 로 받아오고 controller 에서 예쁘게 정리함
-        FindDetailBoardResponse result = boardService.findDetailBoard(boardId);
+        FindDetailBoardResponse result = boardService.findDetailBoard(boardId, userId);
 
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
