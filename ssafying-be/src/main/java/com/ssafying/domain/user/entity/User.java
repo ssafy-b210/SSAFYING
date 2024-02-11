@@ -54,6 +54,8 @@ public class User extends BaseTimeEntity {
 
     private String intro; //한줄 소개
 
+    private String readme; // 리드미
+
     @Enumerated(EnumType.STRING)
     private UserStatus status; //회원 상태
 
@@ -133,6 +135,16 @@ public class User extends BaseTimeEntity {
         }
         if(request.getProfileImageUrl() != null){
             user.profileImageUrl = request.getProfileImageUrl();
+        }
+        return user;
+    }
+
+    public static User updateReadMe(
+            User user,
+            String readme
+    ) {
+        if(readme != null) {
+            user.readme = readme;
         }
         return user;
     }

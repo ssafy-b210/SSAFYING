@@ -37,10 +37,10 @@ public class Portfolio extends BaseTimeEntity {
     }
 
     public static Portfolio modifyPortfolio(
+            Portfolio portfolio,
             String url,
             PortfolioType type
     ) {
-        Portfolio portfolio = new Portfolio();
         if(url != null){
             portfolio.url = url;
         }

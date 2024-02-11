@@ -44,6 +44,16 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 //    }
 
     List<Board> findByUser(User user);
+
+    @Query("""
+    select b
+    from Board b
+    join fetch b.isScrap bs
+    where bs.user.id = :userId
+    order by bs.board.createdAt desc
+    """)
+    List<Board> findScrapBoardList(@Param("userId") int userId);
+
 //    @Query("""
 //    select *
 //    from Board b
