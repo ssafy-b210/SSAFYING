@@ -4,15 +4,15 @@ import FollowBtn from "../utils/FollowBtn";
 import userImg from "../../../assets/img/testImg/user5.jpg";
 import RoundImg from "../utils/RoundImg";
 
-interface Props {
-  id: string;
+interface RecommendProps {
+  recommendItem: { nickname: string; profileImageUrl: string };
 }
 
-function UserRecommendListItem({ id }: Props) {
+function UserRecommendListItem({ recommendItem }: RecommendProps) {
   return (
     <UserItem>
-      <RoundImg src={userImg} size="50px" />
-      {id}
+      <RoundImg src={recommendItem.profileImageUrl} size="50px" />
+      {recommendItem.nickname}
       <FollowBtn />
     </UserItem>
   );

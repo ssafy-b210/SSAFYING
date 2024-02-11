@@ -6,8 +6,8 @@ const REST_FEED_API = `/api/feeds`;
 export async function createFeedItem(
   userId: number,
   content: string,
-  imageUrls: [],
-  hashtags: []
+  imageUrls: string[],
+  hashtags: string[]
 ) {
   const data = {
     userId: userId,

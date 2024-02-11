@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import TextArea from "../Feed/FeedCreate/TextArea";
 import styled from "styled-components";
 
 function BambooWriteModal() {
+  const [content, setContent] = useState(""); // TextArea의 내용을 저장할 상태
+
   return (
     <ModalWrapper>
-      <TextArea />
+      <TextArea value={content} onChange={(e) => setContent(e.target.value)} />
       <ButtonWrapper>
         <button>작성</button>
       </ButtonWrapper>
