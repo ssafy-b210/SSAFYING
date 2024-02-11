@@ -29,5 +29,5 @@ public class FindDetailBoardResponse {
 
     List<ParentCommentDTO> comments;
 
-
+    boolean isScrap;
 }
