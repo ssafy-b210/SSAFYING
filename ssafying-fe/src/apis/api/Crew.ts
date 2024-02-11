@@ -33,6 +33,7 @@ export async function deleteCrew(crewId: number) {
   try {
     const response = await axios.delete(`${REST_CREW_API}/${crewId}`);
     console.log(response.data);
+    return response.data;
   } catch (e) {
     console.log(e);
   }
@@ -49,12 +50,31 @@ export async function selectCrewOne(crewId: number) {
 }
 
 // 구인 글 전체 조회
-export async function selectCrewList() {
+export async function selectCrewList(
+  title?: string,
+  category?: string,
+  region?: string,
+  isRecruit?: boolean
+) {
   try {
-    const response = await axios.get(`${REST_CREW_API}`);
+    let url = "/api/crew";
+    if (title || category || region || isRecruit !== undefined) {
+      url += "?";
+      if (title) url += `title=${title}&`;
+      if (category) url += `category=${category}&`;
+      if (region) url += `region=${region}&`;
+      if (isRecruit !== undefined) {
+        url += `isRecruit=${isRecruit}&`;
+      }
+
+      url = url.slice(0, -1);
+    }
+    const response = await axios.get(url);
     console.log(response.data);
-  } catch (e) {
-    console.log(e);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 }
 

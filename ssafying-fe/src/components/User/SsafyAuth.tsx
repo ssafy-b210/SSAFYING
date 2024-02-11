@@ -1,10 +1,28 @@
 import styled from "styled-components";
-
+import React, { useState } from "react";
 import authCheck from "../../assets/img/userIcons/userAuthCheck.svg";
 import SubmitBtn from "../Common/SubmitBtn";
 import ProgressBar from "./Signup/ProgressBar";
 
+import { ssafyAuth } from "../../apis/api/Auth";
+
 function SsafyAuth() {
+  const [authSuccess, setAuthSuccess] = useState(false); //인증 성공 여부 상태
+  const [authError, setAuthError] = useState(false); //인증 실패 여부 상태
+
+  const handleAuth = async () => {
+    try {
+      // const response = await ssafyAuth(authData);
+      // if (response.success) {
+      //   setAuthSuccess(true);
+      // } else {
+      //   setAuthError(true);
+      // }
+    } catch (error) {
+      console.error(error);
+      setAuthError(true);
+    }
+  };
   return (
     <div>
       <Header>
@@ -24,11 +42,15 @@ function SsafyAuth() {
           <input type="number" id="ssafyid" placeholder=" " />
           <label htmlFor="ssafyid">싸피 학번을 입력해주세요</label>
         </Input>
-        <AuthMsg>
-          <img src={authCheck} />
-          <h3>성공적으로 인증이되었습니다.</h3>
-        </AuthMsg>
-        <SubmitBtn link="/login" text="싸핑 회원가입끝내기"></SubmitBtn>
+        <button onClick={handleAuth}>인증하기</button>
+        {authSuccess && (
+          <AuthMsg>
+            <img src={authCheck} alt="인증 성공 아이콘" />
+            <h3>성공적으로 인증이 되었습니다.</h3>
+          </AuthMsg>
+        )}
+        {authError && <h3>인증에 실패하였습니다.</h3>}
+        <SubmitBtn link="/login" text="싸피 회원가입 끝내기" />
       </Form>
     </div>
   );

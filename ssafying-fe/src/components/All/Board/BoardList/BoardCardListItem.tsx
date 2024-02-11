@@ -14,7 +14,6 @@ interface BoardItemProps {
 
 function BoardCardListItem({ card, index }: BoardItemProps) {
   const boardId = index;
-  console.log(card);
   return (
     <div>
       <Card key={index}>

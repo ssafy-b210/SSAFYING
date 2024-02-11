@@ -6,36 +6,58 @@ import SelectCategory, {
 import MarketPriceInput from "./MarketPriceInput";
 import CreateTitle from "../../All/Board/BoardCreate/CreateTitle";
 import CreateContent from "../../All/Board/BoardCreate/CreateContent";
-import AddPhoto from "./AddPhoto";
 import ImgEdit from "../../Feed/FeedCreate/ImgEdit";
 import UploadImage from "../../../firebase/UploadImage";
+import ToggleBtn from "./ToggleBtn";
+import { createMarket } from "../../../apis/api/Market";
 
-const bigcategory: Option[] = [
-  { value: "SELL", label: "팝니다" },
-  { value: "BUY", label: "삽니다" },
-  { value: "SHARE", label: "나눔합니다" },
-];
+interface MarketCreateModalProps {
+  onCreateMarket: (newCardInfo: {
+    title: string;
+    writer: string;
+    isSold: boolean; //거래중 or 거래완료
+    marketWay: string; // sell, buy, share
+    price: number;
+    content: string;
+  }) => void;
+  onCloseModal: () => void; //모달 닫기 함수 추가
+}
 
-const isSold: Option[] = [
-  { value: "판매중", label: "판매중" },
-  { value: "판매완료", label: "판매완료" },
-];
+const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
+  onCreateMarket,
+  onCloseModal,
+}) => {
+  const bigcategory: Option[] = [
+    { value: "SELL", label: "팝니다" },
+    { value: "BUY", label: "삽니다" },
+    { value: "SHARE", label: "나눔합니다" },
+  ];
 
-function MarketCreateModal() {
+  //marketWay
   const [selectedCategory, setSelectedCategory] = useState<Option>(
     bigcategory[0]
   );
-  const [selectedIsSold, setSelectedIsSold] = useState<Option>(isSold[0]);
+  const [isSold, setIsSold] = useState(false);
   const [title, setTitle] = useState("");
+  const [price, setPrice] = useState(0);
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState(""); //업로드된 이미지의 url 상태
 
+  //marketWay
   const handleCategoryChange = (newCategory: Option) => {
-    // setSelectedCategory(newCategory);
+    setSelectedCategory(newCategory);
+  };
+
+  const handleToggle = (value: boolean) => {
+    setIsSold(value);
   };
 
   const handleTitleChange = (newTitle: string) => {
     setTitle(newTitle);
+  };
+
+  const handlePriceChange = (newPrice: number) => {
+    setPrice(newPrice);
   };
 
   const handleContentChange = (newContent: string) => {
@@ -49,6 +71,45 @@ function MarketCreateModal() {
   // const db = firebase.firestore();
   // const storage = firebase.storage();
 
+  //api 호출
+  const handleCreateMarket = () => {
+    //Redux userId에 따라 바꾸기
+    const writerName = "애옹";
+
+    //userId 나중에 바꾸기
+    // 이미지 URL을 담은 배열 생성
+    const imageUrls: string[] = [imageUrl];
+    // createMarket 함수 호출 시 imageUrls 매개변수에 배열 전달
+    createMarket(
+      1,
+      selectedCategory.value,
+      isSold,
+      price,
+      title,
+      content,
+      imageUrls
+    );
+
+    //작성 후 상태 초기화
+    setSelectedCategory(bigcategory[0]);
+    setIsSold(false);
+    setPrice(0);
+    setTitle("");
+    setContent("");
+    setImageUrl("");
+
+    //작성한 게시글 정보를 부모 컴포넌트로 전달
+    onCreateMarket({
+      title,
+      writer: writerName,
+      isSold,
+      marketWay: selectedCategory.value,
+      price,
+      content,
+    });
+    onCloseModal();
+  };
+
   return (
     <ModalWrapper>
       <SelectCategory
@@ -57,13 +118,8 @@ function MarketCreateModal() {
         defaultValue="1"
         onCategoryChange={handleCategoryChange}
       ></SelectCategory>
-      <SelectCategory
-        category="거래여부"
-        options={isSold}
-        defaultValue="1"
-        onCategoryChange={handleCategoryChange}
-      ></SelectCategory>
-      <MarketPriceInput></MarketPriceInput>
+      <ToggleBtn isSold={isSold} onToggle={handleToggle} />
+      <MarketPriceInput onPriceChange={handlePriceChange} />
       <CreateTitle onTitleChange={handleTitleChange}></CreateTitle>
       <CreateContent onContentChange={handleContentChange}></CreateContent>
       <Text>이미지 업로드</Text>
@@ -74,7 +130,7 @@ function MarketCreateModal() {
       <UploadImage setImage={setImage}></UploadImage>
     </ModalWrapper>
   );
-}
+};
 
 export default MarketCreateModal;
 

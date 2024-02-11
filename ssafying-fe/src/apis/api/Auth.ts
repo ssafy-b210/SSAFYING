@@ -1,3 +1,4 @@
+import { error } from "console";
 import { axios } from "../utils/axios";
 
 const REST_AUTH_API = `/api/auth`;
@@ -82,5 +83,23 @@ export async function logout(loginId: number) {
     removeCookie("access-token");
   } catch (e) {
     console.log(e);
+  }
+}
+
+//싸피 인증
+interface AuthData {
+  studentName: string;
+  studentEmail: string;
+  studentNumber: number;
+}
+
+export async function ssafyAuth(authData: AuthData) {
+  try {
+    const response = await axios.post(`${REST_AUTH_API}/check`, authData);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 }

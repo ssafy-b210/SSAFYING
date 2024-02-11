@@ -12,10 +12,10 @@ interface moreProps {
   card: {
     title: string;
     writer: string;
-    content: string;
-    location: string;
+    isRecruit: boolean;
     category: string;
-    isRecruiting: boolean;
+    region: string;
+    content: string;
   };
   crewId: number;
 }
@@ -47,7 +47,7 @@ function CrewMoreModal({ card, crewId }: moreProps) {
           </Writer>
           <Location>
             <div className="small-title">지역</div>
-            {card.location}
+            {card.region}
           </Location>
           <Category>
             <div className="small-title">카테고리</div>
@@ -55,7 +55,7 @@ function CrewMoreModal({ card, crewId }: moreProps) {
           </Category>
           <IsRecruiting>
             <div className="small-title">모집여부</div>
-            {card.isRecruiting}
+            {card.isRecruit}
           </IsRecruiting>
           <Copy>{card.content}</Copy>
           {user.nickname === card.writer && (

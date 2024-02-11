@@ -1,3 +1,4 @@
+import { error } from "console";
 import { axios } from "../utils/axios";
 
 const REST_MARKET_API = `/api/market`;
@@ -35,6 +36,7 @@ export async function deleteMarket(marketId: number) {
   try {
     const response = await axios.delete(`${REST_MARKET_API}/${marketId}`);
     console.log(response.data);
+    return response.data;
   } catch (e) {
     console.log(e);
   }
@@ -66,6 +68,20 @@ export async function updateMarket(
 }
 
 // 중고장터 목록 전체 조회
+export async function selectMarketList(isSoldout?: boolean) {
+  try {
+    let url = "/api/market";
+    if (isSoldout !== undefined) {
+      url += `?isSoldout=${isSoldout}`;
+    }
+    const response = await axios.get(url);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
 // 중고장터 글 상세 조회
 export async function selectMarketOne(marketId: number) {

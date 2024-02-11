@@ -35,8 +35,7 @@ const BoardCardList: React.FC<BoardCardListProps> = ({ selectedCategory }) => {
           const newCards = await boardData.resultData.map((res: any) => ({
             title: res.title,
             writer: res.anonymous ? "익명" : res.userName,
-            // 여기 수은이가 content넣어주면 수정하기
-            content: "바보",
+            content: res.content,
             category: res.category,
           }));
           setCards(newCards);

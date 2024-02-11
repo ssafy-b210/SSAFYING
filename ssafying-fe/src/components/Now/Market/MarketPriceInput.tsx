@@ -1,11 +1,19 @@
 import styled from "styled-components";
 
-function MarketPriceInput() {
+interface CreatePriceProps {
+  onPriceChange: (newPrice: number) => void;
+}
+
+function MarketPriceInput({ onPriceChange }: CreatePriceProps) {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newPrice = parseInt(event.target.value);
+    onPriceChange(newPrice);
+  };
   return (
     <PriceInput>
       <h4>금 액</h4>
       <PriceContainer>
-        <input type="number" />원
+        <input type="number" onChange={handleInputChange} />원
       </PriceContainer>
     </PriceInput>
   );
