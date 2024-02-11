@@ -3,6 +3,7 @@ import ProfileIntroduction from "./ProfileIntroduction";
 import ProfileLinkList from "./ProfileLinkList";
 
 function ProflieSection(props: {
+  userId: number;
   profileImageUrl: string;
   intro: string;
   feedCount: number;
@@ -18,7 +19,7 @@ function ProflieSection(props: {
         followingCount={props.followingCount}
       />
       <ProfileIntroduction intro={props.intro} />
-      <ProfileLinkList />
+      <ProfileLinkList userId={props.userId} />
     </div>
   );
 }

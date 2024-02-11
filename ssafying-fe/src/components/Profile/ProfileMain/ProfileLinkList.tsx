@@ -4,8 +4,10 @@ import notion from "../../../assets/img/ProfileIcons/notion.svg";
 import tistory from "../../../assets/img/ProfileIcons/tistory.svg";
 import blog from "../../../assets/img/ProfileIcons/blog.svg";
 import etc from "../../../assets/img/ProfileIcons/etc.svg";
+import { selectPortfolioLinkList } from "../../../apis/api/Profile";
+import { useEffect } from "react";
 
-function ProfileLinkList() {
+function ProfileLinkList(props: { userId: number }) {
   const icons = [
     {
       name: "github",
@@ -56,6 +58,14 @@ function ProfileLinkList() {
       type: "etc",
     },
   ];
+
+  async function getPortfolioLink() {
+    const res = await selectPortfolioLinkList(props.userId);
+  }
+
+  useEffect(() => {
+    // getPortfolioLink();
+  }, []);
 
   return (
     <LinkList>

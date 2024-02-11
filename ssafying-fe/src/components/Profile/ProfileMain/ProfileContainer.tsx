@@ -54,6 +54,7 @@ function ProflieContainer() {
     <StyledProfileContainer>
       <ProfileHeader nickname={profileDetail.nickname} />
       <ProflieSection
+        userId={Number(profileUserId)}
         profileImageUrl={profileDetail.profileImageUrl}
         intro={profileDetail.intro}
         feedCount={profileDetail.feedCount}
