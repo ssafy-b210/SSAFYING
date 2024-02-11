@@ -1,7 +1,7 @@
 package com.ssafying.domain.crew.dto.response;
 
 
-import com.ssafying.domain.crew.entity.CrewCategory;
+import com.ssafying.domain.crew.entity.Category;
 import com.ssafying.domain.crew.entity.Region;
 import lombok.*;
 
@@ -16,6 +16,6 @@ public class CrewListResponse {
     String content;
     String nickname;
     Region region;
-    CrewCategory category;
+    Category category;
     Boolean isRecruit;
 }

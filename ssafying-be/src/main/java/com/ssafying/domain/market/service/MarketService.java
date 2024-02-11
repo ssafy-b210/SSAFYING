@@ -114,6 +114,7 @@ public class MarketService {
             responseList.add(MarketListResponse.builder()
                     .marketId(market.getMarketId())
                     .marketWay(market.getMarketWay())
+                    .nickname(market.getUser().getNickname())
                     .title(market.getTitle())
                     .content(market.getContent())
                     .price(market.getPrice())

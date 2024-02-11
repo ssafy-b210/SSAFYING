@@ -1,6 +1,6 @@
 package com.ssafying.domain.crew.dto.specification;
 
-import com.ssafying.domain.crew.entity.CrewCategory;
+import com.ssafying.domain.crew.entity.Category;
 import com.ssafying.domain.crew.entity.Crew;
 import com.ssafying.domain.crew.entity.Region;
 import org.springframework.data.jpa.domain.Specification;
@@ -25,7 +25,7 @@ public class CrewSpecification {
     /*
      * category = ?
      */
-    public static Specification<Crew> findByCategory(CrewCategory category){
+    public static Specification<Crew> findByCategory(Category category){
         return (root, query, CriteriaBuilder) -> CriteriaBuilder.equal(root.get("category"), category);
     }
 

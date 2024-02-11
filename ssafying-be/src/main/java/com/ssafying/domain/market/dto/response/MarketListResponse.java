@@ -12,6 +12,7 @@ public class MarketListResponse {
     int marketId;
     MarketWay marketWay;
     String title;
+    String nickname;
     int price;
     boolean isSoldout;
     String content;

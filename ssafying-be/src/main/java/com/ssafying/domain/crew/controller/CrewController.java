@@ -5,11 +5,6 @@ import com.ssafying.domain.crew.dto.request.AddCrewRequest;
 import com.ssafying.domain.crew.dto.request.ModifyCrewRequest;
 import com.ssafying.domain.crew.dto.response.CrewDetailResponse;
 import com.ssafying.domain.crew.dto.response.CrewListResponse;
-import com.ssafying.domain.crew.dto.specification.CrewSpecification;
-import com.ssafying.domain.crew.entity.Crew;
-import com.ssafying.domain.crew.entity.CrewCategory;
-import com.ssafying.domain.crew.entity.CrewComment;
-import com.ssafying.domain.crew.entity.Region;
 import com.ssafying.domain.crew.repository.jdbc.CrewRepository;
 import com.ssafying.domain.crew.service.CrewService;
 import com.ssafying.global.result.ResultResponse;
@@ -17,13 +12,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

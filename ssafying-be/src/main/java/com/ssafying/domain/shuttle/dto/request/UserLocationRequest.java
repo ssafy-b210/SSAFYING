@@ -13,5 +13,5 @@ public class UserLocationRequest {
 
     String lon; //경도
 
-//    int shuttleId; //타고 있는 셔틀버스
+    int shuttleId; //타고 있는 셔틀버스
 }

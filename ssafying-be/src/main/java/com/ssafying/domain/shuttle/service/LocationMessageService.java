@@ -19,11 +19,10 @@ public class LocationMessageService {
 
     public void sendLocationMessage(UserLocationRequest request) {
 
-//        String destination = "/sub/location/" + request.getShuttleId();
+        String destination = "/sub/location/" + request.getShuttleId();
         //이렇게 하면 됨 -> 특정 셔틀 아이디를 하나의 방이라고 생각
         //{shuttleId}호차 방을 구독하겠다
 
-        String destination = "/sub/location" + 1;
 
         simpMessagingTemplate.convertAndSend(destination, request);
         System.out.println(destination);

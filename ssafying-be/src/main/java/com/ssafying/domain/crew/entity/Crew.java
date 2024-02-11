@@ -33,7 +33,7 @@ public class Crew extends BaseTimeEntity {
     private Region region; //지역
 
     @Enumerated(EnumType.STRING)
-    private CrewCategory category; //카테고리
+    private Category category; //카테고리
 
     @Column(name = "is_recruit")
     private Boolean isRecruit; //모집 상태 - true : 모집 완 / false : 모집 중

@@ -1,9 +1,8 @@
 package com.ssafying.domain.crew.dto.response;
 
-import com.ssafying.domain.crew.entity.CrewCategory;
+import com.ssafying.domain.crew.entity.Category;
 import com.ssafying.domain.crew.entity.CrewComment;
 import com.ssafying.domain.crew.entity.Region;
-import com.ssafying.domain.user.entity.User;
 import lombok.*;
 
 import java.util.List;
@@ -19,7 +18,7 @@ public class CrewDetailResponse {
     String nickname;
     String content;
     Region region;
-    CrewCategory category;
+    Category category;
     Boolean isRecruit;
     List<CrewComment> comments;
 

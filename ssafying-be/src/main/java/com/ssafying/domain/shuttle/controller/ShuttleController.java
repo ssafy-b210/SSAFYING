@@ -18,7 +18,7 @@ public class ShuttleController {
 
     private final LocationMessageService locationMessageService;
 
-    @MessageMapping("/1") //pub/location이 자동으로 붙음
+    @MessageMapping("/{shuttleId}") //pub/location이 자동으로 붙음
     public void locationSend(UserLocationRequest request){
 
         locationMessageService.sendLocationMessage(request);

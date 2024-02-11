@@ -6,7 +6,7 @@ import com.ssafying.domain.crew.dto.request.ModifyCrewRequest;
 import com.ssafying.domain.crew.dto.response.CrewDetailResponse;
 import com.ssafying.domain.crew.dto.response.CrewListResponse;
 import com.ssafying.domain.crew.dto.specification.CrewSpecification;
-import com.ssafying.domain.crew.entity.CrewCategory;
+import com.ssafying.domain.crew.entity.Category;
 import com.ssafying.domain.crew.entity.Crew;
 import com.ssafying.domain.crew.entity.CrewComment;
 import com.ssafying.domain.crew.entity.Region;
@@ -14,12 +14,8 @@ import com.ssafying.domain.crew.repository.jdbc.CrewCommentsRepository;
 import com.ssafying.domain.crew.repository.jdbc.CrewRepository;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
-import com.ssafying.global.result.ResultResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -109,6 +105,7 @@ public class CrewService {
                             .title(crew.getTitle())
                             .nickname(crew.getUser().getNickname())
                             .content(crew.getContent())
+                            .category(crew.getCategory())
                             .isRecruit(crew.getIsRecruit())
                             .region(crew.getRegion())
                             .build());
@@ -150,11 +147,11 @@ public class CrewService {
         }
 
         if (region != null && !region.isEmpty()) {
-            spec = spec.and(CrewSpecification.findByRegion(Region.valueOf(region.toUpperCase())));
+            spec = spec.and(CrewSpecification.findByRegion(Region.valueOf(region)));
         }
 
         if (category != null && !category.isEmpty()) {
-            spec = spec.and(CrewSpecification.findByCategory(CrewCategory.valueOf(category.toUpperCase())));
+            spec = spec.and(CrewSpecification.findByCategory(Category.valueOf(category)));
         }
 
 //        if (isRecruit != null) {
@@ -173,6 +170,7 @@ public class CrewService {
                     .crewId(crew.getCrewId())
                     .title(crew.getTitle())
                     .nickname(crew.getUser().getNickname())
+                    .category(crew.getCategory())
                     .content(crew.getContent())
                     .isRecruit(crew.getIsRecruit())
                     .region(crew.getRegion())
