@@ -45,7 +45,7 @@ public class FeedController {
      */
     @DeleteMapping("/feeds/{feedId}")
     @Operation(summary = "피드 삭제")
-    public ResponseEntity<ResultResponse<Integer>> feedRemove(@PathVariable int feedId) {
+    public ResponseEntity<ResultResponse<Integer>> feedRemove(@PathVariable(name = "feedId") int feedId) {
         int result =  feedService.removeFeed(feedId);
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
@@ -56,7 +56,7 @@ public class FeedController {
      */
     @GetMapping("/feeds/{userId}/list")
     @Operation(summary = "팔로잉한 유저 피드 조회")
-    public ResponseEntity<ResultResponse<List<FeedDto>>> feedList(@PathVariable int userId) {
+    public ResponseEntity<ResultResponse<List<FeedDto>>> feedList(@PathVariable(name = "userId") int userId) {
         List<FeedDto> feeds =  feedService.findFeed(userId);
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), feeds));
     }
@@ -67,7 +67,7 @@ public class FeedController {
      */
     @GetMapping("/feeds/{feedId}")
     @Operation(summary = "피드 상세조회")
-    public ResponseEntity<ResultResponse<FeedDto>> feedDetails(@PathVariable int feedId) {
+    public ResponseEntity<ResultResponse<FeedDto>> feedDetails(@PathVariable(name = "feedId") int feedId) {
         FeedDto feed = feedService.findDetailFeed(feedId);
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), feed));
     }
@@ -99,7 +99,7 @@ public class FeedController {
      */
     @GetMapping("/feeds/{feedId}/like")
     @Operation(summary = "피드 좋아요 리스트")
-    public ResponseEntity<ResultResponse<List<GetFeedLikesResponse>>> feedLikeList(@PathVariable int feedId) {
+    public ResponseEntity<ResultResponse<List<GetFeedLikesResponse>>> feedLikeList(@PathVariable(name = "feedId") int feedId) {
         List<GetFeedLikesResponse> resultList = feedService.findFeedLike(feedId);
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), resultList));
     }
@@ -125,7 +125,7 @@ public class FeedController {
      */
     @PutMapping("/feeds/{feedId}")
     @Operation(summary = "피드 수정")
-    public ResponseEntity<ResultResponse<Integer>> feedModify(@PathVariable int feedId, @RequestBody @Valid ModifyFeedRequest request) {
+    public ResponseEntity<ResultResponse<Integer>> feedModify(@PathVariable(name = "feedId") int feedId, @RequestBody @Valid ModifyFeedRequest request) {
         int result = feedService.modifyFeed(feedId, request);
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
@@ -160,7 +160,7 @@ public class FeedController {
      */
     @GetMapping("feeds/{feedId}/comments")
     @Operation(summary = "피드 댓글 조회")
-    public ResponseEntity<ResultResponse<List<ParentCommentDto>>> feedCommentList(@PathVariable int feedId) {
+    public ResponseEntity<ResultResponse<List<ParentCommentDto>>> feedCommentList(@PathVariable(name = "feedId") int feedId) {
         List<ParentCommentDto> result = feedService.findFeedList(feedId);
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
@@ -171,7 +171,7 @@ public class FeedController {
      */
     @PostMapping("feeds/{feedId}/comments")
     @Operation(summary = "피드 댓글 작성")
-    public ResponseEntity<ResultResponse<Integer>> feedCommentAdd(@PathVariable int feedId, @RequestBody AddCommentRequest request) {
+    public ResponseEntity<ResultResponse<Integer>> feedCommentAdd(@PathVariable(name = "feedId") int feedId, @RequestBody AddCommentRequest request) {
         int result = feedService.addFeedComment(feedId, request);
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
@@ -182,7 +182,7 @@ public class FeedController {
      */
     @DeleteMapping("feeds/comments/like/{commentId}")
     @Operation(summary = "피드 댓글 삭제")
-    public ResponseEntity<ResultResponse<Integer>> feedCommentRemove(@PathVariable int commentId) {
+    public ResponseEntity<ResultResponse<Integer>> feedCommentRemove(@PathVariable(name = "commentId") int commentId) {
         int result = feedService.removeFeedComment(commentId);
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
