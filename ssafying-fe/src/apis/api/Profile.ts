@@ -14,8 +14,7 @@ export async function selectMyPageDetail(userId: number) {
 // 유저가 사용한 해시태그 전체 조회
 export async function selectHashtagList(userId: number) {
   try {
-    const response = await axios.get(`${REST_MYPAGE_API}/${userId}/hashtags`);
-    console.log(response.data);
+    return await axios.get(`${REST_MYPAGE_API}/${userId}/hashtags`);
   } catch (e: any) {
     console.log(e);
   }
