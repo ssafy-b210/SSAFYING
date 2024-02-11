@@ -19,6 +19,13 @@ function BusRealTimeMap() {
     longitude: 0,
   });
 
+  // 버스 위치 좌표
+  // 테스트 : 1호차 오정동 육교 밑
+  const [busPosition, setBusPosition] = useState<Position>({
+    latitude: 36.3587785,
+    longitude: 127.4126905,
+  });
+
   // 위치 공유 버튼을 눌렀을 때 현재 위치 공유하기
   function handleClickShareLocation() {
     // 현재 위치 좌표 currPosition에 저장
@@ -43,6 +50,8 @@ function BusRealTimeMap() {
 
     socket.onmessage = function (event) {
       console.log(`[message] 서버로부터 전송받은 데이터: ${event.data}`);
+      // TODO: 버스 위치 좌표 수정 -> 지도 다시 그리기
+      // setBusPosition(event.data);
     };
 
     socket.onclose = function () {
@@ -50,7 +59,7 @@ function BusRealTimeMap() {
     };
 
     return () => {
-      socket.close();
+      if (socket.readyState === 1) socket.close();
     };
   }, []);
 
@@ -62,8 +71,16 @@ function BusRealTimeMap() {
         htext={<h3>대전 1호차 위치공유</h3>}
       />
       <MapContainer>
-        {/* <Tmap /> */}
-        {"지도가 들어갈 예정입니다."}
+        <Tmap
+          currLocation={{
+            lat: busPosition.latitude,
+            lng: busPosition.longitude,
+          }}
+          nextLocation={{
+            lat: 36.3579,
+            lng: 127.396,
+          }}
+        />
       </MapContainer>
       <button onClick={handleClickShareLocation}>위치공유하기</button>
       <div>{`${currPosition.latitude}, ${currPosition.longitude}`}</div>
