@@ -44,6 +44,7 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
   const [price, setPrice] = useState(0);
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState(""); //업로드된 이미지의 url 상태
+  const [images, setImages] = useState<string[]>([]); // 이미지들의 URL을 저장할 상태
 
   const user = useAppSelector(selectUser);
 
@@ -127,7 +128,7 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
       <CreateContent onContentChange={handleContentChange}></CreateContent>
       <Text>이미지 업로드</Text>
       <ButtonWrapper>
-        <ImgEdit />
+        <ImgEdit onImagesChange={setImages} />
         <button onClick={handleCreateMarket}>작성</button>
       </ButtonWrapper>
       <UploadImage setImage={setImage}></UploadImage>
