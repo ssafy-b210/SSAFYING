@@ -4,7 +4,9 @@ import Dialog from "@mui/material/Dialog";
 
 interface modalProps {
   children: React.ReactNode;
-  btnTxt: string;
+  btnTxt?: string;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
 function Modal({ btnTxt, children }: modalProps) {

@@ -2,11 +2,17 @@ import { Link } from "react-router-dom";
 import plusBtn from "../../assets/img/imgBtn/add.svg";
 
 // PlusBtn 컴포넌트
-function PlusBtn(props: { link: string }) {
+function PlusBtn(props: { link?: string; onClick?: () => void }) {
   return (
-    <Link to={props.link}>
-      <img src={plusBtn} alt="추가" />
-    </Link>
+    <div onClick={props.onClick}>
+      {props.link ? (
+        <Link to={props.link}>
+          <img src={plusBtn} alt="추가" />
+        </Link>
+      ) : (
+        <img src={plusBtn} alt="추가" />
+      )}
+    </div>
   );
 }
 

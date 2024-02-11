@@ -5,8 +5,23 @@ import CreateContent from "../BoardCreate/CreateContent";
 import SelectCategory, { Option } from "../../Board/BoardCreate/SelectCategory";
 import IsAnonymous from "../BoardCreate/CheckAnonymous";
 import { createBoard } from "../../../../apis/api/Board";
+import { useNavigate } from "react-router";
 
-function BoardCreateModal() {
+interface BoardCreateModalProps {
+  onCreateBoard: (newCardInfo: {
+    title: string;
+    writer: string;
+    category: string;
+    content: string;
+    isAnonymous: boolean;
+  }) => void;
+  onCloseModal: () => void; //모달 닫기 함수 추가
+}
+
+const BoardCreateModal: React.FC<BoardCreateModalProps> = ({
+  onCreateBoard,
+  onCloseModal,
+}) => {
   const options: Option[] = [
     { value: "FREEDOM", label: "자유" },
     { value: "EMPLOYMENT", label: "취업" },
@@ -17,6 +32,7 @@ function BoardCreateModal() {
     { value: "PROMOTION", label: "홍보" },
   ];
 
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<Option>(options[0]);
   const [nickname, setNickname] = useState(false); //nickname - false: 실명제
   const [title, setTitle] = useState("");
@@ -40,11 +56,27 @@ function BoardCreateModal() {
 
   //api 호출
   const handleCreateBoard = () => {
+    const writerName = nickname ? "익명" : "aeong";
+
+    //실제 게시글 생성 api 호출
     createBoard(1, title, content, selectedCategory.value, nickname);
+
+    //작성 후 상태 초기화
     setTitle("");
     setContent("");
     setSelectedCategory(options[0]);
     setNickname(false);
+
+    //작성한 게시글 정보를 부모 컴포넌트로 전달하기
+    onCreateBoard({
+      title,
+      writer: writerName,
+      category: selectedCategory.value,
+      content,
+      isAnonymous: nickname,
+    });
+    // navigate("/board");
+    onCloseModal();
   };
   return (
     <ModalWrapper>
@@ -62,7 +94,7 @@ function BoardCreateModal() {
       </ButtonWrapper>
     </ModalWrapper>
   );
-}
+};
 
 export default BoardCreateModal;
 

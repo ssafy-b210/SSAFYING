@@ -12,9 +12,28 @@ import Footer from "../../../components/Common/Footer";
 
 function BoardList() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
+  };
+
+  const handleCreateBoard = (newCardInfo: {
+    title: string;
+    writer: string;
+    category: string;
+    content: string;
+  }) => {
+    console.log("New", newCardInfo);
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true); // 모달 열기
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false); //모달닫기
+    console.log("Modal Closed");
   };
 
   return (
@@ -25,9 +44,21 @@ function BoardList() {
         htext={<h2>게시판</h2>}
         isCenter={true}
         extraBtn={
-          <Modal btnTxt="작성">
-            <BoardCreateModal></BoardCreateModal>
-          </Modal>
+          <div>
+            <PlusBtn onClick={handleOpenModal} />
+            <Modal
+              btnTxt="작성"
+              isOpen={isModalOpen}
+              onClose={handleCloseModal}
+            >
+              {" "}
+              {/* 모달 컴포넌트 */}
+              <BoardCreateModal
+                onCreateBoard={handleCreateBoard}
+                onCloseModal={handleCloseModal}
+              />
+            </Modal>
+          </div>
         }
       />
 
