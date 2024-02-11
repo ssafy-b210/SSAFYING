@@ -2,24 +2,13 @@ import styled from "styled-components";
 import React, { useState } from "react";
 
 interface SearchBarProps {
-  onCheckboxChange: (isChecked: boolean, selectedLocation: string) => void;
   onLocationChange: (location: string) => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({
-  onCheckboxChange,
-  onLocationChange,
-}) => {
-  const [isRecruitingChecked, setIsRecruitingChecked] = useState(false);
+const SearchBar: React.FC<SearchBarProps> = ({ onLocationChange }) => {
   const [selectedLocation, setSelectedLocation] = useState<string | null>(
     "지역"
   );
-
-  const handleCheckboxChange = () => {
-    const newCheckboxState = !isRecruitingChecked;
-    setIsRecruitingChecked(newCheckboxState);
-    onCheckboxChange(newCheckboxState, selectedLocation || "");
-  };
 
   const handleLocationChange = (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -32,10 +21,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
   return (
     <LocationContainer>
-      <DropdownContent onChange={handleLocationChange}>
-        <Option value="지역" selected>
-          지역
-        </Option>
+      <DropdownContent onChange={handleLocationChange} defaultValue="지역">
+        <Option value="지역">지역</Option>
         <Option value="전국">전국</Option>
         <Option value="서울">서울</Option>
         <Option value="경기">경기</Option>
@@ -52,14 +39,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
         <Option value="제주">제주</Option>
       </DropdownContent>
       <SearchBox type="text" placeholder="검색어를 입력해주세요"></SearchBox>
-      <InputContainer>
-        <input
-          type="checkbox"
-          checked={isRecruitingChecked}
-          onChange={handleCheckboxChange}
-        />
-        모집중만 검색
-      </InputContainer>
     </LocationContainer>
   );
 };
@@ -86,10 +65,4 @@ const SearchBox = styled.input`
   border: 2px solid #c4c4c4;
   border-radius: 20px;
   text-align: center;
-`;
-
-const InputContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;

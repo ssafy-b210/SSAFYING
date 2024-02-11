@@ -53,21 +53,32 @@ export async function selectCrewOne(crewId: number) {
 export async function selectCrewList(
   title?: string,
   category?: string,
-  region?: string,
-  isRecruit?: boolean
+  region?: string
 ) {
   try {
     let url = "/api/crew";
-    if (title || category || region || isRecruit !== undefined) {
-      url += "?";
-      if (title) url += `title=${title}&`;
-      if (category) url += `category=${category}&`;
-      if (region) url += `region=${region}&`;
-      if (isRecruit !== undefined) {
-        url += `isRecruit=${isRecruit}&`;
-      }
 
-      url = url.slice(0, -1);
+    // URL에 추가될 쿼리스트링 파라미터들을 저장할 배열
+    const queryParams = [];
+
+    // title이 주어진 경우
+    if (title) {
+      queryParams.push(`title=${title}`);
+    }
+
+    // category가 주어진 경우
+    if (category) {
+      queryParams.push(`category=${category}`);
+    }
+
+    // region이 주어진 경우
+    if (region) {
+      queryParams.push(`region=${region}`);
+    }
+
+    // 쿼리스트링 파라미터 배열을 URL에 추가
+    if (queryParams.length > 0) {
+      url += "?" + queryParams.join("&");
     }
     const response = await axios.get(url);
     console.log(response.data);

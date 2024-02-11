@@ -73,13 +73,9 @@ function CrewList() {
         }
       />
       <CrewSortTab onCategoryChange={handleCategoryChange}></CrewSortTab>
-      <SearchBar
-        onCheckboxChange={handleCheckboxChange}
-        onLocationChange={handleLocationChange}
-      ></SearchBar>
+      <SearchBar onLocationChange={handleLocationChange}></SearchBar>
       <CrewCardList
         selectedCategory={selectedCategory}
-        isRecruitingChecked={isRecruitingChecked}
         selectedLocation={selectedLocation}
       ></CrewCardList>
       <Footer></Footer>

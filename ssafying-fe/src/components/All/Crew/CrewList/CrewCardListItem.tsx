@@ -19,7 +19,6 @@ interface CrewItemProps {
 
 function CrewCardListItem({ card, index }: CrewItemProps) {
   const crewId = index;
-  console.log(card);
   return (
     <div>
       <Card key={index}>

@@ -125,7 +125,7 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
       <Text>이미지 업로드</Text>
       <ButtonWrapper>
         <ImgEdit />
-        <button>작성</button>
+        <button onClick={handleCreateMarket}>작성</button>
       </ButtonWrapper>
       <UploadImage setImage={setImage}></UploadImage>
     </ModalWrapper>

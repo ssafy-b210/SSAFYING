@@ -1,35 +1,36 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate } from "react-router";
 
-//Props 나중에 추가
 interface CrewSortTabProps {
   onCategoryChange: (category: string) => void;
 }
 
-const tabButtons = [
-  "스터디",
-  "공모전/프로젝트",
-  "모임",
-  "챌린지",
-  "동창회/동호회",
-  "액티비티",
-  "번개 회식",
-  "기타",
+const tabButtons: { value: string; label: string }[] = [
+  { value: "STUDY", label: "스터디" },
+  { value: "CHALLENGE", label: "챌린지" },
+  { value: "SOCIETY", label: "동창회/동호회" },
+  { value: "ACTIVITY", label: "액티비티" },
+  { value: "FLASHMOB", label: "번개 회식" },
+  { value: "PROJECT", label: "공모전/프로젝트" },
+  { value: "ETC", label: "기타" },
 ];
 
 const CrewSortTab: React.FC<CrewSortTabProps> = ({ onCategoryChange }) => {
+  const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState<number | null>(null);
 
   const handleButtonClick = (index: number) => {
     setActiveButton(index);
-    const selectedCategory = tabButtons[index];
+    const selectedCategory = tabButtons[index].value;
     onCategoryChange(selectedCategory);
+
+    navigate(`?category=${selectedCategory}`);
   };
 
   return (
     <StyledTab>
-      {tabButtons.map((label, index) => (
+      {tabButtons.map(({ label }, index) => (
         <SortTabButton
           key={index}
           $active={index === activeButton}

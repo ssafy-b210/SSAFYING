@@ -1,4 +1,3 @@
-import { error } from "console";
 import { axios } from "../utils/axios";
 
 const REST_MARKET_API = `/api/market`;
@@ -11,7 +10,7 @@ export async function createMarket(
   price: number,
   title: string,
   content: string,
-  imageUrls: string[]
+  imageUrls?: string[]
 ) {
   try {
     const data = {

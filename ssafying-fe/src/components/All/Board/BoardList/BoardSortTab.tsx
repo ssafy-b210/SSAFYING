@@ -1,24 +1,37 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router";
 
 interface BoardSortTabProps {
   onCategoryChange: (category: string) => void;
 }
 
-const tabButtons = ["자유", "취업", "정보", "개발", "싸피꿀팁", "생활", "홍보"];
+const tabButtons: { value: string; label: string }[] = [
+  { value: "FREEDOM", label: "자유" },
+  { value: "EMPLOYMENT", label: "취업" },
+  { value: "INFO", label: "정보" },
+  { value: "DEVELOPMENT", label: "개발" },
+  { value: "TIP", label: "싸피꿀팁" },
+  { value: "LIVING", label: "생활" },
+  { value: "PROMOTION", label: "홍보" },
+];
 
 const BoardSortTab: React.FC<BoardSortTabProps> = ({ onCategoryChange }) => {
+  const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState<number | null>(null);
 
   const handleButtonClick = (index: number) => {
     setActiveButton(index);
-    const selectedCategory = tabButtons[index];
+    const selectedCategory = tabButtons[index].value;
     onCategoryChange(selectedCategory);
+
+    //카테고리에 대한 쿼리스트링 추가
+    navigate(`?searchCategory=${selectedCategory}`);
   };
 
   return (
     <StyledTab>
-      {tabButtons.map((label, index) => (
+      {tabButtons.map(({ label }, index) => (
         <SortTabButton
           key={index}
           $active={index === activeButton}

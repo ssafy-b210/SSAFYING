@@ -31,7 +31,7 @@ function MarketCardListItem({ card, index }: MarketItemProps) {
             </Title>
             <hr />
             <SmallContainer>
-              <Price>{card.price}</Price>
+              <Price>{card.price}원</Price>
               {card.isSold ? (
                 <img src={isSelling} alt="isSelling" />
               ) : (

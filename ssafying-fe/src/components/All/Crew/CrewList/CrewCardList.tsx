@@ -5,7 +5,6 @@ import { selectCrewList } from "../../../../apis/api/Crew";
 
 interface CrewCardListProps {
   selectedCategory: string | null;
-  isRecruitingChecked: boolean;
   selectedLocation: string;
 }
 
@@ -23,7 +22,6 @@ const Container = styled.div`
 
 const CrewCardList: React.FC<CrewCardListProps> = ({
   selectedCategory,
-  isRecruitingChecked,
   selectedLocation,
 }) => {
   const [cards, setCards] = useState<
@@ -42,10 +40,10 @@ const CrewCardList: React.FC<CrewCardListProps> = ({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const crewData = await selectCrewList();
-        if (crewData && crewData.resultData) {
+        const crewData = await selectCrewList(selectedCategory ?? undefined);
+        if (crewData) {
           setLastIdx(lastIdx + 1);
-          const newCards = await crewData.resultData.map((res: any) => ({
+          const newCards = await crewData.map((res: any) => ({
             title: res.title,
             writer: res.nickname,
             isRecruit: res.isRecruit,
@@ -61,12 +59,16 @@ const CrewCardList: React.FC<CrewCardListProps> = ({
       }
     };
     fetchData();
-  }, []);
+  }, [selectedCategory]);
   return (
     <Container>
-      {cards.map((card, index) => (
-        <CrewCardListItem key={index} card={card} index={index} />
-      ))}
+      {cards.length > 0 ? (
+        cards.map((card, index) => (
+          <CrewCardListItem key={index} card={card} index={index} />
+        ))
+      ) : (
+        <NoResultsMessage>검색 결과가 없습니다.</NoResultsMessage>
+      )}
     </Container>
   );
 };
