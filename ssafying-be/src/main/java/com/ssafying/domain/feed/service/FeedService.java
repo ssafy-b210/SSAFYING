@@ -1,8 +1,7 @@
 package com.ssafying.domain.feed.service;
 
 import com.ssafying.domain.feed.dto.*;
-import com.ssafying.domain.feed.dto.response.DetailFeedResponse;
-import com.ssafying.domain.feed.dto.response.SearchFeedResponse;
+import com.ssafying.domain.feed.dto.response.GetFeedResponse;
 import com.ssafying.domain.feed.dto.request.*;
 import com.ssafying.domain.feed.dto.response.GetFeedLikesResponse;
 import com.ssafying.domain.feed.entity.*;
@@ -208,7 +207,7 @@ public class FeedService {
      * 3.7 피드 검색
      *
      */
-    public List<SearchFeedResponse> searchFeed(String hashtag, String nickname) {
+    public List<GetFeedResponse> searchFeed(String hashtag, String nickname) {
         Specification<Feed> specification = FeedSpecification.containingHashtagOrNickname(hashtag, nickname);
         List<Feed> feeds = feedRepository.findAll(specification);
         return feeds.stream()
@@ -257,8 +256,13 @@ public class FeedService {
         User user = getUser(request.getUserId());
         Feed feed = getFeed(request.getFeedId());
 
-        FeedScrap feedScrap = FeedScrap.createFeedScrap(feed, user);
+        Optional<FeedScrap> existScrapFeed = feedScrapRepository.findByFeedAndUser(feed, user);
 
+        if(existScrapFeed.isPresent()){
+            throw new RuntimeException("이미 스크랩을 한 피드입니다");
+        }
+
+        FeedScrap feedScrap = FeedScrap.createFeedScrap(feed, user);
         feedScrap = feedScrapRepository.save(feedScrap);
 
         return feedScrap.getId();
@@ -411,18 +415,28 @@ public class FeedService {
         feedHashtagRepository.save(feedHashtag);
     }
 
-    private SearchFeedResponse convertToDto(Feed feed) {
-        return SearchFeedResponse.builder()
+    public GetFeedResponse convertToDto(Feed feed) {
+        long commentCount = feed.getFeedComments().stream()
+                .filter(comment -> !comment.isDeleted())
+                .count();
+
+        long likeCount = feed.getFeedLikes().size();
+
+        return GetFeedResponse.builder()
                 .id(feed.getId())
-                .userId(feed.getUser().getId())
+                .user(SimpleUserDto.builder()
+                        .id(feed.getUser().getId())
+                        .nickname(feed.getUser().getNickname())
+                        .profileImageUrl(feed.getUser().getProfileImageUrl())
+                        .build())
                 .content(feed.getContent())
                 .hit(feed.getHit())
                 .feedTags(feed.getHashtagNames())  // feedTags 대신 getHashtagNames 메서드 활용
                 .feedImages(feed.getImageUrls())  // feedImages 대신 getImageUrls 메서드 활용
                 .createdAt(feed.getCreatedAt())
                 .updatedAt(feed.getUpdatedAt())
-                // .commentCount()
-                // .likeCount()
+                .commentCount(commentCount)
+                .likeCount(likeCount)
                 .build();
     }
 
@@ -431,7 +445,7 @@ public class FeedService {
                 .filter(comment -> !comment.isDeleted())
                 .count();
 
-        int likeCount = feed.getFeedLikes().size();
+        long likeCount = feed.getFeedLikes().size();
 
         return FeedDto.builder()
                 .id(feed.getId())

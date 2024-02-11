@@ -10,6 +10,7 @@ import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,12 +33,12 @@ public class RecruitmentService {
     private final UserRepository userRepository;
     private final RecruitmentScrapRepository recruitmentScrapRepository;
 
-    private final String ACCESS_KEY = "YF34Es7BZsjwQnoKoYmIJutRLKdarXEhYnHuscdTvGTHlcH5YlPHS"; // 발급받은 accessKey";
+    @Value("${saramin.token}")
+    private String ACCESS_KEY; // 발급받은 accessKey";
     private final ObjectMapper objectMapper = new ObjectMapper();
 
 
     public List<SaraminResponse> findListSaramin(String jobCd) {
-
         try {
 //            keywords = URLEncoder.encode(keywords, "UTF-8");
             String apiURL = "https://oapi.saramin.co.kr/job-search?access-key="+ACCESS_KEY+"&job_cd="+jobCd+"&count=110";
@@ -70,30 +71,6 @@ public class RecruitmentService {
         }
     }
 
-//    public int scrapSaramin
-
-
-    private List<SaraminResponse> parseSaraminResponse(String jsonResponse) throws Exception {
-        List<SaraminResponse> saraminResponses = new ArrayList<>();
-
-
-
-        JsonNode rootNode = objectMapper.readTree(jsonResponse);
-        JsonNode jobsNode = rootNode.path("jobs").path("job");
-
-        for (JsonNode jobNode : jobsNode) {
-            SaraminResponse saraminResponse = SaraminResponse.builder()
-                    .id(jobNode.path("id").asInt())
-                    .title(jobNode.path("position").path("title").asText())
-                    .company(jobNode.path("company").path("detail").path("name").asText())
-                    .url(jobNode.path("url").asText())
-                    .build();
-            saraminResponses.add(saraminResponse);
-        }
-
-        return saraminResponses;
-    }
-
     @Transactional
     public Long addRecruitmentScrap(SaveRecruitmentScrapRequest request) {
 
@@ -124,5 +101,25 @@ public class RecruitmentService {
         return recruitmentScrapId;
     }
 
+    public List<SaraminResponse> parseSaraminResponse(String jsonResponse) throws Exception {
+        List<SaraminResponse> saraminResponses = new ArrayList<>();
+
+
+
+        JsonNode rootNode = objectMapper.readTree(jsonResponse);
+        JsonNode jobsNode = rootNode.path("jobs").path("job");
+
+        for (JsonNode jobNode : jobsNode) {
+            SaraminResponse saraminResponse = SaraminResponse.builder()
+                    .id(jobNode.path("id").asInt())
+                    .title(jobNode.path("position").path("title").asText())
+                    .company(jobNode.path("company").path("detail").path("name").asText())
+                    .url(jobNode.path("url").asText())
+                    .build();
+            saraminResponses.add(saraminResponse);
+        }
+
+        return saraminResponses;
+    }
 
 }

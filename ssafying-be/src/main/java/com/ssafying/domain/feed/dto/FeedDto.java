@@ -29,7 +29,7 @@ public class FeedDto {
     LocalDateTime updatedAt;
 
     long commentCount;
-    int likeCount;
+    long likeCount;
 
     List<ParentCommentDto> parentCommentList;
 

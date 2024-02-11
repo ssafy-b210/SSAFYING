@@ -1,6 +1,7 @@
 package com.ssafying.domain.board.repository.jdbc;
 
 import com.ssafying.domain.board.entity.Board;
+import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.board.entity.CategoryStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -49,6 +50,17 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 //        public List<Board> find
 //
 //    }
+
+    List<Board> findByUser(User user);
+
+    @Query("""
+    select b
+    from Board b
+    join fetch b.isScrap bs
+    where bs.user.id = :userId
+    order by bs.board.createdAt desc
+    """)
+    List<Board> findScrapBoardList(@Param("userId") int userId);
 
 //    @Query("""
 //    select *

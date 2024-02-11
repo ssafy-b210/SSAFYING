@@ -43,6 +43,9 @@ import java.util.stream.Collectors;
         @OneToMany(mappedBy = "feed", cascade = CascadeType.ALL)
         private List<FeedLike> feedLikes = new ArrayList<>();
 
+        @OneToMany(mappedBy = "feed", cascade = CascadeType.ALL)
+        private List<FeedScrap> feedScraps = new ArrayList<>();
+
     public static Feed createFeed(
             User user,
             String content

@@ -2,10 +2,9 @@ package com.ssafying.domain.feed.controller;
 
 import com.ssafying.domain.feed.dto.FeedDto;
 import com.ssafying.domain.feed.dto.ParentCommentDto;
-import com.ssafying.domain.feed.dto.response.SearchFeedResponse;
+import com.ssafying.domain.feed.dto.response.GetFeedResponse;
 import com.ssafying.domain.feed.dto.request.*;
 import com.ssafying.domain.feed.dto.response.GetFeedLikesResponse;
-import com.ssafying.domain.feed.entity.Feed;
 import com.ssafying.domain.feed.service.FeedService;
 import com.ssafying.global.result.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -110,11 +109,11 @@ public class FeedController {
      */
     @GetMapping("/feeds/search")
     @Operation(summary = "피드 검색")
-    public ResponseEntity<ResultResponse<List<SearchFeedResponse>>> feed(
+    public ResponseEntity<ResultResponse<List<GetFeedResponse>>> feed(
             @RequestParam(name = "hashtag", required = false) String hashtag,
             @RequestParam(name = "nickname", required = false) String nickname
     ){
-        List<SearchFeedResponse> resultList = feedService.searchFeed(hashtag, nickname);
+        List<GetFeedResponse> resultList = feedService.searchFeed(hashtag, nickname);
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), resultList));
     }
 
