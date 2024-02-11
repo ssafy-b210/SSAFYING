@@ -5,6 +5,8 @@ import ToggleBtn from "../ToggleBtn";
 import CreateTitle from "../../Board/BoardCreate/CreateTitle";
 import CreateContent from "../../Board/BoardCreate/CreateContent";
 import { createCrew } from "../../../../apis/api/Crew";
+import { useAppSelector } from "../../../../store/hooks";
+import { selectUser } from "../../../../store/reducers/user";
 
 interface CrewCreateModalProps {
   onCreateCrew: (newCardInfo: {
@@ -56,6 +58,8 @@ const CrewCreateModal: React.FC<CrewCreateModalProps> = ({
   const [selectedRegion, setSelectedRegion] = useState<Option>(location[0]);
   const [isRecruit, setIsRecruit] = useState(false);
 
+  const user = useAppSelector(selectUser);
+
   const handleCategoryChange = (newCategory: Option) => {
     setSelectedCategory(newCategory);
   };
@@ -80,7 +84,6 @@ const CrewCreateModal: React.FC<CrewCreateModalProps> = ({
   //api 호출
   const handleCreateCrew = () => {
     //Redux userId에 따라 바꾸기
-    const writerName = "애옹";
     //userId 나중에 바꾸기?
     createCrew(
       1,
@@ -101,7 +104,7 @@ const CrewCreateModal: React.FC<CrewCreateModalProps> = ({
     //작성한 게시글 정보를 부모 컴포넌트로 전달하기
     onCreateCrew({
       title,
-      writer: writerName,
+      writer: user.nickname,
       isRecruit,
       category: selectedCategory.value,
       region: selectedRegion.value,
