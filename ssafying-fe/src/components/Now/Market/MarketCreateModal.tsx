@@ -10,6 +10,8 @@ import ImgEdit from "../../Feed/FeedCreate/ImgEdit";
 import UploadImage from "../../../firebase/UploadImage";
 import ToggleBtn from "./ToggleBtn";
 import { createMarket } from "../../../apis/api/Market";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
 
 interface MarketCreateModalProps {
   onCreateMarket: (newCardInfo: {
@@ -43,6 +45,8 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState(""); //업로드된 이미지의 url 상태
 
+  const user = useAppSelector(selectUser);
+
   //marketWay
   const handleCategoryChange = (newCategory: Option) => {
     setSelectedCategory(newCategory);
@@ -74,7 +78,6 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
   //api 호출
   const handleCreateMarket = () => {
     //Redux userId에 따라 바꾸기
-    const writerName = "애옹";
 
     //userId 나중에 바꾸기
     // 이미지 URL을 담은 배열 생성
@@ -101,7 +104,7 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
     //작성한 게시글 정보를 부모 컴포넌트로 전달
     onCreateMarket({
       title,
-      writer: writerName,
+      writer: user.nickname,
       isSold,
       marketWay: selectedCategory.value,
       price,
