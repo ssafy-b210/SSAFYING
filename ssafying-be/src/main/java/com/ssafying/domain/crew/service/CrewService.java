@@ -4,6 +4,7 @@ import com.ssafying.domain.crew.dto.request.AddCrewCommentRequest;
 import com.ssafying.domain.crew.dto.request.AddCrewRequest;
 import com.ssafying.domain.crew.dto.request.ModifyCrewRequest;
 import com.ssafying.domain.crew.dto.response.CrewDetailResponse;
+import com.ssafying.domain.crew.dto.response.CrewListResponse;
 import com.ssafying.domain.crew.dto.specification.CrewSpecification;
 import com.ssafying.domain.crew.entity.CrewCategory;
 import com.ssafying.domain.crew.entity.Crew;
@@ -23,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -82,7 +84,7 @@ public class CrewService {
         CrewDetailResponse response = CrewDetailResponse.builder()
                 .crewId(crew.getCrewId())
                 .title(crew.getTitle())
-                .user(crew.getUser())
+                .nickname(crew.getUser().getNickname())
                 .content(crew.getContent())
                 .region(crew.getRegion())
                 .category(crew.getCategory())
@@ -97,10 +99,23 @@ public class CrewService {
      * 게시글 전체 조회
      */
     @Transactional
-    public List<Crew> findAllCrews(){
+    public List<CrewListResponse> findAllCrews(){
         List<Crew> list = crewRepository.findAll();
 
-        return list;
+        List<CrewListResponse> responseList = new ArrayList<>();
+
+        for(Crew crew : list){
+            responseList.add(CrewListResponse.builder()
+                            .title(crew.getTitle())
+                            .nickname(crew.getUser().getNickname())
+                            .content(crew.getContent())
+                            .isRecruit(crew.getIsRecruit())
+                            .region(crew.getRegion())
+                            .build());
+        }
+
+
+        return responseList;
     }
 
     /**
@@ -126,7 +141,7 @@ public class CrewService {
     /**
      * 게시글 검색
      */
-    public List<Crew> searchCrew(String title, String region, String category, boolean isRecruit){
+    public List<CrewListResponse> searchCrew(String title, String region, String category, boolean isRecruit){
 
         Specification<Crew> spec = Specification.where(null);
 
@@ -142,7 +157,23 @@ public class CrewService {
 
         spec = spec.and(CrewSpecification.isRecruit(isRecruit));
 
-        return crewRepository.findAll(spec);
+
+        List<CrewListResponse> responseList = new ArrayList<>();
+
+        List<Crew> list = crewRepository.findAll(spec);
+
+        for(Crew crew : list){
+            responseList.add(CrewListResponse.builder()
+                    .title(crew.getTitle())
+                    .nickname(crew.getUser().getNickname())
+                    .content(crew.getContent())
+                    .isRecruit(crew.getIsRecruit())
+                    .region(crew.getRegion())
+                    .build());
+        }
+
+
+        return responseList;
 
     }
 

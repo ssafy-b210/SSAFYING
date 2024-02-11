@@ -20,12 +20,12 @@ values (2, 'ssafy1@ssafy.com', '1234', '애옹', '010-1111-1111', '이싸피', 1
        (4, 'test7@test.com', '1234', '추천테스트6', '010-3453-2232', '신싸피', 10, false, 'ACTIVE'),
        (1, 'test8@test.com', '1234', '추천테스트7', '010-3453-6543', '양싸피', 10, true, 'ACTIVE');
 
-insert into crew (title, content, region, category, is_recruit)
-values ('구인글1', '내용1', 'SEOUL', 'STUDY', true),
-       ('구인글2', '내용2', 'DAEJEON', 'CHALLENGE', true),
-       ('구인글3', '내용3', 'DAEJEON', 'SOCIETY', false),
-       ('구인글4', '내용4', 'SEOUL', 'CHALLENGE', false),
-       ('구인글5', '내용5', 'GWANGJU', 'STUDY', false);
+insert into crew (title, user_id, content, region, category, is_recruit)
+values ('구인글1', 2, '내용1', 'SEOUL', 'STUDY', true),
+       ('구인글2', 1, '내용2', 'DAEJEON', 'CHALLENGE', true),
+       ('구인글3', 1, '내용3', 'DAEJEON', 'SOCIETY', false),
+       ('구인글4', 2, '내용4', 'SEOUL', 'CHALLENGE', false),
+       ('구인글5', 1, '내용5', 'GWANGJU', 'STUDY', false);
 
 insert into board(user_id, is_anonymous, content, title, category)
 values (1, false, 'content', '바보', 'FREEDOM'),
