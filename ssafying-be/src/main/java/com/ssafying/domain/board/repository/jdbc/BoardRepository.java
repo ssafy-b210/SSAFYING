@@ -28,6 +28,14 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
             """)
     List<Board> findBoard();
 
+    @Query("""
+            select count(*)
+            from BoardScrap bs
+            where bs.user.id = :userId
+            and bs.board.id = :boardId
+            """)
+    int findIsScrap(@Param("boardId") int boardId, @Param("userId") int userId);
+
 //        @Query("""
 //           select *
 //           from Board b
