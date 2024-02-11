@@ -154,7 +154,7 @@ public class BoardService {
      *
      * @return
      */
-    public FindDetailBoardResponse findDetailBoard(int boardId) {
+    public FindDetailBoardResponse findDetailBoard(int boardId, int userId) {
 
         // boardId가 존재하는지 확인
         Board board = boardRepository.findById(boardId)
@@ -201,6 +201,10 @@ public class BoardService {
             parentCommentDTOList.add(parentCommentDTO);
         }
 
+        //해당 유저의 해당 게시글 스크랩 여부
+        int countScrap = boardRepository.findIsScrap(boardId, userId);
+        boolean isScrap = countScrap > 0;
+
         // response 에 넣을 댓글들 셋팅 완료
         // board 에 대한 board 정보를 만들어서 넘김
         FindDetailBoardResponse result = FindDetailBoardResponse.builder()
@@ -211,6 +215,7 @@ public class BoardService {
                 .isAnonymous(board.isAnonymous())
                 .createAt(board.getCreatedAt())
                 .comments(parentCommentDTOList)
+                .isScrap(isScrap)
                 .build();
 
         return result;
