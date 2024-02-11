@@ -2,16 +2,22 @@ import styled from "styled-components";
 import BackBtnHeader from "../../../components/Common/BackBtnHeader";
 import Tmap from "./Tmap";
 import { useEffect, useState } from "react";
+import SockJS from "sockjs-client";
+import { Stomp } from "@stomp/stompjs";
+import { REACT_APP_HOME_URL } from "../../../apis/constants";
 
 type Position = {
   latitude: number; // 위도
   longitude: number; // 경도
 };
 
-const SOCKET_URL = "ws://localhost:8001"; // 테스트 서버 주소
-
 function BusRealTimeMap() {
-  const socket = new WebSocket(SOCKET_URL);
+  // socket
+  let stompClient: any = null;
+  let connected = false;
+  const [recvList, setRecvList] = useState<any[]>([]);
+
+  const shuttleId = 1;
 
   // 유저의 현재 위치 좌표
   const [currPosition, setCurrPosition] = useState<Position>({
@@ -38,29 +44,41 @@ function BusRealTimeMap() {
       setCurrPosition(currPos);
 
       // 서버에 좌표 보내기
-      socket.send(JSON.stringify(currPos));
+      if (stompClient && stompClient.connected)
+        stompClient.send(
+          `/pub/location/${shuttleId}`,
+          JSON.stringify(currPos),
+          {}
+        );
     });
   }
 
-  // 소켓 이벤트 제어
+  function connection() {
+    const serverURL = `${REACT_APP_HOME_URL}/api/ws`;
+    const socket = new SockJS(serverURL);
+    stompClient = Stomp.over(socket);
+    console.log(stompClient);
+    console.log(`소켓 연결을 시도합니다. 서버 주소: ${serverURL}`);
+
+    stompClient.connect(
+      {},
+      (frame: any) => {
+        connected = true;
+        console.log("소켓 연결 성공", frame);
+        stompClient.subscribe(`/sub/location/${shuttleId}`, (res: any) => {
+          console.log("구독으로 받은 메시지 입니다.", res.body);
+          recvList.push(JSON.parse(res.body));
+        });
+      },
+      (error: any) => {
+        console.log("소켓 연결 실패", error);
+        connected = false;
+      }
+    );
+  }
+
   useEffect(() => {
-    socket.onopen = () => {
-      console.log("클라이언트 소켓 연결됨");
-    };
-
-    socket.onmessage = function (event) {
-      console.log(`[message] 서버로부터 전송받은 데이터: ${event.data}`);
-      // TODO: 버스 위치 좌표 수정 -> 지도 다시 그리기
-      // setBusPosition(event.data);
-    };
-
-    socket.onclose = function () {
-      console.log("클라이언트 연결 해제");
-    };
-
-    return () => {
-      if (socket.readyState === 1) socket.close();
-    };
+    connection(); // 소켓 연결
   }, []);
 
   return (
@@ -71,7 +89,7 @@ function BusRealTimeMap() {
         htext={<h3>대전 1호차 위치공유</h3>}
       />
       <MapContainer>
-        <Tmap
+        {/* <Tmap
           currLocation={{
             lat: busPosition.latitude,
             lng: busPosition.longitude,
@@ -80,7 +98,7 @@ function BusRealTimeMap() {
             lat: 36.3579,
             lng: 127.396,
           }}
-        />
+        /> */}
       </MapContainer>
       <button onClick={handleClickShareLocation}>위치공유하기</button>
       <div>{`${currPosition.latitude}, ${currPosition.longitude}`}</div>
