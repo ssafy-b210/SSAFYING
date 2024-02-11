@@ -109,7 +109,7 @@ public class UserAuthService {
                 request.getStudentName(), request.getStudentEmail(), request.getStudentNumber());
 
         if(student == null){
-            return "사용자를 찾을 수 없습니다.";
+            return null;
         }
 
         return request.getStudentName();

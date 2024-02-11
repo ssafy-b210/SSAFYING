@@ -39,4 +39,8 @@ values (1, 2), (1, 3), (1, 4), (1, 5), (1, 6),
        (2, 3), (5, 6), (1, 8);
 
 insert into student (student_name, student_email, student_number)
-values ("이예원", "2_yewon@naver.com", 1035775);
+values ("이예원", "2_yewon@naver.com", 1035775),
+       ("이수민", "judy3504@naver.com", 1038591),
+       ("노현석", "nhs503601@gmail.com", 1030533),
+       ("임지은", "ljieun01@naver.com", 1031156),
+       ("김수은", "tndms0308@naver.com", 1036351);

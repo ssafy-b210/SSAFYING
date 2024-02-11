@@ -163,6 +163,10 @@ public class UserAuthController {
 
         String msg = userAuthService.authStudent(request);
 
+        if(msg == null){
+            return ResultResponse.errRes(HttpStatus.BAD_REQUEST, "유저를 찾을 수 없습니다.", null, 400);
+        }
+
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), msg));
     }
 
