@@ -6,6 +6,8 @@ import SelectCategory, { Option } from "../../Board/BoardCreate/SelectCategory";
 import IsAnonymous from "../BoardCreate/CheckAnonymous";
 import { createBoard } from "../../../../apis/api/Board";
 import { useNavigate } from "react-router";
+import { useAppSelector } from "../../../../store/hooks";
+import { selectUser } from "../../../../store/reducers/user";
 
 interface BoardCreateModalProps {
   onCreateBoard: (newCardInfo: {
@@ -36,6 +38,7 @@ const BoardCreateModal: React.FC<BoardCreateModalProps> = ({
   const [nickname, setNickname] = useState(false); //nickname - false: 실명제
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const user = useAppSelector(selectUser);
 
   const handleNicknameChange = (newNickname: boolean) => {
     setNickname(newNickname);
@@ -56,7 +59,7 @@ const BoardCreateModal: React.FC<BoardCreateModalProps> = ({
   //api 호출
   const handleCreateBoard = () => {
     //Redux userId에 따라 바꾸기
-    const writerName = nickname ? "익명" : "애옹";
+    const writerName = nickname ? "익명" : user.nickname;
 
     //실제 게시글 생성 api 호출
     // boardId 나중에 꼭 바꾸기
