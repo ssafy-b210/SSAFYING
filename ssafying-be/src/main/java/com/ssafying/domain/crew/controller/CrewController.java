@@ -70,7 +70,7 @@ public class CrewController {
      */
     @GetMapping
     @Operation(summary = "구인글 전체 조회")
-    public List<CrewListResponse> crewList(
+    public ResponseEntity<ResultResponse<List<CrewListResponse>>> crewList(
             @RequestParam(name = "title", required = false) String title,
             @RequestParam(name = "region", required = false) String region,
             @RequestParam(name = "category", required = false) String category
@@ -78,7 +78,7 @@ public class CrewController {
 
         List<CrewListResponse> list = crewService.searchCrew(title, region, category);
 
-        return list;
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), list));
     }
 
     /**

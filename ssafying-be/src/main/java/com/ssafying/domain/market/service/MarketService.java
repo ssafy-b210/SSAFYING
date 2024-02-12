@@ -102,7 +102,7 @@ public class MarketService {
 
         List<Market> markets = null;
 
-        //isSoldout 값에 따라
+        //marketWay 값에 따라
         if(marketWay == null){
             markets = marketRepository.findMarket();
         }else{
