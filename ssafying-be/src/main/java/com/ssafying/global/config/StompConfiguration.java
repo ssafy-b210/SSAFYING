@@ -17,9 +17,6 @@ public class StompConfiguration implements WebSocketMessageBrokerConfigurer {
         registry.enableSimpleBroker("/sub"); // 메시지 구독하는 요청 url => 즉 메시지를 받을 때
         registry.setApplicationDestinationPrefixes("/pub"); // 메시지 발행(전송)
 
-        //위치공유
-        registry.enableSimpleBroker("/sub/location"); // 위치정보 구독 url
-        registry.setApplicationDestinationPrefixes("/pub/location"); // 위치정보 발행 url (도착경로 prefix)
     }
 
     @Override

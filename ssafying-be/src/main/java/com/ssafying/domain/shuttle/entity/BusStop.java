@@ -31,9 +31,6 @@ public class BusStop {
 
     private double longitude; //경도
 
-    @OneToMany(mappedBy = "busStop")
-    private List<User> user = new ArrayList<>(); //해당 정류장 이용하는 교육생
-
     @Column(name = "arrival_at")
     private LocalTime arrivalAt; //셔틀 도착 시간
 

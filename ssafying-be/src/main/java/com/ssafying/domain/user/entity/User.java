@@ -82,11 +82,6 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "toUser")
     private List<Follow> followers= new ArrayList<>(); //팔로워 리스트
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
-    @JoinColumn(name = "bus_stop_id")
-    private BusStop busStop; //이용하는 버스 정류장
-
     /*
      * 회원 가입
      */
