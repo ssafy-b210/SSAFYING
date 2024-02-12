@@ -48,7 +48,11 @@ function BusRealTimeMap() {
         stompClient.send(
           `/pub/location/${shuttleId}`,
           {},
-          JSON.stringify(currPos)
+          JSON.stringify({
+            shuttleId: shuttleId,
+            latitude: currPos.latitude,
+            longitude: currPos.longitude,
+          })
         );
     });
   }
@@ -57,7 +61,7 @@ function BusRealTimeMap() {
     const serverURL = `${REACT_APP_HOME_URL}/api/ws`;
     const socket = new SockJS(serverURL);
     stompClient = Stomp.over(socket);
-    stompClient.debug = () => {}; // 이벤트마다 콘솔 로깅 기록 방지
+    // stompClient.debug = () => {}; // 이벤트마다 콘솔 로깅 기록 방지
     console.log(stompClient);
     console.log(`소켓 연결을 시도합니다. 서버 주소: ${serverURL}`);
 
@@ -66,8 +70,10 @@ function BusRealTimeMap() {
       (frame: any) => {
         connected = true;
         console.log("소켓 연결 성공", frame);
+
+        // 서버로부터 통신 받기
         stompClient.subscribe(`/sub/location/${shuttleId}`, (res: any) => {
-          console.log("구독으로 받은 메시지 입니다.", res.body);
+          console.log("구독으로 받은 메시지 입니다.", JSON.parse(res.body));
           recvList.push(JSON.parse(res.body));
         });
       },
