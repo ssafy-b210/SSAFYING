@@ -5,6 +5,7 @@ import com.ssafying.domain.market.dto.request.ModifyMarketRequest;
 import com.ssafying.domain.market.dto.response.MarketDetailResponse;
 import com.ssafying.domain.market.dto.response.MarketListResponse;
 import com.ssafying.domain.market.entity.Market;
+import com.ssafying.domain.market.entity.MarketWay;
 import com.ssafying.domain.market.service.MarketService;
 import com.ssafying.global.result.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -70,10 +71,10 @@ public class MarketController {
     @GetMapping
     @Operation(summary = "거래글 전체 조회")
     public ResponseEntity<ResultResponse<List<MarketListResponse>>> marketList(
-            @RequestParam(name = "isSoldout", required = false) Boolean isSoldout
-    ){
+            @RequestParam(name = "marketWay", required = false)MarketWay marketWay
+            ){
 
-        List<MarketListResponse> result = marketService.findAllMarkets(isSoldout);
+        List<MarketListResponse> result = marketService.findAllMarkets(marketWay);
 
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }

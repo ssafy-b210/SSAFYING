@@ -7,6 +7,7 @@ import com.ssafying.domain.market.dto.response.MarketDetailResponse;
 import com.ssafying.domain.market.dto.response.MarketListResponse;
 import com.ssafying.domain.market.entity.Market;
 import com.ssafying.domain.market.entity.MarketImage;
+import com.ssafying.domain.market.entity.MarketWay;
 import com.ssafying.domain.market.repository.jdbc.MarketImageRepository;
 import com.ssafying.domain.market.repository.jdbc.MarketRepository;
 import com.ssafying.domain.user.entity.User;
@@ -97,15 +98,15 @@ public class MarketService {
      * 게시글 전체 조회
      */
     @Transactional
-    public List<MarketListResponse> findAllMarkets(Boolean isSoldout) {
+    public List<MarketListResponse> findAllMarkets(MarketWay marketWay) {
 
         List<Market> markets = null;
 
         //isSoldout 값에 따라
-        if(isSoldout == null){
+        if(marketWay == null){
             markets = marketRepository.findMarket();
         }else{
-            markets = marketRepository.findByIsSoldout(isSoldout);
+            markets = marketRepository.findByMarketWay(marketWay);
         }
 
         List<MarketListResponse> responseList = new ArrayList<>();
