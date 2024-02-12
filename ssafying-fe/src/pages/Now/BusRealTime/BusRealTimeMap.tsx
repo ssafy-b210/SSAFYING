@@ -47,8 +47,8 @@ function BusRealTimeMap() {
       if (stompClient && stompClient.connected)
         stompClient.send(
           `/pub/location/${shuttleId}`,
-          JSON.stringify(currPos),
-          {}
+          {},
+          JSON.stringify(currPos)
         );
     });
   }
@@ -57,6 +57,7 @@ function BusRealTimeMap() {
     const serverURL = `${REACT_APP_HOME_URL}/api/ws`;
     const socket = new SockJS(serverURL);
     stompClient = Stomp.over(socket);
+    stompClient.debug = () => {}; // 이벤트마다 콘솔 로깅 기록 방지
     console.log(stompClient);
     console.log(`소켓 연결을 시도합니다. 서버 주소: ${serverURL}`);
 
@@ -84,7 +85,7 @@ function BusRealTimeMap() {
   return (
     <div>
       <BackBtnHeader
-        backLink="/bus"
+        backLink="/shuttle"
         isCenter={true}
         htext={<h3>대전 1호차 위치공유</h3>}
       />

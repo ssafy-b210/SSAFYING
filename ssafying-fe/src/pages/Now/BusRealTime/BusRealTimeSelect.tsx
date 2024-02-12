@@ -1,9 +1,29 @@
 import styled from "styled-components";
 import SubmitBtn from "../../../components/Common/SubmitBtn";
 import downArrow from "../../../assets/img/imgBtn/downArrow.svg";
+import { ChangeEvent, useRef, useState } from "react";
 
 function BusRealTimeSelect() {
-  // NOTE : 셔틀 버스 이전에 선택한 값 가져오기
+  const LS_SHUTTLE_ID_KEY = "shuttle-id";
+
+  let shuttleId = useRef<string>(
+    localStorage.getItem(LS_SHUTTLE_ID_KEY) || "1"
+  );
+
+  const [selectShuttleId, setSelectedShuttleId] = useState<string>(
+    shuttleId.current
+  );
+
+  // 셔틀 버스 호차 선택하기
+  function handleSelectShuttleId(e: ChangeEvent<HTMLSelectElement>) {
+    shuttleId.current = e.target.value;
+    setSelectedShuttleId(shuttleId.current);
+  }
+
+  // 셔틀 버스 지도로 이동하기 전에 로컬스토리지에 값 저장
+  function handleClickEnter() {
+    localStorage.setItem(LS_SHUTTLE_ID_KEY, shuttleId.current);
+  }
 
   return (
     <Wrapper>
@@ -11,7 +31,12 @@ function BusRealTimeSelect() {
       <SelectContainer>
         <label htmlFor="bus-number-selector">셔틀버스를 선택해주세요.</label>
         <SelectWrapper>
-          <select name="number" id="bus-number-selector">
+          <select
+            name="number"
+            id="bus-number-selector"
+            onChange={handleSelectShuttleId}
+            value={selectShuttleId}
+          >
             <option value="1">1호차</option>
             <option value="2">2호차</option>
             <option value="3">3호차</option>
@@ -24,7 +49,11 @@ function BusRealTimeSelect() {
           </div>
         </SelectWrapper>
       </SelectContainer>
-      <SubmitBtn text="셔틀 위치 보기" link="1" />
+      <SubmitBtn
+        text="셔틀 위치 보기"
+        link={shuttleId.current}
+        onClick={handleClickEnter}
+      />
     </Wrapper>
   );
 }

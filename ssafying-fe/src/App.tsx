@@ -75,8 +75,8 @@ function App() {
             <Route path="/now" element={<NowMenu />} />
             <Route path="/market" element={<MarketList />} />
             <Route path="/mealplan" element={<SelectCampusMeal />} />
-            <Route path="/bus" element={<BusRealTimeSelect />} />
-            <Route path="/bus/:shuttleId" element={<BusRealTimeMap />} />
+            <Route path="/shuttle" element={<BusRealTimeSelect />} />
+            <Route path="/shuttle/:shuttleId" element={<BusRealTimeMap />} />
 
             <Route path="/" element={<FeedMain />} />
             <Route path="/feedhome" element={<FeedMain />} />

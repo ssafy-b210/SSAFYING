@@ -11,7 +11,7 @@ function MenuBar() {
   return (
     <MenuContainer>
       <Content>
-        <Link to={"/"}>
+        <Link to={"/shuttle"}>
           <Card>
             <Icon>
               <img src={Shuttle} className="shuttle" />
