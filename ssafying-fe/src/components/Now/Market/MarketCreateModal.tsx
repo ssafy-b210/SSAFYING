@@ -24,6 +24,7 @@ interface MarketCreateModalProps {
     marketWay: string; // sell, buy, share
     price: number;
     content: string;
+    imageUrls?: string[];
   }) => void;
   onCloseModal: () => void; //모달 닫기 함수 추가
 }
@@ -46,8 +47,8 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState(0);
   const [content, setContent] = useState("");
-  const [imageUrl, setImageUrl] = useState(""); //업로드된 이미지의 url 상태
-  const [images, setImages] = useState<string[]>([]); // 이미지들의 URL을 저장할 상태
+  const [imageUrls, setImageUrls] = useState<string[]>([]); //업로드된 이미지의 url 상태
+  // const [images, setImages] = useState<string[]>([]); // 이미지들의 URL을 저장할 상태
   const user = useAppSelector(selectUser);
   const [modalVisible, setModalVisible] = useState(true);
   const navigate = useNavigate();
@@ -77,47 +78,59 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
     setContent(newContent);
   };
 
-  const setImage = (url: string) => {
-    setImageUrl(url);
-  };
+  // const setImage = (url: string) => {
+  //   setImageUrl(url);
+  // };
 
   const handleModalClose = () => {
     onCloseModal();
     window.location.reload(); //새로고침
   };
 
-  //firebase
-
   //api 호출
   const handleCreateMarket = () => {
+    if (!title.trim() || !content.trim() || !price.toString().trim()) {
+      alert("빈칸을 채워주세요.");
+      return;
+    }
     //Redux userId에 따라 바꾸기
     const writerName = user.nickname;
+    // 이미지 URL을 담은 배열 생성
+    // const imageUrls: string[] = [imageUrl];
 
     //이미지 파일을 blob으로 변환하여 업로드
-    const uploadTasks = images.map(async (image) => {
-      // const fileRef = ref(fstorage, `${writerName}/${image.name}`);
-      // await uploadString(fileRef, image, "data_url");
-      // const downloadURL = await getDownloadURL(fileRef);
-      // return downloadURL;
+    const uploadTasks = imageUrls.map(async (imageUrl) => {
+      const fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
+      const fileRef = ref(fstorage, `${writerName}/${fileName}`);
+      await uploadString(fileRef, imageUrl, "data_url");
+      const downloadURL = await getDownloadURL(fileRef);
+      return downloadURL;
     });
 
     //이미지 업로드가 모두 완료된 후에 진행
     Promise.all(uploadTasks).then((downloadURLs) => {
-      // createMarket 함수 호출 시 imageUrls 매개변수에 배열 전달
       createMarket(
         1,
         selectedCategory.value,
         isSold,
         price,
         title,
-        content
-        // downloadURLs
+        content,
+        downloadURLs
       );
+
+      onCreateMarket({
+        title,
+        writer: user.nickname,
+        isSold,
+        marketWay: selectedCategory.value,
+        price,
+        content,
+        imageUrls: downloadURLs,
+      });
     });
 
     //userId 나중에 바꾸기
-    // 이미지 URL을 담은 배열 생성
-    const imageUrls: string[] = [imageUrl];
 
     //작성 후 상태 초기화
     setSelectedCategory(bigcategory[0]);
@@ -125,7 +138,7 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
     setPrice(0);
     setTitle("");
     setContent("");
-    setImageUrl("");
+    setImageUrls([]);
 
     //작성한 게시글 정보를 부모 컴포넌트로 전달
     onCreateMarket({
@@ -135,6 +148,7 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
       marketWay: selectedCategory.value,
       price,
       content,
+      imageUrls: [],
     });
     handleModalClose();
   };
@@ -157,12 +171,13 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
       )}
       <CreateTitle onTitleChange={handleTitleChange}></CreateTitle>
       <CreateContent onContentChange={handleContentChange}></CreateContent>
-      <Text>이미지 업로드</Text>
+      <Text>물품 사진 (최대 3장까지 업로드 가능)</Text>
       <ButtonWrapper>
-        <ImgEdit onImagesChange={setImages} />
+        <ImgEdit onImagesChange={setImageUrls} />
         <button onClick={handleCreateMarket}>작성</button>
       </ButtonWrapper>
-      <UploadImage setImage={setImage}></UploadImage>
+      {/* <UploadImage setImage={setImage}></UploadImage> */}
+      <UploadImage setImageUrls={setImageUrls} />
     </ModalWrapper>
   );
 };

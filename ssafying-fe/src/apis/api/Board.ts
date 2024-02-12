@@ -72,6 +72,7 @@ export async function cancelscrapBoard(userId: number, boardId: number) {
       },
     });
     console.log(response.data);
+    return response.data;
   } catch (e) {
     console.log(e);
   }

@@ -18,11 +18,17 @@ interface BoardCreateModalProps {
     isAnonymous: boolean;
   }) => void;
   onCloseModal: () => void; //모달 닫기 함수 추가
+  initialTitle?: string;
+  initialContent?: string;
+  initialCategory?: string;
 }
 
 const BoardCreateModal: React.FC<BoardCreateModalProps> = ({
   onCreateBoard,
   onCloseModal,
+  initialTitle = "",
+  initialContent = "",
+  initialCategory = "",
 }) => {
   const options: Option[] = [
     { value: "FREEDOM", label: "자유" },
@@ -40,6 +46,7 @@ const BoardCreateModal: React.FC<BoardCreateModalProps> = ({
   const [content, setContent] = useState("");
   const user = useAppSelector(selectUser);
   const [modalVisible, setModalVisible] = useState(true);
+
   const navigate = useNavigate();
 
   const handleNicknameChange = (newNickname: boolean) => {
@@ -65,6 +72,10 @@ const BoardCreateModal: React.FC<BoardCreateModalProps> = ({
 
   //api 호출
   const handleCreateBoard = () => {
+    if (!title.trim() || !content.trim()) {
+      alert("빈칸을 채워주세요.");
+      return;
+    }
     //Redux userId에 따라 바꾸기
     const writerName = user.nickname;
 

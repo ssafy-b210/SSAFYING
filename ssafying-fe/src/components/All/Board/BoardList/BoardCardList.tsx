@@ -56,25 +56,26 @@ const BoardCardList: React.FC<BoardCardListProps> = ({ selectedCategory }) => {
     fetchData();
   }, [selectedCategory]);
   return (
-    <Container>
+    <>
       {cards.length > 0 ? (
-        cards.map((card, index) => (
-          <BoardCardListItem key={index} card={card} index={index} />
-        ))
+        <Container>
+          {cards.map((card, index) => (
+            <BoardCardListItem key={index} card={card} index={index} />
+          ))}
+        </Container>
       ) : (
         <NoResultsMessage>검색 결과가 없습니다.</NoResultsMessage>
       )}
-    </Container>
+    </>
   );
 };
 
 export default BoardCardList;
 
-const NoResultsMessage = styled.p`
+const NoResultsMessage = styled.div`
+  padding-top: 40%;
   display: flex;
   justify-content: center;
-  text-align: center;
-  padding-top: 40%;
-  margin-right: 15%;
-  margin-left: 15%;
+  align-items: center;
+  width: 100%;
 `;

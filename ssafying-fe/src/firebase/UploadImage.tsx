@@ -1,15 +1,19 @@
+import React, { useState, useRef } from "react";
+import styled from "styled-components";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { fstorage } from "../apis/firebase";
-import React, { useState, useRef } from "react";
 
-const UploadImage = ({ setImage }: { setImage: (p: string) => void }) => {
+interface UploadImageProps {
+  setImageUrls: (urls: string[]) => void;
+}
+
+const UploadImage: React.FC<UploadImageProps> = ({ setImageUrls }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [imageURL, setImageURL] = useState<string>("");
   const [progressPercent, setProgressPercent] = useState<number>(0);
+  const [prevUrls, setPrevUrls] = useState([]);
 
-  // console.log(setImage);
-
-  const onImageChange = (
+  const onImageChange = async (
     e: React.ChangeEvent<EventTarget & HTMLInputElement>
   ) => {
     e.preventDefault();
@@ -30,27 +34,40 @@ const UploadImage = ({ setImage }: { setImage: (p: string) => void }) => {
       (error) => {
         switch (error.code) {
           case "storage/canceled":
-            alert("Upload has been calceled");
+            alert("Upload has been canceled");
             break;
+          default:
+            alert("An error occurred during upload");
         }
       },
-      () => {
+      async () => {
         e.target.value = "";
-        getDownloadURL(storageRef).then((downloadURL) => {
-          console.log("File availbale at", downloadURL);
+        try {
+          const downloadURL = await getDownloadURL(storageRef);
+          console.log("File available at", downloadURL);
           setImageURL(downloadURL);
-          setImage(downloadURL);
-        });
+          // setPrevUrls([...prevUrls, downloadURL]);
+          setImageUrls([...prevUrls, downloadURL]);
+        } catch (error) {
+          console.error("Error getting download URL:", error);
+        }
       }
     );
   };
+
   return (
-    <div>
+    <Wrapper>
       <input type="file" onChange={onImageChange} ref={inputRef} />
       {progressPercent > 0 && <div>Progress: {progressPercent}%</div>}
       {imageURL && <img src={imageURL} alt="Uploaded" />}
-    </div>
+    </Wrapper>
   );
 };
 
 export default UploadImage;
+
+const Wrapper = styled.div`
+  img {
+    width: 200px;
+  }
+`;

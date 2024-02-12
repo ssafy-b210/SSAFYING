@@ -1,4 +1,5 @@
 import { axios } from "../utils/axios";
+// import { URLSearchParams } from "url";
 
 const REST_CREW_API = `/api/crew`;
 
@@ -44,6 +45,7 @@ export async function selectCrewOne(crewId: number) {
   try {
     const response = await axios.get(`${REST_CREW_API}/${crewId}`);
     console.log(response.data);
+    return response.data;
   } catch (e) {
     console.log(e);
   }
@@ -59,27 +61,23 @@ export async function selectCrewList(
     let url = "/api/crew";
 
     // URL에 추가될 쿼리스트링 파라미터들을 저장할 배열
-    const queryParams = [];
-
-    // title이 주어진 경우
+    const queryParams = new URLSearchParams();
     if (title) {
-      queryParams.push(`title=${title}`);
+      queryParams.append("title", title);
     }
-
-    // category가 주어진 경우
     if (category) {
-      queryParams.push(`category=${category}`);
+      queryParams.append("category", category);
     }
-
-    // region이 주어진 경우
     if (region) {
-      queryParams.push(`region=${region}`);
+      queryParams.append("region", region);
     }
 
     // 쿼리스트링 파라미터 배열을 URL에 추가
-    if (queryParams.length > 0) {
-      url += "?" + queryParams.join("&");
+    const queryString = queryParams.toString();
+    if (queryString) {
+      url += `?${queryString}`;
     }
+
     const response = await axios.get(url);
     console.log(response.data);
     return response.data;
