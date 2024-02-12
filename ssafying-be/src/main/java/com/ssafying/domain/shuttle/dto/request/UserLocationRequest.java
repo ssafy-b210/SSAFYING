@@ -1,6 +1,6 @@
 package com.ssafying.domain.shuttle.dto.request;
 
-import com.ssafying.domain.shuttle.entity.Shuttle;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Getter
@@ -9,9 +9,12 @@ import lombok.*;
 @AllArgsConstructor
 public class UserLocationRequest {
 
-    String lat; //위도
+    @NotNull
+    long latitude; //위도
 
-    String lon; //경도
+    @NotNull
+    long longitude; //경도
 
+    @NotNull
     int shuttleId; //타고 있는 셔틀버스
 }
