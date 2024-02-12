@@ -127,11 +127,24 @@ export async function deletePortfolioLink(portfolioId: number) {
 }
 
 // 포트폴리오 리드미 작성
-export async function modifyPortfolioReadMe(userId: number) {
+export async function modifyPortfolioReadMe(
+  userId: number,
+  readme: string | undefined
+) {
   try {
-    const response = await axios.put(`${REST_MYPAGE_API}/${userId}/readme`);
-    console.log(response.data);
+    await axios.put(`${REST_MYPAGE_API}/${userId}/readme`, {
+      readme: readme,
+    });
   } catch (e: any) {
+    console.log(e);
+  }
+}
+
+export async function selectPortfolioReadMe(userId: number) {
+  try {
+    const response = await axios.get(`${REST_MYPAGE_API}/${userId}/readme`);
+    return response.data.resultData;
+  } catch (e) {
     console.log(e);
   }
 }

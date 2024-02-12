@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { selectHashtagList, selectMyFeedList } from "../../../apis/api/Profile";
 import { useParams } from "react-router";
 
-type HashtagType = { id: number; name: string };
+type HashtagType = { id: number; tagName: string };
 
 function ContentFeedSection() {
   // 전체 내 피드 리스트
@@ -41,14 +41,21 @@ function ContentFeedSection() {
   // 해시태그 리스트 가져오기
   async function getHashtagList() {
     const res = await selectHashtagList(Number(profileUserId));
-    if (res !== undefined) setHashTagList(res.data.resultData);
+    if (res !== undefined) {
+      setHashTagList(res.data.resultData);
+    }
   }
 
-  // 피드 리스트 가져오기
+  // 내가 작성한 모든 피드 리스트 가져오기
   async function getAllMyFeedList() {
     const res = await selectMyFeedList(Number(profileUserId));
-    if (res !== undefined) setAllMyFeedList(res.data.resultData);
+    if (res !== undefined) {
+      setAllMyFeedList(res.data.resultData || []);
+    }
   }
+
+  // 선택한 해시태그만 포함된 내가 작성한 피드 리스트 가져오기
+  function filterMyFeedList() {}
 
   useEffect(() => {
     getHashtagList();
@@ -68,7 +75,7 @@ function ContentFeedSection() {
               key={data.id}
               onClick={() => toggleSelectedTag(data.id)}
             >
-              <Hashtag text={data.name} />
+              <Hashtag text={data.tagName} />
             </HashtagWrapper>
           ))}
         </div>

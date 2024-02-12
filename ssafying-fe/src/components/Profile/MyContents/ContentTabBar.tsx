@@ -29,7 +29,7 @@ function ContentTabBar() {
         <img src={hashtag} alt="해시태그" />
       </Link>
       <Link
-        to=""
+        to="portfolio"
         className={activeTab === "portfolio" ? "active" : ""}
         onClick={() => switchActiveTab("portfolio")}
       >
@@ -37,7 +37,7 @@ function ContentTabBar() {
       </Link>
       {user.userId === Number(profileUserId) ? (
         <Link
-          to=""
+          to="saved"
           className={activeTab === "saved" ? "active" : ""}
           onClick={() => switchActiveTab("saved")}
         >

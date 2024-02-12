@@ -1,13 +1,42 @@
 import MDEditor from "@uiw/react-md-editor";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import {
+  modifyPortfolioReadMe,
+  selectPortfolioReadMe,
+} from "../../../apis/api/Profile";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
+import { useParams } from "react-router-dom";
 
 function ContentPortfolioSection() {
-  const [mdValue, setMdValue] = useState<string | undefined>(
-    "# **aeong123**\naeong123님의 포트폴리오 페이지입니다.\n"
-  );
+  const [mdValue, setMdValue] = useState<string | undefined>("");
   const [isModified, setIsModified] = useState<Boolean | undefined>(false);
   const [isPreview, setIsPreview] = useState(false);
+
+  const user = useAppSelector(selectUser);
+  const profileUserId = useParams().userId;
+
+  // 리드미 수정하기
+  function modifyReadme() {
+    modifyPortfolioReadMe(user.userId, mdValue);
+    setIsModified(false);
+  }
+
+  // 리드미 조회
+  async function getReadme() {
+    const res = await selectPortfolioReadMe(user.userId);
+    setMdValue(res.readme);
+  }
+
+  function handleClickModifyButton() {
+    if (user.userId === Number(profileUserId)) setIsModified(true);
+    else alert("수정할 권한이 없습니다.");
+  }
+
+  useEffect(() => {
+    getReadme();
+  }, []);
 
   return (
     <div>
@@ -24,12 +53,12 @@ function ContentPortfolioSection() {
             >
               취소
             </Button>
-            <Button className="success" onClick={() => setIsModified(false)}>
+            <Button className="success" onClick={modifyReadme}>
               완료
             </Button>
           </div>
         ) : (
-          <Button onClick={() => setIsModified(true)}>글 수정</Button>
+          <Button onClick={handleClickModifyButton}>글 수정</Button>
         )}
       </ButtonWrapper>
       <MarkdownContainer>
