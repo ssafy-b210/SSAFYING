@@ -90,6 +90,7 @@ public class BoardService {
         for (Board board : boardList) {
             FindListBoardResponse build = FindListBoardResponse.builder()
                     .userName(board.getUser().getName())
+                    .nickname(board.getUser().getNickname())
                     .isAnonymous(board.isAnonymous())
                     .title(board.getTitle())
                     .content(board.getContent())
