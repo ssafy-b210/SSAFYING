@@ -1,12 +1,16 @@
 package com.ssafying.domain.shuttle.controller;
 
 import com.ssafying.domain.shuttle.dto.request.UserLocationRequest;
+import com.ssafying.domain.shuttle.dto.response.BusStopListResponse;
 import com.ssafying.domain.shuttle.entity.BusStop;
 import com.ssafying.domain.shuttle.entity.Shuttle;
 import com.ssafying.domain.shuttle.service.BusStopService;
 import com.ssafying.domain.shuttle.service.LocationMessageService;
+import com.ssafying.global.result.ResultResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,19 +25,20 @@ public class ShuttleController {
     private final LocationMessageService locationMessageService;
     private final BusStopService busStopService;
 
-    @MessageMapping("/{shuttleId}") //pub/location이 자동으로 붙음
+    @MessageMapping("/location/{shuttleId}") //pub이 자동으로 붙음
     public void locationSend(UserLocationRequest request){
 
         locationMessageService.sendLocationMessage(request);
 
     }
 
-//    @GetMapping("/bus")
-//    public List<BusStop> shuttleList(@RequestParam(name = "shuttle")int shuttle){
-//
-//        List<BusStop> result = busStopService.listShuttle(shuttle);
-//
-//        return result;
-//    }
+    @GetMapping("/bus")
+    public ResponseEntity<ResultResponse<List<BusStopListResponse>>> busStopList(
+            @RequestParam(name = "shuttleId")Shuttle shuttleId){
+
+        List<BusStopListResponse> result = busStopService.listShuttle(shuttleId);
+
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
+    }
 
 }
