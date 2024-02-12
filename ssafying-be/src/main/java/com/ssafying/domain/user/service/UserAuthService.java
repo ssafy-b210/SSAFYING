@@ -81,7 +81,7 @@ public class UserAuthService {
                 .campus(dto)
                 .email(user.getEmail())
                 .password(user.getPassword())
-                .nickname(user.getPassword())
+                .nickname(user.getNickname())
                 .phoneNumber(user.getPhoneNumber())
                 .name(user.getName())
                 .generation(user.getGeneration())

@@ -23,9 +23,7 @@ public class LocationMessageService {
         //이렇게 하면 됨 -> 특정 셔틀 아이디를 하나의 방이라고 생각
         //{shuttleId}호차 방을 구독하겠다
 
-
         simpMessagingTemplate.convertAndSend(destination, request);
-        System.out.println(destination);
     }
 
 }

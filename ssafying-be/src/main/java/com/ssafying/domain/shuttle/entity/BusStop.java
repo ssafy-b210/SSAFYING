@@ -6,6 +6,7 @@ import com.ssafying.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,17 +19,22 @@ public class BusStop {
     @Column(name = "bus_stop_id")
     private int busStopId; //정류장 id
 
+    @Column(name = "bus_stop_name")
+    private String busStopName; //정류장 이름
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
+    @JoinColumn(name = "shuttle_id")
     private Shuttle shuttle; //해당 셔틀버스
 
-    private double lat; //위도
+    private double latitude; //위도
 
-    private double lon; //경도
+    private double longitude; //경도
 
     @OneToMany(mappedBy = "busStop")
     private List<User> user = new ArrayList<>(); //해당 정류장 이용하는 교육생
 
-
+    @Column(name = "arrival_at")
+    private LocalTime arrivalAt; //셔틀 도착 시간
 
 }
