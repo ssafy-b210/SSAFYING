@@ -1,10 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 
-function TextArea() {
+interface TextAreaProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}
+
+function TextArea({ value, onChange }: TextAreaProps) {
   return (
     <TextWrapper>
-      <TextInput placeholder="문구를 입력하세요" />
+      <TextInput
+        value={value}
+        onChange={onChange}
+        placeholder="문구를 입력하세요"
+      />
     </TextWrapper>
   );
 }

@@ -4,7 +4,11 @@ import ImgCompress from "../../ImgHandle/ImgCompress";
 import { dataURItoFile } from "../../ImgHandle/DataToFile";
 import styled from "styled-components";
 
-function ImgEdit() {
+interface ImgEditProps {
+  onImagesChange: (images: string[]) => void;
+}
+
+function ImgEdit({ onImagesChange }: ImgEditProps) {
   const [uploadImages, setUploadImages] = useState<File[]>([]);
   const [croppedImages, setCroppedImages] = useState<string[]>([]);
   const { isLoading: isCompressLoading, compressImage } = ImgCompress();
@@ -34,6 +38,7 @@ function ImgEdit() {
     }
 
     setCroppedImages(croppedImagesArray);
+    onImagesChange(croppedImagesArray); // 이미지 변경 시 부모 컴포넌트로 전달
   };
 
   const getCroppedImage = async (image: File) => {

@@ -5,6 +5,7 @@ import ToggleBtn from "../ToggleBtn";
 import CreateTitle from "../../Board/BoardCreate/CreateTitle";
 import CreateContent from "../../Board/BoardCreate/CreateContent";
 import { createCrew } from "../../../../apis/api/Crew";
+import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectUser } from "../../../../store/reducers/user";
 
@@ -57,8 +58,9 @@ const CrewCreateModal: React.FC<CrewCreateModalProps> = ({
   const [content, setContent] = useState("");
   const [selectedRegion, setSelectedRegion] = useState<Option>(location[0]);
   const [isRecruit, setIsRecruit] = useState(false);
-
   const user = useAppSelector(selectUser);
+  const [modalVisible, setModalVisible] = useState(true);
+  const navigate = useNavigate();
 
   const handleCategoryChange = (newCategory: Option) => {
     setSelectedCategory(newCategory);
@@ -79,6 +81,11 @@ const CrewCreateModal: React.FC<CrewCreateModalProps> = ({
   //모집중인지 확인
   const handleToggle = (value: boolean) => {
     setIsRecruit(value);
+  };
+
+  const handleModalClose = () => {
+    onCloseModal();
+    window.location.reload(); //새로고침
   };
 
   //api 호출
@@ -110,11 +117,11 @@ const CrewCreateModal: React.FC<CrewCreateModalProps> = ({
       region: selectedRegion.value,
       content,
     });
-    onCloseModal();
+    handleModalClose();
   };
 
   return (
-    <ModalWrapper>
+    <ModalWrapper visible={modalVisible}>
       <ButtonWrapper>
         <SelectCategory
           category="지역"
@@ -137,9 +144,11 @@ const CrewCreateModal: React.FC<CrewCreateModalProps> = ({
   );
 };
 export default CrewCreateModal;
-const ModalWrapper = styled.div`
+
+const ModalWrapper = styled.div<{ visible: boolean }>`
   background-color: transparent;
   padding: 20px;
+  display: ${(props) => (props.visible ? "block" : "none")};
 `;
 
 const ButtonWrapper = styled.div`

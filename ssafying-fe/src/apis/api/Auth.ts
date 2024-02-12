@@ -1,4 +1,3 @@
-import { error } from "console";
 import { axios } from "../utils/axios";
 
 const REST_AUTH_API = `/api/auth`;
@@ -12,7 +11,7 @@ export async function signup(
   phoneNumber: string,
   name: string,
   generation: number,
-  major: boolean
+  major: number
 ) {
   const data = {
     campusRegion: campusRegion,
@@ -26,7 +25,7 @@ export async function signup(
   };
   try {
     const response = await axios.post(`${REST_AUTH_API}/signup`, data);
-    console.log(response.data);
+    console.log("회원가입", response.data);
   } catch (e) {
     console.log(e);
   }

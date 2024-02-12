@@ -34,10 +34,14 @@ const MarketCardList: React.FC<MarketCardListProps> = ({
   >([]);
 
   const [lastIdx, setLastIdx] = useState(0);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const marketData = await selectMarketList();
+        const marketData = await selectMarketList(
+          selectedCategory ?? undefined
+        );
+        console.log(marketData);
         if (marketData && marketData.resultData) {
           setLastIdx(lastIdx + 1);
           const newCards = await marketData.resultData.map((res: any) => ({
@@ -56,12 +60,16 @@ const MarketCardList: React.FC<MarketCardListProps> = ({
       }
     };
     fetchData();
-  }, []);
+  }, [selectedCategory]);
   return (
     <Container>
-      {cards.map((card, index) => (
-        <MarketCardListItem key={index} card={card} index={index} />
-      ))}
+      {cards.length > 0 ? (
+        cards.map((card, index) => (
+          <MarketCardListItem key={index} card={card} index={index} />
+        ))
+      ) : (
+        <NoResultsMessage>검색 결과가 없습니다.</NoResultsMessage>
+      )}
     </Container>
   );
 };

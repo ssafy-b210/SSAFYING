@@ -1,18 +1,31 @@
 import styled from "styled-components";
 import UserRecommendListItem from "./UserRecommendListItem";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
+import { useEffect, useState } from "react";
+import { getRecommendList } from "../../../apis/api/Recommend";
 
 function UserRecommendList() {
+  const user = useAppSelector(selectUser);
+  const [recommendList, setRecommendList] = useState<any[]>([]);
+
+  useEffect(() => {
+    handleRecommendList();
+  }, []);
+
+  const handleRecommendList = async () => {
+    const list = await getRecommendList(user.userId);
+    console.log(list);
+    setRecommendList(list || []);
+  };
+
   return (
     <RecommendWrapper>
       <Title>회원님을 위한 추천</Title>
       <RecommendList>
-        <UserRecommendListItem id="yes.h" />
-        <UserRecommendListItem id="yes.h" />
-        <UserRecommendListItem id="yes.h" />
-        <UserRecommendListItem id="yes.h" />
-        <UserRecommendListItem id="yes.h" />
-        <UserRecommendListItem id="yes.h" />
-        <UserRecommendListItem id="yes.h" />
+        {recommendList.map((item, index) => {
+          return <UserRecommendListItem key={index} recommendItem={item} />;
+        })}
       </RecommendList>
     </RecommendWrapper>
   );

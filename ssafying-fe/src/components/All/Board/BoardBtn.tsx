@@ -12,7 +12,7 @@ function BoardBtn(props: BoardBtnProps) {
   return (
     <ButtonContainer>
       <Link to={props.link}>
-        <Button>{btnmsg}</Button>
+        <Button onClick={props.onClick}>{btnmsg}</Button>
       </Link>
     </ButtonContainer>
   );

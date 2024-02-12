@@ -1,25 +1,31 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import userImg from "../../../assets/img/testImg/user6.jpg";
-import userImg2 from "../../../assets/img/testImg/user.jpg";
-import userImg3 from "../../../assets/img/testImg/user5.jpg";
 
-function FeedListItemImg() {
+interface Props {
+  imageUrls: {
+    id: number;
+    imageUrl: string;
+  }[];
+}
+
+function FeedListItemImg({ imageUrls }: Props) {
   const [currentImage, setCurrentImage] = useState(0);
-  const images = [userImg, userImg2, userImg3];
 
   const handleNext = () => {
-    setCurrentImage((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    setCurrentImage((prev) => (prev === imageUrls.length - 1 ? 0 : prev + 1));
   };
 
   const handlePrev = () => {
-    setCurrentImage((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    setCurrentImage((prev) => (prev === 0 ? imageUrls.length - 1 : prev - 1));
   };
 
   return (
     <Wrapper>
       <ImgWrapper>
-        <Img src={images[currentImage]} alt={`User ${currentImage + 1}`} />
+        <Img
+          src={imageUrls[currentImage].imageUrl}
+          alt={`User ${imageUrls[currentImage].id}`}
+        />
         <ButtonLeft onClick={handlePrev}>◀</ButtonLeft>
         <ButtonRight onClick={handleNext}>▶</ButtonRight>
       </ImgWrapper>

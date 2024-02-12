@@ -15,10 +15,11 @@ function FeedListItem({ feed }: FeedProps) {
         userImg={feed.user.profileImageUrl}
         nickname={feed.user.nickname}
         userId={feed.user.id}
+        time={feed.user.createdAt}
       />
-      <FeedContent />
-      <FeedListItemImg />
-      <FeedListItemBtn />
+      <FeedContent content={feed.content} hashtag={feed.feedTagsId} />
+      <FeedListItemImg imageUrls={feed.feedImageUrls} />
+      <FeedListItemBtn likeCount={feed.likeCount} />
     </FeedListItemWrapper>
   );
 }

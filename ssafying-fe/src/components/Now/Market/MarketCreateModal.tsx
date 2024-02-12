@@ -12,6 +12,9 @@ import ToggleBtn from "./ToggleBtn";
 import { createMarket } from "../../../apis/api/Market";
 import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
+import { useNavigate } from "react-router-dom";
+import { uploadString, ref, getDownloadURL } from "firebase/storage";
+import { fstorage } from "../../../apis/firebase";
 
 interface MarketCreateModalProps {
   onCreateMarket: (newCardInfo: {
@@ -44,12 +47,18 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
   const [price, setPrice] = useState(0);
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState(""); //업로드된 이미지의 url 상태
-
+  const [images, setImages] = useState<string[]>([]); // 이미지들의 URL을 저장할 상태
   const user = useAppSelector(selectUser);
+  const [modalVisible, setModalVisible] = useState(true);
+  const navigate = useNavigate();
 
   //marketWay
   const handleCategoryChange = (newCategory: Option) => {
     setSelectedCategory(newCategory);
+    // 카테고리가 SHARE일 때 가격을 0으로 설정
+    if (newCategory.value === "SHARE") {
+      setPrice(0);
+    }
   };
 
   const handleToggle = (value: boolean) => {
@@ -72,26 +81,43 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
     setImageUrl(url);
   };
 
-  // const db = firebase.firestore();
-  // const storage = firebase.storage();
+  const handleModalClose = () => {
+    onCloseModal();
+    window.location.reload(); //새로고침
+  };
+
+  //firebase
 
   //api 호출
   const handleCreateMarket = () => {
     //Redux userId에 따라 바꾸기
+    const writerName = user.nickname;
+
+    //이미지 파일을 blob으로 변환하여 업로드
+    const uploadTasks = images.map(async (image) => {
+      // const fileRef = ref(fstorage, `${writerName}/${image.name}`);
+      // await uploadString(fileRef, image, "data_url");
+      // const downloadURL = await getDownloadURL(fileRef);
+      // return downloadURL;
+    });
+
+    //이미지 업로드가 모두 완료된 후에 진행
+    Promise.all(uploadTasks).then((downloadURLs) => {
+      // createMarket 함수 호출 시 imageUrls 매개변수에 배열 전달
+      createMarket(
+        1,
+        selectedCategory.value,
+        isSold,
+        price,
+        title,
+        content
+        // downloadURLs
+      );
+    });
 
     //userId 나중에 바꾸기
     // 이미지 URL을 담은 배열 생성
     const imageUrls: string[] = [imageUrl];
-    // createMarket 함수 호출 시 imageUrls 매개변수에 배열 전달
-    createMarket(
-      1,
-      selectedCategory.value,
-      isSold,
-      price,
-      title,
-      content,
-      imageUrls
-    );
 
     //작성 후 상태 초기화
     setSelectedCategory(bigcategory[0]);
@@ -110,11 +136,11 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
       price,
       content,
     });
-    onCloseModal();
+    handleModalClose();
   };
 
   return (
-    <ModalWrapper>
+    <ModalWrapper visible={modalVisible}>
       <SelectCategory
         category="대분류"
         options={bigcategory}
@@ -122,12 +148,18 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
         onCategoryChange={handleCategoryChange}
       ></SelectCategory>
       <ToggleBtn isSold={isSold} onToggle={handleToggle} />
-      <MarketPriceInput onPriceChange={handlePriceChange} />
+      <MarketPriceInput
+        onPriceChange={handlePriceChange}
+        disabled={selectedCategory.value === "SHARE"}
+      />
+      {selectedCategory.value === "SHARE" && (
+        <Message>📌가격은 0으로 설정됩니다.</Message>
+      )}
       <CreateTitle onTitleChange={handleTitleChange}></CreateTitle>
       <CreateContent onContentChange={handleContentChange}></CreateContent>
       <Text>이미지 업로드</Text>
       <ButtonWrapper>
-        <ImgEdit />
+        <ImgEdit onImagesChange={setImages} />
         <button onClick={handleCreateMarket}>작성</button>
       </ButtonWrapper>
       <UploadImage setImage={setImage}></UploadImage>
@@ -137,9 +169,10 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
 
 export default MarketCreateModal;
 
-const ModalWrapper = styled.div`
+const ModalWrapper = styled.div<{ visible: boolean }>`
   background-color: transparent;
   padding: 20px;
+  display: ${(props) => (props.visible ? "block" : "none")};
 `;
 
 const ButtonWrapper = styled.div`
@@ -162,4 +195,9 @@ const Text = styled.p`
   font-size: 17px;
   font-weight: bold;
   text-align: center;
+`;
+
+const Message = styled.span`
+  font-size: 12px;
+  margin-left: 30px;
 `;

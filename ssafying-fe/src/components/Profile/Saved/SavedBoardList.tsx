@@ -11,6 +11,7 @@ type BoardInfo = {
     content: string;
     writer: string;
     category: string;
+    isAnonymous: boolean;
   };
   index: number;
 };
