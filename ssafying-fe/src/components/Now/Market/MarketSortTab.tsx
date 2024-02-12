@@ -22,7 +22,7 @@ const MarketSortTab: React.FC<MarketSortTabProps> = ({ onCategoryChange }) => {
     onCategoryChange(selectedCategory);
 
     //카테고리에 대한 쿼리스트링 추가
-    navigate(`?isSoldout=${selectedCategory}`);
+    navigate(`?marketWay=${selectedCategory}`);
   };
 
   return (

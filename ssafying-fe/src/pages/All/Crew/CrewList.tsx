@@ -12,16 +12,11 @@ import Footer from "../../../components/Common/Footer";
 
 function CrewList() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [isRecruitingChecked, setIsRecruitingChecked] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState<string>("지역");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
-  };
-
-  const handleCheckboxChange = (isChecked: boolean) => {
-    setIsRecruitingChecked(isChecked);
   };
 
   const handleLocationChange = (location: string) => {

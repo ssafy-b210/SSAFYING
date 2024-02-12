@@ -1,5 +1,5 @@
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import { storage } from "../apis/firebase";
+import { fstorage } from "../apis/firebase";
 import React, { useState, useRef } from "react";
 
 const UploadImage = ({ setImage }: { setImage: (p: string) => void }) => {
@@ -16,7 +16,7 @@ const UploadImage = ({ setImage }: { setImage: (p: string) => void }) => {
     const file = e.target.files;
     if (!file) return null;
 
-    const storageRef = ref(storage, `files/${file[0].name}`);
+    const storageRef = ref(fstorage, `files/${file[0].name}`);
     const uploadTask = uploadBytesResumable(storageRef, file[0]);
 
     uploadTask.on(

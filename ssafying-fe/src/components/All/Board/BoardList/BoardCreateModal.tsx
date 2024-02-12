@@ -39,6 +39,8 @@ const BoardCreateModal: React.FC<BoardCreateModalProps> = ({
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const user = useAppSelector(selectUser);
+  const [modalVisible, setModalVisible] = useState(true);
+  const navigate = useNavigate();
 
   const handleNicknameChange = (newNickname: boolean) => {
     setNickname(newNickname);
@@ -54,6 +56,11 @@ const BoardCreateModal: React.FC<BoardCreateModalProps> = ({
 
   const handleContentChange = (newContent: string) => {
     setContent(newContent);
+  };
+
+  const handleModalClose = () => {
+    onCloseModal();
+    window.location.reload(); //새로고침
   };
 
   //api 호출
@@ -79,11 +86,11 @@ const BoardCreateModal: React.FC<BoardCreateModalProps> = ({
       content,
       isAnonymous: nickname,
     });
-    // navigate("/board");
-    onCloseModal();
+    handleModalClose();
   };
+
   return (
-    <ModalWrapper>
+    <ModalWrapper visible={modalVisible}>
       <ButtonWrapper>
         <SelectCategory
           category="카테고리"
@@ -102,9 +109,10 @@ const BoardCreateModal: React.FC<BoardCreateModalProps> = ({
 
 export default BoardCreateModal;
 
-const ModalWrapper = styled.div`
+const ModalWrapper = styled.div<{ visible: boolean }>`
   background-color: transparent;
   padding: 20px;
+  display: ${(props) => (props.visible ? "block" : "none")};
 `;
 
 const ButtonWrapper = styled.div`

@@ -38,8 +38,9 @@ const MarketCardList: React.FC<MarketCardListProps> = ({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const marketData = await selectMarketList();
-        // selectedCategory ?? undefined
+        const marketData = await selectMarketList(
+          selectedCategory ?? undefined
+        );
         console.log(marketData);
         if (marketData && marketData.resultData) {
           setLastIdx(lastIdx + 1);

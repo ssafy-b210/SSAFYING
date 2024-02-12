@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import MoreCommentInput from "../../../Feed/Comment/CommentInput";
 import CrewCommentList from "./CrewCommentList";
@@ -18,19 +18,24 @@ interface moreProps {
     content: string;
   };
   crewId: number;
+  onDelete: () => void;
 }
 
 const handleCommentSubmit = (comment: string) => {
   console.log("Comment submitted:", comment);
 };
 
-function CrewMoreModal({ card, crewId }: moreProps) {
+function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
   const user = useAppSelector(selectUser);
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   const handleDeleteCrew = () => {
     deleteCrew(crewId)
       .then((response: any) => {
         console.log("crew deleted successfully", response);
+        onDelete();
+        setIsModalOpen(false);
+        window.location.reload();
       })
       .catch((error) => {
         console.error("Error deleting crew", error);
@@ -39,42 +44,48 @@ function CrewMoreModal({ card, crewId }: moreProps) {
 
   return (
     <div>
-      <Card>
-        <Content>
-          <Title>{card.title}</Title>
-          <Writer>
-            <div className="small-title">By.</div> {card.writer}
-          </Writer>
-          <Location>
-            <div className="small-title">지역</div>
-            {card.region}
-          </Location>
-          <Category>
-            <div className="small-title">카테고리</div>
-            {card.category}
-          </Category>
-          <IsRecruiting>
-            <div className="small-title">모집여부</div>
-            {card.isRecruit}
-          </IsRecruiting>
-          <Copy>{card.content}</Copy>
-          {user.nickname === card.writer && (
-            <Flex>
-              {/* 수정화면만들기 */}
-              <BoardBtn btnmsg="수정" link="" />
-              <BoardBtn btnmsg="삭제" link="/crew" onClick={handleDeleteCrew} />
-            </Flex>
-          )}
-          <hr />
-        </Content>
-        <CommentContainer>
-          <CrewCommentList />
-          <MoreCommentInput
-            onSubmit={handleCommentSubmit}
-            target="crew"
-          ></MoreCommentInput>
-        </CommentContainer>
-      </Card>
+      {isModalOpen && (
+        <Card>
+          <Content>
+            <Title>{card.title}</Title>
+            <Writer>
+              <div className="small-title">By.</div> {card.writer}
+            </Writer>
+            <Location>
+              <div className="small-title">지역</div>
+              {card.region}
+            </Location>
+            <Category>
+              <div className="small-title">카테고리</div>
+              {card.category}
+            </Category>
+            <IsRecruiting>
+              <div className="small-title">모집여부</div>
+              {card.isRecruit}
+            </IsRecruiting>
+            <Copy>{card.content}</Copy>
+            {user.nickname === card.writer && (
+              <Flex>
+                {/* 수정화면만들기 */}
+                <BoardBtn btnmsg="수정" link="" />
+                <BoardBtn
+                  btnmsg="삭제"
+                  link="/crew"
+                  onClick={handleDeleteCrew}
+                />
+              </Flex>
+            )}
+            <hr />
+          </Content>
+          <CommentContainer>
+            <CrewCommentList />
+            <MoreCommentInput
+              onSubmit={handleCommentSubmit}
+              target="crew"
+            ></MoreCommentInput>
+          </CommentContainer>
+        </Card>
+      )}
     </div>
   );
 }

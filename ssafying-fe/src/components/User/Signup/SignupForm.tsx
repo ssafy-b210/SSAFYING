@@ -62,6 +62,7 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
           inputValue.major
         );
         navigate("/tagselect");
+        console.log(inputValue.major);
       } catch (error) {
         console.error("Error signing up:", error);
       }
@@ -224,18 +225,18 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
               type="radio"
               name="major"
               className="major"
-              value="true"
               onChange={() => handleMajorChange(true)}
               checked={inputValue.major === true}
+              value={inputValue.major ? "true" : "false"}
             />
             전공자
             <input
               type="radio"
               name="major"
               className="major"
-              value="false"
               onChange={() => handleMajorChange(false)}
               checked={inputValue.major === false}
+              value={inputValue.major ? "true" : "false"}
             />
             비전공자
           </div>

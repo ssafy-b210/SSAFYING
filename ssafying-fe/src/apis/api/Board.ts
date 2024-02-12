@@ -92,8 +92,9 @@ export async function deleteBoard(boardId: number) {
   try {
     const response = await axios.delete(`${REST_BOARD_API}/${boardId}`);
     return response.data;
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.error("Error deleting board:", error);
+    throw error;
   }
 }
 
