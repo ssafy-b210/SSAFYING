@@ -50,11 +50,11 @@ public class UserAuthController {
 
     @PostMapping("/signup")
     @Operation(summary = "회원 가입")
-    public ResponseEntity<ResultResponse<Integer>> userAdd(
+    public ResponseEntity<ResultResponse<User>> userAdd(
             @RequestBody @Valid CreateUserRequest request) {
 
         //회원가입 서비스 호출
-        int result = userAuthService.addUser(request);
+        User result = userAuthService.addUser(request);
 
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
 

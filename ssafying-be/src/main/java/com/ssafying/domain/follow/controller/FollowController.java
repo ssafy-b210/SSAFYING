@@ -130,4 +130,18 @@ public class FollowController {
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
 
     }
+
+    /**
+     * 2.7 팔로잉 확인
+     */
+    @GetMapping("/isFollow")
+    public ResponseEntity<ResultResponse<Integer>> checkFollowUser(
+            @RequestParam("userId") int userId,
+            @RequestParam("selectedUserId") int selectedUserId){
+
+        int result = followService.checkFollowUser(userId, selectedUserId);
+
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
+
+    }
 }

@@ -262,4 +262,27 @@ public class FollowService {
 
         return resultList;
     }
+
+    /**
+     * 2.7 팔로잉 관계 확인
+     */
+    public int checkFollowUser(int userId, int selectedUserId){
+
+        // 나
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 회원입니다."));
+
+        // 확인하려는 상대
+        User selectedUser = userRepository.findById(selectedUserId)
+                .orElseThrow(() -> new RuntimeException("확인하려는 유저를 찾을 수 없습니다."));
+
+        // 내 팔로잉 목록에 selectedUser 있는지 확인
+        List<Follow> isFollow = followRepository.findByToUser(selectedUser);
+
+        if(isFollow.isEmpty()){
+            return 0; //팔로우 X
+        }else{
+            return 1; //팔로잉
+        }
+    }
 }
