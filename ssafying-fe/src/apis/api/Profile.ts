@@ -79,8 +79,7 @@ export async function selectSavedRecruitList(userId: number) {
 // 포트폴리오 링크 조회
 export async function selectPortfolioLinkList(userId: number) {
   try {
-    const response = await axios.get(`${REST_MYPAGE_API}/${userId}/portfolio`);
-    console.log(response.data);
+    return await axios.get(`${REST_MYPAGE_API}/${userId}/portfolio`);
   } catch (e: any) {
     console.log(e);
   }

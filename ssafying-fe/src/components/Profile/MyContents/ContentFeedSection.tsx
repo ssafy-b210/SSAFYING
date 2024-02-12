@@ -42,7 +42,7 @@ function ContentFeedSection() {
 
   useEffect(() => {
     getHashtagList();
-  });
+  }, []);
 
   return (
     <div>
