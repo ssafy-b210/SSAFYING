@@ -51,56 +51,62 @@ function App() {
     (state: RootState) => state.user.isLoggedIn
   );
 
-  console.log(isLoggedIn);
-
   return (
     <AppWrapper>
       <Wrapper>
-        <Routes>
-          {/* {!isLoggedIn && <Navigate to="/login" />} */}
-          <Route path="/" element={<UserLogin />} />
-          <Route path="/signup" element={<UserSignup />} />
-          <Route path="/tagselect" element={<UserSelectTag />} />
-          <Route path="/auth" element={<UserAuth />} />
-          <Route path="/user/detail" element={<UserDetail />} />
-          <Route path="/user/leave" element={<UserLeave />} />
-          <Route path="/user/update" element={<UserUpdate />} />
+        {!isLoggedIn ? (
+          <Routes>
+            <Route path="*" element={<UserLogin />} />
+          </Routes>
+        ) : (
+          <Routes>
+            <Route path="/signup" element={<UserSignup />} />
+            <Route path="/tagselect" element={<UserSelectTag />} />
+            <Route path="/auth" element={<UserAuth />} />
+            <Route path="/user/detail" element={<UserDetail />} />
+            <Route path="/user/leave" element={<UserLeave />} />
+            <Route path="/user/update" element={<UserUpdate />} />
 
-          <Route path="/all" element={<AllMenu />} />
-          <Route path="/board" element={<BoardList />} />
-          <Route path="/crew" element={<CrewList />} />
-          <Route path="/recruit" element={<RecruitmentList />} />
+            <Route path="/all" element={<AllMenu />} />
+            <Route path="/board" element={<BoardList />} />
+            <Route path="/crew" element={<CrewList />} />
+            <Route path="/recruit" element={<RecruitmentList />} />
 
-          <Route path="/now" element={<NowMenu />} />
-          <Route path="/market" element={<MarketList />} />
-          <Route path="/mealplan" element={<SelectCampusMeal />} />
-          <Route path="/bus" element={<BusRealTimeSelect />} />
-          <Route path="/bus/:id" element={<BusRealTimeMap />} />
+            <Route path="/now" element={<NowMenu />} />
+            <Route path="/market" element={<MarketList />} />
+            <Route path="/mealplan" element={<SelectCampusMeal />} />
+            <Route path="/bus" element={<BusRealTimeSelect />} />
+            <Route path="/bus/:id" element={<BusRealTimeMap />} />
 
-          <Route path="/feedhome" element={<FeedMain />}></Route>
-          <Route path="/search" element={<FeedSearch />} />
-          <Route path="/feedwrite" element={<FeedCreate />} />
-          <Route path="/alarmdetail" element={<AlarmDetail />} />
-          <Route path="/forest" element={<BambooForest />} />
+            <Route path="/" element={<FeedMain />} />
+            <Route path="/feedhome" element={<FeedMain />} />
+            <Route path="/search" element={<FeedSearch />} />
+            <Route path="/feedwrite" element={<FeedCreate />} />
+            <Route path="/alarmdetail" element={<AlarmDetail />} />
+            <Route path="/forest" element={<BambooForest />} />
 
-          <Route path="/profile/:userId" element={<ProfileMain />}>
-            <Route path="" element={<ContentFeedSection />} />
-            <Route path="portfolio" element={<ContentPortfolioSection />} />
-            <Route path="saved" element={<ContentSavedSection />}>
-              <Route path="" element={<SavedFeedList />} />
-              <Route path="board" element={<SavedBoardList />} />
-              <Route path="recruiting" element={<SavedRecruitmentList />} />
+            <Route path="/profile/:userId" element={<ProfileMain />}>
+              <Route path="" element={<ContentFeedSection />} />
+              <Route path="portfolio" element={<ContentPortfolioSection />} />
+              <Route path="saved" element={<ContentSavedSection />}>
+                <Route path="" element={<SavedFeedList />} />
+                <Route path="board" element={<SavedBoardList />} />
+                <Route path="recruiting" element={<SavedRecruitmentList />} />
+              </Route>
             </Route>
-          </Route>
-          <Route
-            path="/profile/:userId/following"
-            element={<FollowingList />}
-          />
-          <Route path="/profile/:userId/follower" element={<FollowerList />} />
-          <Route path="/direct" element={<DirectMessageChats />} />
-          <Route path="/direct/:id" element={<DirectMessageChattingRoom />} />
-          <Route path="/meal/create" element={<MealPlannerCreate />} />
-        </Routes>
+            <Route
+              path="/profile/:userId/following"
+              element={<FollowingList />}
+            />
+            <Route
+              path="/profile/:userId/follower"
+              element={<FollowerList />}
+            />
+            <Route path="/direct" element={<DirectMessageChats />} />
+            <Route path="/direct/:id" element={<DirectMessageChattingRoom />} />
+            <Route path="/meal/create" element={<MealPlannerCreate />} />
+          </Routes>
+        )}
         {isLoggedIn && <BottomNavBar />}
       </Wrapper>
     </AppWrapper>
