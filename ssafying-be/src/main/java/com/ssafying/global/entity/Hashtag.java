@@ -9,11 +9,11 @@ import lombok.Getter;
 public class Hashtag {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hashtag_id")
     private int id;
 
-    @Column(name = "teg_name")
+    @Column(name = "tag_name")
     private String tagName;
 
     public static Hashtag createTag(String tagName) {

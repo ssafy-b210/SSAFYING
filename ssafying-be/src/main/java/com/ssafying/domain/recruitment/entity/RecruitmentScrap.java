@@ -11,8 +11,8 @@ import lombok.Getter;
 public class RecruitmentScrap extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
-    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "recruitment_scrap_id")
     Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -10,7 +10,7 @@ import lombok.Getter;
 public class FeedCommentLike {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "feed_comment_like_id")
     private int id; // 피드댓글 좋아요 id
 

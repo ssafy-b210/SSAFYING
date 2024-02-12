@@ -9,7 +9,7 @@ import lombok.Getter;
 public class FeedImage {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "feed_image_id")
     private Long id;
 

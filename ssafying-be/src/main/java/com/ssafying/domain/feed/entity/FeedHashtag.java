@@ -10,7 +10,7 @@ import lombok.Getter;
 public class FeedHashtag {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "feed_hashtag_id")
     private Long id;
 

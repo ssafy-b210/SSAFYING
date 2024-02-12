@@ -93,3 +93,85 @@ values (2), (2), (2), (2), (2), (2);
 #        ("갈마삼거리 육교", 6, 36.351378, 127.371876),
 #        ("유성온천역 5번출구 맥도날드 앞", 6, 36.354207, 127.340214),
 #        ("현충원역", 6, 36.359521, 127.320080);
+
+
+-- 피드 더미 데이터
+INSERT INTO feed (user_id, content, hit) VALUES
+    (1, 'Feed content 1', 10),
+    (2, 'Feed content 2', 15),
+    (3, 'Feed content 3', 20),
+    (4, 'Feed content 4', 25),
+    (5, 'Feed content 5', 30);
+
+-- 해시태그 더미 데이터
+INSERT INTO hashtag (hashtag_id, tag_name) VALUES
+    (1, 'tag1'),
+    (2, 'tag2'),
+    (3, 'tag3'),
+    (4, 'tag4'),
+    (5, 'tag5');
+
+-- 피드-해시태그 연결 더미 데이터
+INSERT INTO feed_hashtag (feed_id, hashtag_id) VALUES
+    (1, 1),
+    (1, 2),
+    (2, 3),
+    (3, 4),
+    (4, 5);
+
+-- 이미지 더미 데이터
+INSERT INTO feed_image (feed_id, image_url) VALUES
+    (1, 'image_url_1'),
+    (2, 'image_url_2'),
+    (3, 'image_url_3'),
+    (4, 'image_url_4'),
+    (5, 'image_url_5');
+
+-- 피드 좋아요 더미 데이터
+INSERT INTO feed_like (feed_id, user_id) VALUES
+    (1, 2),
+    (1, 3),
+    (2, 3),
+    (3, 4),
+    (4, 5);
+
+-- 피드 스크랩 더미 데이터
+INSERT INTO feed_scrap (feed_id, user_id) VALUES
+    (1, 3),
+    (2, 4),
+    (3, 5),
+    (4, 1),
+    (5, 2);
+
+-- 피드 댓글 더미 데이터
+INSERT INTO feed_comment (feed_id, user_id, content, is_deleted, parent_id) VALUES
+    (1, 2, 'Comment 1', false, NULL),
+    (1, 3, 'Comment 2', false, NULL),
+    (1, 3, 'Comment 2', false, 1),
+    (1, 3, 'Comment 2', false, 1),
+    (2, 4, 'Comment 3', false, NULL),
+    (3, 5, 'Comment 4', false, NULL),
+    (3, 2, 'Reply to Comment 4', false, 4);
+
+-- 피드 댓글 좋아요 더미 데이터
+INSERT INTO feed_comment_like (feed_comment_id, user_id) VALUES
+    (1, 3),
+    (2, 4),
+    (3, 5),
+    (4, 1),
+    (5, 2);
+
+-- 채용 스크랩 더미 데이터
+INSERT INTO recruitment_scrap (user_id, recruitment_id) VALUES
+    (1, 47548770),
+    (2, 47548635),
+    (3, 47548630),
+    (4, 47548445),
+    (5, 47548326);
+
+-- 자유게시판 스크랩 더미 데이터
+INSERT INTO board_scrap (board_scrap_id, user_id, board_id) VALUES
+    (1, 1, 1),
+    (2, 2, 2),
+    (3, 3, 3),
+    (4, 4, 4);

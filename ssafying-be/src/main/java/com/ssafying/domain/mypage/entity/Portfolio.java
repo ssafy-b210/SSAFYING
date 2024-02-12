@@ -11,7 +11,7 @@ import lombok.Getter;
 public class Portfolio extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "portfolio_id")
     private Long id;
 

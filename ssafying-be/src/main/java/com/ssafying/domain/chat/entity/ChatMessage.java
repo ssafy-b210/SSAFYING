@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class ChatMessage extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "chat_message_id")
     private int id; //채팅메시지 id
 

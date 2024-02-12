@@ -15,7 +15,7 @@ import java.util.List;
 public class FeedComment extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "feed_comment_id")
     private int id; // 피드 댓글 id
 

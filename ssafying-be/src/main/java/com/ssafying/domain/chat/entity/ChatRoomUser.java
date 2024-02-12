@@ -17,7 +17,7 @@ public class ChatRoomUser extends BaseTimeEntity {
     * 채팅방 - 유저 입장관리 중개테이블
     */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "chat_room_user_id")
     private int id; //채팅방 입장관리 id
 

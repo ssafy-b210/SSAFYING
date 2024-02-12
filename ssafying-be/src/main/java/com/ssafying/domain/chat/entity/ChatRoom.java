@@ -16,14 +16,9 @@ import java.util.List;
 public class ChatRoom extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "chat_room_id")
     private int id; //채팅방 id
 
-//    @Column(name = "created_at")
-//    private LocalDateTime createdAt; //생성일자
-
-//    @OneToMany(mappedBy = "chatRoom")
-//    private List<ChatRoomUser> chatRoomUsers; // 채팅방 입장 유저
 
 }

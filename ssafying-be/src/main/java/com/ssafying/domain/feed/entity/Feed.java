@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
     public class Feed extends BaseTimeEntity {
 
         @Id
-        @GeneratedValue
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "feed_id")
         private Long id; // 피드 id
 

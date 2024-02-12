@@ -11,7 +11,7 @@ import lombok.Getter;
 public class FeedScrap extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "feed_scrap_id")
     private int id;
 

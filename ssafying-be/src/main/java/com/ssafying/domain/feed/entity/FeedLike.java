@@ -11,7 +11,7 @@ import lombok.Getter;
 public class FeedLike extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "feed_like_id")
     private int id;
 
