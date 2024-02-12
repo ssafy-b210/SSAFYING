@@ -32,8 +32,7 @@ export async function selectMyFeedList(userId: number) {
 // 유저가 작성한 게시글 조회
 export async function selectMyBoardList(userId: number) {
   try {
-    const response = await axios.get(`${REST_MYPAGE_API}/${userId}/boards`);
-    console.log(response.data);
+    return await axios.get(`${REST_MYPAGE_API}/${userId}/boards`);
   } catch (e: any) {
     console.log(e);
   }
@@ -42,10 +41,7 @@ export async function selectMyBoardList(userId: number) {
 // 유저가 스크랩한 피드 조회
 export async function selectSavedFeedList(userId: number) {
   try {
-    const response = await axios.get(
-      `${REST_MYPAGE_API}/${userId}/feeds/scrap`
-    );
-    console.log(response.data);
+    return await axios.get(`${REST_MYPAGE_API}/${userId}/feeds/scrap`);
   } catch (e: any) {
     console.log(e);
   }
@@ -54,10 +50,7 @@ export async function selectSavedFeedList(userId: number) {
 // 유저가 스크랩한 게시글 조회
 export async function selectSavedBoardList(userId: number) {
   try {
-    const response = await axios.get(
-      `${REST_MYPAGE_API}/${userId}/boards/scrap`
-    );
-    console.log(response.data);
+    return await axios.get(`${REST_MYPAGE_API}/${userId}/boards/scrap`);
   } catch (e: any) {
     console.log(e);
   }
@@ -66,10 +59,7 @@ export async function selectSavedBoardList(userId: number) {
 // 유저가 스크랩한 채용공고 조회
 export async function selectSavedRecruitList(userId: number) {
   try {
-    const response = await axios.get(
-      `${REST_MYPAGE_API}/${userId}/recruits/scrap`
-    );
-    console.log(response.data);
+    return await axios.get(`${REST_MYPAGE_API}/${userId}/recruits/scrap`);
   } catch (e: any) {
     console.log(e);
   }
