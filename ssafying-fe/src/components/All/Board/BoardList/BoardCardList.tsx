@@ -21,7 +21,13 @@ const Container = styled.div`
 
 const BoardCardList: React.FC<BoardCardListProps> = ({ selectedCategory }) => {
   const [cards, setCards] = useState<
-    { title: string; writer: string; content: string; category: string }[]
+    {
+      title: string;
+      writer: string;
+      content: string;
+      category: string;
+      isAnonymous: boolean;
+    }[]
   >([]);
 
   const [lastIdx, setLastIdx] = useState(0);
@@ -35,9 +41,10 @@ const BoardCardList: React.FC<BoardCardListProps> = ({ selectedCategory }) => {
           setLastIdx(lastIdx + 1);
           const newCards = await boardData.resultData.map((res: any) => ({
             title: res.title,
-            writer: res.anonymous ? "익명" : res.nickname,
+            writer: res.nickname,
             content: res.content,
             category: res.category,
+            isAnonymous: res.anonymous,
           }));
           setCards(newCards);
         }
