@@ -35,7 +35,7 @@ const BoardCardList: React.FC<BoardCardListProps> = ({ selectedCategory }) => {
           setLastIdx(lastIdx + 1);
           const newCards = await boardData.resultData.map((res: any) => ({
             title: res.title,
-            writer: res.anonymous ? "익명" : res.userName,
+            writer: res.anonymous ? "익명" : res.nickname,
             content: res.content,
             category: res.category,
           }));

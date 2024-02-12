@@ -25,7 +25,7 @@ export async function signup(
   };
   try {
     const response = await axios.post(`${REST_AUTH_API}/signup`, data);
-    console.log(response.data);
+    console.log("회원가입", response.data);
   } catch (e) {
     console.log(e);
   }

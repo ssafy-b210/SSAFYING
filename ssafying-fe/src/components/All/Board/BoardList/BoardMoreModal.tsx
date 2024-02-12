@@ -21,15 +21,18 @@ interface moreProps {
     category: string;
   };
   boardId: number;
+  onDelete: () => void;
 }
 
 const handleCommentSubmit = (comment: string) => {
   console.log("Comment submitted:", comment);
 };
 
-function BoardMoreModal({ card, boardId }: moreProps) {
+function BoardMoreModal({ card, boardId, onDelete }: moreProps) {
   const user = useAppSelector(selectUser);
   const [isSaved, setIsSaved] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
   const toggleSaved = () => {
     setIsSaved(!isSaved);
     if (!isSaved) {
@@ -40,10 +43,14 @@ function BoardMoreModal({ card, boardId }: moreProps) {
     }
   };
 
+  //deleteBoard api 호출
   const handleDeleteBoard = () => {
     deleteBoard(boardId)
       .then((response: any) => {
         console.log("board deleted successfully", response);
+        onDelete();
+        setIsModalOpen(false);
+        window.location.reload();
       })
       .catch((error) => {
         console.error("Error deleting board", error);
@@ -52,43 +59,45 @@ function BoardMoreModal({ card, boardId }: moreProps) {
 
   return (
     <div>
-      <Card>
-        <Content>
-          <ImgBtn
-            src={isSaved ? saveBtnBlack : saveBtnWhite}
-            size="30px"
-            onClick={toggleSaved}
-          />
-          <Title>{card.title}</Title>
-          <Writer>
-            <div className="small-title">By.</div>
-            {card.writer}
-          </Writer>
-          <Category>
-            <div className="small-title">카테고리</div> {card.category}
-          </Category>
-          <Copy>{card.content}</Copy>
-          {user.nickname === card.writer && (
-            <Flex>
-              {/* 수정화면만들기 */}
-              <BoardBtn btnmsg="수정" link="" />
-              <BoardBtn
-                btnmsg="삭제"
-                onClick={handleDeleteBoard}
-                link="/board"
-              />
-            </Flex>
-          )}
-          <hr />
-        </Content>
-        <CommentContainer>
-          <BoardCommentList />
-          <MoreCommentInput
-            onSubmit={handleCommentSubmit}
-            target="board"
-          ></MoreCommentInput>
-        </CommentContainer>
-      </Card>
+      {isModalOpen && (
+        <Card>
+          <Content>
+            <ImgBtn
+              src={isSaved ? saveBtnBlack : saveBtnWhite}
+              size="30px"
+              onClick={toggleSaved}
+            />
+            <Title>{card.title}</Title>
+            <Writer>
+              <div className="small-title">By.</div>
+              {card.writer}
+            </Writer>
+            <Category>
+              <div className="small-title">카테고리</div> {card.category}
+            </Category>
+            <Copy>{card.content}</Copy>
+            {user.nickname === card.writer && (
+              <Flex>
+                {/* 수정화면만들기 */}
+                <BoardBtn btnmsg="수정" link="" />
+                <BoardBtn
+                  btnmsg="삭제"
+                  onClick={handleDeleteBoard}
+                  link="/board"
+                />
+              </Flex>
+            )}
+            <hr />
+          </Content>
+          <CommentContainer>
+            <BoardCommentList />
+            <MoreCommentInput
+              onSubmit={handleCommentSubmit}
+              target="board"
+            ></MoreCommentInput>
+          </CommentContainer>
+        </Card>
+      )}
     </div>
   );
 }

@@ -13,7 +13,13 @@ interface BoardItemProps {
 }
 
 function BoardCardListItem({ card, index }: BoardItemProps) {
+  //상세조회 api를 하고 boardId를 거기서 받아오자. 아자아자 화이팅.....
   const boardId = index;
+
+  const handleDeleteBoard = () => {
+    // console.log("Board item deleted", boardId);
+  };
+
   return (
     <div>
       <Card key={index}>
@@ -35,7 +41,11 @@ function BoardCardListItem({ card, index }: BoardItemProps) {
             </Content>
             <Button>
               <Modal btnTxt="더보기">
-                <BoardMoreModal card={card} boardId={boardId} />
+                <BoardMoreModal
+                  card={card}
+                  boardId={boardId}
+                  onDelete={handleDeleteBoard}
+                />
               </Modal>
             </Button>
           </Back>

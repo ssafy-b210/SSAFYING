@@ -67,11 +67,11 @@ export async function updateMarket(
 }
 
 // 중고장터 목록 전체 조회
-export async function selectMarketList(isSoldout?: boolean) {
+export async function selectMarketList(marketWay?: string) {
   try {
     let url = "/api/market";
-    if (isSoldout !== undefined) {
-      url += `?isSoldout=${isSoldout}`;
+    if (marketWay !== undefined) {
+      url += `?marketWay=${marketWay}`;
     }
     const response = await axios.get(url);
     console.log(response.data);

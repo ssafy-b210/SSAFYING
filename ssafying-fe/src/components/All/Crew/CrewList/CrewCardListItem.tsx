@@ -18,7 +18,13 @@ interface CrewItemProps {
 }
 
 function CrewCardListItem({ card, index }: CrewItemProps) {
+  //상세조회 api를 하고 boardId를 거기서 받아오자. 아자아자 화이팅.....
   const crewId = index;
+
+  const handleDeleteBoard = () => {
+    // console.log("Board item deleted", boardId);
+  };
+
   return (
     <div>
       <Card key={index}>
@@ -48,7 +54,11 @@ function CrewCardListItem({ card, index }: CrewItemProps) {
             <Location>구인 지역 : {card.region}</Location>
             <Button>
               <Modal btnTxt="더보기">
-                <CrewMoreModal card={card} crewId={crewId} />
+                <CrewMoreModal
+                  card={card}
+                  crewId={crewId}
+                  onDelete={handleDeleteBoard}
+                />
               </Modal>
             </Button>
           </Back>
