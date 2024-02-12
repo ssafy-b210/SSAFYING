@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Hashtag from "../utils/HashTag";
+import Hashtag from "../utils/SignupHashTag";
 
 function FeedContent() {
   return (
