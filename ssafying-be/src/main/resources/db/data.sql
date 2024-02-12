@@ -6,7 +6,7 @@ values ('SEOUL'),
        ('BOOLKYUNG');
 
 insert into users (campus_id, email, password, nickname, phone_number, name, generation, is_major, status)
-values (2, 'ssafy1@ssafy.com', '1234', '애옹', '010-1111-1111', '이싸피', 10, 0, 'ACTIVE'),
+values (2, 'ssafy1@ssafy.com', '1234', '애옹이', '010-1111-1111', '이싸피', 10, 0, 'ACTIVE'),
        (1, 'ssafy2@ssafy.com', '1234', '리오레이비', '010-2222-2222', '이싸피', 10, 0, 'ACTIVE'),
        (3, 'ssafy3@ssafy.com', '1234', '숭', '010-3333-3333', '김싸피', 10, 1, 'ACTIVE'),
        (2, 'ssafy4@ssafy.com', '1234', '깃마스터', '010-4444-4444', '임싸피', 11, 0, 'ACTIVE'),
