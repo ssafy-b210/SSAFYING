@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 public class FindListBoardResponse {
     String userName;
 
+    String nickname;
+
     boolean isAnonymous;
 
     String title;
