@@ -50,12 +50,7 @@ function ProflieSetting() {
           </Link>
         </div>
       ) : (
-        // NOTE: isFollowButton은 API로 체크할 예정 (내가 팔로우하는 사람이지 확인하기)
-        <FollowButton
-          isFollowButton={true}
-          fromUserId={user.userId}
-          touserId={profileUserId}
-        />
+        <FollowButton toUserId={profileUserId} />
       )}
     </StyledProfileSetting>
   );

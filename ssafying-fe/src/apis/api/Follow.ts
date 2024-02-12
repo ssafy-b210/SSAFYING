@@ -74,3 +74,17 @@ export async function unfollowUser(targetUserId: number) {
     console.log(e);
   }
 }
+
+// 팔로잉했는지 확인하기
+export async function follow(userId: number, selectedUserId: number) {
+  try {
+    return await axios.get(`${REST_USERS_API}/isFollow`, {
+      params: {
+        userId: userId,
+        selectedUserId: selectedUserId,
+      },
+    });
+  } catch (e: any) {
+    console.log(e);
+  }
+}
