@@ -7,6 +7,7 @@ import {
 } from "../../../apis/api/Profile";
 import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
+import { useParams } from "react-router-dom";
 
 function ContentPortfolioSection() {
   const [mdValue, setMdValue] = useState<string | undefined>("");
@@ -14,6 +15,7 @@ function ContentPortfolioSection() {
   const [isPreview, setIsPreview] = useState(false);
 
   const user = useAppSelector(selectUser);
+  const profileUserId = useParams().userId;
 
   // 리드미 수정하기
   function modifyReadme() {
@@ -25,6 +27,11 @@ function ContentPortfolioSection() {
   async function getReadme() {
     const res = await selectPortfolioReadMe(user.userId);
     setMdValue(res.readme);
+  }
+
+  function handleClickModifyButton() {
+    if (user.userId === Number(profileUserId)) setIsModified(true);
+    else alert("수정할 권한이 없습니다.");
   }
 
   useEffect(() => {
@@ -51,7 +58,7 @@ function ContentPortfolioSection() {
             </Button>
           </div>
         ) : (
-          <Button onClick={() => setIsModified(true)}>글 수정</Button>
+          <Button onClick={handleClickModifyButton}>글 수정</Button>
         )}
       </ButtonWrapper>
       <MarkdownContainer>
