@@ -33,10 +33,7 @@ export async function updateUserInfo(
 
 // 회원 탈퇴
 export async function leaveUser(userId: number, password: string) {
-  //   const Navigate = useNavigate();
   //   const data = { userd: userId, password: password };
-  console.log(userId);
-  console.log(password);
   try {
     const response = await axios.delete(`${REST_USER_API}/${userId}`, {
       data: {
@@ -45,8 +42,7 @@ export async function leaveUser(userId: number, password: string) {
       },
     });
     console.log(response.data);
-    return response;
-    // Navigate("/user/leave");
+    return response.data;
   } catch (e) {
     console.log(e);
   }

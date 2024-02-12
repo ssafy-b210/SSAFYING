@@ -22,6 +22,7 @@ function UserBtn() {
       if (password === "1234") {
         // 1: userId, 1234: 유저 패스워드
         leaveUser(1, password);
+        navigate("/user/leave");
       } else {
         alert("올바른 비밀번호를 입력해주세요");
         return;

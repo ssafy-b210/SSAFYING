@@ -6,7 +6,7 @@ import commentBtn from "../../../assets/img/imgBtn/comment.svg";
 import FeedLikeCnt from "./FeedLikeCnt";
 import ImgBtn from "../utils/ImgBtn";
 import CommentModal from "../Comment/CommentModal";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import saveBtnBlack from "../../../assets/img/imgBtn/saveBtnBlack.svg";
 import saveBtnWhite from "../../../assets/img/imgBtn/saveBtnWhite.svg";
 import { scrapFeed } from "../../../apis/api/Feed";
@@ -27,10 +27,20 @@ const FeedListItemBtn: React.FC = () => {
     }, 700);
   };
 
+  //feedId 바꾸기!!!
   const [isSaved, setIsSaved] = useState(false);
+
+  useEffect(() => {
+    const savedStatus = localStorage.getItem("savedStatus");
+    setIsSaved(savedStatus === "true");
+  }, []);
+
   const toggleSaved = () => {
-    setIsSaved(!isSaved);
-    if (!isSaved) {
+    const newSavedStatus = !isSaved;
+    setIsSaved(newSavedStatus);
+
+    localStorage.setItem("savedStatus", String(newSavedStatus));
+    if (!newSavedStatus) {
       scrapFeed(1, 1);
     } else {
       cancelscrapFeed(1, 1);

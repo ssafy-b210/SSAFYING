@@ -11,7 +11,7 @@ export async function signup(
   phoneNumber: string,
   name: string,
   generation: number,
-  major: boolean
+  major: number
 ) {
   const data = {
     campusRegion: campusRegion,

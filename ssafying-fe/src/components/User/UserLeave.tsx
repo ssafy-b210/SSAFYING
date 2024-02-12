@@ -18,7 +18,9 @@ const UserLeaveMsg = styled.div`
   flex-direction: column;
   text-align: center;
   align-items: center;
-
+  p {
+    font-family: "Noto Sans KR", "Noto Sans";
+  }
   img {
     margin-top: 250px;
     width: 200px;
