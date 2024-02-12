@@ -1,15 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { selectOneUserInfo } from "../../../apis/api/User";
 import { logout } from "../../../store/reducers/user";
 import { selectUser } from "../../../store/reducers/user";
+import FollowButton from "./FollowButton";
 
 function ProflieSetting() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
+  const profileUserId = Number(useParams().userId);
+  const isMyProfile = useParams().userId === user.userId.toString();
 
   const callLogout = () => {
     if (window.confirm("로그아웃하시겠습니까?")) {
@@ -35,14 +38,20 @@ function ProflieSetting() {
   };
   return (
     <StyledProfileSetting>
-      <Link to="/user/detail">
-        <Button>회원정보</Button>
-      </Link>
-      <Link to="/">
-        <Button className="danger" onClick={callLogout}>
-          로그아웃
-        </Button>
-      </Link>
+      {isMyProfile ? (
+        <div>
+          <Link to="/user/detail">
+            <Button>회원정보</Button>
+          </Link>
+          <Link to="/">
+            <Button className="danger" onClick={callLogout}>
+              로그아웃
+            </Button>
+          </Link>
+        </div>
+      ) : (
+        <FollowButton toUserId={profileUserId} />
+      )}
     </StyledProfileSetting>
   );
 }

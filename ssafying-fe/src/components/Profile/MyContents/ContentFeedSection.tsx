@@ -1,20 +1,26 @@
 import styled from "styled-components";
 import Hashtag from "../../Feed/utils/SignupHashTag";
-import FeedList from "../../Feed/FeedMain/FeedList";
-import { useEffect, useState } from "react";
 import downArrow from "../../../assets/img/imgBtn/downArrow.svg";
-import { selectHashtagList } from "../../../apis/api/Profile";
+import { useEffect, useState } from "react";
+import { selectHashtagList, selectMyFeedList } from "../../../apis/api/Profile";
 import { useParams } from "react-router";
 
 type HashtagType = { id: number; name: string };
-type HashtagArrayType = HashtagType[];
 
 function ContentFeedSection() {
-  const [selectedTagList, setSelectedTagList] = useState<HashtagArrayType>([]);
-  const [isShow, setIsShow] = useState<boolean>(false);
+  // 전체 내 피드 리스트
+  const [allMyFeedList, setAllMyFeedList] = useState([]);
+  // 화면에 보여줄 내 피드 리스트
+  const [myFeedList, setMyFeedList] = useState<any[]>([]);
+  // 해시 태그 리스트
   const [hashtagList, setHashTagList] = useState<HashtagType[]>([]);
 
-  const profileUserId = useParams().userId;
+  // 선택한 해시태그 리스트
+  const [selectedTagList, setSelectedTagList] = useState<HashtagType[]>([]);
+  // 해시태그 접기 버튼 여부
+  const [isShow, setIsShow] = useState<boolean>(false);
+
+  const profileUserId = useParams().userId; // 현재 마이페이지의 유저 id
 
   // 해시태그 선택/해제
   function toggleSelectedTag(id: Number) {
@@ -27,9 +33,7 @@ function ContentFeedSection() {
       copyArr.push(sel as HashtagType);
     }
     // 이미 선택한 태그이면 선택 취소
-    else {
-      copyArr.splice(selIdx, 1);
-    }
+    else copyArr.splice(selIdx, 1);
 
     setSelectedTagList(copyArr);
   }
@@ -40,9 +44,16 @@ function ContentFeedSection() {
     if (res !== undefined) setHashTagList(res.data.resultData);
   }
 
+  // 피드 리스트 가져오기
+  async function getAllMyFeedList() {
+    const res = await selectMyFeedList(Number(profileUserId));
+    if (res !== undefined) setAllMyFeedList(res.data.resultData);
+  }
+
   useEffect(() => {
     getHashtagList();
-  });
+    getAllMyFeedList();
+  }, []);
 
   return (
     <div>
@@ -65,7 +76,15 @@ function ContentFeedSection() {
           <img src={downArrow} alt="아래 화살표" />
         </div>
       </HashtagList>
-      <FeedList />
+      {allMyFeedList.map((data: any) => (
+        // FIX: 여기에 FeedItem 추가하기
+        // FIX: 해시태그 선택시 필터링 기능 추가
+        <div key={data.id}>
+          <div>FeedItemTest</div>
+          <div>{`Content: ${data.content}`}</div>
+          <div>{`user: ${data.user.nickname}`}</div>
+        </div>
+      ))}
     </div>
   );
 }

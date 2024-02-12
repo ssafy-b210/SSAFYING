@@ -5,79 +5,63 @@ import tistory from "../../../assets/img/ProfileIcons/tistory.svg";
 import blog from "../../../assets/img/ProfileIcons/blog.svg";
 import etc from "../../../assets/img/ProfileIcons/etc.svg";
 import { selectPortfolioLinkList } from "../../../apis/api/Profile";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+type BioLink = {
+  id: number;
+  url: string;
+  type: string;
+};
 
 function ProfileLinkList(props: { userId: number }) {
+  const [bioLinkList, setBioLinkList] = useState<BioLink[]>([]);
+
   const icons = [
     {
-      name: "github",
+      name: "GITHUB",
       src: github,
     },
     {
-      name: "notion",
+      name: "NOTION",
       src: notion,
     },
     {
-      name: "tistory",
+      name: "TISTORY",
       src: tistory,
     },
     {
-      name: "blog",
+      name: "BLOG",
       src: blog,
     },
     {
-      name: "etc",
+      name: "ETC",
       src: etc,
-    },
-  ];
-
-  const testInfo = [
-    {
-      id: 1,
-      link: "https://github.com/aeong123",
-      type: "github",
-    },
-    {
-      id: 2,
-      link: "https://www.notion.so/d44f58470aa94c948f6cc9032f4aca3f",
-      type: "notion",
-    },
-    {
-      id: 3,
-      link: "https://aeong123.tistory.com",
-      type: "tistory",
-    },
-    {
-      id: 4,
-      link: "https://blog.naver.com/aeong123",
-      type: "blog",
-    },
-    {
-      id: 5,
-      link: "https://www.acmicpc.net/user/qlsjtm000",
-      type: "etc",
     },
   ];
 
   async function getPortfolioLink() {
     const res = await selectPortfolioLinkList(props.userId);
+
+    // NOTE: API 수정하면 삭제하기 (빈 값이면 에러 응답하는 이슈)
+    if (res === undefined) setBioLinkList([]);
+    else setBioLinkList(res.data.resultData);
   }
 
   useEffect(() => {
-    // getPortfolioLink();
+    getPortfolioLink();
   }, []);
 
   return (
     <LinkList>
-      {testInfo.map((data, index) => {
+      {bioLinkList.map((data) => {
         const idx = icons.findIndex((el) => el.name === data.type);
         return (
-          <LinkListItem key={index}>
-            <a href={data.link} type="_blank" rel="noreferrer">
+          <LinkListItem key={data.id}>
+            <a href={data.url} type="_blank" rel="noreferrer">
               <IconWarpper>
                 <img src={icons[idx].src} alt="" />
               </IconWarpper>
-              <div className="text-url">{data.link}</div>
+              <div className="text-url">{data.url}</div>
             </a>
           </LinkListItem>
         );

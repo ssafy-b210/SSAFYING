@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import MoreCommentInput from "../../../Feed/Comment/CommentInput";
 import saveBtnBlack from "../../../../assets/img/imgBtn/saveBtnBlack.svg";
@@ -33,9 +33,16 @@ function BoardMoreModal({ card, boardId, onDelete }: moreProps) {
   const [isSaved, setIsSaved] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(true);
 
+  useEffect(() => {
+    const savedStatus = localStorage.getItem(`savedStatus_${boardId}`);
+    setIsSaved(savedStatus === "true");
+  }, []);
+
   const toggleSaved = () => {
-    setIsSaved(!isSaved);
-    if (!isSaved) {
+    const newSavedStatus = !isSaved;
+    setIsSaved(newSavedStatus);
+    localStorage.setItem(`savedStatus_${boardId}`, String(newSavedStatus));
+    if (!newSavedStatus) {
       //scrapBoard(userId, boardId)
       scrapBoard(1, 1);
     } else {

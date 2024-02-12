@@ -17,7 +17,7 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
     tel: "",
     level: "",
     campus: "",
-    major: false, //초기값을 비전공자로 설정...
+    major: -1,
   });
 
   // 입력값 바뀔때마다 저장하기
@@ -38,7 +38,7 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
     inputValue.tel !== "" &&
     inputValue.level !== "" &&
     inputValue.campus !== "" &&
-    // inputValue.major !== undefined &&
+    inputValue.major !== -1 &&
     isSame;
 
   const navigate = useNavigate();
@@ -69,10 +69,10 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
     }
   };
 
-  const handleMajorChange = (value: boolean) => {
+  const handleMajorChange = (isMajor: boolean) => {
     setInputValue({
       ...inputValue,
-      major: value,
+      major: isMajor ? 1 : 0,
     });
   };
 
@@ -226,8 +226,8 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
               name="major"
               className="major"
               onChange={() => handleMajorChange(true)}
-              checked={inputValue.major === true}
-              value={inputValue.major ? "true" : "false"}
+              checked={inputValue.major === 1}
+              value={1}
             />
             전공자
             <input
@@ -235,8 +235,8 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
               name="major"
               className="major"
               onChange={() => handleMajorChange(false)}
-              checked={inputValue.major === false}
-              value={inputValue.major ? "true" : "false"}
+              checked={inputValue.major === 0}
+              value={0}
             />
             비전공자
           </div>

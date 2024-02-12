@@ -1,53 +1,54 @@
 import hashtag from "../../../assets/img/ProfileIcons/hashtag.svg";
 import picturesFolder from "../../../assets/img/ProfileIcons/picturesFolder.svg";
 import floppyDisk from "../../../assets/img/ProfileIcons/floppyDisk.svg";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
 import styled from "styled-components";
 
 function ContentTabBar() {
-  const data = [
-    {
-      name: "hastag",
-      icon: hashtag,
-      alt: "해시태그",
-      path: "",
-    },
-    {
-      name: "portfolio",
-      icon: picturesFolder,
-      alt: "포트폴리오",
-      path: "portfolio",
-    },
-    {
-      name: "saved",
-      icon: floppyDisk,
-      alt: "스크랩",
-      path: "saved",
-    },
-  ];
+  const user = useAppSelector(selectUser); // 로그인한 유저 객체
+  const profileUserId = useParams().userId; // 마이페이지 유저 id
 
-  const [activeTab, setActiveTab] = useState<string>("hastag");
+  // 현재 바라보고 있는 탭 이름
+  const [activeTab, setActiveTab] = useState<string>("hashtag");
 
+  // 탭 변경
   function switchActiveTab(name: string) {
     setActiveTab(name);
   }
 
   return (
     <StyledContentTabBar>
-      {data.map((item, index) => (
+      <Link
+        to=""
+        className={activeTab === "hashtag" ? "active" : ""}
+        onClick={() => switchActiveTab("hashtag")}
+      >
+        <img src={hashtag} alt="해시태그" />
+      </Link>
+      <Link
+        to=""
+        className={activeTab === "portfolio" ? "active" : ""}
+        onClick={() => switchActiveTab("portfolio")}
+      >
+        <img src={picturesFolder} alt="포트폴리오" />
+      </Link>
+      {user.userId === Number(profileUserId) ? (
         <Link
-          key={index}
-          to={item.path}
-          className={activeTab === item.name ? "active" : ""}
-          onClick={() => switchActiveTab(item.name)}
+          to=""
+          className={activeTab === "saved" ? "active" : ""}
+          onClick={() => switchActiveTab("saved")}
         >
-          <img src={item.icon} alt={item.alt} />
+          <img src={floppyDisk} alt="스크랩" />
         </Link>
-      ))}
+      ) : null}
     </StyledContentTabBar>
   );
 }
+
+export default ContentTabBar;
 
 const StyledContentTabBar = styled.div`
   display: flex;
@@ -75,5 +76,3 @@ const StyledContentTabBar = styled.div`
     box-sizing: border-box;
   }
 `;
-
-export default ContentTabBar;

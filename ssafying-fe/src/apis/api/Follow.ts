@@ -49,25 +49,39 @@ export async function searchFollowerList(userId: number, nickname: string) {
 }
 
 // 팔로우하기
-export async function followUser(userId: number) {
+export async function followUser(fromUserId: number, toUserId: number) {
   try {
-    const response = await axios.post(`${REST_USERS_API}/following`, {
-      data: {
-        userId,
-      },
+    await axios.post("http://localhost:8081/api/users/follow", {
+      fromUserId: fromUserId,
+      toUserId: toUserId,
     });
-    console.log(response);
+    return "팔로우했습니다.";
   } catch (e: any) {
-    console.log(e);
+    return e.response.data.resultMsg;
   }
 }
 
 // 언팔로우하기
 export async function unfollowUser(targetUserId: number) {
   try {
-    return await axios.delete(`${REST_USERS_API}/unfollow/${targetUserId}`, {
+    await axios.delete(`${REST_USERS_API}/unfollow/${targetUserId}`, {
       headers: {
         refreshToken: localStorage.getItem("refresh-token"),
+      },
+    });
+    return "언팔로우했습니다.";
+  } catch (e: any) {
+    console.log(e);
+  }
+}
+
+// 팔로잉했는지 확인하기
+export async function follow(userId: number, selectedUserId: number) {
+  try {
+    return await axios.get(`${REST_USERS_API}/isFollow`, {
+      params: {
+        userId: userId,
+        selectedUserId: selectedUserId,
       },
     });
   } catch (e: any) {
