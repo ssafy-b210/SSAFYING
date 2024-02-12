@@ -24,11 +24,11 @@ function FollowProfileListItem(props: FollowProfileProps) {
   return (
     <Wrapper>
       <div className="profile-container">
-        <Link to="/profile">
+        <Link to={`/profile/${props.id}`}>
           <RoundImg src={props.userImageUrl} size="45" />
         </Link>
         <div className="text">
-          <Link to="/profile">{props.nickname}</Link>
+          <Link to={`/profile/${props.id}`}>{props.nickname}</Link>
         </div>
       </div>
       {props.isFollowing ? (
