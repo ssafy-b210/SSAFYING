@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import BoardBtn from "../../All/Board/BoardBtn";
 import { useAppSelector } from "../../../store/hooks";
@@ -16,15 +16,20 @@ interface moreProps {
     content: string;
   };
   marketId: number;
+  onDelete: () => void;
 }
 
-function MarketMoreModal({ card, marketId }: moreProps) {
+function MarketMoreModal({ card, marketId, onDelete }: moreProps) {
   const user = useAppSelector(selectUser);
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   const handleDeleteMarket = () => {
     deleteMarket(marketId)
       .then((response: any) => {
         console.log("maket deleted successfully", response);
+        onDelete();
+        setIsModalOpen(false);
+        window.location.reload();
       })
       .catch((error) => {
         console.error("Error deleting market", error);
@@ -32,42 +37,44 @@ function MarketMoreModal({ card, marketId }: moreProps) {
   };
   return (
     <div>
-      <Card>
-        <Content>
-          <Title>{card.title}</Title>
-          <Writer>
-            <div className="small-title">By.</div> {card.writer}
-          </Writer>
-          <IsSelling>
-            <div className="small-title">거래여부</div>
-            {card.isSold}
-          </IsSelling>
-          <Category>
-            <div className="small-title">카테고리</div>
-            {card.marketWay}
-          </Category>
-          <Price>
-            <div className="small-title">가격</div>
-            {card.price}원
-          </Price>
-          <Copy>{card.content}</Copy>
-          {user.nickname === card.writer ? (
-            <Flex>
-              {/* 수정화면만들기 */}
-              <BoardBtn btnmsg="수정" link="" />
-              <BoardBtn
-                btnmsg="삭제"
-                link="/market"
-                onClick={handleDeleteMarket}
-              />
-            </Flex>
-          ) : (
-            <Flex>
-              <BoardBtn btnmsg="채팅하기" link="/direct" />
-            </Flex>
-          )}
-        </Content>
-      </Card>
+      {isModalOpen && (
+        <Card>
+          <Content>
+            <Title>{card.title}</Title>
+            <Writer>
+              <div className="small-title">By.</div> {card.writer}
+            </Writer>
+            <IsSelling>
+              <div className="small-title">거래여부</div>
+              {card.isSold}
+            </IsSelling>
+            <Category>
+              <div className="small-title">카테고리</div>
+              {card.marketWay}
+            </Category>
+            <Price>
+              <div className="small-title">가격</div>
+              {card.price}원
+            </Price>
+            <Copy>{card.content}</Copy>
+            {user.nickname === card.writer ? (
+              <Flex>
+                {/* 수정화면만들기 */}
+                <BoardBtn btnmsg="수정" link="" />
+                <BoardBtn
+                  btnmsg="삭제"
+                  link="/market"
+                  onClick={handleDeleteMarket}
+                />
+              </Flex>
+            ) : (
+              <Flex>
+                <BoardBtn btnmsg="채팅하기" link="/direct" />
+              </Flex>
+            )}
+          </Content>
+        </Card>
+      )}
     </div>
   );
 }
