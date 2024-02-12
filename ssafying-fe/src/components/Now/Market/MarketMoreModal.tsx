@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import BoardBtn from "../../All/Board/BoardBtn";
 import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
-import { deleteMarket } from "../../../apis/api/Market";
+import { deleteMarket, selectMarketOne } from "../../../apis/api/Market";
+import { getDownloadURL, ref } from "firebase/storage";
+import { fstorage } from "../../../apis/firebase";
 
 //카드 눌렀을 때 중고장터 detail
-interface moreProps {
+interface MarketMoreModalProps {
   card: {
     title: string;
     writer: string;
@@ -14,14 +16,39 @@ interface moreProps {
     marketWay: string;
     price: number;
     content: string;
+    imageUrls?: string[];
   };
   marketId: number;
   onDelete: () => void;
 }
 
-function MarketMoreModal({ card, marketId, onDelete }: moreProps) {
+function MarketMoreModal({ card, marketId, onDelete }: MarketMoreModalProps) {
   const user = useAppSelector(selectUser);
   const [isModalOpen, setIsModalOpen] = useState(true);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+
+  //상세보기 api 호출
+  useEffect(() => {
+    selectMarketOne(marketId);
+  }, [marketId]);
+
+  useEffect(() => {
+    const fetchImageUrls = async () => {
+      console.log(card.imageUrls);
+      if (card.imageUrls && card.imageUrls.length > 0) {
+        // 이미지 URL이 존재하고 비어있지 않을 때
+        const urls: string[] = [];
+        for (const imageUrl of card.imageUrls) {
+          const fileRef = ref(fstorage, imageUrl);
+          const url = await getDownloadURL(fileRef);
+          urls.push(url);
+        }
+        setImageUrls(urls);
+      }
+    };
+
+    fetchImageUrls();
+  }, [card.imageUrls]);
 
   const handleDeleteMarket = () => {
     deleteMarket(marketId)
@@ -57,6 +84,9 @@ function MarketMoreModal({ card, marketId, onDelete }: moreProps) {
               {card.price}원
             </Price>
             <Copy>{card.content}</Copy>
+            {imageUrls.map((imageUrl, index) => (
+              <Image key={index} src={imageUrl} alt={`Image ${index}`} />
+            ))}
             {user.nickname === card.writer ? (
               <Flex>
                 {/* 수정화면만들기 */}
@@ -157,6 +187,10 @@ const Category = styled.p`
 const CommentContainer = styled.div`
   width: 100%;
   background-color: white;
+`;
+
+const Image = styled.img`
+  width: 300px;
 `;
 
 const Flex = styled.div`

@@ -90,8 +90,11 @@ const CrewCreateModal: React.FC<CrewCreateModalProps> = ({
 
   //api 호출
   const handleCreateCrew = () => {
+    if (!title.trim() || !content.trim()) {
+      alert("빈칸을 채워주세요.");
+      return;
+    }
     //Redux userId에 따라 바꾸기
-    //userId 나중에 바꾸기?
     createCrew(
       1,
       title,

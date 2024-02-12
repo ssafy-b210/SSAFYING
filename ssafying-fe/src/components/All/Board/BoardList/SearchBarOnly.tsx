@@ -1,10 +1,28 @@
 import styled from "styled-components";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SearchBarOnly() {
+  const navigate = useNavigate();
+
+  const [searchWord, setSearchWord] = useState("");
+
+  const handleSearch = () => {
+    const queryString = new URLSearchParams({
+      searchWord: searchWord.trim(),
+    }).toString();
+    navigate(`/board?${queryString}`);
+  };
+
   return (
     <SearchBarContainer>
-      <SearchBar type="text" placeholder="검색어를 입력하세요"></SearchBar>
-      <SearchBtn>검색하기</SearchBtn>
+      <SearchBar
+        type="text"
+        placeholder="검색어를 입력하세요"
+        value={searchWord}
+        onChange={(e) => setSearchWord(e.target.value)}
+      ></SearchBar>
+      <SearchBtn onClick={handleSearch}>검색하기</SearchBtn>
     </SearchBarContainer>
   );
 }

@@ -71,7 +71,7 @@ function CrewList() {
       <SearchBar onLocationChange={handleLocationChange}></SearchBar>
       <CrewCardList
         selectedCategory={selectedCategory}
-        selectedLocation={selectedLocation}
+        // selectedLocation={selectedLocation}
       ></CrewCardList>
       <Footer></Footer>
     </Wrapper>

@@ -65,6 +65,10 @@ function BoardMoreModal({ card, boardId, onDelete }: moreProps) {
       });
   };
 
+  const handleEditBoard = () => {
+    setIsModalOpen(true);
+  };
+
   return (
     <div>
       {isModalOpen && (
@@ -87,7 +91,7 @@ function BoardMoreModal({ card, boardId, onDelete }: moreProps) {
             {user.nickname === card.writer && (
               <Flex>
                 {/* 수정화면만들기 */}
-                <BoardBtn btnmsg="수정" link="" />
+                <BoardBtn btnmsg="수정" onClick={handleEditBoard} link="" />
                 <BoardBtn
                   btnmsg="삭제"
                   onClick={handleDeleteBoard}

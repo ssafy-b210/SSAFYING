@@ -5,7 +5,7 @@ import { selectCrewList } from "../../../../apis/api/Crew";
 
 interface CrewCardListProps {
   selectedCategory: string | null;
-  selectedLocation: string;
+  // selectedLocation: string;
 }
 
 const Container = styled.div`
@@ -22,7 +22,7 @@ const Container = styled.div`
 
 const CrewCardList: React.FC<CrewCardListProps> = ({
   selectedCategory,
-  selectedLocation,
+  // selectedLocation,
 }) => {
   const [cards, setCards] = useState<
     {
@@ -35,14 +35,12 @@ const CrewCardList: React.FC<CrewCardListProps> = ({
     }[]
   >([]);
 
-  const [lastIdx, setLastIdx] = useState(0);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const crewData = await selectCrewList(selectedCategory ?? undefined);
+        console.log(crewData);
         if (crewData) {
-          setLastIdx(lastIdx + 1);
           const newCards = await crewData.map((res: any) => ({
             title: res.title,
             writer: res.nickname,
@@ -61,25 +59,26 @@ const CrewCardList: React.FC<CrewCardListProps> = ({
     fetchData();
   }, [selectedCategory]);
   return (
-    <Container>
+    <>
       {cards.length > 0 ? (
-        cards.map((card, index) => (
-          <CrewCardListItem key={index} card={card} index={index} />
-        ))
+        <Container>
+          {cards.map((card, index) => (
+            <CrewCardListItem key={index} card={card} index={index} />
+          ))}
+        </Container>
       ) : (
         <NoResultsMessage>검색 결과가 없습니다.</NoResultsMessage>
       )}
-    </Container>
+    </>
   );
 };
 
 export default CrewCardList;
 
-const NoResultsMessage = styled.p`
+const NoResultsMessage = styled.div`
+  padding-top: 40%;
   display: flex;
   justify-content: center;
-  text-align: center;
-  padding-top: 40%;
-  margin-right: 15%;
-  margin-left: 15%;
+  align-items: center; /* Align text vertically */
+  width: 100%; /* Take up full width */
 `;

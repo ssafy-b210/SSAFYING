@@ -62,25 +62,26 @@ const MarketCardList: React.FC<MarketCardListProps> = ({
     fetchData();
   }, [selectedCategory]);
   return (
-    <Container>
+    <>
       {cards.length > 0 ? (
-        cards.map((card, index) => (
-          <MarketCardListItem key={index} card={card} index={index} />
-        ))
+        <Container>
+          {cards.map((card, index) => (
+            <MarketCardListItem key={index} card={card} index={index} />
+          ))}
+        </Container>
       ) : (
         <NoResultsMessage>검색 결과가 없습니다.</NoResultsMessage>
       )}
-    </Container>
+    </>
   );
 };
 
 export default MarketCardList;
 
-const NoResultsMessage = styled.p`
+const NoResultsMessage = styled.div`
+  padding-top: 40%;
   display: flex;
   justify-content: center;
-  text-align: center;
-  padding-top: 40%;
-  margin-right: 15%;
-  margin-left: 15%;
+  align-items: center;
+  width: 100%;
 `;

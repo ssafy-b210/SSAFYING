@@ -19,7 +19,7 @@ interface MarketItemProps {
 
 function MarketCardListItem({ card, index }: MarketItemProps) {
   //상세조회 api를 하고 boardId를 거기서 받아오자. 아자아자 화이팅.....
-  const marketId = index;
+  const marketId = index + 1;
 
   const handleDeleteBoard = () => {
     // console.log("Board item deleted", boardId);
@@ -38,9 +38,9 @@ function MarketCardListItem({ card, index }: MarketItemProps) {
             <SmallContainer>
               <Price>{card.price}원</Price>
               {card.isSold ? (
-                <img src={isSelling} alt="isSelling" />
+                <img src={isNotSelling} alt="isSelling" />
               ) : (
-                <img src={isNotSelling} alt="isNotSelling" />
+                <img src={isSelling} alt="isNotSelling" />
               )}
             </SmallContainer>
           </Front>

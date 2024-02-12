@@ -66,6 +66,7 @@ export async function cancelLikeFeed(userId: number, feedId: number) {
       },
     });
     console.log(response.data);
+    return response.data;
   } catch (e) {
     console.log(e);
   }
@@ -120,6 +121,7 @@ export async function cancelscrapFeed(userId: number, feedId: number) {
       },
     });
     console.log(response.data);
+    return response.data;
   } catch (e) {
     console.log(e);
   }
