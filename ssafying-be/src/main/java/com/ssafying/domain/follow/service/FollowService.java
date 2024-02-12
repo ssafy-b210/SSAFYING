@@ -201,7 +201,7 @@ public class FollowService {
 
         // 사용자의 campus, isMajor, generation 가져오기
         Campus campus = user.getCampus();
-        Boolean isMajor = user.getIsMajor();
+        int isMajor = user.getIsMajor();
         int generation = user.getGeneration();
 
         // 같은 값을 가진 사용자라면 리스트에 담는다.
