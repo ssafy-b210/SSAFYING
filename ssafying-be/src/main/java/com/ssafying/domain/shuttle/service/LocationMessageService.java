@@ -23,6 +23,13 @@ public class LocationMessageService {
         //이렇게 하면 됨 -> 특정 셔틀 아이디를 하나의 방이라고 생각
         //{shuttleId}호차 방을 구독하겠다
 
+        System.out.println("/////////////////////////");
+        System.out.println("shuttle id = " + request.getShuttleId());
+        System.out.println("latitude = " + request.getLatitude());
+        System.out.println("longitude = " + request.getLongitude());
+        System.out.println("/////////////////////////");
+
+
         simpMessagingTemplate.convertAndSend(destination, request);
     }
 

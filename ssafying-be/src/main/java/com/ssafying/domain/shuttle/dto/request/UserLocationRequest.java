@@ -10,10 +10,10 @@ import lombok.*;
 public class UserLocationRequest {
 
     @NotNull
-    long latitude; //위도
+    double latitude; //위도
 
     @NotNull
-    long longitude; //경도
+    double longitude; //경도
 
     @NotNull
     int shuttleId; //타고 있는 셔틀버스

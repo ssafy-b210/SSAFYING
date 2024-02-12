@@ -9,9 +9,9 @@ import lombok.*;
 @AllArgsConstructor
 public class UserLocationResponse {
 
-    String lat; //위도
+    double latitude; //위도
 
-    String lon; //경도
+    double longitude; //경도
 
     int shuttleId; //위치를 알려줄 셔틀버스
 }
