@@ -35,7 +35,7 @@ public class LoginResponse {
 
     UserStatus status; //회원 상태
 
-    Boolean isMajor; //전공 유무
+    int isMajor; //전공 유무
 
 
 }

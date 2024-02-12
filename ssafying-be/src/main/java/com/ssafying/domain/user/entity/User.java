@@ -61,7 +61,7 @@ public class User extends BaseTimeEntity {
 
     /* board entity */
     @Column(name = "is_major")
-    private Boolean isMajor; //전공 유무
+    private int isMajor; //전공 유무
 
     /* chat entity */
     @OneToMany(mappedBy = "user")

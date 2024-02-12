@@ -40,7 +40,7 @@ public class CreateUserRequest {
     @NotNull(message = "기수 입력은 필수입니다.")
     int generation;
 
-    Boolean isMajor;
+    int isMajor;
 
     UserStatus userStatus;
 

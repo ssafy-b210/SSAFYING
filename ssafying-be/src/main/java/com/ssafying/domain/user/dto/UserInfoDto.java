@@ -14,6 +14,6 @@ public class UserInfoDto {
     private int generation;
     private String profileImageUrl;
     private String intro;
-    private boolean isMajor;
+    private int isMajor;
 
 }
