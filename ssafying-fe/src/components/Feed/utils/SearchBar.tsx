@@ -4,24 +4,20 @@ import ImgBtn from "./ImgBtn";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-function SearchBar() {
-  function clickBackBtn() {
-    console.log("back");
-  }
+interface Props {
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
-  function changeSearchInput(e: ChangeEvent<HTMLInputElement>) {
-    console.log(e.target.value);
-  }
-
+function SearchBar({ onChange }: Props) {
   return (
     <SearchBarWrapper>
       <Link to="/feedhome" className="back">
-        <ImgBtn src={backArrow} size="21px" onClick={clickBackBtn} />
+        <ImgBtn src={backArrow} size="21px" />
       </Link>
       <input
         type="text"
+        onChange={onChange}
         placeholder="검색어를 입력해주세요."
-        onChange={changeSearchInput}
       />
     </SearchBarWrapper>
   );

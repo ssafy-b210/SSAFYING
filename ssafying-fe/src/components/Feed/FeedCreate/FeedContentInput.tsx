@@ -10,7 +10,7 @@ import { selectUser } from "../../../store/reducers/user";
 function FeedContentInput() {
   const [content, setContent] = useState(""); // TextArea의 내용을 저장할 상태
   const [images, setImages] = useState<string[]>([]); // 이미지들의 URL을 저장할 상태
-  const [hashtags, setHashtags] = useState<string[]>([]); // 이미지들의 URL을 저장할 상태
+  const [hashtags, setHashtags] = useState<string[]>([]); // 해시태그들 저장할 상태
   const user = useAppSelector(selectUser);
 
   console.log(hashtags);
