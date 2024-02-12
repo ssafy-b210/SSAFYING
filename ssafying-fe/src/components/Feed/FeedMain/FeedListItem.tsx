@@ -9,6 +9,7 @@ interface FeedProps {
 }
 
 function FeedListItem({ feed }: FeedProps) {
+  console.log(feed.feedImageUrls);
   return (
     <FeedListItemWrapper>
       <FeedListItemUser
@@ -17,8 +18,10 @@ function FeedListItem({ feed }: FeedProps) {
         userId={feed.user.id}
         time={feed.user.createdAt}
       />
-      <FeedContent content={feed.content} hashtag={feed.feedTagsId} />
-      <FeedListItemImg imageUrls={feed.feedImageUrls} />
+      <FeedContent content={feed.content} hashtag={feed.feedTags} />
+      {feed.feedImageUrls !== undefined && (
+        <FeedListItemImg imageUrls={feed.feedImageUrls} />
+      )}
       <FeedListItemBtn likeCount={feed.likeCount} />
     </FeedListItemWrapper>
   );

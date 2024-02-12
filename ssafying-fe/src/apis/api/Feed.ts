@@ -37,8 +37,8 @@ export async function deleteFeedItem(feedId: number) {
 export async function getFeedList(userId: number) {
   try {
     const response = await axios.get(`/api/feeds/${userId}/list`);
-    console.log(response.data.resultData);
-    return response.data.resultData;
+    console.log(response.data);
+    return response.data;
   } catch (e) {
     console.log(e);
   }
@@ -74,6 +74,29 @@ export async function cancelLikeFeed(userId: number, feedId: number) {
 //피드 좋아요 리스트
 
 //피드 검색
+export async function getFeedSearch(hashtag: string, nickname: string) {
+  try {
+    if (hashtag === "" && nickname !== "") {
+      const response = await axios.get(`${REST_FEED_API}/search`, {
+        params: {
+          nickname: nickname,
+        },
+      });
+      console.log(response.data.resultData);
+      return response.data.resultData;
+    } else if (hashtag !== "" && nickname === "") {
+      const response = await axios.get(`${REST_FEED_API}/search`, {
+        params: {
+          hashtag: hashtag,
+        },
+      });
+      console.log(response.data.resultData);
+      return response.data.resultData;
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 //피드 수정
 
