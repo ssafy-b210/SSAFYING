@@ -9,7 +9,6 @@ interface FeedProps {
 }
 
 function FeedListItem({ feed }: FeedProps) {
-  console.log(feed.feedImageUrls);
   return (
     <FeedListItemWrapper>
       <FeedListItemUser
