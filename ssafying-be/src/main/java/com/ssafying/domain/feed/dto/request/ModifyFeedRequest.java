@@ -1,13 +1,14 @@
 package com.ssafying.domain.feed.dto.request;
 
 import com.ssafying.domain.feed.entity.FeedHashtag;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
 @Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class ModifyFeedRequest {
 
     String content;

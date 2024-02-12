@@ -17,6 +17,7 @@ import com.ssafying.domain.mypage.dto.PortfolioDto;
 import com.ssafying.domain.mypage.dto.request.ModifyReadmeRequest;
 import com.ssafying.domain.mypage.dto.request.SavePortfolioRequest;
 import com.ssafying.domain.mypage.dto.response.FindMypageResponse;
+import com.ssafying.domain.mypage.dto.response.FindReadmeResponse;
 import com.ssafying.domain.mypage.entity.Portfolio;
 import com.ssafying.domain.mypage.repository.PortfolioRepository;
 import com.ssafying.domain.recruitment.dto.request.CreatePortfolioRequest;
@@ -388,6 +389,17 @@ public class MypageService {
         userRepository.save(user);
         return userId;
     }
+
+    /**
+     * 6.7 마이페이지 리드미 조회
+     */
+    public FindReadmeResponse findReadme(int userId) {
+        User user = getUser(userId);
+        return FindReadmeResponse.builder()
+                .readme(user.getReadme())
+                .build();
+    }
+
 
     private Portfolio getPortfolio(int portfolioId) {
         return portfolioRepository.findById(portfolioId)

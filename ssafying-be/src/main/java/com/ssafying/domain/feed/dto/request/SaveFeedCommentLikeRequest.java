@@ -1,10 +1,11 @@
 package com.ssafying.domain.feed.dto.request;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
 @Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class SaveFeedCommentLikeRequest {
 
     int userId;

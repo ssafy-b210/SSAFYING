@@ -8,6 +8,7 @@ import com.ssafying.domain.mypage.dto.PortfolioDto;
 import com.ssafying.domain.mypage.dto.request.ModifyReadmeRequest;
 import com.ssafying.domain.mypage.dto.request.SavePortfolioRequest;
 import com.ssafying.domain.mypage.dto.response.FindMypageResponse;
+import com.ssafying.domain.mypage.dto.response.FindReadmeResponse;
 import com.ssafying.domain.mypage.service.MypageService;
 import com.ssafying.domain.recruitment.dto.response.SaraminResponse;
 import com.ssafying.domain.user.dto.UserInfoDto;
@@ -163,7 +164,19 @@ public class MypageController {
         int result = mypageService.modifyReadme(userId, request);
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
-    
+
+    /**
+     * 6.7 마이페이지 리드미 조회
+     */
+    @GetMapping("{userId}/readme")
+    @Operation(summary = "리드미 조회")
+    public ResponseEntity<ResultResponse<FindReadmeResponse>> readmeModify(
+            @PathVariable(name = "userId") int userId) {
+        FindReadmeResponse result = mypageService.findReadme(userId);
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
+    }
+
+
 
 
 }
