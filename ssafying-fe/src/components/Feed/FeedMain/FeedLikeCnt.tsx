@@ -1,11 +1,15 @@
 import styled from "styled-components";
 import likeFill from "../../../assets/img/imgBtn/likeFillRed.svg";
 
-function FeedLikeCnt() {
+interface Props {
+  likeCount: number;
+}
+
+function FeedLikeCnt({ likeCount }: Props) {
   return (
     <BtnWrapper>
       <Img src={likeFill} />
-      <LikeCnt>440</LikeCnt>
+      <LikeCnt>{likeCount}</LikeCnt>
     </BtnWrapper>
   );
 }

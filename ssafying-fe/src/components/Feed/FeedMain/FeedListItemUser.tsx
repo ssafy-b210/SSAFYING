@@ -11,11 +11,13 @@ interface userProps {
   userImg: string;
   nickname: string;
   userId: number;
+  time: string;
 }
 
-function FeedListItemUser({ userImg, nickname, userId }: userProps) {
+function FeedListItemUser({ userImg, nickname, userId, time }: userProps) {
   const user = useAppSelector(selectUser);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [timeDiff, setTimediff] = useState("");
 
   function clickMoreBtn() {
     setModalIsOpen(true);
@@ -23,6 +25,26 @@ function FeedListItemUser({ userImg, nickname, userId }: userProps) {
 
   function closeModal() {
     setModalIsOpen(false);
+  }
+
+  function calcTimeDiff() {
+    const date = new Date(time);
+    const now = new Date();
+    const diff = Math.abs(date.getTime() - now.getTime());
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    if (days > 0) {
+      setTimediff(`${days}일 전`);
+    } else if (hours > 0) {
+      setTimediff(`${hours}시간 전`);
+    } else if (minutes > 0) {
+      setTimediff(`${minutes}분 전`);
+    } else {
+      setTimediff(`${seconds}초 전`);
+    }
   }
 
   return (
@@ -34,6 +56,7 @@ function FeedListItemUser({ userImg, nickname, userId }: userProps) {
       {user.userId === userId && (
         <>
           <div>
+            <span>{timeDiff}</span>
             <ImgBtn src={more} onClick={clickMoreBtn} size="20px" />
           </div>
           <Modal
@@ -63,6 +86,12 @@ const UserWrapper = styled.div`
   div {
     display: flex;
     align-items: center;
+  }
+
+  span {
+    margin-right: 5px;
+    font-size: 10px;
+    color: gray;
   }
 `;
 
