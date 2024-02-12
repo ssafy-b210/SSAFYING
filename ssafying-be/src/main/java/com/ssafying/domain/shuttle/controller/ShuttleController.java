@@ -32,6 +32,9 @@ public class ShuttleController {
 
     }
 
+    /**
+     * 12.1 셔틀 정류장 목록 조회
+     */
     @GetMapping("/bus")
     public ResponseEntity<ResultResponse<List<BusStopListResponse>>> busStopList(
             @RequestParam(name = "shuttleId")Shuttle shuttleId){

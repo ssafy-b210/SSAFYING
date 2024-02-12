@@ -36,7 +36,6 @@ public class FollowService {
      * 2.1 팔로잉 조회
      * selectedUser 가 팔로우 한 사람들 -> fromUser 에서 검색해서 찾음
      */
-    @Transactional
     public List<FindFollowingListResponse> followingList(int userId){
 
         User selectedUser = userRepository.findById(userId)
@@ -64,7 +63,6 @@ public class FollowService {
      * 2.2 팔로워 조회
      * selectedUser 를 팔로우 한 사람들 -> toUser 에서 검색해서 찾음
      */
-    @Transactional
     public List<FindFollowerListResponse> followerList(int userId){
 
         User selectedUser = userRepository.findById(userId)
@@ -91,7 +89,6 @@ public class FollowService {
     /**
      * 2.3.1 팔로잉 리스트 검색
      */
-    @Transactional
     public List<FindFollowingListResponse> searchFollowingByNickname(int userId, String nickname){
 
 
@@ -118,7 +115,6 @@ public class FollowService {
     /**
      * 2.3.2 팔로워 리스트 검색
      */
-    @Transactional
     public List<FindFollowerListResponse> searchFollowerByNickname(int userId, String nickname){
 
         User selectedUser = userRepository.findById(userId)
@@ -193,6 +189,7 @@ public class FollowService {
     /**
      * 2.6 추천친구
      */
+    @Transactional
     public List<FindRecommendResponse> findRecommendedFriends(int userId) {
 
         // 사용자 정보

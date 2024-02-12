@@ -82,6 +82,10 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "toUser")
     private List<Follow> followers= new ArrayList<>(); //팔로워 리스트
 
+    @OneToMany(mappedBy = "user")
+    private List<InterestTag> interestTags = new ArrayList<>(); //관심태그 리스트
+
+
     /*
      * 회원 가입
      */

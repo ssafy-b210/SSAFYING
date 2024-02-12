@@ -1,7 +1,9 @@
 package com.ssafying.domain.user.controller;
 
+import com.ssafying.domain.user.dto.request.AddInterestTagRequest;
 import com.ssafying.domain.user.dto.request.RemoveUserRequest;
 import com.ssafying.domain.user.dto.request.UpdateUserRequest;
+import com.ssafying.domain.user.dto.response.AddInterestTagResponse;
 import com.ssafying.domain.user.dto.response.UserDetailResponse;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.service.UserService;
@@ -63,6 +65,19 @@ public class UserApiController {
  ){
 
         int result =  userService.removeUser(userId);
+
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
+
+    }
+
+    /**
+     * 1.8 관심 태그 저장
+     */
+    @PostMapping("/tag")
+    public ResponseEntity<ResultResponse<AddInterestTagResponse>> addInterestTag(
+            @RequestBody AddInterestTagRequest request){
+
+        AddInterestTagResponse result = userService.addInterestTag(request);
 
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
 
