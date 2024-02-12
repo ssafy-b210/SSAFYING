@@ -23,8 +23,7 @@ export async function selectHashtagList(userId: number) {
 // 유저가 작성한 피드 조회
 export async function selectMyFeedList(userId: number) {
   try {
-    const response = await axios.get(`${REST_MYPAGE_API}/${userId}/feeds`);
-    console.log(response.data);
+    return await axios.get(`${REST_MYPAGE_API}/${userId}/feeds`);
   } catch (e: any) {
     console.log(e);
   }

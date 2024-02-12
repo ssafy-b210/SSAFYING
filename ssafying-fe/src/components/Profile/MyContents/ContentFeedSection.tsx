@@ -1,18 +1,17 @@
 import styled from "styled-components";
 import Hashtag from "../../Feed/utils/SignupHashTag";
-import FeedList from "../../Feed/FeedMain/FeedList";
-import { useEffect, useState } from "react";
 import downArrow from "../../../assets/img/imgBtn/downArrow.svg";
-import { selectHashtagList } from "../../../apis/api/Profile";
+import { useEffect, useState } from "react";
+import { selectHashtagList, selectMyFeedList } from "../../../apis/api/Profile";
 import { useParams } from "react-router";
 
 type HashtagType = { id: number; name: string };
-type HashtagArrayType = HashtagType[];
 
 function ContentFeedSection() {
-  const [selectedTagList, setSelectedTagList] = useState<HashtagArrayType>([]);
+  const [selectedTagList, setSelectedTagList] = useState<HashtagType[]>([]);
   const [isShow, setIsShow] = useState<boolean>(false);
   const [hashtagList, setHashTagList] = useState<HashtagType[]>([]);
+  const [myFeedList, setMyFeedList] = useState([]);
 
   const profileUserId = useParams().userId;
 
@@ -40,8 +39,15 @@ function ContentFeedSection() {
     if (res !== undefined) setHashTagList(res.data.resultData);
   }
 
+  // 피드 리스트 가져오기
+  async function getMyFeedList() {
+    const res = await selectMyFeedList(Number(profileUserId));
+    if (res !== undefined) setMyFeedList(res.data.resultData);
+  }
+
   useEffect(() => {
     getHashtagList();
+    getMyFeedList();
   }, []);
 
   return (
@@ -65,7 +71,14 @@ function ContentFeedSection() {
           <img src={downArrow} alt="아래 화살표" />
         </div>
       </HashtagList>
-      <FeedList />
+      {myFeedList.map((data: any) => (
+        // FIX: 여기에 FeedItem 추가하기
+        <div key={data.id}>
+          <div>FeedItemTest</div>
+          <div>{`Content: ${data.content}`}</div>
+          <div>{`user: ${data.user.nickname}`}</div>
+        </div>
+      ))}
     </div>
   );
 }

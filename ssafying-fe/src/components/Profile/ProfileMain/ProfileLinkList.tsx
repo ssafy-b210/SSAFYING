@@ -53,7 +53,7 @@ function ProfileLinkList(props: { userId: number }) {
 
   return (
     <LinkList>
-      {bioLinkList.map((data, index) => {
+      {bioLinkList.map((data) => {
         const idx = icons.findIndex((el) => el.name === data.type);
         return (
           <LinkListItem key={data.id}>
