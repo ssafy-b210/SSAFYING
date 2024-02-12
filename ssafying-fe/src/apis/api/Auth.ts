@@ -1,4 +1,3 @@
-import { error } from "console";
 import { axios } from "../utils/axios";
 
 const REST_AUTH_API = `/api/auth`;

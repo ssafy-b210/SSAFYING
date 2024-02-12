@@ -1,15 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import TextArea from "./TextArea";
+import ImgEdit from "./ImgEdit";
+import SelectHashtag from "./SelectHashtag";
+import { createFeedItem } from "../../../apis/api/Feed";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
 
 function FeedContentInput() {
+  const [content, setContent] = useState(""); // TextArea의 내용을 저장할 상태
+  const [images, setImages] = useState<string[]>([]); // 이미지들의 URL을 저장할 상태
+  const [hashtags, setHashtags] = useState<string[]>([]); // 이미지들의 URL을 저장할 상태
+  const user = useAppSelector(selectUser);
+
+  console.log(hashtags);
+
+  const handleSaveContent = async () => {
+    try {
+      if (content === "") {
+        alert("문구를 입력해주세요");
+      } else if (hashtags.length === 0) {
+        alert("태그를 선택해주세요");
+      } else {
+        await createFeedItem(user.userId, content, images, hashtags);
+        setContent("");
+        setImages([]);
+        setHashtags([]);
+        alert("글이 성공적으로 저장되었습니다.");
+      }
+    } catch (error) {
+      console.error("글 저장 중 오류 발생:", error);
+      alert("글 저장 중 오류가 발생했습니다. 다시 시도해주세요.");
+    }
+  };
+
   return (
     <InputWrapper>
+      <ImgEdit onImagesChange={setImages} />
       <TextWrapper>
-        <TextArea />
+        <TextArea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
       </TextWrapper>
+      <SelectHashtag onSelectHashtags={setHashtags} />
       <ButtonWrapper>
-        <button>작성</button>
+        <button onClick={handleSaveContent}>작성</button>
       </ButtonWrapper>
     </InputWrapper>
   );
