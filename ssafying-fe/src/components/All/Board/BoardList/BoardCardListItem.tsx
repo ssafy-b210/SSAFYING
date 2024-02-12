@@ -8,6 +8,7 @@ interface BoardItemProps {
     content: string;
     writer: string;
     category: string;
+    isAnonymous: boolean;
   };
   index: number;
 }
@@ -25,7 +26,7 @@ function BoardCardListItem({ card, index }: BoardItemProps) {
                 : card.title.slice(0, 17) + "..."}
             </Title>
             <hr />
-            <Writer>{card.writer}</Writer>
+            <Writer>{card.isAnonymous ? "익명" : card.writer}</Writer>
           </Front>
           <Back>
             <Content>

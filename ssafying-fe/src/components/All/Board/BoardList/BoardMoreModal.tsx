@@ -19,6 +19,7 @@ interface moreProps {
     writer: string;
     content: string;
     category: string;
+    isAnonymous: boolean;
   };
   boardId: number;
 }
@@ -62,7 +63,7 @@ function BoardMoreModal({ card, boardId }: moreProps) {
           <Title>{card.title}</Title>
           <Writer>
             <div className="small-title">By.</div>
-            {card.writer}
+            {card.isAnonymous ? "익명" : card.writer}
           </Writer>
           <Category>
             <div className="small-title">카테고리</div> {card.category}

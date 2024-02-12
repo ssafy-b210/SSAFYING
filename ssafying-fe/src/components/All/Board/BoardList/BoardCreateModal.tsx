@@ -59,7 +59,7 @@ const BoardCreateModal: React.FC<BoardCreateModalProps> = ({
   //api 호출
   const handleCreateBoard = () => {
     //Redux userId에 따라 바꾸기
-    const writerName = nickname ? "익명" : user.nickname;
+    const writerName = user.nickname;
 
     //실제 게시글 생성 api 호출
     // boardId 나중에 꼭 바꾸기

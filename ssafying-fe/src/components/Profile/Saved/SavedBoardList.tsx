@@ -6,6 +6,7 @@ function SavedBoardList() {
     content: "content",
     writer: "writer",
     category: "자유",
+    isAnonymous: false,
   };
 
   return (
