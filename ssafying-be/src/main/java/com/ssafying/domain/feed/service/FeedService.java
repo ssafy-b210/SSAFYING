@@ -320,7 +320,9 @@ public class FeedService {
      */
     public List<ParentCommentDto> findFeedList(int feedId) {
         Feed feed = getFeed(feedId);
-        return convertToParentCommentDtoList(feed.getFeedComments());
+        List<FeedComment> parentComment = feedCommentRepository.findParentCommentsByFeed(feed);
+
+        return convertToParentCommentDtoList(parentComment);
     }
     
     /**
