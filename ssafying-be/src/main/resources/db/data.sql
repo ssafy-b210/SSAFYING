@@ -107,8 +107,11 @@ values ('오정동 육교 밑 (국민연금북대전지사)', 1, 36.3587785, 127
 insert into market (user_id, market_way,is_soldout, price, title, content)
 values (1, 'SELL', true, 10000, '한무무 GK898B  키보드 팔아요', '얼마안썼어용'),
        (2, 'BUY', false, 10000, '노트북 거치대 삽니다', '상태 좋은 걸로 구해요'),
-       (1, 'SELL', false, 30000, '모니터 팔아요', '얼마안썼어용'),
-       (3, 'SHARE', false, 0, '키보드 나눔합니다', '사용감 있어요');
+       (5, 'SELL', true, 30000, '모니터 팔아요', '얼마안썼어용'),
+       (3, 'SHARE', true, 0, '키보드 나눔합니다', '사용감 있어요'),
+       (4, 'SHARE', false, 0, '싸피 블랙 XL 후드집업 새거 L랑 사이즈 교환', '새거에요@@@!!'),
+       (6, 'SELL', false, 300000, '덕명동 집 팔아요', '10평입니다.'),
+       (7, 'SELL', false, 10000, '덕명동 집 팔아요', '햇반 살사람 구해요!');
 
 -- 피드 더미 데이터
 INSERT INTO feed (user_id, content, hit) VALUES (1, '오늘 팀 회식하러 간다 ㅎㅎ 벌써 마지막 주라니 ㅜㅜ...!!', 10),
