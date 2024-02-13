@@ -63,6 +63,7 @@ public class UserService {
                 .email(user.getEmail())
                 .phoneNumber(user.getPhoneNumber())
                 .intro(user.getIntro())
+                .profileImageUrl(user.getProfileImageUrl())
                 .build();
 
         return response;

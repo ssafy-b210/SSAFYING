@@ -16,5 +16,6 @@ public class UserDetailResponse{
     String email;
     String phoneNumber;
     String intro;
+    String profileImageUrl;
 
 }
