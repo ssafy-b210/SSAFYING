@@ -9,10 +9,11 @@ interface MarketItemProps {
   card: {
     title: string;
     writer: string;
-    isSold: boolean;
+    // isSold: boolean;
     marketWay: string;
     price: number;
     content: string;
+    soldout: boolean;
   };
   index: number;
 }
@@ -20,6 +21,8 @@ interface MarketItemProps {
 function MarketCardListItem({ card, index }: MarketItemProps) {
   //상세조회 api를 하고 boardId를 거기서 받아오자. 아자아자 화이팅.....
   const marketId = index + 1;
+
+  const isSoldout = card.soldout !== undefined ? card.soldout : false;
 
   const handleDeleteBoard = () => {
     // console.log("Board item deleted", boardId);
@@ -37,7 +40,7 @@ function MarketCardListItem({ card, index }: MarketItemProps) {
             <hr />
             <SmallContainer>
               <Price>{card.price}원</Price>
-              {card.isSold ? (
+              {card.soldout ? (
                 <img src={isNotSelling} alt="isSelling" />
               ) : (
                 <img src={isSelling} alt="isNotSelling" />
@@ -114,6 +117,9 @@ const SmallContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  img {
+    width: 70px;
+  }
 `;
 const Back = styled.div`
   width: 100%;

@@ -40,8 +40,8 @@ const CrewCardList: React.FC<CrewCardListProps> = ({
       try {
         const crewData = await selectCrewList(selectedCategory ?? undefined);
         console.log(crewData);
-        if (crewData) {
-          const newCards = await crewData.map((res: any) => ({
+        if (crewData && crewData.resultData) {
+          const newCards = await crewData.resultData.map((res: any) => ({
             title: res.title,
             writer: res.nickname,
             isRecruit: res.isRecruit,

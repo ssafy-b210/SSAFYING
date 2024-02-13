@@ -4,19 +4,17 @@ import BoardBtn from "../../All/Board/BoardBtn";
 import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
 import { deleteMarket, selectMarketOne } from "../../../apis/api/Market";
-import { getDownloadURL, ref } from "firebase/storage";
-import { fstorage } from "../../../apis/firebase";
 
 //카드 눌렀을 때 중고장터 detail
 interface MarketMoreModalProps {
   card: {
     title: string;
     writer: string;
-    isSold: boolean;
     marketWay: string;
     price: number;
     content: string;
-    imageUrls?: string[];
+    imageUrl?: { imageId: number; imageUrl: string }[] | undefined;
+    soldout: boolean;
   };
   marketId: number;
   onDelete: () => void;
@@ -26,34 +24,12 @@ function MarketMoreModal({ card, marketId, onDelete }: MarketMoreModalProps) {
   const user = useAppSelector(selectUser);
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [imageUrls, setImageUrls] = useState<string[]>([]);
-
-  //상세보기 api 호출
-  useEffect(() => {
-    selectMarketOne(marketId);
-  }, [marketId]);
-
-  useEffect(() => {
-    const fetchImageUrls = async () => {
-      console.log(card.imageUrls);
-      if (card.imageUrls && card.imageUrls.length > 0) {
-        // 이미지 URL이 존재하고 비어있지 않을 때
-        const urls: string[] = [];
-        for (const imageUrl of card.imageUrls) {
-          const fileRef = ref(fstorage, imageUrl);
-          const url = await getDownloadURL(fileRef);
-          urls.push(url);
-        }
-        setImageUrls(urls);
-      }
-    };
-
-    fetchImageUrls();
-  }, [card.imageUrls]);
+  const [marketData, setMarketData] = useState<any>(null);
 
   const handleDeleteMarket = () => {
     deleteMarket(marketId)
       .then((response: any) => {
-        console.log("maket deleted successfully", response);
+        console.log("market deleted successfully", response);
         onDelete();
         setIsModalOpen(false);
         window.location.reload();
@@ -62,34 +38,73 @@ function MarketMoreModal({ card, marketId, onDelete }: MarketMoreModalProps) {
         console.error("Error deleting market", error);
       });
   };
+
+  useEffect(() => {
+    const fetchMarketData = async () => {
+      try {
+        const data = await selectMarketOne(marketId); // API 호출
+        console.log("data", data);
+        setMarketData(data.resultData); // API 응답을 상태에 저장
+      } catch (error) {
+        console.error("Error fetching market data", error);
+      }
+    };
+
+    if (isModalOpen) {
+      fetchMarketData(); // 모달이 열릴 때만 API 호출
+    }
+  }, [marketId, isModalOpen]);
+
+  useEffect(() => {
+    const fetchImageUrls = async () => {
+      if (card.imageUrl && card.imageUrl.length > 0) {
+        const urls = card.imageUrl.map((image) => image.imageUrl);
+        setImageUrls(urls);
+      }
+    };
+
+    fetchImageUrls();
+  }, [card.imageUrl]);
+
   return (
     <div>
-      {isModalOpen && (
+      {isModalOpen && marketData && (
         <Card>
           <Content>
-            <Title>{card.title}</Title>
+            <Title>{marketData.title}</Title>
             <Writer>
-              <div className="small-title">By.</div> {card.writer}
+              <div className="small-title">By.</div> {marketData.nickname}
             </Writer>
             <IsSelling>
               <div className="small-title">거래여부</div>
-              {card.isSold}
+              {card.soldout ? "판매 완료" : "판매 중"}
             </IsSelling>
             <Category>
               <div className="small-title">카테고리</div>
-              {card.marketWay}
+              {marketData.marketWay}
             </Category>
             <Price>
               <div className="small-title">가격</div>
-              {card.price}원
+              {marketData.price}원
             </Price>
-            <Copy>{card.content}</Copy>
-            {imageUrls.map((imageUrl, index) => (
-              <Image key={index} src={imageUrl} alt={`Image ${index}`} />
-            ))}
+            <Copy>{marketData.content}</Copy>
+            {marketData.imageUrl &&
+              marketData.imageUrl.length > 0 &&
+              marketData.imageUrl.map(
+                (
+                  image: { imageId: number; imageUrl: string },
+                  index: number
+                ) => (
+                  <Image
+                    key={index}
+                    src={image.imageUrl}
+                    alt={`Image ${index}`}
+                  />
+                )
+              )}
+
             {user.nickname === card.writer ? (
               <Flex>
-                {/* 수정화면만들기 */}
                 <BoardBtn btnmsg="수정" link="" />
                 <BoardBtn
                   btnmsg="삭제"
@@ -182,11 +197,6 @@ const Category = styled.p`
     font-weight: bold;
     padding-right: 10px;
   }
-`;
-
-const CommentContainer = styled.div`
-  width: 100%;
-  background-color: white;
 `;
 
 const Image = styled.img`

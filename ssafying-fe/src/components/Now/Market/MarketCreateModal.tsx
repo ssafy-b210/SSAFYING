@@ -48,7 +48,7 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
   const [price, setPrice] = useState(0);
   const [content, setContent] = useState("");
   const [imageUrls, setImageUrls] = useState<string[]>([]); //업로드된 이미지의 url 상태
-  // const [images, setImages] = useState<string[]>([]); // 이미지들의 URL을 저장할 상태
+  const [images, setImages] = useState<string[]>([]); // 이미지들의 URL을 저장할 상태
   const user = useAppSelector(selectUser);
   const [modalVisible, setModalVisible] = useState(true);
   const navigate = useNavigate();
@@ -78,9 +78,9 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
     setContent(newContent);
   };
 
-  // const setImage = (url: string) => {
-  //   setImageUrl(url);
-  // };
+  const setImage = (url: string[]) => {
+    setImageUrls(url);
+  };
 
   const handleModalClose = () => {
     onCloseModal();
@@ -100,6 +100,8 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
 
     //이미지 파일을 blob으로 변환하여 업로드
     const uploadTasks = imageUrls.map(async (imageUrl) => {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
       const fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
       const fileRef = ref(fstorage, `${writerName}/${fileName}`);
       await uploadString(fileRef, imageUrl, "data_url");

@@ -26,7 +26,7 @@ const MarketCardList: React.FC<MarketCardListProps> = ({
     {
       title: string;
       writer: string;
-      isSold: boolean;
+      soldout: boolean;
       marketWay: string;
       price: number;
       content: string;
