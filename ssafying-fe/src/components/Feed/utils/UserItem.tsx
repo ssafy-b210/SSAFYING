@@ -1,16 +1,22 @@
 import styled from "styled-components";
 import RoundImg from "../utils/RoundImg";
+import { Link } from "react-router-dom";
 
 interface userProps {
-  userId: string;
+  userId: number;
+  userNickname: string;
   userImage: string;
 }
 
-function UserItem({ userId, userImage }: userProps) {
+function UserItem({ userId, userNickname, userImage }: userProps) {
   return (
     <UserWrapper>
-      <RoundImg src={userImage} size="30px" />
-      <UserId>{userId}</UserId>
+      <Link to={`/profile/${userId}`} className="home">
+        <RoundImg src={userImage} size="30px" />
+      </Link>
+      <Link to={`/profile/${userId}`} className="home">
+        <UserId>{userNickname}</UserId>
+      </Link>
     </UserWrapper>
   );
 }

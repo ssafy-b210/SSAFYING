@@ -2,10 +2,7 @@ import styled from "styled-components";
 import UserItem from "../utils/UserItem";
 
 interface userProps {
-  userList: {
-    userId: string;
-    userImage: string;
-  }[];
+  userList: any[];
 }
 
 function UserItemList({ userList }: userProps) {
@@ -15,6 +12,7 @@ function UserItemList({ userList }: userProps) {
         <UserItem
           key={user.userId}
           userId={user.userId}
+          userNickname={user.userNickname}
           userImage={user.userImage}
         />
       ))}

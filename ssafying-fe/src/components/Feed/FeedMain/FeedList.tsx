@@ -18,8 +18,8 @@ function FeedList() {
 
   const handleList = async () => {
     const list = await getFeedList(user.userId);
-    console.log("feedlist" + list.resultData);
-    setFeedList(list.resultData || []);
+    console.log("feedlist" + list);
+    setFeedList(list || []);
   };
 
   return (
@@ -32,7 +32,7 @@ function FeedList() {
             ))}
           </div>
         ) : (
-          <p>다른 사용자들을 팔로우해보세요!</p>
+          <p>팔로우한 사용자의 피드 글이 없습니다.</p>
         )}
       </FeedWrapper>
       <UserRecommendList />
