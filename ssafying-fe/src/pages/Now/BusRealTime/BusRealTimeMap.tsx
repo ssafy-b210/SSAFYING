@@ -34,7 +34,7 @@ function BusRealTimeMap() {
   const [recvList, setRecvList] = useState<any[]>([]);
 
   // 정류장 리스트
-  const [busStopList, setBusStopList] = useState<any[]>();
+  const [busStopList, setBusStopList] = useState<BusStop[]>([]);
 
   // 현재 위치 좌표
   const [currLocation, setCurrLocation] = useState<Location>({
@@ -46,10 +46,6 @@ function BusRealTimeMap() {
     connection();
     getBusStopList();
   }, []);
-
-  useEffect(() => {
-    console.log(stompClient);
-  });
 
   function connection() {
     const socket = new SockJS(SOCKET_SERVER_URL);
@@ -79,6 +75,11 @@ function BusRealTimeMap() {
     const message = JSON.parse(payload.body);
     recvList.push(message);
 
+    setCurrLocation({
+      latitude: message.latitude,
+      longitude: message.longitude,
+    });
+
     console.log("구독으로 받은 메시지 입니다.", message);
   }
 
@@ -91,14 +92,11 @@ function BusRealTimeMap() {
   // 버스 정류장 조회
   async function getBusStopList() {
     const response = await selectBusStopList(SHUTTLE_ID);
-    console.log("response", response);
     setBusStopList(response);
   }
 
   // 메세지 송신 - 현재 유저 위치 좌표값
   async function sendLocation() {
-    console.log("stompClient", stompClient);
-
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (positon) => {
@@ -121,7 +119,8 @@ function BusRealTimeMap() {
               JSON.stringify(message)
             );
 
-            console.log(message);
+            setCurrLocation(location);
+
             console.log("서버로 메시지를 보냈습니다.", message);
           }
         },
@@ -142,23 +141,21 @@ function BusRealTimeMap() {
         isCenter={true}
         htext={<h3>대전 1호차 위치공유</h3>}
       />
-      {busStopList?.map((item) => (
-        <div>{item.busStopName}</div>
-      ))}
       <MapContainer>
-        {/* <Tmap
-          currLocation={{
-            lat: busPosition.latitude,
-            lng: busPosition.longitude,
-          }}
-          nextLocation={{
-            lat: 36.3579,
-            lng: 127.396,
-          }}
-        /> */}
+        {currLocation.latitude > 0 && currLocation.longitude > 0 ? (
+          <Tmap
+            currLocation={{
+              lat: currLocation.latitude,
+              lng: currLocation.longitude,
+            }}
+            nextLocation={{
+              lat: 36.3579,
+              lng: 127.396,
+            }}
+          />
+        ) : null}
       </MapContainer>
       <button onClick={sendLocation}>위치공유하기</button>
-      {/* <div>{`${currPosition.latitude}, ${currPosition.longitude}`}</div> */}
     </div>
   );
 }

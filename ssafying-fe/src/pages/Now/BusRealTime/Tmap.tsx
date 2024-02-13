@@ -88,7 +88,6 @@ function Tmap(props: { currLocation: Location; nextLocation: Location }) {
   }
 
   //경로안내
-  // 경로안내
   function onComplete(this: any) {
     console.log(this._responseData); // json으로 데이터를 받은 정보들을 콘솔창에서 확인할 수 있습니다.
 
