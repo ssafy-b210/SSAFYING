@@ -29,7 +29,13 @@ values ('springboot 스터디 할 팀원 구해요!!', 2, '서울캠에서 sprin
        ('CS 스터디 함께해요', 5, '내용5', 'GWANGJU', 'STUDY', false);
 
 insert into board(user_id, is_anonymous, content, title, category)
-values (1, true, '요새 점심시간이 너무 기대됨ㅋㅋ 나만 그럼?', '요새 대전 점심시간', 'FREEDOM'),
+values (1, true, '요새 점심시간이 너무 기대됨ㅋㅋ', '요새 대전 점심시간', 'FREEDOM'),
+       (2, false, '요새 점심시간이 너무 기대됨ㅋㅋ 나만 그럼?', '대전캠 근처 맛집 추천', 'FREEDOM'),
+       (3, false, '요새 점심시간이 너무 기대됨ㅋㅋ 나만 그럼?', '유온역 공부하기 좋은 카페', 'FREEDOM'),
+       (4, true, '요새 점심시간이 너무 기대됨ㅋㅋ 나만 그럼?', '영화 웡카 본 사람??', 'FREEDOM'),
+       (5, false, '요새 점심시간이 너무 기대됨ㅋㅋ 나만 그럼?', '우리집 강아지 보고가세여', 'FREEDOM'),
+       (6, true, '요새 점심시간이 너무 기대됨ㅋㅋ 나만 그럼?', '데스크탑 추천', 'FREEDOM'),
+       (7, true, '요새 점심시간이 너무 기대됨ㅋㅋ 나만 그럼?', '코테 너무 어렵다...', 'FREEDOM'),
        (2, false, 'intellij 정말 유용한 툴이라서 intellij를 이용한 개발 꿀팁 알려드립니다.', 'intellij 이용한 개발 꿀팁', 'DEVELOPMENT'),
        (3, false, '저는 이번에 N사에 취업하게 되었습니다. 제 취업에 대한 내용을 공유하면 좋을 듯하여 글을 쓰게 되었습니다.', 'N사 취업과 느끼고 배운 점', 'EMPLOYMENT'),
        (4, false, 'content', '팀 제주도 프로젝트 홍보', 'PROMOTION'),
@@ -184,3 +190,12 @@ INSERT INTO board_scrap (board_scrap_id, user_id, board_id) VALUES
     (2, 2, 2),
     (3, 3, 3),
     (4, 4, 4);
+
+
+-- 대나무숲 더미 데이터
+
+insert into bamboo (uesr_id, content)
+values (1, "나 사실 좋아하는 사람 있다. 그것도 싸피 대전캠 2반에.... 언제 고백하지?"),
+       (2, "고민이 있는데,,,,, 나 너무 힘드러!!!!!!! 직장 때려칠게요"),
+       (3, "다들 하루하루 버틸만해? 나는 너무 힘들다"),
+       (4, "생각보다 프로젝트 빌런이 많은듯..");
