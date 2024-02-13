@@ -7,10 +7,16 @@ import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
 import { fstorage } from "../../../apis/firebase";
 import { uploadString, ref, getDownloadURL } from "firebase/storage";
+import { selectOneUserInfo } from "../../../apis/api/User";
 
-function ProfileImage() {
+interface ProfileImageProps {
+  onDownloadUrlChange: (downloadURL: string) => void;
+}
+
+function ProfileImage({ onDownloadUrlChange }: ProfileImageProps) {
   const [uploadImage, setUploadImage] = useState<string | null>(null);
   const [compressedImage, setCompressedImage] = useState<string | null>(null);
+  const [userInfo, setUserInfo] = useState<any>(null);
   const user = useAppSelector(selectUser);
   const { isLoading: isCompressLoading, compressImage } = ImgCompress();
 
@@ -40,7 +46,7 @@ function ProfileImage() {
       await uploadString(fileRef, imageUrl, "data_url");
       const downloadURL = await getDownloadURL(fileRef);
       console.log(downloadURL);
-      return downloadURL;
+      onDownloadUrlChange(downloadURL);
     };
   };
 
@@ -49,6 +55,18 @@ function ProfileImage() {
       handleCompressImage();
     }
   }, [uploadImage]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userData = await selectOneUserInfo(user.userId);
+        setUserInfo(userData.resultData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, [user.userId]);
 
   return (
     <FeedCreateWrapper>
@@ -60,6 +78,13 @@ function ProfileImage() {
             {isCompressLoading ? "이미지 압축 중.." : "이미지가 없어요."}
           </div>
         )}
+        {/* {userInfo && userInfo.resultData ? (
+          <img src={userInfo.resultData} />
+        ) : (
+          <div className="cover">
+            {isCompressLoading ? "이미지 압축 중.." : "이미지가 없어요."}
+          </div>
+        )} */}
         <ImageCropper aspectRatio={1 / 1} onCrop={handleUploadImage}>
           <ImgUploadBtn>📷</ImgUploadBtn>
         </ImageCropper>

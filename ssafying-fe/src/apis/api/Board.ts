@@ -79,12 +79,18 @@ export async function cancelscrapBoard(userId: number, boardId: number) {
 }
 
 // 게시판 게시글 상세 조회
-export async function selectOneBoard(boardId: number) {
+export async function selectOneBoard(boardId: number, userId: number) {
   try {
-    const response = await axios.get(`/api/boards/${boardId}`);
+    const response = await axios.get(`/api/boards/${boardId}`, {
+      params: {
+        userId: userId,
+      },
+    });
+    console.log(response.data);
     return response.data;
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 }
 

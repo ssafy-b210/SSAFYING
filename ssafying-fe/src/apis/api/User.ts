@@ -27,6 +27,7 @@ export async function updateUserInfo(
   try {
     const response = await axios.patch(`${REST_USER_API}/${userId}`, data);
     console.log(response.data);
+    return response.data;
   } catch (e) {
     console.log(e);
   }

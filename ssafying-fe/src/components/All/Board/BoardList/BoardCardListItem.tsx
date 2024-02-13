@@ -11,16 +11,18 @@ interface BoardItemProps {
     isAnonymous: boolean;
     boardId: number;
   };
+  index: number;
 }
 
-function BoardCardListItem({ card }: BoardItemProps) {
+function BoardCardListItem({ card, index }: BoardItemProps) {
+  const boardId = index + 1;
   const handleDeleteBoard = () => {
     // console.log("Board item deleted", boardId);
   };
 
   return (
     <div>
-      <Card>
+      <Card key={index}>
         <Wrapper>
           <Front>
             <Title>
@@ -33,9 +35,9 @@ function BoardCardListItem({ card }: BoardItemProps) {
           </Front>
           <Back>
             <Content>
-              {card.content.length < 100
+              {card.content.length < 30
                 ? card.content
-                : card.content.slice(0, 99) + "..."}
+                : card.content.slice(0, 29) + "..."}
             </Content>
             <Button>
               <Modal btnTxt="더보기">

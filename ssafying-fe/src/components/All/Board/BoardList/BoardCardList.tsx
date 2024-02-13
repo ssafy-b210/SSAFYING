@@ -62,7 +62,7 @@ const BoardCardList: React.FC<BoardCardListProps> = ({ selectedCategory }) => {
       {cards.length > 0 ? (
         <Container>
           {cards.map((card, index) => (
-            <BoardCardListItem key={index} card={card} />
+            <BoardCardListItem key={index} card={card} index={index} />
           ))}
         </Container>
       ) : (

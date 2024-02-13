@@ -47,7 +47,13 @@ function SavedBoardList() {
               index: index,
             };
 
-            return <BoardCardListItem key={data.index} card={data.card} />;
+            return (
+              <BoardCardListItem
+                key={data.index}
+                card={data.card}
+                index={data.index}
+              />
+            );
           })}
         </div>
       ) : (

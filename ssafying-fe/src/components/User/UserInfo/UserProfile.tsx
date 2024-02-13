@@ -4,7 +4,6 @@ import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
 import { selectOneUserInfo } from "../../../apis/api/User";
 import { useState, useEffect } from "react";
-import ProfileImageAfterEdit from "./ProfileImageAfterEdit";
 
 function UserProfile() {
   const user = useAppSelector(selectUser);
@@ -29,8 +28,6 @@ function UserProfile() {
 
   return (
     <Profile>
-      <ProfileImageAfterEdit />
-      {/* <ProfileImage /> */}
       <MyIntroduction>
         <h3>{user.username}</h3>
         <p>{user.email}</p>
