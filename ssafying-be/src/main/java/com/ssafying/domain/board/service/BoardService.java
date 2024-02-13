@@ -181,6 +181,7 @@ public class BoardService {
             // 자식댓글 list 를 하나씩 돌면서 response 에 들어갈 DTO 에 넣어줌
             for (BoardComment boardComment : childComment) { //자식댓글 하나씩 돌면서 DTO 에 내용 넣어줌
                 ChildCommentDTO build = ChildCommentDTO.builder()
+                        .nickname(boardComment.getUser().getNickname())
                         .comment(boardComment.getContent())
                         .userName(boardComment.getUser().getName())
                         .isAnonymous(boardComment.isAnonymous())
@@ -194,6 +195,7 @@ public class BoardService {
             // 해당 댓글 DTO 를 만들어줌
             ParentCommentDTO parentCommentDTO = ParentCommentDTO.builder()
                     .comment(comment.getContent())
+                    .nickname(comment.getUser().getNickname())
                     .userName(comment.getUser().getName())
                     .isAnonymous(comment.isAnonymous())
                     .createdAt(comment.getCreatedAt())
@@ -210,6 +212,7 @@ public class BoardService {
         // response 에 넣을 댓글들 셋팅 완료
         // board 에 대한 board 정보를 만들어서 넘김
         FindDetailBoardResponse result = FindDetailBoardResponse.builder()
+                .nickname(board.getUser().getNickname())
                 .userName(board.getUser().getName())
                 .title(board.getTitle())
                 .content(board.getContent())
