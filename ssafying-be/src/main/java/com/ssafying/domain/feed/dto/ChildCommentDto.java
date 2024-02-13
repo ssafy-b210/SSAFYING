@@ -10,6 +10,8 @@ import lombok.*;
 @AllArgsConstructor
 public class ChildCommentDto {
 
+    int id;
+
     // 댓글 작성 유저정보
     SimpleUserDto user;
 

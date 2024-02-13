@@ -510,6 +510,7 @@ public class FeedService {
     private List<ParentCommentDto> convertToParentCommentDtoList(List<FeedComment> parentComments) {
         return parentComments.stream()
                 .map(parentComment -> ParentCommentDto.builder()
+                        .id(parentComment.getId())
                         .user(convertToSimpleUserDto(parentComment.getUser()))
                         .content(parentComment.getContent())
                         .likeCounts(parentComment.getCommentLikes().size())
@@ -534,6 +535,7 @@ public class FeedService {
 
     private ChildCommentDto convertToChildCommentDto(FeedComment childComment) {
         return ChildCommentDto.builder()
+                .id(childComment.getId())
                 .user(convertToSimpleUserDto(childComment.getUser()))
                 .content(childComment.getContent())
                 .isDeleted(childComment.isDeleted())

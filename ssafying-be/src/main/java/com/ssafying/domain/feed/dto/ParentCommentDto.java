@@ -13,6 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 public class ParentCommentDto {
 
+    int id;
+
     // 댓글 작성 유저정보
     SimpleUserDto user;
     
