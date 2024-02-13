@@ -5,9 +5,10 @@ import CommentInput from "./CommentInput";
 
 interface CommentModalProps {
   onClose: () => void;
+  feedId: number;
 }
 
-const CommentModal: React.FC<CommentModalProps> = ({ onClose }) => {
+const CommentModal: React.FC<CommentModalProps> = ({ onClose, feedId }) => {
   const [modalClosed, setModalClosed] = useState(false);
 
   const handleCommentSubmit = (comment: string) => {
@@ -25,7 +26,7 @@ const CommentModal: React.FC<CommentModalProps> = ({ onClose }) => {
             &times;
           </CloseButton>
         </CloseButtonContainer>
-        <CommentList />
+        <CommentList feedId={feedId} />
       </ModalContent>
       <CommentInputContainer>
         <CommentInput onSubmit={handleCommentSubmit} target="feed" />

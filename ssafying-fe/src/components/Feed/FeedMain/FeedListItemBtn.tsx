@@ -16,9 +16,10 @@ import { cancelLikeFeed } from "../../../apis/api/Feed";
 
 interface Props {
   likeCount: number;
+  feedId: number;
 }
 
-const FeedListItemBtn: React.FC<Props> = ({ likeCount }: Props) => {
+const FeedListItemBtn: React.FC<Props> = ({ likeCount, feedId }: Props) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const openComment = () => {
@@ -80,7 +81,7 @@ const FeedListItemBtn: React.FC<Props> = ({ likeCount }: Props) => {
         </div>
         <FeedLikeCnt likeCount={likeCount} />
       </BtnWrapper>
-      {modalOpen && <CommentModal onClose={closeComment} />}
+      {modalOpen && <CommentModal onClose={closeComment} feedId={feedId} />}
     </>
   );
 };

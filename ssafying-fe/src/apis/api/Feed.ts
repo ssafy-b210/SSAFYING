@@ -83,26 +83,31 @@ export async function cancelLikeFeed(userId: number, feedId: number) {
 
 //피드 좋아요 리스트
 
-//피드 검색
-export async function getFeedSearch(hashtag: string, nickname: string) {
+//피드 해시태그 검색
+export async function getFeedSearchHashtag(hashtag: string) {
   try {
-    if (hashtag === "" && nickname !== "") {
-      const response = await axios.get(`${REST_FEED_API}/search`, {
-        params: {
-          nickname: nickname,
-        },
-      });
-      console.log(response.data.resultData);
-      return response.data.resultData;
-    } else if (hashtag !== "" && nickname === "") {
-      const response = await axios.get(`${REST_FEED_API}/search`, {
-        params: {
-          hashtag: hashtag,
-        },
-      });
-      console.log(response.data.resultData);
-      return response.data.resultData;
-    }
+    const response = await axios.get(`${REST_FEED_API}/search`, {
+      params: {
+        hashtag: hashtag,
+      },
+    });
+    console.log(response.data.resultData);
+    return response.data.resultData;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+//피드 닉네임 검색
+export async function getFeedSearchNickname(nickname: string) {
+  try {
+    const response = await axios.get(`api/users/search`, {
+      params: {
+        nickname: nickname,
+      },
+    });
+    console.log(response.data.resultData);
+    return response.data.resultData;
   } catch (e) {
     console.log(e);
   }
