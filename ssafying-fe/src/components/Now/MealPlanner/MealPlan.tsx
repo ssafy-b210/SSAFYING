@@ -48,7 +48,7 @@ const MealPlan: React.FC<MealPlanProps> = ({ onVote, voteCount = 0 }) => {
         )}
       </MealPlanContainer>
       <IsLikeContainer>
-        <IsLikeButton onClick={onVote}>투표하기</IsLikeButton>
+        <button onClick={onVote}>투표하기</button>
         <label className="file-label" htmlFor={inputId}>
           추가하기
         </label>
@@ -72,69 +72,69 @@ export default MealPlan;
 export type { MealPlanProps };
 
 const MealPlanContainer = styled.div`
-  width: 200px;
-  height: 300px;
+  width: 170px;
+  height: 250px;
   border: none;
   border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.4);
-  margin: 10px;
-  overflow: hidden;
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+  margin: 5px;
 `;
 
 const ResultContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-wrap: wrap;
+  padding: 10px;
 `;
 const IsLikeContainer = styled.div`
   display: flex;
   justify-content: center;
-  .file-label {
-    border-radius: 20px;
-    border: 1px solid gray;
-    padding: 10px;
-    font-size: 15px;
-    transition: background-color 0.3s;
 
-    &:hover {
-      background-color: lightblue;
-    }
-    &:active {
-      background-color: lightcoral;
-    }
-    margin: 5px;
+  button,
+  .file-label {
+    border: none;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 7px;
   }
+
+  button: hover,
+  .file-label: hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+  }
+
   .file {
     display: none;
   }
 `;
-const IsLikeButton = styled.button`
-  border-radius: 20px;
-  border: 1px solid gray;
-  background-color: transparent;
-  font-family: "Noto Sans KR", "Noto Sans";
-  font-size: 15px;
-  padding: 10px;
-  transition: background-color 0.3s;
+// const IsLikeButton = styled.button`
+//   border-radius: 20px;
+//   border: 1px solid gray;
+//   background-color: transparent;
+//   font-family: "Noto Sans KR", "Noto Sans";
+//   font-size: 15px;
+//   padding: 10px;
+//   transition: background-color 0.3s;
 
-  &:hover {
-    background-color: lightblue;
-  }
-  &:active {
-    background-color: lightcoral;
-  }
-  margin: 5px;
-`;
-const VoteCountText = styled.p`
-  margin-top: 5px;
-  font-size: 14px;
-  color: gray;
-`;
+//   &:hover {
+//     background-color: lightblue;
+//   }
+//   &:active {
+//     background-color: lightcoral;
+//   }
+//   margin: 5px;
+// `;
+// const VoteCountText = styled.p`
+//   margin-top: 5px;
+//   font-size: 14px;
+//   color: gray;
+// `;
 const StyledParagraph = styled.p`
   margin: 5px 0;
 `;

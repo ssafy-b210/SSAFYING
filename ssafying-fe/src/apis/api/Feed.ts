@@ -45,6 +45,15 @@ export async function getFeedList(userId: number) {
 }
 
 //피드상세
+export async function getFeedDetail(feedId: number) {
+  try {
+    const response = await axios.get(`/api/feeds/${feedId}`);
+    console.log(response.data.resultData);
+    return response.data.resultData;
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 //피드 좋아요
 export async function likeFeed(userId: number, feedId: number) {
@@ -128,6 +137,15 @@ export async function cancelscrapFeed(userId: number, feedId: number) {
 }
 
 //피드 댓글 조회
+export async function getFeedComment(feedId: number) {
+  try {
+    const response = await axios.get(`/api/feeds/${feedId}/comments`);
+    console.log(response.data.resultData);
+    return response.data.resultData;
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 //피드 댓글 작성
 export async function createFeedComment(
@@ -154,6 +172,14 @@ export async function createFeedComment(
 }
 
 //피드 댓글 삭제
+export async function deleteFeedComment(feedCommentId: number) {
+  try {
+    const response = await axios.delete(`api/feeds/comments/${feedCommentId}`);
+    console.log(response.data);
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 //피드 댓글 좋아요
 
