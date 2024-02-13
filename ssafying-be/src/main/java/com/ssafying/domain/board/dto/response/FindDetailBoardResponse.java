@@ -15,6 +15,8 @@ import java.util.List;
 @Builder
 @Getter
 public class FindDetailBoardResponse {
+    String nickname;
+
     String userName;
 
     String title;
