@@ -14,7 +14,6 @@ const CommentModal: React.FC<CommentModalProps> = ({ onClose, feedId }) => {
   const handleCommentSubmit = (comment: string) => {
     console.log("Comment submitted:", comment);
     setModalClosed(true);
-
     onClose();
   };
 

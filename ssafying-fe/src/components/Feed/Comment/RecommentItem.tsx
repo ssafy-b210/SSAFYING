@@ -5,7 +5,7 @@ import ImgBtn from "../utils/ImgBtn";
 import deleteBtn from "../../../assets/img/imgBtn/deleteBtn.svg";
 import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
-
+import { deleteFeedComment } from "../../../apis/api/Feed";
 interface RecommentProps {
   commentId: number;
   commentUser: {
@@ -14,18 +14,16 @@ interface RecommentProps {
     profileImageUrl?: string;
   };
   content: string;
-  onClickDelete: () => void;
 }
 
-function RecommentItem({
-  commentId,
-  commentUser,
-  content,
-  onClickDelete,
-}: RecommentProps) {
+function RecommentItem({ commentId, commentUser, content }: RecommentProps) {
   const user = useAppSelector(selectUser);
 
   const profileImageUrl = commentUser.profileImageUrl || userProfileImg;
+
+  const onClickDelete = () => {
+    deleteFeedComment(commentId);
+  };
 
   return (
     <RecommentWrapper>
@@ -35,7 +33,7 @@ function RecommentItem({
         <Content>{content}</Content>
       </RecommentContent>
       <ButtonsWrapper>
-        {commentId === user.userId && (
+        {commentUser.id === user.userId && (
           <ImgBtn src={deleteBtn} onClick={onClickDelete} size="12px" />
         )}
       </ButtonsWrapper>
