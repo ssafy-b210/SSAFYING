@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 public class ChildCommentDTO {
     String comment;
+    String nickname;
     String userName;
     boolean isAnonymous;
     LocalDateTime createdAt;
