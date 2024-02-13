@@ -3,10 +3,15 @@ import ImageCropper from "./ImageCropper";
 import ImgCompress from "../../ImgHandle/ImgCompress";
 import { dataURItoFile } from "../../ImgHandle/DataToFile";
 import styled from "styled-components";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
+import { fstorage } from "../../../apis/firebase";
+import { uploadString, ref, getDownloadURL } from "firebase/storage";
 
 function ProfileImage() {
   const [uploadImage, setUploadImage] = useState<string | null>(null);
   const [compressedImage, setCompressedImage] = useState<string | null>(null);
+  const user = useAppSelector(selectUser);
   const { isLoading: isCompressLoading, compressImage } = ImgCompress();
 
   const handleUploadImage = (image: string) => setUploadImage(image);
@@ -22,6 +27,21 @@ function ProfileImage() {
     if (!compressedImage) return;
     const imageUrl = URL.createObjectURL(compressedImage);
     setCompressedImage(imageUrl);
+
+    const reader = new FileReader();
+    reader.readAsDataURL(compressedImage);
+    reader.onloadend = async () => {
+      const imageUrl = reader.result as string;
+
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
+      const fileRef = ref(fstorage, `${user.nickname}/${fileName}`);
+      await uploadString(fileRef, imageUrl, "data_url");
+      const downloadURL = await getDownloadURL(fileRef);
+      console.log(downloadURL);
+      return downloadURL;
+    };
   };
 
   useEffect(() => {

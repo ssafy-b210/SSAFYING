@@ -1,11 +1,18 @@
 import styled from "styled-components";
 import ProfileImage from "./ProfileImage";
+import { selectOneUserInfo } from "../../../apis/api/User";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
+
 function UserProfile() {
+  const user = useAppSelector(selectUser);
+  console.log(user);
+
   return (
     <Profile>
       <ProfileImage />
       <MyIntroduction>
-        <h3>이예원</h3>
+        <h3>{user.username}</h3>
         <p>youremail@domain.com</p>
       </MyIntroduction>
     </Profile>
