@@ -5,6 +5,7 @@ import com.ssafying.domain.board.dto.response.FindDetailBoardResponse;
 import com.ssafying.domain.board.dto.response.FindListBoardResponse;
 import com.ssafying.domain.board.entity.Board;
 import com.ssafying.domain.board.repository.jdbc.BoardRepository;
+import com.ssafying.domain.feed.dto.FeedDto;
 import com.ssafying.domain.feed.dto.response.GetFeedResponse;
 import com.ssafying.domain.feed.entity.Feed;
 import com.ssafying.domain.feed.entity.FeedHashtag;
@@ -127,7 +128,7 @@ public class MypageService {
     /**
      * 6.3.1 작성한 피드 조회
      */
-    public List<GetFeedResponse> findAuthoredFeeds(int userId) {
+    public List<FeedDto> findAuthoredFeeds(int userId) {
 
         User user = getUser(userId);
         List<Feed> feedList = feedRepository.findByUser(user);
@@ -136,8 +137,8 @@ public class MypageService {
             throw new RuntimeException("작성한 피드가 존재하지 않습니다");
         }
 
-        List<GetFeedResponse> response = feedList.stream()
-                .map(feedService::convertToDto)
+        List<FeedDto> response = feedList.stream()
+                .map(feedService::convertToFeedDto)
                 .collect(Collectors.toList());;
 
         return response;
