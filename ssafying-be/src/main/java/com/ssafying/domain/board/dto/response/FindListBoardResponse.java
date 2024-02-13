@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 public class FindListBoardResponse {
+    int boardId;
+
     String userName;
 
     String nickname;
