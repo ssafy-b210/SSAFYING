@@ -28,6 +28,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/mypage")
 @Tag(name = "마이페이지")
+@CrossOrigin("*")
 public class MypageController {
 
     private final MypageService mypageService;

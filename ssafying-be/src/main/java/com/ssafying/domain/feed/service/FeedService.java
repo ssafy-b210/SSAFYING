@@ -19,10 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 import static com.ssafying.global.entity.Hashtag.createTag;
@@ -207,11 +205,31 @@ public class FeedService {
      * 3.7 피드 검색
      *
      */
-    public List<GetFeedResponse> searchFeed(String hashtag, String nickname) {
+    public List<FeedDto> searchFeed(String hashtag, String nickname) {
         Specification<Feed> specification = FeedSpecification.containingHashtagOrNickname(hashtag, nickname);
         List<Feed> feeds = feedRepository.findAll(specification);
+
+
+        if (nickname != null) {
+            List<User> users = userRepository.findByNicknameLike(nickname);
+
+            Map<Integer, SimpleUserDto> userDtoMap = users.stream()
+                    .collect(Collectors.toMap(User::getId, this::convertToSimpleUserDto));
+            return feeds.stream()
+                    .map(feed -> {
+                        SimpleUserDto userDto = userDtoMap.get(feed.getUser().getId());
+                        if (userDto != null) {
+                            FeedDto currentFeedDto = convertToFeedDto(feed);
+                            currentFeedDto.setUser(userDto);
+                            return currentFeedDto;
+                        }
+                        return convertToFeedDto(feed);
+                    })
+                    .collect(Collectors.toList());
+        }
+
         return feeds.stream()
-                .map(this::convertToDto)
+                .map(this::convertToFeedDto)
                 .collect(Collectors.toList());
     }
 
