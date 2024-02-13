@@ -52,7 +52,6 @@ function ContentFeedSection() {
     const res = await selectMyFeedList(Number(profileUserId));
     if (res !== undefined) {
       setAllMyFeedList(res.data.resultData || []);
-      // console.log(res.data.resultData);
     }
   }
 
@@ -114,8 +113,6 @@ function ContentFeedSection() {
         </div>
       </HashtagList>
       {myFeedList.map((data: any) => (
-        // FIX: 여기에 FeedItem 추가하기
-        // FIX: 해시태그 선택시 필터링 기능 추가
         <FeedListItem key={data.id} feed={data} />
       ))}
     </div>
