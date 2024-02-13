@@ -30,14 +30,14 @@ function CommentList({ feedId }: Props) {
 
   return (
     <div>
-      {commentList.map((comment, index) => (
+      {commentList.map((comment) => (
         <CommentItem
-          key={index}
-          commentId={comment.commentId}
-          nickname={comment.user.nickname}
+          key={comment.id}
+          commentId={comment.id}
+          commentUser={comment.user}
           content={comment.content}
-          isHighlighted={comment.commentId === highlightedCommentId}
-          onClick={() => handleCommentClick(comment.commentId)}
+          isHighlighted={comment.id === highlightedCommentId}
+          onClick={() => handleCommentClick(comment.id)}
           replies={comment.childComments}
         />
       ))}
