@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import RoundImg from "../utils/RoundImg";
-import { Link } from "react-router-dom";
 
 interface userProps {
   userId: number;
@@ -11,12 +10,8 @@ interface userProps {
 function UserItem({ userId, userNickname, userImage }: userProps) {
   return (
     <UserWrapper>
-      <Link to={`/profile/${userId}`} className="home">
-        <RoundImg src={userImage} size="30px" />
-      </Link>
-      <Link to={`/profile/${userId}`} className="home">
-        <UserId>{userNickname}</UserId>
-      </Link>
+      <RoundImg src={userImage} size="30px" />
+      <UserId>{userNickname}</UserId>
     </UserWrapper>
   );
 }

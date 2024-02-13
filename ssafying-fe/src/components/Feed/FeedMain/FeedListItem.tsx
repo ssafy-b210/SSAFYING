@@ -21,7 +21,7 @@ function FeedListItem({ feed }: FeedProps) {
       {feed.feedImageUrls !== undefined && (
         <FeedListItemImg imageUrls={feed.feedImageUrls} />
       )}
-      <FeedListItemBtn likeCount={feed.likeCount} />
+      <FeedListItemBtn likeCount={feed.likeCount} feedId={feed.id} />
     </FeedListItemWrapper>
   );
 }

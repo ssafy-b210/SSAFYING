@@ -98,7 +98,7 @@ export async function getFeedSearchHashtag(hashtag: string) {
   }
 }
 
-//피드 해시태그 검색
+//피드 닉네임 검색
 export async function getFeedSearchNickname(nickname: string) {
   try {
     const response = await axios.get(`api/users/search`, {
@@ -106,8 +106,8 @@ export async function getFeedSearchNickname(nickname: string) {
         nickname: nickname,
       },
     });
-    console.log(response.data);
-    return response.data;
+    console.log(response.data.resultData);
+    return response.data.resultData;
   } catch (e) {
     console.log(e);
   }
