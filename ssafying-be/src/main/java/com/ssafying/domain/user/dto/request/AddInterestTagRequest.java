@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 public class AddInterestTagRequest {
 
-    int userId;
+//    int userId;
 //    String tagName;
     List<String> hashtags;
 

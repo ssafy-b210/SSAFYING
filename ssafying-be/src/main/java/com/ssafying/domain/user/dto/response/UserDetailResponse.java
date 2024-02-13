@@ -1,6 +1,9 @@
 package com.ssafying.domain.user.dto.response;
 
+import com.ssafying.domain.user.entity.InterestTag;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Builder

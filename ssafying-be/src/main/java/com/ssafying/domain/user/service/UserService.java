@@ -105,7 +105,9 @@ public class UserService {
     @Transactional
     public List<String> addInterestTag(AddInterestTagRequest request){
 
-        User user = userRepository.findById(request.getUserId())
+        int userSize = userRepository.findAll().size();
+
+        User user = userRepository.findById(userSize)
                 .orElseThrow(() -> new RuntimeException("회원 정보를 찾을 수 없습니다."));
 
         //tag 찾아오고 만약 해당 태그가 없다면 저장하기
