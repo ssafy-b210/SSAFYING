@@ -16,7 +16,6 @@ public class NotificationService {
     private final UserRepository userRepository;
     private final EmitterRepository emitterRepository;
 
-
     private static final Long DEFAULT_TIMEOUT = 600L * 1000 * 60;
 
     public SseEmitter subscribe(int userId) {
@@ -26,8 +25,16 @@ public class NotificationService {
         return emitter;
     }
 
+    // 좋아요를 누르거나 댓글을 남기는 등 알림이 전송되어야 하는 곳에서 이 함수를 실행시킴
+    // sse에도 해당 알림 내용을 전달하고 디비에도 저장해줘야 함
+    // customNotify 함수를 사용하는 유저는
     public <T> void customNotify(int userId, T data, String comment, String type) {
+        // SSE 에 해당 알림 전송
         sendToClient(userId, data, comment, type);
+
+        // 디비에도 저장해줌
+
+
     }
 
     public void notify(int userId, Object data, String comment) {
