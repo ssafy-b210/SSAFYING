@@ -2,9 +2,13 @@ import styled from "styled-components";
 
 interface CreateContentProps {
   onContentChange: (newContent: string) => void;
+  initialContent?: string;
 }
 
-function CreateContent({ onContentChange }: CreateContentProps) {
+function CreateContent({
+  onContentChange,
+  initialContent = "",
+}: CreateContentProps) {
   const handleContentChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -14,7 +18,7 @@ function CreateContent({ onContentChange }: CreateContentProps) {
     <Content>
       <h4>내용</h4>
       <ContentContainer>
-        <StyledInput onChange={handleContentChange} />
+        <StyledInput onChange={handleContentChange} value={initialContent} />
       </ContentContainer>
     </Content>
   );
