@@ -49,7 +49,7 @@ public class User extends BaseTimeEntity {
 
     private int generation; //기수
 
-    @Column(name = "profile_image_url", columnDefinition = "TEXT")
+    @Column(name = "profile_image_url", length = 1000)
     private String profileImageUrl; //프로필이미지
 
     private String intro; //한줄 소개
