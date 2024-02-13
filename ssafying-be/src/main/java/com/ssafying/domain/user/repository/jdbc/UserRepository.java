@@ -50,4 +50,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 
 
+    //닉네임으로 검색
+    @Query("select u from User u where u.nickname like :nickname")
+    List<User> findByNickname(@Param("nickname") String nickname);
+
 }

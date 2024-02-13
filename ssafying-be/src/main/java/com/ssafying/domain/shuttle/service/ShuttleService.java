@@ -1,7 +1,6 @@
 package com.ssafying.domain.shuttle.service;
 
 import com.ssafying.domain.shuttle.dto.request.UserLocationRequest;
-import com.ssafying.domain.shuttle.dto.response.UserLocationResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -12,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Slf4j
-public class LocationMessageService {
+public class ShuttleService {
 
     private final SimpMessagingTemplate simpMessagingTemplate;
 

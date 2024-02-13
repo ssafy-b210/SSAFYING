@@ -1,5 +1,6 @@
 package com.ssafying.domain.user.service;
 
+import com.ssafying.domain.user.dto.SimpleUserDto;
 import com.ssafying.domain.user.dto.request.AddInterestTagRequest;
 import com.ssafying.domain.user.dto.request.UpdateUserRequest;
 import com.ssafying.domain.user.dto.response.AddInterestTagResponse;
@@ -15,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -133,6 +135,26 @@ public class UserService {
 
     }
 
+    /**
+     * 닉네임으로 검색
+     */
+    public List<SimpleUserDto> searchByNickname(String nickname){
+
+        List<User> user = userRepository.findByNickname("%" + nickname + "%");
+
+        List<SimpleUserDto> list = new ArrayList<>();
+
+        for(User u : user){
+            list.add(SimpleUserDto.builder()
+                    .id(u.getId())
+                    .nickname(u.getNickname())
+                    .profileImageUrl(u.getProfileImageUrl())
+                    .build());
+        }
+
+        return list;
+
+    }
 
 
 }

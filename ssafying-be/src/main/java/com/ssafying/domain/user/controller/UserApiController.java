@@ -1,5 +1,6 @@
 package com.ssafying.domain.user.controller;
 
+import com.ssafying.domain.user.dto.SimpleUserDto;
 import com.ssafying.domain.user.dto.request.AddInterestTagRequest;
 import com.ssafying.domain.user.dto.request.RemoveUserRequest;
 import com.ssafying.domain.user.dto.request.UpdateUserRequest;
@@ -16,6 +17,8 @@ import lombok.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -78,6 +81,20 @@ public class UserApiController {
             @RequestBody AddInterestTagRequest request){
 
         AddInterestTagResponse result = userService.addInterestTag(request);
+
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
+
+    }
+
+    /**
+     * 1.9 닉네임으로 검색
+     */
+    @GetMapping("/search")
+    public ResponseEntity<ResultResponse<List<SimpleUserDto>>> searchByNickname(
+            @RequestParam("nickname") String nickname
+    ){
+
+        List<SimpleUserDto> result = userService.searchByNickname(nickname);
 
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
 
