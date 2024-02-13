@@ -52,17 +52,45 @@ function ContentFeedSection() {
     const res = await selectMyFeedList(Number(profileUserId));
     if (res !== undefined) {
       setAllMyFeedList(res.data.resultData || []);
-      console.log(res.data.resultData);
+      // console.log(res.data.resultData);
     }
   }
 
   // 선택한 해시태그만 포함된 내가 작성한 피드 리스트 가져오기
-  function filterMyFeedList() {}
+  function filterMyFeedList() {
+    // 선택한 해시태그가 없을 경우 전체 리스트 보여주기
+    if (selectedTagList.length === 0) {
+      setMyFeedList(allMyFeedList);
+      return;
+    }
+
+    // 선택한 태그가 있는 게시물만 보여주기
+    const tempArr: any[] = [];
+
+    allMyFeedList.forEach((item: any) => {
+      const feedTags = item.feedTags;
+
+      for (const tag of feedTags) {
+        const isIncluded = selectedTagList.some((item) => item.tagName === tag);
+
+        if (isIncluded) {
+          tempArr.push(item);
+          break;
+        }
+      }
+    });
+
+    setMyFeedList(tempArr);
+  }
 
   useEffect(() => {
     getHashtagList();
     getAllMyFeedList();
   }, []);
+
+  useEffect(() => {
+    filterMyFeedList();
+  }, [toggleSelectedTag]);
 
   return (
     <div>
@@ -85,7 +113,7 @@ function ContentFeedSection() {
           <img src={downArrow} alt="아래 화살표" />
         </div>
       </HashtagList>
-      {allMyFeedList.map((data: any) => (
+      {myFeedList.map((data: any) => (
         // FIX: 여기에 FeedItem 추가하기
         // FIX: 해시태그 선택시 필터링 기능 추가
         <FeedListItem key={data.id} feed={data} />
