@@ -5,6 +5,7 @@ import com.ssafying.domain.user.dto.SimpleUserDto;
 import com.ssafying.domain.user.dto.request.AddInterestTagRequest;
 import com.ssafying.domain.user.dto.request.UpdateUserRequest;
 import com.ssafying.domain.user.dto.response.AddInterestTagResponse;
+import com.ssafying.domain.user.dto.response.ModifyUserResponse;
 import com.ssafying.domain.user.dto.response.UserDetailResponse;
 import com.ssafying.domain.user.entity.InterestTag;
 import com.ssafying.domain.user.entity.User;
@@ -74,7 +75,7 @@ public class UserService {
      * 회원 정보 수정
      */
     @Transactional
-    public int modifyUser(int userId, UpdateUserRequest request){
+    public ModifyUserResponse modifyUser(int userId, UpdateUserRequest request){
         //해당 유저 찾기
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("유저 정보를 찾을 수 없습니다."));
@@ -83,9 +84,19 @@ public class UserService {
                 user,
                 request
         );
+
+        ModifyUserResponse response = ModifyUserResponse.builder()
+                .name(updatedUser.getName())
+                .nickname(updatedUser.getNickname())
+                .email(updatedUser.getEmail())
+                .phoneNumber(updatedUser.getPhoneNumber())
+                .intro(updatedUser.getIntro())
+                .profileImageUrl(updatedUser.getProfileImageUrl())
+                .build();
+
         userRepository.save(user);
 
-        return user.getId();
+        return response;
     }
 
 

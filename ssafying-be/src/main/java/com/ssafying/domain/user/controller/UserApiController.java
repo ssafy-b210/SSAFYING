@@ -5,6 +5,7 @@ import com.ssafying.domain.user.dto.request.AddInterestTagRequest;
 import com.ssafying.domain.user.dto.request.RemoveUserRequest;
 import com.ssafying.domain.user.dto.request.UpdateUserRequest;
 import com.ssafying.domain.user.dto.response.AddInterestTagResponse;
+import com.ssafying.domain.user.dto.response.ModifyUserResponse;
 import com.ssafying.domain.user.dto.response.UserDetailResponse;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.service.UserService;
@@ -48,10 +49,10 @@ public class UserApiController {
      */
     @PatchMapping("/{userId}")
     @Operation(summary = "회원 정보 수정")
-    public ResponseEntity<ResultResponse<Integer>> userModify(@PathVariable(name = "userId") int userId,
-                                                              @RequestBody UpdateUserRequest request){
+    public ResponseEntity<ResultResponse<ModifyUserResponse>> userModify(@PathVariable(name = "userId") int userId,
+                                                                         @RequestBody UpdateUserRequest request){
 
-        int result = userService.modifyUser(userId, request);
+        ModifyUserResponse result = userService.modifyUser(userId, request);
 
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
