@@ -1,9 +1,26 @@
+import React, { useState } from "react";
 import styled from "styled-components";
 import WorkBtn from "./WorkBtn";
 import LifeBtn from "./LifeBtn";
 import SubmitBtn from "../../Common/SubmitBtn";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
+import { selectTag } from "../../../apis/api/User";
 
 function SelectTagForm() {
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const user = useAppSelector(selectUser);
+
+  const handleSubmit = async () => {
+    try {
+      const userId = user.userId;
+      console.log(selectedTags);
+      await selectTag(userId, selectedTags);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <TagMsg>
@@ -11,15 +28,25 @@ function SelectTagForm() {
       </TagMsg>
       {/* 워크 */}
       <TagContainer>
-        <WorkBtn></WorkBtn>
+        <WorkBtn
+          setSelectedTags={setSelectedTags}
+          selectedTags={selectedTags}
+        />
       </TagContainer>
       <hr></hr>
       {/* 라이프 */}
       <TagContainer>
-        <LifeBtn></LifeBtn>
+        <LifeBtn
+          setSelectedTags={setSelectedTags}
+          selectedTags={selectedTags}
+        />
       </TagContainer>
       <BtnContainer>
-        <SubmitBtn link="/auth" text="싸피 인증하러 가기"></SubmitBtn>
+        <SubmitBtn
+          link="/"
+          text="로그인하러가기"
+          onClick={handleSubmit}
+        ></SubmitBtn>
       </BtnContainer>
     </div>
   );
