@@ -4,6 +4,7 @@ import downArrow from "../../../assets/img/imgBtn/downArrow.svg";
 import { useEffect, useState } from "react";
 import { selectHashtagList, selectMyFeedList } from "../../../apis/api/Profile";
 import { useParams } from "react-router";
+import FeedListItem from "../../Feed/FeedMain/FeedListItem";
 
 type HashtagType = { id: number; tagName: string };
 
@@ -51,6 +52,7 @@ function ContentFeedSection() {
     const res = await selectMyFeedList(Number(profileUserId));
     if (res !== undefined) {
       setAllMyFeedList(res.data.resultData || []);
+      console.log(res.data.resultData);
     }
   }
 
@@ -86,11 +88,7 @@ function ContentFeedSection() {
       {allMyFeedList.map((data: any) => (
         // FIX: 여기에 FeedItem 추가하기
         // FIX: 해시태그 선택시 필터링 기능 추가
-        <div key={data.id}>
-          <div>FeedItemTest</div>
-          <div>{`Content: ${data.content}`}</div>
-          <div>{`user: ${data.user.nickname}`}</div>
-        </div>
+        <FeedListItem key={data.id} feed={data} />
       ))}
     </div>
   );
