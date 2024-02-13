@@ -11,6 +11,7 @@ function FeedList() {
   const user = useAppSelector(selectUser);
 
   console.log("feedlist" + feedList);
+  console.log(feedList.length);
 
   useEffect(() => {
     handleList();

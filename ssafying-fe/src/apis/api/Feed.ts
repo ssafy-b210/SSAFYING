@@ -37,8 +37,8 @@ export async function deleteFeedItem(feedId: number) {
 export async function getFeedList(userId: number) {
   try {
     const response = await axios.get(`/api/feeds/${userId}/list`);
-    console.log(response.data);
-    return response.data;
+    console.log(response.data.resultData);
+    return response.data.resultData;
   } catch (e) {
     console.log(e);
   }
