@@ -11,6 +11,7 @@ interface Props {
 }
 
 function FeedContent({ content, hashtag }: Props) {
+  console.log(hashtag);
   return (
     <ContentWrapper>
       <Content>{content}</Content>
