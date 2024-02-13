@@ -21,17 +21,20 @@ values (2, 'ssafy1@ssafy.com', '1234', '애옹이', '010-1111-1111', '이싸피'
        (1, 'test8@test.com', '1234', '추천테스트7', '010-3453-6543', '양싸피', 10, 1, 'ACTIVE');
 
 insert into crew (title, user_id, content, region, category, is_recruit)
-values ('구인글1', 2, '내용1', 'SEOUL', 'STUDY', true),
-       ('구인글2', 1, '내용2', 'DAEJEON', 'CHALLENGE', true),
-       ('구인글3', 1, '내용3', 'DAEJEON', 'SOCIETY', false),
-       ('구인글4', 2, '내용4', 'SEOUL', 'CHALLENGE', false),
-       ('구인글5', 1, '내용5', 'GWANGJU', 'STUDY', false);
+values ('springboot 스터디 할 팀원 구해요!!', 2, '서울캠에서 springboot 스터디할 분을 모집합니다. 주 1-2회로 생각중입니다. 오프라인, 온라인 모두 상관없어요~', 'SEOUL',
+        'STUDY', true),
+       ('1일 1백준 챌린지', 1, '1일 1백준 문제 푸는 챌린지에 함께 할 분을 모집합니다. 함께 힘내봐요 ~!!', 'DAEJEON', 'CHALLENGE', true),
+       ('등산함께 하실 분', 3, '내용3', 'DAEJEON', 'SOCIETY', false),
+       ('토이프로젝트 프론트엔드 팀원 구합니다', 4, '내용4', 'SEOUL', 'PROJECT', false),
+       ('CS 스터디 함께해요', 5, '내용5', 'GWANGJU', 'STUDY', false);
 
 insert into board(user_id, is_anonymous, content, title, category)
-values (1, false, 'content', '바보', 'FREEDOM'),
-       (1, false, 'content', '바보인데 자유는 아님', 'DEVELOPMENT'),
-       (1, false, 'content', '아예 아무것도 아님', 'FREEDOM'),
-       (1, false, 'content', '마지막 보바보바', 'FREEDOM');
+values (1, true, '요새 점심시간이 너무 기대됨ㅋㅋ 나만 그럼?', '요새 대전 점심시간', 'FREEDOM'),
+       (2, false, 'intellij 정말 유용한 툴이라서 intellij를 이용한 개발 꿀팁 알려드립니다.', 'intellij 이용한 개발 꿀팁', 'DEVELOPMENT'),
+       (3, false, '저는 이번에 N사에 취업하게 되었습니다. 제 취업에 대한 내용을 공유하면 좋을 듯하여 글을 쓰게 되었습니다.', 'N사 취업과 느끼고 배운 점', 'EMPLOYMENT'),
+       (4, false, 'content', '팀 제주도 프로젝트 홍보', 'PROMOTION'),
+       (5, true, 'content', '팀 제주도 프로젝트 홍보', 'PROMOTION'),
+       (6, false, 'content', '팀 제주도 프로젝트 홍보', 'PROMOTION');
 
 insert into follow (from_user, to_user)
 values (1, 2), (1, 3), (1, 4), (1, 5), (1, 6),
@@ -96,26 +99,24 @@ values ('오정동 육교 밑 (국민연금북대전지사)', 1, 36.3587785, 127
        ('현충원역', 6, 36.359521, 127.320080, '08:14');
 
 insert into market (user_id, market_way,is_soldout, price, title, content)
-values (1, 'SELL', true, 10000, '한무무 키보드 팔아요', '얼마안썼어용'),
-       (2, 'BUY', false, 10000, '키보드 사용', '상태 좋은 걸로 구해요'),
+values (1, 'SELL', true, 10000, '한무무 GK898B  키보드 팔아요', '얼마안썼어용'),
+       (2, 'BUY', false, 10000, '노트북 거치대 삽니다', '상태 좋은 걸로 구해요'),
        (1, 'SELL', false, 30000, '모니터 팔아요', '얼마안썼어용'),
-       (3, 'SHARE', false, 500, '키보드 나눔합니다', '사용감 있어요');
+       (3, 'SHARE', false, 0, '키보드 나눔합니다', '사용감 있어요');
 
 -- 피드 더미 데이터
-INSERT INTO feed (user_id, content, hit) VALUES
-    (1, 'Feed content 1', 10),
-    (2, 'Feed content 2', 15),
-    (3, 'Feed content 3', 20),
-    (4, 'Feed content 4', 25),
-    (5, 'Feed content 5', 30);
+INSERT INTO feed (user_id, content, hit) VALUES (1, '오늘 팀 회식하러 간다 ㅎㅎ 벌써 마지막 주라니 ㅜㅜ...!!', 10),
+                                                (2, '점심 너모 맛있었음', 15),
+                                                (3, '우리 팀장 딸요스 사줬다~~~ 애옹 최고**', 20),
+                                                (4, '오늘 밤샘 개발 간다..', 25),
+                                                (5, '저녁으로 플랭크 버거 추천', 30);
 
 -- 해시태그 더미 데이터
-INSERT INTO hashtag (hashtag_id, tag_name) VALUES
-    (1, 'tag1'),
-    (2, 'tag2'),
-    (3, 'tag3'),
-    (4, 'tag4'),
-    (5, 'tag5');
+INSERT INTO hashtag (hashtag_id, tag_name) VALUES (1, '딸요스'),
+                                                  (2, '일상'),
+                                                  (3, '개발'),
+                                                  (4, '공통프로젝트'),
+                                                  (5, '오저추');
 
 -- 피드-해시태그 연결 더미 데이터
 INSERT INTO feed_hashtag (feed_id, hashtag_id) VALUES
@@ -150,11 +151,13 @@ INSERT INTO feed_scrap (feed_id, user_id) VALUES
     (5, 2);
 
 -- 피드 댓글 더미 데이터
-INSERT INTO feed_comment (feed_id, user_id, content, is_deleted, parent_id) VALUES
-    (1, 2, 'Comment 1', false, NULL),
-    (1, 3, 'Comment 2', false, NULL),
-    (1, 3, 'Comment 2', false, 1),
-    (1, 3, 'Comment 2', false, 1),
+INSERT INTO feed_comment (feed_id, user_id, content, is_deleted, parent_id) VALUES (1, 2, '팀 회식 어디루 가??', false, NULL),
+                                                                                   (1, 3, '그니까.. 시간 진짜 너무 빠르다;;', false,
+                                                                                    NULL),
+                                                                                   (1, 1, '봉명 마시기통차ㅎㅎㅎ 고기 맛집이야', false,
+                                                                                    1),
+                                                                                   (1, 1, '그치,, 갈수록 시간이 빨라지는 거 같어',
+                                                                                    false, 2),
     (2, 4, 'Comment 3', false, NULL),
     (3, 5, 'Comment 4', false, NULL),
     (3, 2, 'Reply to Comment 4', false, 4);
