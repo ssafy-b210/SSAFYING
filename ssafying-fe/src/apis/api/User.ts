@@ -1,6 +1,5 @@
-import { useNavigate } from "react-router-dom";
 import { axios } from "../utils/axios";
-import { log } from "console";
+
 const REST_USER_API = `/api/users`;
 
 // 회원 정보 조회
@@ -8,6 +7,7 @@ export async function selectOneUserInfo(userId: number) {
   try {
     const response = await axios.get(`${REST_USER_API}/${userId}`);
     console.log(response.data);
+    return response.data;
   } catch (e) {
     console.log(e);
   }
