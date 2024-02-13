@@ -8,6 +8,7 @@ import ImgBtn from "../utils/ImgBtn";
 import RecommentList from "./RecommentList";
 import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
+import { deleteFeedComment } from "../../../apis/api/Feed";
 
 interface CommentProps {
   commentId: number;
@@ -33,8 +34,8 @@ function CommentItem({
   const user = useAppSelector(selectUser);
   const profileImageUrl = commentUser.profileImageUrl || userProfileImg;
 
-  function clickDeleteBtn() {
-    console.log("delete comment");
+  async function clickDeleteBtn() {
+    await deleteFeedComment(commentId);
   }
 
   return (
@@ -47,14 +48,12 @@ function CommentItem({
         </CommentContent>
         <ButtonsWrapper>
           <TextBtn onClick={onClick}>답글달기</TextBtn>
-          {commentId === user.userId && (
+          {commentUser.id === user.userId && (
             <ImgBtn src={deleteBtn} onClick={clickDeleteBtn} size="15px" />
           )}
         </ButtonsWrapper>
       </UserWrapper>
-      {replies.length > 0 && (
-        <RecommentList onClick={clickDeleteBtn} replies={replies} />
-      )}
+      {replies.length > 0 && <RecommentList replies={replies} />}
     </>
   );
 }
