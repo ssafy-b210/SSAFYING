@@ -23,7 +23,7 @@ function SavedBoardList() {
 
   async function getSavedBoardList() {
     const res = await selectSavedBoardList(user.userId);
-    if (res !== undefined) setSavedBoardList(res.data.resultData);
+    if (res !== undefined) setSavedBoardList(res);
   }
 
   useEffect(() => {
@@ -34,9 +34,26 @@ function SavedBoardList() {
     <div>
       {savedBoardList.length > 0 ? (
         <div>
-          {savedBoardList.map((item) => (
-            <BoardCardListItem card={item.card} index={item.index} />
-          ))}
+          {savedBoardList.map((item: any, index) => {
+            const data = {
+              card: {
+                title: item.title,
+                content: item.content,
+                writer: item.nickname,
+                category: item.category,
+                isAnonymous: item.anonymous,
+              },
+              index: index,
+            };
+
+            return (
+              <BoardCardListItem
+                key={data.index}
+                card={data.card}
+                index={data.index}
+              />
+            );
+          })}
         </div>
       ) : (
         <InfoText>저장된 게시판이 없습니다.</InfoText>
