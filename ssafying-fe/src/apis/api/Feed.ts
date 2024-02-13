@@ -44,6 +44,17 @@ export async function getFeedList(userId: number) {
   }
 }
 
+//추천 피드 조회
+export async function getRecommendFeedList(userId: number) {
+  try {
+    const response = await axios.get(`/api/feeds/${userId}/recommend`);
+    console.log(response.data.resultData);
+    return response.data.resultData;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 //피드상세
 export async function getFeedDetail(feedId: number) {
   try {
