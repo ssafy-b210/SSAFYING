@@ -197,7 +197,7 @@ INSERT INTO board_scrap (board_scrap_id, user_id, board_id) VALUES
 
 -- 대나무숲 더미 데이터
 
-insert into bamboo (uesr_id, content)
+insert into bamboo (user_id, content)
 values (1, "나 사실 좋아하는 사람 있다. 그것도 싸피 대전캠 2반에.... 언제 고백하지?"),
        (2, "고민이 있는데,,,,, 나 너무 힘드러!!!!!!! 직장 때려칠게요"),
        (3, "다들 하루하루 버틸만해? 나는 너무 힘들다"),
