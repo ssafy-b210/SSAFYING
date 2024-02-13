@@ -79,6 +79,9 @@ const Wrapper = styled.div`
   transform-style: preserve-3d;
   border: 3px solid gray;
   border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 `;
 const Card = styled.div`
   width: 200px;

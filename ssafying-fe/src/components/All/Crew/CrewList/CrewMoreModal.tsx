@@ -5,7 +5,7 @@ import CrewCommentList from "./CrewCommentList";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectUser } from "../../../../store/reducers/user";
 import BoardBtn from "../../Board/BoardBtn";
-import { deleteCrew } from "../../../../apis/api/Crew";
+import { deleteCrew, selectCrewOne } from "../../../../apis/api/Crew";
 
 // 카드 눌렀을때 crew detail
 interface moreProps {
@@ -28,6 +28,7 @@ const handleCommentSubmit = (comment: string) => {
 function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
   const user = useAppSelector(selectUser);
   const [isModalOpen, setIsModalOpen] = useState(true);
+  const [crewData, setCrewData] = useState<any>(null);
 
   const handleDeleteCrew = () => {
     deleteCrew(crewId)

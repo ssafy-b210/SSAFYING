@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import ProfileImage from "./ProfileImage";
+import ProfileImage from "../UserInfo/ProfileImage";
 import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
 import { selectOneUserInfo } from "../../../apis/api/User";
 import { useState, useEffect } from "react";
-import ProfileImageAfterEdit from "./ProfileImageAfterEdit";
 
-function UserProfile() {
+function UserProfileUpdate() {
   const user = useAppSelector(selectUser);
   const [userInfo, setUserInfo] = useState<any>(null);
 
@@ -29,8 +28,7 @@ function UserProfile() {
 
   return (
     <Profile>
-      <ProfileImageAfterEdit />
-      {/* <ProfileImage /> */}
+      <ProfileImage />
       <MyIntroduction>
         <h3>{user.username}</h3>
         <p>{user.email}</p>
@@ -38,7 +36,7 @@ function UserProfile() {
     </Profile>
   );
 }
-export default UserProfile;
+export default UserProfileUpdate;
 
 const Profile = styled.div`
   margin-top: 15px;

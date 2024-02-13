@@ -1,16 +1,50 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { selectOneUserInfo } from "../../../apis/api/User";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
 
 function UserInformation() {
+  const user = useAppSelector(selectUser);
+  const [userInfo, setUserInfo] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userData = await selectOneUserInfo(user.userId);
+        setUserInfo(userData.resultData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [user.userId]);
+
+  useEffect(() => {
+    console.log(userInfo);
+  }, [userInfo]);
+
   return (
     <div>
       <BigContainer>
         <UserInfoContainer>
-          <div className="category">닉네임</div>
-          <div className="content">aeong123</div>
-          <div className="category">전화번호</div>
-          <div className="content">010-0000-0000</div>
-          <div className="category">한줄 소개</div>
-          <div className="content">나는 짱이야</div>
+          {userInfo ? (
+            <>
+              <div className="category">닉네임</div>
+              <div className="content">{userInfo.nickname}</div>
+              <div className="category">전화번호</div>
+              <div className="content">{userInfo.phoneNumber}</div>
+              <div className="category">한줄 소개</div>
+              <div className="content">
+                {userInfo.intro === null
+                  ? "아직 한줄 소개가 없습니다. 한줄 소개 글을 작성해주세요!"
+                  : userInfo.intro}
+              </div>
+            </>
+          ) : (
+            <div>Loading...</div>
+          )}
           <div className="category">바이오링크</div>
           <div className="content">aeong123@github.com</div>
         </UserInfoContainer>
