@@ -12,6 +12,10 @@ const MealPlan: React.FC<MealPlanProps> = ({ onVote, voteCount = 0 }) => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [mealPlanResult, setMealPlanResult] = useState<string[]>([]);
 
+  console.log(onVote);
+
+  console.log(mealPlanResult);
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
 
@@ -28,6 +32,9 @@ const MealPlan: React.FC<MealPlanProps> = ({ onVote, voteCount = 0 }) => {
     }
   };
 
+  // 고유한 id 생성
+  const inputId = `chooseFile_${Math.random().toString(36).substr(2, 9)}`;
+
   return (
     <div>
       <MealPlanContainer>
@@ -42,12 +49,12 @@ const MealPlan: React.FC<MealPlanProps> = ({ onVote, voteCount = 0 }) => {
       </MealPlanContainer>
       <IsLikeContainer>
         <IsLikeButton onClick={onVote}>투표하기</IsLikeButton>
-        <label className="file-label" htmlFor="chooseFile">
+        <label className="file-label" htmlFor={inputId}>
           추가하기
         </label>
         <input
           className="file"
-          id="chooseFile"
+          id={inputId}
           type="file"
           accept="image/*"
           onChange={handleFileChange}
