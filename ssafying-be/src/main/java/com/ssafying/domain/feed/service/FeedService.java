@@ -209,25 +209,6 @@ public class FeedService {
         Specification<Feed> specification = FeedSpecification.containingHashtagOrNickname(hashtag, nickname);
         List<Feed> feeds = feedRepository.findAll(specification);
 
-
-        if (nickname != null) {
-            List<User> users = userRepository.findByNicknameLike(nickname);
-
-            Map<Integer, SimpleUserDto> userDtoMap = users.stream()
-                    .collect(Collectors.toMap(User::getId, this::convertToSimpleUserDto));
-            return feeds.stream()
-                    .map(feed -> {
-                        SimpleUserDto userDto = userDtoMap.get(feed.getUser().getId());
-                        if (userDto != null) {
-                            FeedDto currentFeedDto = convertToFeedDto(feed);
-                            currentFeedDto.setUser(userDto);
-                            return currentFeedDto;
-                        }
-                        return convertToFeedDto(feed);
-                    })
-                    .collect(Collectors.toList());
-        }
-
         return feeds.stream()
                 .map(this::convertToFeedDto)
                 .collect(Collectors.toList());
