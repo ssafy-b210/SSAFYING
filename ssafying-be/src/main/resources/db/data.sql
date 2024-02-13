@@ -53,7 +53,11 @@ values ('이예원', '2_yewon@naver.com', 1035775),
        ('노현석', 'nhs503601@gmail.com', 1030533),
        ('임지은', 'ljieun01@naver.com', 1031156),
        ('김수은', 'tndms0308@naver.com', 1036351),
-       ('김혜진', 'hyejin9203@naver.com', 1034262);
+       ('김혜진', 'hyejin9203@naver.com', 1034262),
+       ('김동학', 'kdh19583@gmail.com', 1033298),
+       ('전성수', 'ke_wer@naver.com', 1032467),
+       ('구본민', 'gugabm@naver.com', 1030955),
+       ('조민준', 'cjmg1085@naver.com', 1038855);
 
 insert into shuttle (campus_id)
 values (2), (2), (2), (2), (2), (2);
@@ -111,7 +115,7 @@ values (1, 'SELL', true, 10000, '한무무 GK898B  키보드 팔아요', '얼마
        (3, 'SHARE', true, 0, '키보드 나눔합니다', '사용감 있어요'),
        (4, 'SHARE', false, 0, '싸피 블랙 XL 후드집업 새거 L랑 사이즈 교환', '새거에요@@@!!'),
        (6, 'SELL', false, 300000, '덕명동 집 팔아요', '10평입니다.'),
-       (7, 'SELL', false, 10000, '덕명동 집 팔아요', '햇반 살사람 구해요!');
+       (7, 'SELL', false, 10000, '햇반 10개 팔아요', '햇반 살사람 구해요!');
 
 -- 피드 더미 데이터
 INSERT INTO feed (user_id, content, hit) VALUES (1, '오늘 팀 회식하러 간다 ㅎㅎ 벌써 마지막 주라니 ㅜㅜ...!!', 10),
@@ -160,16 +164,14 @@ INSERT INTO feed_scrap (feed_id, user_id) VALUES
     (5, 2);
 
 -- 피드 댓글 더미 데이터
-INSERT INTO feed_comment (feed_id, user_id, content, is_deleted, parent_id) VALUES (1, 2, '팀 회식 어디루 가??', false, NULL),
-                                                                                   (1, 3, '그니까.. 시간 진짜 너무 빠르다;;', false,
-                                                                                    NULL),
-                                                                                   (1, 1, '봉명 마시기통차ㅎㅎㅎ 고기 맛집이야', false,
-                                                                                    1),
-                                                                                   (1, 1, '그치,, 갈수록 시간이 빨라지는 거 같어',
-                                                                                    false, 2),
-    (2, 4, 'Comment 3', false, NULL),
-    (3, 5, 'Comment 4', false, NULL),
-    (3, 2, 'Reply to Comment 4', false, 4);
+INSERT INTO feed_comment (feed_id, user_id, content, is_deleted, parent_id)
+VALUES (1, 2, '팀 회식 어디루 가??', false, NULL),
+       (1, 3, '그니까.. 시간 진짜 너무 빠르다;;', false, NULL),
+       (1, 1, '봉명 마시기통차ㅎㅎㅎ 고기 맛집이야', false, 1),
+       (1, 1, '그치,, 갈수록 시간이 빨라지는 거 같어', false, 2),
+       (2, 4, 'Comment 3', false, NULL),
+       (3, 5, 'Comment 4', false, NULL),
+       (3, 2, 'Reply to Comment 4', false, 4);
 
 -- 피드 댓글 좋아요 더미 데이터
 INSERT INTO feed_comment_like (feed_comment_id, user_id) VALUES
@@ -197,8 +199,10 @@ INSERT INTO board_scrap (board_scrap_id, user_id, board_id) VALUES
 
 -- 대나무숲 더미 데이터
 
-insert into bamboo (uesr_id, content)
-values (1, "나 사실 좋아하는 사람 있다. 그것도 싸피 대전캠 2반에.... 언제 고백하지?"),
-       (2, "고민이 있는데,,,,, 나 너무 힘드러!!!!!!! 직장 때려칠게요"),
-       (3, "다들 하루하루 버틸만해? 나는 너무 힘들다"),
-       (4, "생각보다 프로젝트 빌런이 많은듯..");
+insert into bamboo (user_id, content, created_at)
+values (1, '나 사실 좋아하는 사람 있다. 그것도 싸피 대전캠 2반에.... 언제 고백하지?', now()),
+       (2, '고민이 있는데,,,,, 나 너무 힘드러!!!!!!! 직장 때려칠게요', now()),
+       (3, '다들 하루하루 버틸만해? 나는 너무 힘들다', now()),
+       (4, '생각보다 프로젝트 빌런이 많은듯..', now()),
+       (1, '알고리즘 풀어야 하는데 ㅠㅠ 언제하지', now()),
+       (5, '메롱', now());
