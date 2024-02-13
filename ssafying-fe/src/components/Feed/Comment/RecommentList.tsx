@@ -4,10 +4,15 @@ import RecommentItem from "./RecommentItem";
 interface RepliesProps {
   onClick: () => void;
   replies: {
-    replyId: number;
-    commentId: number;
-    nickname: string;
+    id: number;
+    user: {
+      id: number;
+      nickname: string;
+      profileImageUrl: string;
+    };
     content: string;
+    likeCounts: number;
+    deleted: boolean;
   }[];
 }
 
@@ -16,9 +21,9 @@ function RecommentList({ onClick, replies }: RepliesProps) {
     <RecommentListWrapper>
       {replies.map((reply) => (
         <RecommentItem
-          key={reply.replyId}
-          commentId={reply.commentId}
-          nickname={reply.nickname}
+          key={reply.id}
+          commentId={reply.id}
+          commentUser={reply.user}
           content={reply.content}
           onClickDelete={() => onClick}
         />
