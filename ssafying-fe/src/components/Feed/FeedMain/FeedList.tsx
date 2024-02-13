@@ -14,7 +14,7 @@ function FeedList() {
 
   useEffect(() => {
     handleList();
-  });
+  }, []);
 
   const handleList = async () => {
     const list = await getFeedList(user.userId);
