@@ -49,7 +49,7 @@ function MealPlannerView() {
   return (
     <div>
       <IsMealMsg>
-        <CustomDate></CustomDate> 당신의 점심을 투표해주세요
+        <CustomDate /> 당신의 점심을 투표해주세요
       </IsMealMsg>
       <MealPlannerContainer>
         <MealPlannerComp onVote={handleVoteA} />
@@ -62,8 +62,10 @@ function MealPlannerView() {
 
 export default MealPlannerView;
 
-const IsMealMsg = styled.h3`
+const IsMealMsg = styled.div`
   text-align: center;
+  font-size: 15px;
+  font-weight: bold;
 `;
 const MealPlannerContainer = styled.div`
   display: flex;

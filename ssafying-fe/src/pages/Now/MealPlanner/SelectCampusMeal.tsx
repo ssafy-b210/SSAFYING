@@ -6,17 +6,18 @@ import MealPlannerComp from "../../../components/Now/MealPlanner/MealPlannerComp
 import NoMealPlannerComp from "../../../components/Now/MealPlanner/NoMealPlannerComp";
 import SelectCampus from "../../../components/Now/MealPlanner/SelectCampus";
 import MealPlannerView from "./MealPlannerView";
+import styled from "styled-components";
 
 // 지금 등록된 식단표가 존재하는 경우와 존재하지 않는 경우 구분!
 const hasMealPlanner = true;
 function SelectCampusMeal() {
   return (
-    <div>
+    <MealWrapper>
       <CenterHeader />
       <BackBtnHeader
         backLink="/now"
         isCenter={true}
-        htext={<h2>오늘 점심은 뭘까</h2>}
+        htext={<h3>오늘 점심은 뭘까</h3>}
         extraBtn={<PlusBtn link="/meal/create" />}
       ></BackBtnHeader>
       <SelectCampus></SelectCampus>
@@ -30,8 +31,13 @@ function SelectCampusMeal() {
           <NoMealPlannerComp></NoMealPlannerComp>
         </div>
       )}
-    </div>
+    </MealWrapper>
   );
 }
 
 export default SelectCampusMeal;
+
+const MealWrapper = styled.div`
+  width: 100%;
+  padding: 5px;
+`;
