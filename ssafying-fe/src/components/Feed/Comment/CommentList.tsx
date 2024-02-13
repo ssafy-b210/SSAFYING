@@ -5,6 +5,8 @@ function CommentList() {
   const [highlightedCommentId, setHighlightedCommentId] =
     useState<Number | null>(null);
 
+  const [commentList, setCommentList] = useState<any[]>([]);
+
   const comments = [
     {
       commentId: 1,
