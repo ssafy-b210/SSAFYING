@@ -50,7 +50,8 @@ export async function selectSavedFeedList(userId: number) {
 // 유저가 스크랩한 게시글 조회
 export async function selectSavedBoardList(userId: number) {
   try {
-    return await axios.get(`${REST_MYPAGE_API}/${userId}/boards/scrap`);
+    const res = await axios.get(`${REST_MYPAGE_API}/${userId}/boards/scrap`);
+    return res.data.resultData;
   } catch (e: any) {
     console.log(e);
   }
