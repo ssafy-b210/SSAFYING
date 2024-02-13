@@ -1,6 +1,7 @@
 package com.ssafying.domain.user.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ssafying.global.entity.Hashtag;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -20,8 +21,8 @@ public class InterestTag {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
-    @JoinColumn(name = "tag_id")
-    private Tag tag;
+    @JoinColumn(name = "hashtag_id")
+    private Hashtag tag;
 
 
     /*
@@ -29,7 +30,7 @@ public class InterestTag {
      */
     public static InterestTag addInterestTag(
             User user,
-            Tag tag
+            Hashtag tag
     ){
         InterestTag interestTag = new InterestTag();
 

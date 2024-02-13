@@ -2,6 +2,8 @@ package com.ssafying.domain.user.dto.request;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -9,6 +11,7 @@ import lombok.*;
 public class AddInterestTagRequest {
 
     int userId;
-    String tagName;
+//    String tagName;
+    List<String> hashtags;
 
 }
