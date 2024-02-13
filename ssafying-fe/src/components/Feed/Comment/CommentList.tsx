@@ -22,42 +22,6 @@ function CommentList({ feedId }: Props) {
     setCommentList(list || []);
   };
 
-  const comments = [
-    {
-      commentId: 1,
-      nickname: "aeong",
-      content: "ㅋㅋㅋㅋㅋ",
-      replies: [
-        {
-          replyId: 1,
-          commentId: 2,
-          nickname: "aeong",
-          content: "ㅎㅎㅎㅎ",
-        },
-        { replyId: 2, commentId: 1, nickname: "aeong", content: "뭐야" },
-        { replyId: 2, commentId: 1, nickname: "aeong", content: "뭐야" },
-      ],
-    },
-    {
-      commentId: 1,
-      nickname: "yes",
-      content: "화이팅",
-      replies: [
-        { replyId: 1, commentId: 5, nickname: "yes.hh", content: "안녕" },
-        { replyId: 2, commentId: 3, nickname: "yes", content: "애옹" },
-      ],
-    },
-    {
-      commentId: 1,
-      nickname: "yes.hh",
-      content: "안녕ㅎㅎ",
-      replies: [
-        { replyId: 1, commentId: 5, nickname: "yes.hh", content: "안녕" },
-        { replyId: 2, commentId: 3, nickname: "yes", content: "애옹" },
-      ],
-    },
-  ];
-
   const handleCommentClick = (commentId: number) => {
     setHighlightedCommentId(
       commentId === highlightedCommentId ? null : commentId
@@ -70,11 +34,11 @@ function CommentList({ feedId }: Props) {
         <CommentItem
           key={index}
           commentId={comment.commentId}
-          nickname={comment.nickname}
+          nickname={comment.user.nickname}
           content={comment.content}
           isHighlighted={comment.commentId === highlightedCommentId}
           onClick={() => handleCommentClick(comment.commentId)}
-          replies={comment.replies}
+          replies={comment.childComments}
         />
       ))}
     </div>

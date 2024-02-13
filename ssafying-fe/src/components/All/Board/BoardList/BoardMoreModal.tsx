@@ -20,8 +20,8 @@ interface moreProps {
     content: string;
     category: string;
     isAnonymous: boolean;
+    boardId: number;
   };
-  boardId: number;
   onDelete: () => void;
 }
 
@@ -29,20 +29,20 @@ const handleCommentSubmit = (comment: string) => {
   console.log("Comment submitted:", comment);
 };
 
-function BoardMoreModal({ card, boardId, onDelete }: moreProps) {
+function BoardMoreModal({ card, onDelete }: moreProps) {
   const user = useAppSelector(selectUser);
   const [isSaved, setIsSaved] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(true);
 
   useEffect(() => {
-    const savedStatus = localStorage.getItem(`savedStatus_${boardId}`);
+    const savedStatus = localStorage.getItem(`savedStatus_${card.boardId}`);
     setIsSaved(savedStatus === "true");
   }, []);
 
   const toggleSaved = () => {
     const newSavedStatus = !isSaved;
     setIsSaved(newSavedStatus);
-    localStorage.setItem(`savedStatus_${boardId}`, String(newSavedStatus));
+    localStorage.setItem(`savedStatus_${card.boardId}`, String(newSavedStatus));
     if (!newSavedStatus) {
       //scrapBoard(userId, boardId)
       scrapBoard(1, 1);
@@ -53,7 +53,7 @@ function BoardMoreModal({ card, boardId, onDelete }: moreProps) {
 
   //deleteBoard api 호출
   const handleDeleteBoard = () => {
-    deleteBoard(boardId)
+    deleteBoard(card.boardId)
       .then((response: any) => {
         console.log("board deleted successfully", response);
         onDelete();
@@ -106,6 +106,7 @@ function BoardMoreModal({ card, boardId, onDelete }: moreProps) {
             <MoreCommentInput
               onSubmit={handleCommentSubmit}
               target="board"
+              id={card.boardId}
             ></MoreCommentInput>
           </CommentContainer>
         </Card>
