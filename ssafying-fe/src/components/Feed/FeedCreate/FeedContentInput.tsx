@@ -18,7 +18,7 @@ function FeedContentInput() {
   const user = useAppSelector(selectUser);
   const navigate = useNavigate();
 
-  console.log(hashtags);
+  // console.log(hashtags);
 
   const handleSaveContent = async () => {
     try {

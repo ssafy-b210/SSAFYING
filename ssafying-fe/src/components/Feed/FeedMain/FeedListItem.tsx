@@ -9,6 +9,7 @@ interface FeedProps {
 }
 
 function FeedListItem({ feed }: FeedProps) {
+  console.log("피드", feed);
   return (
     <FeedListItemWrapper>
       <FeedListItemUser
@@ -18,9 +19,14 @@ function FeedListItem({ feed }: FeedProps) {
         time={feed.user.createdAt}
       />
       <FeedContent content={feed.content} hashtag={feed.feedTags} />
-      {feed.feedImageUrls !== undefined && (
-        <FeedListItemImg imageUrls={feed.feedImageUrls} />
+      {feed.feedImages !== undefined && feed.feedImages.length > 0 && (
+        <FeedListItemImg imageUrls={feed.feedImages} />
       )}
+      {/* {feed.feedImages &&
+        feed.feedImages.length > 0 &&
+        feed.feedImages.map((image: any, index: number) => (
+          <FeedListItemImg key={index} imageUrls={image} />
+        ))} */}
       <FeedListItemBtn likeCount={feed.likeCount} />
     </FeedListItemWrapper>
   );
