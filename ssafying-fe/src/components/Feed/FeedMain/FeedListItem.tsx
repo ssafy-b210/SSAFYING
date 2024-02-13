@@ -27,7 +27,7 @@ function FeedListItem({ feed }: FeedProps) {
         feed.feedImages.map((image: any, index: number) => (
           <FeedListItemImg key={index} imageUrls={image} />
         ))} */}
-      <FeedListItemBtn likeCount={feed.likeCount} />
+      <FeedListItemBtn likeCount={feed.likeCount} feedId={feed.id} />
     </FeedListItemWrapper>
   );
 }
