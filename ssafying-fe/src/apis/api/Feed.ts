@@ -37,8 +37,19 @@ export async function deleteFeedItem(feedId: number) {
 export async function getFeedList(userId: number) {
   try {
     const response = await axios.get(`/api/feeds/${userId}/list`);
-    console.log(response.data);
-    return response.data;
+    console.log(response.data.resultData);
+    return response.data.resultData;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+//추천 피드 조회
+export async function getRecommendFeedList(userId: number) {
+  try {
+    const response = await axios.get(`/api/feeds/${userId}/recommend`);
+    console.log(response.data.resultData);
+    return response.data.resultData;
   } catch (e) {
     console.log(e);
   }
@@ -83,26 +94,31 @@ export async function cancelLikeFeed(userId: number, feedId: number) {
 
 //피드 좋아요 리스트
 
-//피드 검색
-export async function getFeedSearch(hashtag: string, nickname: string) {
+//피드 해시태그 검색
+export async function getFeedSearchHashtag(hashtag: string) {
   try {
-    if (hashtag === "" && nickname !== "") {
-      const response = await axios.get(`${REST_FEED_API}/search`, {
-        params: {
-          nickname: nickname,
-        },
-      });
-      console.log(response.data.resultData);
-      return response.data.resultData;
-    } else if (hashtag !== "" && nickname === "") {
-      const response = await axios.get(`${REST_FEED_API}/search`, {
-        params: {
-          hashtag: hashtag,
-        },
-      });
-      console.log(response.data.resultData);
-      return response.data.resultData;
-    }
+    const response = await axios.get(`${REST_FEED_API}/search`, {
+      params: {
+        hashtag: hashtag,
+      },
+    });
+    console.log(response.data.resultData);
+    return response.data.resultData;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+//피드 닉네임 검색
+export async function getFeedSearchNickname(nickname: string) {
+  try {
+    const response = await axios.get(`api/users/search`, {
+      params: {
+        nickname: nickname,
+      },
+    });
+    console.log(response.data.resultData);
+    return response.data.resultData;
   } catch (e) {
     console.log(e);
   }

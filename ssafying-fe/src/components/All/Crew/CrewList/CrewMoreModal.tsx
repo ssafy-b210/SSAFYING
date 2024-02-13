@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import MoreCommentInput from "../../../Feed/Comment/CommentInput";
 import CrewCommentList from "./CrewCommentList";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectUser } from "../../../../store/reducers/user";
 import BoardBtn from "../../Board/BoardBtn";
-import { deleteCrew } from "../../../../apis/api/Crew";
+import { deleteCrew, selectCrewOne } from "../../../../apis/api/Crew";
 
 // 카드 눌렀을때 crew detail
 interface moreProps {
@@ -28,7 +28,9 @@ const handleCommentSubmit = (comment: string) => {
 function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
   const user = useAppSelector(selectUser);
   const [isModalOpen, setIsModalOpen] = useState(true);
+  const [crewData, setCrewData] = useState<any>(null);
 
+  //삭제 api 호출
   const handleDeleteCrew = () => {
     deleteCrew(crewId)
       .then((response: any) => {
@@ -42,29 +44,46 @@ function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
       });
   };
 
+  // selectCrewOne 상세조회 api 호출
+  useEffect(() => {
+    const fetchCrewData = async () => {
+      try {
+        const data = await selectCrewOne(crewId);
+        console.log("크루아이디", crewId);
+        console.log("data", data);
+        setCrewData(data.resultData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (isModalOpen) {
+      fetchCrewData(); // 모달이 열릴 때만 API 호출
+    }
+  }, [crewId, isModalOpen]);
+
   return (
     <div>
-      {isModalOpen && (
+      {isModalOpen && crewData && (
         <Card>
           <Content>
-            <Title>{card.title}</Title>
+            <Title>{crewData.title}</Title>
             <Writer>
-              <div className="small-title">By.</div> {card.writer}
+              <div className="small-title">By.</div> {crewData.writer}
             </Writer>
             <Location>
               <div className="small-title">지역</div>
-              {card.region}
+              {crewData.region}
             </Location>
             <Category>
               <div className="small-title">카테고리</div>
-              {card.category}
+              {crewData.category}
             </Category>
             <IsRecruiting>
               <div className="small-title">모집여부</div>
-              {card.isRecruit}
+              {crewData.isRecruit}
             </IsRecruiting>
-            <Copy>{card.content}</Copy>
-            {user.nickname === card.writer && (
+            <Copy>{crewData.content}</Copy>
+            {user.nickname === crewData.writer && (
               <Flex>
                 {/* 수정화면만들기 */}
                 <BoardBtn btnmsg="수정" link="" />
@@ -82,6 +101,7 @@ function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
             <MoreCommentInput
               onSubmit={handleCommentSubmit}
               target="crew"
+              id={crewId}
             ></MoreCommentInput>
           </CommentContainer>
         </Card>

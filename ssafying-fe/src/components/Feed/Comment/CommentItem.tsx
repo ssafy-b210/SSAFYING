@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import userImage from "../../../assets/img/testImg/user.jpg";
 import deleteBtn from "../../../assets/img/imgBtn/deleteBtn.svg";
+import userProfileImg from "../../../assets/img/userIcons/userProfileImg.svg";
 import RoundImg from "../utils/RoundImg";
 import ImgBtn from "../utils/ImgBtn";
 import RecommentList from "./RecommentList";
@@ -10,27 +11,27 @@ import { selectUser } from "../../../store/reducers/user";
 
 interface CommentProps {
   commentId: number;
-  nickname: string;
+  commentUser: {
+    id: number;
+    nickname: string;
+    profileImageUrl?: string;
+  };
   content: string;
   isHighlighted: boolean;
   onClick: () => void;
-  replies: {
-    replyId: number;
-    commentId: number;
-    nickname: string;
-    content: string;
-  }[];
+  replies: any[];
 }
 
 function CommentItem({
   commentId,
-  nickname,
+  commentUser,
   content,
   isHighlighted,
   onClick,
   replies,
 }: CommentProps) {
   const user = useAppSelector(selectUser);
+  const profileImageUrl = commentUser.profileImageUrl || userProfileImg;
 
   function clickDeleteBtn() {
     console.log("delete comment");
@@ -39,9 +40,9 @@ function CommentItem({
   return (
     <>
       <UserWrapper isHighlighted={isHighlighted} onClick={onClick}>
-        <RoundImg src={userImage} size="32px" />
+        <RoundImg src={profileImageUrl} size="28px" />
         <CommentContent>
-          <UserId>{nickname}</UserId>
+          <UserId>{commentUser.nickname}</UserId>
           <Content>{content}</Content>
         </CommentContent>
         <ButtonsWrapper>
@@ -67,7 +68,7 @@ const UserWrapper = styled.div<{ isHighlighted: boolean }>`
   margin-top: 5px;
   border-radius: 8px;
   background-color: ${(props) =>
-    props.isHighlighted ? "#f2f9f1" : "transparent"};
+    props.isHighlighted ? "#e9feff" : "transparent"};
 `;
 
 const CommentContent = styled.div`

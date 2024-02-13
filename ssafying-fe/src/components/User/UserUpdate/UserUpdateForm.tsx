@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import SubmitBtn from "../../Common/SubmitBtn";
 
@@ -6,11 +6,28 @@ interface InputItem {
   id: number;
   title: string;
 }
-function UserUpdateForm() {
+
+interface UserData {
+  nickname: string;
+  phoneNumber: string;
+  intro: string | null;
+}
+
+interface UserUpdateFormProps {
+  userData: UserData;
+}
+
+function UserUpdateForm({ userData }: UserUpdateFormProps) {
   const nextID = useRef<number>(1);
   const [InputItems, setInputItems] = useState<InputItem[]>([
-    { id: 0, title: "" },
+    { id: 0, title: userData.nickname ?? "" },
   ]);
+
+  useEffect(() => {
+    setInputItems([
+      { id: 0, title: userData.nickname ?? "" }, // 예시로 닉네임을 기본값으로 설정했습니다.
+    ]);
+  }, [userData]);
 
   function addInput() {
     const input = {
@@ -40,11 +57,21 @@ function UserUpdateForm() {
     <div>
       <Form>
         <SignUpInput className="input-area">
-          <input type="text" id="nickname" placeholder=" " />
+          <input
+            type="text"
+            id="nickname"
+            placeholder=" "
+            value={userData.nickname}
+          />
           <label htmlFor="nickname">닉네임을 입력해주세요</label>
         </SignUpInput>
         <SignUpInput className="input-area">
-          <input type="tel" id="tel" placeholder=" " />
+          <input
+            type="tel"
+            id="tel"
+            placeholder=" "
+            defaultValue={userData.phoneNumber}
+          />
           <label htmlFor="tel">전화번호를 입력해주세요</label>
         </SignUpInput>
         <SignUpInput className="input-area">
@@ -56,7 +83,12 @@ function UserUpdateForm() {
           <label htmlFor="password2">비밀번호를 다시 입력해주세요</label>
         </SignUpInput>
         <SignUpInput className="input-area">
-          <input type="text" id="lineIntro" placeholder=" " />
+          <input
+            type="text"
+            id="lineIntro"
+            placeholder=" "
+            // value={userData.intro}
+          />
           <label htmlFor="lineIntro">한줄 소개를 입력해주세요</label>
         </SignUpInput>
       </Form>

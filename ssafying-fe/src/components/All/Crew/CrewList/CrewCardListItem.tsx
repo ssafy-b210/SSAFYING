@@ -19,7 +19,7 @@ interface CrewItemProps {
 
 function CrewCardListItem({ card, index }: CrewItemProps) {
   //상세조회 api를 하고 boardId를 거기서 받아오자. 아자아자 화이팅.....
-  const crewId = index;
+  const crewId = index + 1;
 
   const handleDeleteBoard = () => {
     // console.log("Board item deleted", boardId);
@@ -47,9 +47,9 @@ function CrewCardListItem({ card, index }: CrewItemProps) {
           </Front>
           <Back>
             <Content>
-              {card.content.length < 100
+              {card.content.length < 30
                 ? card.content
-                : card.content.slice(0, 99) + "..."}
+                : card.content.slice(0, 29) + "..."}
             </Content>
             <Location>구인 지역 : {card.region}</Location>
             <Button>
@@ -78,6 +78,9 @@ const Wrapper = styled.div`
   transform-style: preserve-3d;
   border: 3px solid gray;
   border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 `;
 const Card = styled.div`
   width: 200px;

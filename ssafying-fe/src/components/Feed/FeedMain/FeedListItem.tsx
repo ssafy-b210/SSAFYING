@@ -22,12 +22,7 @@ function FeedListItem({ feed }: FeedProps) {
       {feed.feedImages !== undefined && feed.feedImages.length > 0 && (
         <FeedListItemImg imageUrls={feed.feedImages} />
       )}
-      {/* {feed.feedImages &&
-        feed.feedImages.length > 0 &&
-        feed.feedImages.map((image: any, index: number) => (
-          <FeedListItemImg key={index} imageUrls={image} />
-        ))} */}
-      <FeedListItemBtn likeCount={feed.likeCount} />
+      <FeedListItemBtn likeCount={feed.likeCount} feedId={feed.id} />
     </FeedListItemWrapper>
   );
 }

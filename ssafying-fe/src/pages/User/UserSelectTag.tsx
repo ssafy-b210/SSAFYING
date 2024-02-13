@@ -12,7 +12,7 @@ function UserSelectTag() {
         htext={<h2>회원가입</h2>}
         isCenter={true}
       ></BackBtnHeader>
-      <ProgressBar width={66}></ProgressBar>
+      <ProgressBar width={100}></ProgressBar>
       <SelectTagForm></SelectTagForm>
     </div>
   );

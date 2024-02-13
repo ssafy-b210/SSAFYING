@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import userImage from "../../../assets/img/testImg/user.jpg";
+import userProfileImg from "../../../assets/img/userIcons/userProfileImg.svg";
 import RoundImg from "../utils/RoundImg";
 import ImgBtn from "../utils/ImgBtn";
 import deleteBtn from "../../../assets/img/imgBtn/deleteBtn.svg";
@@ -8,23 +8,30 @@ import { selectUser } from "../../../store/reducers/user";
 
 interface RecommentProps {
   commentId: number;
-  nickname: string;
+  commentUser: {
+    id: number;
+    nickname: string;
+    profileImageUrl?: string;
+  };
   content: string;
   onClickDelete: () => void;
 }
 
 function RecommentItem({
   commentId,
-  nickname,
+  commentUser,
   content,
   onClickDelete,
 }: RecommentProps) {
   const user = useAppSelector(selectUser);
+
+  const profileImageUrl = commentUser.profileImageUrl || userProfileImg;
+
   return (
     <RecommentWrapper>
-      <RoundImg src={userImage} size="28px" />
+      <RoundImg src={profileImageUrl} size="28px" />
       <RecommentContent>
-        <UserId>{nickname}</UserId>
+        <UserId>{commentUser.nickname}</UserId>
         <Content>{content}</Content>
       </RecommentContent>
       <ButtonsWrapper>

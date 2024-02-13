@@ -59,6 +59,8 @@ function LoginForm() {
             isLoggedIn: true,
             userId: userData.id,
             username: userData.name,
+            email: userData.email,
+            password: userData.password,
             nickname: userData.nickname,
             campus: userData.campus.campusRegion,
             profileImgUrl: userData.profileImgUrl,

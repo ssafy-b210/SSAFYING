@@ -2,15 +2,16 @@ import styled from "styled-components";
 import RoundImg from "../utils/RoundImg";
 
 interface userProps {
-  userId: string;
+  userId: number;
+  userNickname: string;
   userImage: string;
 }
 
-function UserItem({ userId, userImage }: userProps) {
+function UserItem({ userId, userNickname, userImage }: userProps) {
   return (
     <UserWrapper>
       <RoundImg src={userImage} size="30px" />
-      <UserId>{userId}</UserId>
+      <UserId>{userNickname}</UserId>
     </UserWrapper>
   );
 }

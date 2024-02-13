@@ -61,7 +61,7 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
           parseInt(inputValue.level),
           inputValue.major
         );
-        navigate("/tagselect");
+        navigate("/auth");
         console.log(inputValue.major);
       } catch (error) {
         console.error("Error signing up:", error);
@@ -241,7 +241,7 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
             비전공자
           </div>
         </IsMajor>
-        <Link to={"/tagselect"}>
+        <Link to={"/auth"}>
           <button
             onClick={handleClickNext}
             disabled={isValid ? false : true}

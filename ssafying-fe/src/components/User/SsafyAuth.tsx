@@ -51,7 +51,7 @@ function SsafyAuth() {
       <Header>
         <h2>싸피인 인증절차를 진행하겠습니다.</h2>
       </Header>
-      <ProgressBar width={99}></ProgressBar>
+      <ProgressBar width={66}></ProgressBar>
       <Form>
         <Input className="input-area">
           <input type="text" id="name" placeholder=" " />
@@ -70,7 +70,7 @@ function SsafyAuth() {
         </button>
         {authSuccess && (
           <AuthMsg>
-            <p>✅성공적으로 인증이 되었습니다. 로그인을 진행해주세요. 👇</p>
+            <p>✅성공적으로 인증이 되었습니다. 관심사를 선택해주세요. 👇</p>
           </AuthMsg>
         )}
         {authError && (
@@ -79,7 +79,9 @@ function SsafyAuth() {
             {/* <button onClick={retryAuth}>재시도</button> */}
           </AuthMsg>
         )}
-        {showLoginBtn && <SubmitBtn link="/" text="로그인하러 가기" />}
+        {showLoginBtn && (
+          <SubmitBtn link="/tagselect" text="관심사 선택하러 가기" />
+        )}
       </Form>
     </div>
   );

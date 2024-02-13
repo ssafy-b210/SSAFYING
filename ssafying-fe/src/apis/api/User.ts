@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { error } from "console";
 import { axios } from "../utils/axios";
-import { log } from "console";
+
 const REST_USER_API = `/api/users`;
 
 // 회원 정보 조회
@@ -8,6 +8,7 @@ export async function selectOneUserInfo(userId: number) {
   try {
     const response = await axios.get(`${REST_USER_API}/${userId}`);
     console.log(response.data);
+    return response.data;
   } catch (e) {
     console.log(e);
   }
@@ -26,6 +27,7 @@ export async function updateUserInfo(
   try {
     const response = await axios.patch(`${REST_USER_API}/${userId}`, data);
     console.log(response.data);
+    return response.data;
   } catch (e) {
     console.log(e);
   }
@@ -45,5 +47,20 @@ export async function leaveUser(userId: number, password: string) {
     return response.data;
   } catch (e) {
     console.log(e);
+  }
+}
+
+//회원 관심사 선택
+export async function selectTag(userId: number, hashtags: string[]) {
+  try {
+    const response = await axios.post(`${REST_USER_API}/tag`, {
+      userId: userId,
+      hashtags: hashtags,
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 }

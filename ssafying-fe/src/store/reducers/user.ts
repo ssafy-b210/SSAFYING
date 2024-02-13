@@ -5,6 +5,8 @@ interface UserState {
   isLoggedIn: boolean;
   userId: number;
   username: string;
+  email: string;
+  password: string;
   nickname: string;
   campus: string;
   profileImgUrl: string;
@@ -14,6 +16,8 @@ const initialState: UserState = {
   isLoggedIn: false,
   userId: 0,
   username: "",
+  email: "",
+  password: "",
   nickname: "",
   campus: "",
   profileImgUrl: "",
@@ -31,6 +35,8 @@ export const userSlice = createSlice({
       state.isLoggedIn = action.payload.isLoggedIn;
       state.userId = action.payload.userId;
       state.username = action.payload.username;
+      state.email = action.payload.email;
+      state.password = action.payload.password;
       state.nickname = action.payload.nickname;
       state.campus = action.payload.campus;
       state.profileImgUrl = action.payload.profileImgUrl;

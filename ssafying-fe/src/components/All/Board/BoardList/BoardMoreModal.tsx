@@ -10,7 +10,7 @@ import BoardCommentList from "./BoardCommentList";
 import BoardBtn from "../BoardBtn";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectUser } from "../../../../store/reducers/user";
-import { deleteBoard } from "../../../../apis/api/Board";
+import { deleteBoard, selectOneBoard } from "../../../../apis/api/Board";
 
 // 카드눌렀을 때 detail 보이게 하기
 interface moreProps {
@@ -20,8 +20,8 @@ interface moreProps {
     content: string;
     category: string;
     isAnonymous: boolean;
+    boardId: number;
   };
-  boardId: number;
   onDelete: () => void;
 }
 
@@ -29,20 +29,22 @@ const handleCommentSubmit = (comment: string) => {
   console.log("Comment submitted:", comment);
 };
 
-function BoardMoreModal({ card, boardId, onDelete }: moreProps) {
+function BoardMoreModal({ card, onDelete }: moreProps) {
   const user = useAppSelector(selectUser);
   const [isSaved, setIsSaved] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(true);
+  const [boardData, setBoardData] = useState<any>(null);
 
   useEffect(() => {
-    const savedStatus = localStorage.getItem(`savedStatus_${boardId}`);
+    const savedStatus = localStorage.getItem(`savedStatus_${card.boardId}`);
     setIsSaved(savedStatus === "true");
   }, []);
 
+  //스크랩api 호출
   const toggleSaved = () => {
     const newSavedStatus = !isSaved;
     setIsSaved(newSavedStatus);
-    localStorage.setItem(`savedStatus_${boardId}`, String(newSavedStatus));
+    localStorage.setItem(`savedStatus_${card.boardId}`, String(newSavedStatus));
     if (!newSavedStatus) {
       //scrapBoard(userId, boardId)
       scrapBoard(1, 1);
@@ -53,7 +55,7 @@ function BoardMoreModal({ card, boardId, onDelete }: moreProps) {
 
   //deleteBoard api 호출
   const handleDeleteBoard = () => {
-    deleteBoard(boardId)
+    deleteBoard(card.boardId)
       .then((response: any) => {
         console.log("board deleted successfully", response);
         onDelete();
@@ -65,13 +67,29 @@ function BoardMoreModal({ card, boardId, onDelete }: moreProps) {
       });
   };
 
+  //상세조회 api 호출
+  useEffect(() => {
+    const fetchBoardData = async () => {
+      try {
+        const data = await selectOneBoard(card.boardId, user.userId);
+        console.log("data", data);
+        setBoardData(data.resultData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    if (isModalOpen) {
+      fetchBoardData();
+    }
+  }, [card.boardId, isModalOpen]);
+
   const handleEditBoard = () => {
     setIsModalOpen(true);
   };
 
   return (
     <div>
-      {isModalOpen && (
+      {isModalOpen && boardData && (
         <Card>
           <Content>
             <ImgBtn
@@ -79,16 +97,16 @@ function BoardMoreModal({ card, boardId, onDelete }: moreProps) {
               size="30px"
               onClick={toggleSaved}
             />
-            <Title>{card.title}</Title>
+            <Title>{boardData.title}</Title>
             <Writer>
               <div className="small-title">By.</div>
-              {card.isAnonymous ? "익명" : card.writer}
+              {boardData.isAnonymous ? "익명" : boardData.writer}
             </Writer>
             <Category>
-              <div className="small-title">카테고리</div> {card.category}
+              <div className="small-title">카테고리</div> {boardData.category}
             </Category>
-            <Copy>{card.content}</Copy>
-            {user.nickname === card.writer && (
+            <Copy>{boardData.content}</Copy>
+            {user.nickname === boardData.writer && (
               <Flex>
                 {/* 수정화면만들기 */}
                 <BoardBtn btnmsg="수정" onClick={handleEditBoard} link="" />
@@ -106,6 +124,7 @@ function BoardMoreModal({ card, boardId, onDelete }: moreProps) {
             <MoreCommentInput
               onSubmit={handleCommentSubmit}
               target="board"
+              id={card.boardId}
             ></MoreCommentInput>
           </CommentContainer>
         </Card>

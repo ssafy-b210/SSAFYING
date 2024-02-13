@@ -42,6 +42,7 @@ function SavedBoardList() {
                 writer: item.nickname,
                 category: item.category,
                 isAnonymous: item.anonymous,
+                boardId: item.boardId,
               },
               index: index,
             };

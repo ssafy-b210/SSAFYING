@@ -46,8 +46,9 @@ export async function selectCrewOne(crewId: number) {
     const response = await axios.get(`${REST_CREW_API}/${crewId}`);
     console.log(response.data);
     return response.data;
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 }
 

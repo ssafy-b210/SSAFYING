@@ -1,10 +1,17 @@
-import UserBtn from "../../components/User/UserInfo/UserBtn";
-import UserProfile from "../../components/User/UserInfo/UserProfile";
 import UserInformation from "../../components/User/UserInfo/UserInformation";
 import BackBtnHeader from "../../components/Common/BackBtnHeader";
 import CenterHeader from "../../components/Common/CenterHeader";
+import ProfileImage from "../../components/User/UserInfo/ProfileImage";
+import { useState } from "react";
 
 function UserDetail() {
+  const [profileDownloadUrl, setProfileDownloadUrl] = useState<string | null>(
+    null
+  );
+
+  const handleProfileDownloadUrlChange = (downloadUrl: string) => {
+    setProfileDownloadUrl(downloadUrl);
+  };
   return (
     <div>
       <CenterHeader />
@@ -13,9 +20,8 @@ function UserDetail() {
         isCenter={true}
         htext={<h2>회원정보</h2>}
       ></BackBtnHeader>
-      <UserProfile></UserProfile>
-      <UserInformation></UserInformation>
-      <UserBtn></UserBtn>
+      <ProfileImage onDownloadUrlChange={handleProfileDownloadUrlChange} />
+      <UserInformation profileDownloadUrl={profileDownloadUrl} />
     </div>
   );
 }

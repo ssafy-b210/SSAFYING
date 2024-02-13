@@ -3,14 +3,23 @@ import styled from "styled-components";
 import { createBoardComment } from "../../../apis/api/Board";
 import { createCrewComment } from "../../../apis/api/Crew";
 import { createFeedComment } from "../../../apis/api/Feed";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
 
 interface CommentInputProps {
   onSubmit: (comment: string) => void;
   target: "board" | "crew" | "feed";
+  id: number;
 }
 
-const CommentInput: React.FC<CommentInputProps> = ({ onSubmit, target }) => {
+const CommentInput: React.FC<CommentInputProps> = ({
+  onSubmit,
+  target,
+  id,
+}) => {
   const [comment, setComment] = useState("");
+
+  const user = useAppSelector(selectUser);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setComment(event.target.value);
@@ -22,11 +31,11 @@ const CommentInput: React.FC<CommentInputProps> = ({ onSubmit, target }) => {
       setComment("");
       try {
         if (target === "board") {
-          await createBoardComment(1, 1, comment, -1, true);
+          await createBoardComment(id, user.userId, comment, -1, true);
         } else if (target === "crew") {
-          await createCrewComment(1, 1, comment, -1);
+          await createCrewComment(id, user.userId, comment, -1);
         } else if (target === "feed") {
-          await createFeedComment(1, 1, comment);
+          await createFeedComment(id, user.userId, comment);
         }
       } catch (e) {
         console.log(e);
