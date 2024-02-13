@@ -77,10 +77,10 @@ public class UserApiController {
      * 1.8 관심 태그 저장
      */
     @PostMapping("/tag")
-    public ResponseEntity<ResultResponse<AddInterestTagResponse>> addInterestTag(
+    public ResponseEntity<ResultResponse<List<String>>> addInterestTag(
             @RequestBody AddInterestTagRequest request){
 
-        AddInterestTagResponse result = userService.addInterestTag(request);
+        List<String> result = userService.addInterestTag(request);
 
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
 
