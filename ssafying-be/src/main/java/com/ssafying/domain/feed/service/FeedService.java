@@ -169,7 +169,8 @@ public class FeedService {
         feedRepository.save(feed);
 
         FeedDto response = convertToFeedDto(feed);
-        response.setParentCommentList(convertToParentCommentDtoList(feed.getFeedComments()));
+        List<FeedComment> parentComment = feedCommentRepository.findParentCommentsByFeed(feed);
+        response.setParentCommentList(convertToParentCommentDtoList(parentComment));
 
         return response;
     }
