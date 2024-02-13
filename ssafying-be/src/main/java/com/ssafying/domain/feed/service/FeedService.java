@@ -10,7 +10,9 @@ import com.ssafying.domain.follow.dto.response.FindFollowingListResponse;
 import com.ssafying.domain.follow.repository.jdbc.FollowRepository;
 import com.ssafying.domain.follow.service.FollowService;
 import com.ssafying.domain.user.dto.SimpleUserDto;
+import com.ssafying.domain.user.entity.InterestTag;
 import com.ssafying.domain.user.entity.User;
+import com.ssafying.domain.user.repository.jdbc.InterestTagRepository;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
 import com.ssafying.global.entity.Hashtag;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 import static com.ssafying.global.entity.Hashtag.createTag;
@@ -37,6 +38,7 @@ public class FeedService {
     private final FeedCommentRepository feedCommentRepository;
     private final FeedHashtagRepository feedHashtagRepository;
     private final FeedCommentLikeRepository feedCommentLikeRepository;
+    private final InterestTagRepository interestTagRepository;
 
     private final UserRepository userRepository;
     private final HashtagRepository hashtagRepository;
@@ -118,10 +120,39 @@ public class FeedService {
         allFeeds.sort(Comparator.comparing(Feed::getCreatedAt).reversed());
         allFeeds = allFeeds.stream().limit(MAXIMUM_NUMBER_FEEDS).collect(Collectors.toList());
 
+        return  allFeeds.stream()
+                .map(this::convertToFeedDto)
+                .collect(Collectors.toList());
+    }
 
+    public List<FeedDto> findRecommendFeed(int userId) {
+
+        User user = getUser(userId);
+        List<Feed> allFeeds = new ArrayList<>();
+        List<Integer> interestTags = interestTagRepository.findByUser(user)
+                .stream()
+                .map(interestTag -> interestTag.getTag().getId())
+                .collect(Collectors.toList());
+        /**
+         * 본인 관심사태그와 일치하는 게시글
+         * 팔로워 많은 유저의 최근 게시글
+         * 
+         */
+        if (!interestTags.isEmpty()) {
+            List<Feed> interestFeed = feedRepository.findInterestFeedList(interestTags);
+            allFeeds.addAll(interestFeed);
+        }
+
+        List<Integer> followingList = followService.followingList(userId)
+                .stream()
+                .map(followingUser -> followingUser.getId())
+                .collect(Collectors.toList());
+
+        List<Feed> hotFeeds = feedRepository.findFeedsExcludeFollowingOrderByFollowersDesc(followingList);
+        allFeeds.addAll(hotFeeds);
 
         return  allFeeds.stream()
-                .map(this::convertToFeedDto)  // Use "this" to refer to the current instance
+                .map(this::convertToFeedDto)
                 .collect(Collectors.toList());
     }
 
@@ -205,8 +236,8 @@ public class FeedService {
      * 3.7 피드 검색
      *
      */
-    public List<FeedDto> searchFeed(String hashtag, String nickname) {
-        Specification<Feed> specification = FeedSpecification.containingHashtagOrNickname(hashtag, nickname);
+    public List<FeedDto> searchFeed(List<String> hashtag) {
+        Specification<Feed> specification = FeedSpecification.matchingHashtag(hashtag);
         List<Feed> feeds = feedRepository.findAll(specification);
 
         return feeds.stream()
@@ -439,7 +470,7 @@ public class FeedService {
                 .build();
     }
 
-    private FeedDto convertToFeedDto(Feed feed) {
+    public FeedDto convertToFeedDto(Feed feed) {
         long commentCount = feed.getFeedComments().stream()
                 .filter(comment -> !comment.isDeleted())
                 .count();

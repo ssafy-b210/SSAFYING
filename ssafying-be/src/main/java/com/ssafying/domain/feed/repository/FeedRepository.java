@@ -41,6 +41,22 @@ public interface FeedRepository extends JpaRepository<Feed, Integer>, JpaSpecifi
     List<Feed> findFeedsByUserIdAndDate(@Param("userId") int userId, @Param("sevenDaysAgo") LocalDateTime sevenDaysAgo);
 
 
+    @Query("""
+    SELECT DISTINCT f
+    FROM Feed f
+    JOIN f.feedTags ft
+    WHERE ft.hashtag.id IN (:tagIds)
+    """)
+    List<Feed> findInterestFeedList(@Param("tagIds") List<Integer> tagIds);
 
-
+    //팔로워 많은순으로 - 이미 팔로잉유저가 작성한 피드를 제공해줬기때문에 이 쿼리에선 제거
+    @Query("""
+        SELECT f
+        FROM Feed f
+        WHERE f.user.id NOT IN :userIds
+        ORDER BY SIZE(f.user.followers) DESC
+    """)
+    List<Feed> findFeedsExcludeFollowingOrderByFollowersDesc(
+            @Param("userIds") List<Integer> userIds
+    );
 }

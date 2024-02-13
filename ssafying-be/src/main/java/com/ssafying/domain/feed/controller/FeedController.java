@@ -61,6 +61,13 @@ public class FeedController {
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), feeds));
     }
 
+    @GetMapping("/feeds/{userId}/recommend")
+    @Operation(summary = "추천 피드 조회")
+    public ResponseEntity<ResultResponse<List<FeedDto>>> recommendFeedList(@PathVariable(name = "userId") int userId) {
+        List<FeedDto> feeds =  feedService.findRecommendFeed(userId);
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), feeds));
+    }
+
     /**
      * 3.4 피드 상세조회
      *
@@ -111,10 +118,9 @@ public class FeedController {
     @GetMapping("/feeds/search")
     @Operation(summary = "피드 검색")
     public ResponseEntity<ResultResponse<List<FeedDto>>> feed(
-            @RequestParam(name = "hashtag", required = false) String hashtag,
-            @RequestParam(name = "nickname", required = false) String nickname
+            @RequestParam(name = "hashtag", required = false) List<String> hashtag
     ){
-        List<FeedDto> resultList = feedService.searchFeed(hashtag, nickname);
+        List<FeedDto> resultList = feedService.searchFeed(hashtag);
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), resultList));
     }
 

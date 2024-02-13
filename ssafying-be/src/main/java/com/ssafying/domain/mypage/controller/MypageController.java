@@ -57,8 +57,8 @@ public class MypageController {
      * 6.3.1 작성한 피드 조회
      */
     @GetMapping("/{userId}/feeds")
-    public ResponseEntity<ResultResponse<List<GetFeedResponse>>> AuthoredFeedList(@PathVariable(name = "userId") int userId) {
-        List<GetFeedResponse> result = mypageService.findAuthoredFeeds(userId);
+    public ResponseEntity<ResultResponse<List<FeedDto>>> AuthoredFeedList(@PathVariable(name = "userId") int userId) {
+        List<FeedDto> result = mypageService.findAuthoredFeeds(userId);
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
