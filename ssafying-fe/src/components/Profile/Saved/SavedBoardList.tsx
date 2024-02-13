@@ -42,17 +42,12 @@ function SavedBoardList() {
                 writer: item.nickname,
                 category: item.category,
                 isAnonymous: item.anonymous,
+                boardId: item.boardId,
               },
               index: index,
             };
 
-            return (
-              <BoardCardListItem
-                key={data.index}
-                card={data.card}
-                index={data.index}
-              />
-            );
+            return <BoardCardListItem key={data.index} card={data.card} />;
           })}
         </div>
       ) : (

@@ -27,6 +27,7 @@ const BoardCardList: React.FC<BoardCardListProps> = ({ selectedCategory }) => {
       content: string;
       category: string;
       isAnonymous: boolean;
+      boardId: number;
     }[]
   >([]);
 
@@ -45,6 +46,7 @@ const BoardCardList: React.FC<BoardCardListProps> = ({ selectedCategory }) => {
             content: res.content,
             category: res.category,
             isAnonymous: res.anonymous,
+            boardId: res.boardId,
           }));
           setCards(newCards);
         }
@@ -60,7 +62,7 @@ const BoardCardList: React.FC<BoardCardListProps> = ({ selectedCategory }) => {
       {cards.length > 0 ? (
         <Container>
           {cards.map((card, index) => (
-            <BoardCardListItem key={index} card={card} index={index} />
+            <BoardCardListItem key={index} card={card} />
           ))}
         </Container>
       ) : (

@@ -82,6 +82,7 @@ function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
             <MoreCommentInput
               onSubmit={handleCommentSubmit}
               target="crew"
+              id={crewId}
             ></MoreCommentInput>
           </CommentContainer>
         </Card>
