@@ -3,13 +3,15 @@ import styled from "styled-components";
 
 interface HashtagProps {
   text: string;
+  onSelect?: (value: string) => void;
 }
 
-function Hashtag({ text }: HashtagProps) {
+function Hashtag({ text, onSelect }: HashtagProps) {
   const [isSelected, setIsSelected] = useState(false);
 
   const handleToggleSelection = () => {
     setIsSelected((prevIsSelected) => !prevIsSelected);
+    onSelect && onSelect(text); // 선택된 해시태그 값을 부모에게 전달하기
   };
 
   return (

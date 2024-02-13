@@ -1,3 +1,4 @@
+import { error } from "console";
 import { axios } from "../utils/axios";
 
 const REST_USER_API = `/api/users`;
@@ -45,5 +46,20 @@ export async function leaveUser(userId: number, password: string) {
     return response.data;
   } catch (e) {
     console.log(e);
+  }
+}
+
+//회원 관심사 선택
+export async function selectTag(userId: number, hashtags: string[]) {
+  try {
+    const response = await axios.post(`${REST_USER_API}/tag`, {
+      userId: userId,
+      hashtags: hashtags,
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 }
