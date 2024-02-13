@@ -89,6 +89,7 @@ public class BoardService {
         List<FindListBoardResponse> response = new ArrayList<>();
         for (Board board : boardList) {
             FindListBoardResponse build = FindListBoardResponse.builder()
+                    .boardId(board.getId())
                     .userName(board.getUser().getName())
                     .nickname(board.getUser().getNickname())
                     .isAnonymous(board.isAnonymous())
