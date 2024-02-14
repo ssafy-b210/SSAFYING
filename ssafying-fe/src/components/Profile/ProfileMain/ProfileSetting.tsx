@@ -73,6 +73,7 @@ const Button = styled.button`
   border-radius: 6px;
   background-color: #fff;
   cursor: pointer;
+  font-family: "Noto Sans KR", "Noto Sans", sans-serif;
 
   &.danger {
     color: #fff;
