@@ -1,11 +1,15 @@
-import styled from "styled-components";
 import AlarmItem from "./AlarmItem";
 
 interface userProps {
   alarmList: {
-    userId: string;
-    userImage: string;
+    receiverId: number;
+    nickname: string;
+    imageUrl: string;
     type: string;
+    createdAt: string;
+    sendId: number;
+    sendNickname: string;
+    feedId: number;
   }[];
 }
 
@@ -14,10 +18,15 @@ function AlarmItemList({ alarmList }: userProps) {
     <>
       {alarmList.map((alarm) => (
         <AlarmItem
-          key={alarm.userId}
-          userId={alarm.userId}
-          userImage={alarm.userImage}
+          key={alarm.receiverId}
+          userId={alarm.receiverId}
+          nickname={alarm.nickname}
+          imageUrl={alarm.imageUrl}
+          time={alarm.createdAt}
           type={alarm.type}
+          sendId={alarm.sendId}
+          sendNickname={alarm.sendNickname}
+          feedId={alarm.feedId}
         />
       ))}
     </>

@@ -92,6 +92,7 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
 
+  margin-bottom: 30px;
   button {
     background-color: rgba(255, 255, 255, 0.7);
     border: none;

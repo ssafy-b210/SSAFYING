@@ -45,6 +45,7 @@ import SavedBoardList from "./components/Profile/Saved/SavedBoardList";
 import SavedRecruitmentList from "./components/Profile/Saved/SavedRecruitmentList";
 import { useAppSelector } from "./store/hooks";
 import { RootState } from "./store";
+import FeedDetail from "./pages/Feed/FeedDetail";
 import DirectMessageCreate from "./pages/DirectMessage/DirectMessageCreate";
 
 function App() {
@@ -85,6 +86,7 @@ function App() {
             <Route path="/feedwrite" element={<FeedCreate />} />
             <Route path="/alarmdetail" element={<AlarmDetail />} />
             <Route path="/forest" element={<BambooForest />} />
+            <Route path="/feed/:feedId" element={<FeedDetail />} />
 
             <Route path="/profile/:userId" element={<ProfileMain />}>
               <Route path="" element={<ContentFeedSection />} />

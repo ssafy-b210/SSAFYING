@@ -3,21 +3,9 @@ import styled from "styled-components";
 import BambooForestListItem from "./BambooForestListItem";
 import { selectBambooList } from "../../apis/api/Forest";
 
-const Container = styled.div`
-  display: flex;
-  padding: 5% 5%;
-  margin: 0 auto;
-  overflow-x: auto;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
 const BambooForestList: React.FC = () => {
   const [cards, setCards] = useState<
-    { content: string; bambooId: number; createdAt: string }[]
+    { content: string; bambooId: number; createdAt: string; userId: number }[]
   >([]);
 
   useEffect(() => {
@@ -39,7 +27,7 @@ const BambooForestList: React.FC = () => {
       {cards.length > 0 ? (
         <Container>
           {cards.map((card, index) => (
-            <BambooForestListItem key={index} card={card} index={index} />
+            <BambooForestListItem key={index} card={card} />
           ))}
         </Container>
       ) : (
@@ -57,4 +45,16 @@ const NoResultsMessage = styled.div`
   justify-contnet: center;
   text-align: center;
   align-items: center;
+`;
+
+const Container = styled.div`
+  display: flex;
+  padding: 5% 5%;
+  margin: 0 auto;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
