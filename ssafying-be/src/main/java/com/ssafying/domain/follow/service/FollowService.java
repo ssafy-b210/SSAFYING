@@ -1,12 +1,15 @@
 package com.ssafying.domain.follow.service;
 
+import com.ssafying.domain.alert.dto.response.SseResponse;
+import com.ssafying.domain.alert.entity.Notification;
+import com.ssafying.domain.alert.entity.NotificationTypeStatus;
+import com.ssafying.domain.alert.repository.NotificationRepository;
+import com.ssafying.domain.alert.service.NotificationService;
 import com.ssafying.domain.follow.dto.request.AddFollowRequest;
-import com.ssafying.domain.follow.dto.request.FindByNicknameRequest;
 import com.ssafying.domain.follow.dto.request.UnFollowRequest;
 import com.ssafying.domain.follow.dto.response.FindFollowerListResponse;
 import com.ssafying.domain.follow.dto.response.FindFollowingListResponse;
 import com.ssafying.domain.follow.dto.response.FindRecommendResponse;
-import com.ssafying.domain.follow.dto.response.FollowResponse;
 import com.ssafying.domain.follow.entity.Follow;
 import com.ssafying.domain.follow.repository.jdbc.FollowRepository;
 import com.ssafying.domain.shuttle.entity.Campus;
@@ -19,8 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -30,7 +31,8 @@ public class FollowService {
 
     private final FollowRepository followRepository;
     private final UserRepository userRepository;
-
+    private final NotificationService notificationService;
+    private final NotificationRepository notificationRepository;
 
     /**
      * 2.1 팔로잉 조회
@@ -163,6 +165,27 @@ public class FollowService {
         Follow follow = Follow.addFollow(fromUser, toUser);
 
         followRepository.save(follow);
+
+        //sse 추가
+        SseResponse sseResponse = SseResponse.builder()
+                .receiverId(fromUser.getId())
+                .nickname(fromUser.getNickname())
+                .imgUrl(fromUser.getProfileImageUrl())
+                .feedId(null)
+                .createdAt(follow.getCreatedAt())
+                .build();
+
+        notificationService.customNotify(toUser.getId(), sseResponse, "새로운 팔로우가 생겼습니다.", "follow");
+
+        //Notification data 생성
+        Notification notification = Notification.createNotification(
+                fromUser,
+                toUser,
+                NotificationTypeStatus.FOLLOW,
+                null
+        );
+        notificationRepository.save(notification);
+
 
         return toUser.getId();
     }
