@@ -9,13 +9,15 @@ import { selectUser } from "../../../store/reducers/user";
 interface CommentInputProps {
   onSubmit: (comment: string) => void;
   target: "board" | "crew" | "feed";
-  id: number;
+  id: Number;
+  highlighted?: Number | null;
 }
 
 const CommentInput: React.FC<CommentInputProps> = ({
   onSubmit,
   target,
   id,
+  highlighted,
 }) => {
   const [comment, setComment] = useState("");
 
@@ -35,7 +37,11 @@ const CommentInput: React.FC<CommentInputProps> = ({
         } else if (target === "crew") {
           await createCrewComment(id, user.userId, comment, -1);
         } else if (target === "feed") {
-          await createFeedComment(id, user.userId, comment);
+          if (highlighted === null) {
+            await createFeedComment(id, user.userId, comment);
+          } else {
+            await createFeedComment(id, user.userId, comment, highlighted);
+          }
         }
       } catch (e) {
         console.log(e);
@@ -43,10 +49,12 @@ const CommentInput: React.FC<CommentInputProps> = ({
     }
   };
   return (
-    <CommentInputContainer>
-      <Input type="text" value={comment} onChange={handleChange} />
-      <SubmitButton onClick={handleSubmit}>등록</SubmitButton>
-    </CommentInputContainer>
+    <>
+      <CommentInputContainer>
+        <Input type="text" value={comment} onChange={handleChange} />
+        <SubmitButton onClick={handleSubmit}>등록</SubmitButton>
+      </CommentInputContainer>
+    </>
   );
 };
 

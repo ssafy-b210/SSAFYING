@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import userImage from "../../../assets/img/testImg/user.jpg";
 import deleteBtn from "../../../assets/img/imgBtn/deleteBtn.svg";
 import userProfileImg from "../../../assets/img/userIcons/userProfileImg.svg";
 import RoundImg from "../utils/RoundImg";
@@ -11,9 +10,9 @@ import { selectUser } from "../../../store/reducers/user";
 import { deleteFeedComment } from "../../../apis/api/Feed";
 
 interface CommentProps {
-  commentId: number;
+  commentId: Number;
   commentUser: {
-    id: number;
+    id: Number;
     nickname: string;
     profileImageUrl?: string;
   };

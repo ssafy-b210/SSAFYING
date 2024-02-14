@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CommentItem from "./CommentItem";
 import { getFeedComment } from "../../../apis/api/Feed";
 
 interface Props {
-  feedId: number;
+  feedId: Number;
+  parent: (id: Number | null) => void; // 부모 컴포넌트로부터 전달된 함수
 }
 
-function CommentList({ feedId }: Props) {
+function CommentList({ feedId, parent }: Props) {
   const [highlightedCommentId, setHighlightedCommentId] =
     useState<Number | null>(null);
-
   const [commentList, setCommentList] = useState<any[]>([]);
 
   useEffect(() => {
@@ -22,10 +22,11 @@ function CommentList({ feedId }: Props) {
     setCommentList(list || []);
   };
 
-  const handleCommentClick = (commentId: number) => {
+  const handleCommentClick = (commentId: Number) => {
+    parent(commentId === highlightedCommentId ? null : commentId); // 클릭된 댓글 ID를 부모 컴포넌트로 전달
     setHighlightedCommentId(
       commentId === highlightedCommentId ? null : commentId
-    );
+    ); // 댓글 ID를 업데이트
   };
 
   return (

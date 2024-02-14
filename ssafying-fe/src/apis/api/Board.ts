@@ -127,10 +127,10 @@ export async function updateBoard(
 
 // 게시판 게시글 댓글 작성
 export async function createBoardComment(
-  boardId: number,
-  userId: number,
+  boardId: Number,
+  userId: Number,
   content: string,
-  parentId: number,
+  parentId: Number,
   isAnonymous: boolean
 ) {
   try {

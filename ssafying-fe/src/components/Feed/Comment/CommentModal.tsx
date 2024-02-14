@@ -10,6 +10,7 @@ interface CommentModalProps {
 
 const CommentModal: React.FC<CommentModalProps> = ({ onClose, feedId }) => {
   const [modalClosed, setModalClosed] = useState(false);
+  const [highlighted, setHighlighted] = useState<Number | null>(null);
 
   const handleCommentSubmit = (comment: string) => {
     console.log("Comment submitted:", comment);
@@ -25,13 +26,14 @@ const CommentModal: React.FC<CommentModalProps> = ({ onClose, feedId }) => {
             &times;
           </CloseButton>
         </CloseButtonContainer>
-        <CommentList feedId={feedId} />
+        <CommentList feedId={feedId} parent={(id) => setHighlighted(id)} />
       </ModalContent>
       <CommentInputContainer>
         <CommentInput
           onSubmit={handleCommentSubmit}
           target="feed"
           id={feedId}
+          highlighted={highlighted} // Pass highlightedCommentId to CommentInput
         />
       </CommentInputContainer>
     </ModalOverlay>

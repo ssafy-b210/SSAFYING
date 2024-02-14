@@ -113,10 +113,10 @@ export async function updateCrew(crewId: number, updateData: UpdateCrewData) {
 
 // 댓글 작성
 export async function createCrewComment(
-  crewId: number,
-  userId: number,
+  crewId: Number,
+  userId: Number,
   content: string,
-  parentId: number //부모댓글의 아이디
+  parentId: Number //부모댓글의 아이디
 ) {
   const data = {
     crewId: crewId,
