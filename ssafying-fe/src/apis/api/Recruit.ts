@@ -25,6 +25,7 @@ export async function scrapRecruit(userId: number, recruitmentId: number) {
       recruitmentId,
     });
     console.log(response.data);
+    return response.data;
   } catch (error) {
     console.error(error);
     throw error;

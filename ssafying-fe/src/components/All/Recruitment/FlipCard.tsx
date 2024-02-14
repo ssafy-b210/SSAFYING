@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ImgBtn from "../../Feed/utils/ImgBtn";
 import saveBtnBlack from "../../../assets/img/imgBtn/saveBtnBlack.svg";
@@ -19,6 +19,11 @@ function FlipCard({ title, company, url, index, arrIdx }: cardProps) {
   const [isSaved, setIsSaved] = useState(false);
   const user = useAppSelector(selectUser);
 
+  useEffect(() => {
+    const savedStatus = localStorage.getItem("savedStatus");
+    setIsSaved(savedStatus === "true");
+  }, []);
+
   const toggleSaved = () => {
     const newSavedStatus = !isSaved;
     setIsSaved(newSavedStatus);
@@ -26,7 +31,6 @@ function FlipCard({ title, company, url, index, arrIdx }: cardProps) {
     if (!newSavedStatus) {
       scrapRecruit(user.userId, index);
     } else {
-      //여기서 취소할때 들어가는 파라미터는 index가 아니라 카드 번호를 넣어줘야 함.
       cancelscrapRecruit(user.userId, index);
     }
   };

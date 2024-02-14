@@ -76,6 +76,16 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
     });
   };
 
+  // 기수 입력값이 1부터 11까지인지 확인하는 함수
+  const validateLevel = (value: string) => {
+    const level = parseInt(value);
+    if (isNaN(level) || level < 0 || level > 11) {
+      window.alert("기수는 0부터 11까지만 입력 가능합니다.");
+      return false;
+    }
+    return true;
+  };
+
   return (
     <div>
       <Form>
@@ -126,11 +136,11 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
             name="password"
             value={inputValue.password}
             onChange={handleInputChange}
-            minLength={8}
-            maxLength={12}
+            // minLength={8}
+            // maxLength={12}
             required
           />
-          <label htmlFor="password">비밀번호을 입력해주세요 (8-12자)</label>
+          <label htmlFor="password">비밀번호을 입력해주세요</label>
         </SignUpInput>
         <SignUpInput className="input-area">
           <input
@@ -140,8 +150,8 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
             name="password2"
             value={inputValue.password2}
             onChange={handleInputChange}
-            minLength={8}
-            maxLength={12}
+            // minLength={8}
+            // maxLength={12}
             required
           />
           {inputValue.password2 !== "" && !isSame && (
@@ -159,7 +169,7 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
             onChange={handleInputChange}
             required
           />
-          <label htmlFor="tel">전화번호를 입력해주세요</label>
+          <label htmlFor="tel">전화번호를 입력해주세요. (010-nnnn-nnnn)</label>
         </SignUpInput>
         <SignUpInput className="input-area">
           <input
@@ -168,7 +178,11 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
             placeholder=" "
             name="level"
             value={inputValue.level}
-            onChange={handleInputChange}
+            onChange={(e) => {
+              if (validateLevel(e.target.value)) {
+                handleInputChange(e);
+              }
+            }}
             required
           />
           <label htmlFor="level">기수를 입력해주세요</label>
