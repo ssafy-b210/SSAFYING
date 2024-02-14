@@ -13,6 +13,11 @@ import Footer from "../../../components/Common/Footer";
 function BoardList() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [searchWord, setSearchWord] = useState<string>("");
+
+  const handleSearchResult = (resultData: any) => {
+    setSearchWord(resultData);
+  };
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
@@ -63,8 +68,11 @@ function BoardList() {
       />
 
       <BoardSortTab onCategoryChange={handleCategoryChange}></BoardSortTab>
-      <SearchBarOnly></SearchBarOnly>
-      <BoardCardList selectedCategory={selectedCategory}></BoardCardList>
+      <SearchBarOnly onSearchResult={handleSearchResult} />
+      <BoardCardList
+        selectedCategory={selectedCategory}
+        searchWord={searchWord}
+      ></BoardCardList>
       <Footer></Footer>
     </Wrapper>
   );

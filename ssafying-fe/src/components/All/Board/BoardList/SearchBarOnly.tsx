@@ -1,13 +1,28 @@
 import styled from "styled-components";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { selectAllBoard } from "../../../../apis/api/Board";
 
-function SearchBarOnly() {
+interface Props {
+  onSearchResult?: (resultData: any[]) => void;
+}
+
+const SearchBarOnly: React.FC<Props> = ({ onSearchResult }) => {
   const navigate = useNavigate();
 
   const [searchWord, setSearchWord] = useState("");
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
+    try {
+      const data = await selectAllBoard(undefined, searchWord.trim());
+      console.log(data.resultData);
+      if (onSearchResult) {
+        onSearchResult(data.resultData);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
     const queryString = new URLSearchParams({
       searchWord: searchWord.trim(),
     }).toString();
@@ -25,7 +40,7 @@ function SearchBarOnly() {
       <SearchBtn onClick={handleSearch}>검색하기</SearchBtn>
     </SearchBarContainer>
   );
-}
+};
 
 export default SearchBarOnly;
 const SearchBarContainer = styled.div`

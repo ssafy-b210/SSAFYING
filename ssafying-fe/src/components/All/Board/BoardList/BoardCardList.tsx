@@ -4,7 +4,8 @@ import BoardCardListItem from "./BoardCardListItem";
 import { selectAllBoard } from "../../../../apis/api/Board";
 
 interface BoardCardListProps {
-  selectedCategory: string | null;
+  selectedCategory?: string | null;
+  searchWord?: string;
 }
 
 const Container = styled.div`
@@ -19,7 +20,10 @@ const Container = styled.div`
   }
 `;
 
-const BoardCardList: React.FC<BoardCardListProps> = ({ selectedCategory }) => {
+const BoardCardList: React.FC<BoardCardListProps> = ({
+  selectedCategory,
+  searchWord,
+}) => {
   const [cards, setCards] = useState<
     {
       title: string;
@@ -31,6 +35,16 @@ const BoardCardList: React.FC<BoardCardListProps> = ({ selectedCategory }) => {
     }[]
   >([]);
 
+  const [filteredCards, setFilteredCards] = useState<
+    {
+      title: string;
+      writer: string;
+      content: string;
+      category: string;
+      isAnonymous: boolean;
+      boardId: number;
+    }[]
+  >([]);
   const [lastIdx, setLastIdx] = useState(0);
 
   useEffect(() => {
@@ -40,7 +54,7 @@ const BoardCardList: React.FC<BoardCardListProps> = ({ selectedCategory }) => {
         console.log(boardData);
         if (boardData && boardData.resultData) {
           setLastIdx(lastIdx + 1);
-          const newCards = await boardData.resultData.map((res: any) => ({
+          const newCards = boardData.resultData.map((res: any) => ({
             title: res.title,
             writer: res.nickname,
             content: res.content,
@@ -49,19 +63,32 @@ const BoardCardList: React.FC<BoardCardListProps> = ({ selectedCategory }) => {
             boardId: res.boardId,
           }));
           setCards(newCards);
+
+          if (Array.isArray(searchWord) && searchWord.length > 0) {
+            const filtered = newCards.filter((card: any) =>
+              searchWord.some((word: string) =>
+                card.title.toLowerCase().includes(word.toLowerCase())
+              )
+            );
+            setFilteredCards(filtered);
+          } else {
+            setFilteredCards(newCards);
+          }
         }
       } catch (error) {
         console.error(error);
-        setCards([]);
+        // setCards([]);
+        setFilteredCards([]);
       }
     };
     fetchData();
-  }, [selectedCategory]);
+  }, [selectedCategory, searchWord]);
+
   return (
     <>
-      {cards.length > 0 ? (
+      {filteredCards.length > 0 ? (
         <Container>
-          {cards.map((card, index) => (
+          {filteredCards.map((card, index) => (
             <BoardCardListItem key={index} card={card} index={index} />
           ))}
         </Container>
