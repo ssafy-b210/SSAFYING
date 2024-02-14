@@ -1,46 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BoardCommentItem from "./BoardCommentItem";
 
-function BoardCommentList() {
+interface Props {
+  boardId: Number;
+  parent: (id: Number | null) => void;
+  commentList: {
+    anonymous: boolean;
+    childCommentList: any[];
+    comment: string;
+    createdAt: string;
+    nickname: string;
+    userName: string;
+    commentId: number;
+    profileImgUrl: string;
+    userId: number;
+  }[];
+}
+
+function BoardCommentList({ boardId, parent, commentList }: Props) {
   const [highlightedCommentId, setHighlightedCommentId] =
     useState<Number | null>(null);
 
-  const comments = [
-    {
-      commentId: 1,
-      nickname: "aeong",
-      content: "ㅋㅋㅋㅋㅋ",
-      replies: [
-        {
-          replyId: 1,
-          commentId: 2,
-          nickname: "aeong",
-          content: "ㅎㅎㅎㅎ",
-        },
-        { replyId: 2, commentId: 1, nickname: "aeong", content: "뭐야" },
-        { replyId: 2, commentId: 1, nickname: "aeong", content: "뭐야" },
-      ],
-    },
-    {
-      commentId: 1,
-      nickname: "yes",
-      content: "화이팅",
-      replies: [
-        { replyId: 1, commentId: 5, nickname: "yes.hh", content: "안녕" },
-        { replyId: 2, commentId: 3, nickname: "yes", content: "애옹" },
-      ],
-    },
-    {
-      commentId: 1,
-      nickname: "yes.hh",
-      content: "안녕ㅎㅎ",
-      replies: [
-        { replyId: 1, commentId: 5, nickname: "yes.hh", content: "안녕" },
-        { replyId: 2, commentId: 3, nickname: "yes", content: "애옹" },
-      ],
-    },
-  ];
   const handleCommentClick = (commentId: number) => {
+    parent(commentId === highlightedCommentId ? null : commentId); // 클릭된 댓글 ID를 부모 컴포넌트로 전달
     setHighlightedCommentId(
       commentId === highlightedCommentId ? null : commentId
     );
@@ -48,15 +30,18 @@ function BoardCommentList() {
 
   return (
     <div>
-      {comments.map((comment) => (
+      {commentList.map((comment) => (
         <BoardCommentItem
           key={comment.commentId}
           commentId={comment.commentId}
-          content={comment.content}
           nickname={comment.nickname}
+          content={comment.comment}
+          userId={comment.userId}
+          time={comment.createdAt}
+          profile={comment.profileImgUrl}
           isHighlighted={comment.commentId === highlightedCommentId}
           onClick={() => handleCommentClick(comment.commentId)}
-          replies={comment.replies}
+          replies={comment.childCommentList}
         />
       ))}
     </div>

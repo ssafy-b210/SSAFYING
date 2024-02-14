@@ -3,18 +3,20 @@ import FlipCard from "./FlipCard";
 import styled from "styled-components";
 
 interface recruitProps {
-  recruitList: { name: string; code: string }[];
+  recruitList: { id: number; title: string; company: string; url: string }[];
 }
 
 function FlipCardList({ recruitList }: recruitProps) {
   console.log(recruitList);
   return (
     <Container>
-      {recruitList.map((item: any, index: number) => (
+      {recruitList.map((item, index) => (
         <FlipCard
+          key={index}
+          arrIdx={index + 1}
           index={item.id}
-          title={item.position.title}
-          company={item.company.detail.name}
+          title={item.title}
+          company={item.company}
           url={item.url}
         />
       ))}

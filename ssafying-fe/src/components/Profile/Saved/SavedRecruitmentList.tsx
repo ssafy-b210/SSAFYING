@@ -34,8 +34,10 @@ function SavedRecruitmentList() {
     <div>
       {savedRecruitList.length > 0 ? (
         <div>
-          {savedRecruitList.map((item) => (
+          {savedRecruitList.map((item, index) => (
             <FlipCard
+              key={index}
+              arrIdx={index}
               title={item.title}
               company={item.company}
               url={item.url}

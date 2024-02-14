@@ -1,3 +1,4 @@
+import { error } from "console";
 import { axios } from "../utils/axios";
 // import { URLSearchParams } from "url";
 
@@ -110,13 +111,33 @@ export async function updateCrew(crewId: number, updateData: UpdateCrewData) {
 }
 
 // 구인 글 검색
+export async function searchCrew(
+  title: string,
+  region: string,
+  category: string
+) {
+  try {
+    const response = await axios.get(`crew`, {
+      params: {
+        title,
+        region,
+        category,
+      },
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
 // 댓글 작성
 export async function createCrewComment(
-  crewId: number,
-  userId: number,
+  crewId: Number,
+  userId: Number,
   content: string,
-  parentId: number //부모댓글의 아이디
+  parentId?: Number //부모댓글의 아이디
 ) {
   const data = {
     crewId: crewId,
@@ -142,6 +163,7 @@ export async function deleteCrewComment(crewCommentId: number) {
       `${REST_CREW_API}/comments/${crewCommentId}`
     );
     console.log(response.data);
+    return response.data;
   } catch (e) {
     console.log(e);
   }

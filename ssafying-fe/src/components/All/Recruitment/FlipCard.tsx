@@ -1,15 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import ImgBtn from "../../Feed/utils/ImgBtn";
+import saveBtnBlack from "../../../assets/img/imgBtn/saveBtnBlack.svg";
+import saveBtnWhite from "../../../assets/img/imgBtn/saveBtnWhite.svg";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
+import { cancelscrapRecruit, scrapRecruit } from "../../../apis/api/Recruit";
 
 interface cardProps {
   title: string;
   company: string;
   url: string;
   index: number;
+  arrIdx: number;
 }
 
-function FlipCard({ title, company, url, index }: cardProps) {
-  console.log(company);
+function FlipCard({ title, company, url, index, arrIdx }: cardProps) {
+  const [isSaved, setIsSaved] = useState(false);
+  const user = useAppSelector(selectUser);
+
+  const toggleSaved = () => {
+    const newSavedStatus = !isSaved;
+    setIsSaved(newSavedStatus);
+    localStorage.setItem(`savedStatus_${index}`, String(newSavedStatus));
+    if (!newSavedStatus) {
+      scrapRecruit(user.userId, index);
+    } else {
+      //여기서 취소할때 들어가는 파라미터는 index가 아니라 카드 번호를 넣어줘야 함.
+      cancelscrapRecruit(user.userId, index);
+    }
+  };
+
   return (
     <Card key={index}>
       <Wrapper>
@@ -22,6 +43,11 @@ function FlipCard({ title, company, url, index }: cardProps) {
           <a href={url} target="_blank">
             공고보기
           </a>
+          <ImgBtn
+            src={isSaved ? saveBtnBlack : saveBtnWhite}
+            size="30px"
+            onClick={toggleSaved}
+          />
         </Back>
       </Wrapper>
     </Card>

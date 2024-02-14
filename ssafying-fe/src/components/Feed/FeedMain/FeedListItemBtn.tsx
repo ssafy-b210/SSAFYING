@@ -13,6 +13,8 @@ import { scrapFeed } from "../../../apis/api/Feed";
 import { cancelscrapFeed } from "../../../apis/api/Feed";
 import { likeFeed } from "../../../apis/api/Feed";
 import { cancelLikeFeed } from "../../../apis/api/Feed";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
 
 interface Props {
   likeCount: number;
@@ -20,19 +22,17 @@ interface Props {
 }
 
 const FeedListItemBtn: React.FC<Props> = ({ likeCount, feedId }: Props) => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const user = useAppSelector(selectUser);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openComment = () => {
-    setModalOpen(true);
+    setModalIsOpen(true);
   };
 
-  const closeComment = () => {
-    setTimeout(() => {
-      setModalOpen(false);
-    }, 700);
-  };
+  function closeModal() {
+    setModalIsOpen(false);
+  }
 
-  //feedId 바꾸기!!!
   const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
@@ -46,9 +46,9 @@ const FeedListItemBtn: React.FC<Props> = ({ likeCount, feedId }: Props) => {
 
     localStorage.setItem("savedStatus", String(newSavedStatus));
     if (!newSavedStatus) {
-      scrapFeed(1, 1);
+      scrapFeed(user.userId, feedId);
     } else {
-      cancelscrapFeed(1, 1);
+      cancelscrapFeed(user.userId, feedId);
     }
   };
 
@@ -56,9 +56,11 @@ const FeedListItemBtn: React.FC<Props> = ({ likeCount, feedId }: Props) => {
   const toggleLiked = () => {
     setIsLiked(!isLiked);
     if (!isLiked) {
-      likeFeed(1, 1);
+      likeCount++;
+      likeFeed(user.userId, feedId);
     } else {
-      cancelLikeFeed(1, 1);
+      likeCount--;
+      cancelLikeFeed(user.userId, feedId);
     }
   };
 
@@ -81,7 +83,7 @@ const FeedListItemBtn: React.FC<Props> = ({ likeCount, feedId }: Props) => {
         </div>
         <FeedLikeCnt likeCount={likeCount} />
       </BtnWrapper>
-      {modalOpen && <CommentModal onClose={closeComment} feedId={feedId} />}
+      {modalIsOpen && <CommentModal onClose={closeModal} feedId={feedId} />}
     </>
   );
 };

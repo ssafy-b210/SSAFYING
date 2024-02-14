@@ -3,6 +3,7 @@ import styled from "styled-components";
 import BambooForestBack from "../../components/BambooForest/BambooForestBack";
 import BambooForestContent from "../../components/BambooForest/BambooForestContent";
 import CenterHeader from "../../components/Common/CenterHeader";
+import BambooForestInfo from "../../components/BambooForest/BambooForestInfo";
 
 const Container = styled.div`
   position: fixed;
@@ -17,6 +18,7 @@ function BambooForest() {
     <Container>
       <BambooForestBack>
         <CenterHeader />
+        <BambooForestInfo />
         <BambooForestContent />
       </BambooForestBack>
     </Container>

@@ -24,7 +24,7 @@ export async function createFeedItem(
 }
 
 //피드 삭제
-export async function deleteFeedItem(feedId: number) {
+export async function deleteFeedItem(feedId: Number) {
   try {
     const response = await axios.delete(`api/feeds/${feedId}`);
     console.log(response.data);
@@ -153,7 +153,7 @@ export async function cancelscrapFeed(userId: number, feedId: number) {
 }
 
 //피드 댓글 조회
-export async function getFeedComment(feedId: number) {
+export async function getFeedComment(feedId: Number) {
   try {
     const response = await axios.get(`/api/feeds/${feedId}/comments`);
     console.log(response.data.resultData);
@@ -165,10 +165,10 @@ export async function getFeedComment(feedId: number) {
 
 //피드 댓글 작성
 export async function createFeedComment(
-  feedId: number,
-  userId: number,
+  feedId: Number,
+  userId: Number,
   content: string,
-  parentId?: number //부모댓글의 아이디
+  parentId?: Number //부모댓글의 아이디
 ) {
   const data = {
     feedId: feedId,
@@ -188,10 +188,11 @@ export async function createFeedComment(
 }
 
 //피드 댓글 삭제
-export async function deleteFeedComment(feedCommentId: number) {
+export async function deleteFeedComment(feedCommentId: Number) {
   try {
     const response = await axios.delete(`api/feeds/comments/${feedCommentId}`);
     console.log(response.data);
+    return response.data;
   } catch (e) {
     console.log(e);
   }

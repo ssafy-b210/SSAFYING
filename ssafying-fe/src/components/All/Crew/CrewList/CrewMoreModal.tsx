@@ -29,6 +29,7 @@ function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
   const user = useAppSelector(selectUser);
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [crewData, setCrewData] = useState<any>(null);
+  const [highlighted, setHighlighted] = useState<Number | null>(null);
 
   //삭제 api 호출
   const handleDeleteCrew = () => {
@@ -86,7 +87,7 @@ function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
             {user.nickname === crewData.nickname && (
               <Flex>
                 {/* 수정화면만들기 */}
-                <BoardBtn btnmsg="수정" link="" />
+                {/* <BoardBtn btnmsg="수정" link="" /> */}
                 <BoardBtn
                   btnmsg="삭제"
                   link="/crew"
@@ -97,11 +98,15 @@ function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
             <hr />
           </Content>
           <CommentContainer>
-            <CrewCommentList />
+            <CrewCommentList
+              crewId={crewId}
+              parent={(id) => setHighlighted(id)}
+            />
             <MoreCommentInput
               onSubmit={handleCommentSubmit}
               target="crew"
               id={crewId}
+              highlighted={highlighted}
             ></MoreCommentInput>
           </CommentContainer>
         </Card>

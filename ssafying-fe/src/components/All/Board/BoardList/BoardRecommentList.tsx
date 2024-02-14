@@ -2,25 +2,31 @@ import styled from "styled-components";
 import BoardRecommentItem from "./BoardRecommentItem";
 
 interface RepliesProps {
-  onClick: () => void;
   replies: {
-    replyId: number;
-    commentId: number;
+    anonymous: boolean;
+    childCommentList: any[];
+    comment: string;
+    createdAt: string;
     nickname: string;
-    content: string;
+    userName: string;
+    commentId: number;
+    profileImgUrl: string;
+    userId: number;
   }[];
 }
 
-function BoardRecommentList({ onClick, replies }: RepliesProps) {
+function BoardRecommentList({ replies }: RepliesProps) {
   return (
     <RecommentListWrapper>
       {replies.map((reply) => (
         <BoardRecommentItem
-          key={reply.replyId}
+          key={reply.commentId}
           commentId={reply.commentId}
           nickname={reply.nickname}
-          content={reply.content}
-          onClickDelete={() => onClick}
+          content={reply.comment}
+          userId={reply.userId}
+          time={reply.createdAt}
+          profile={reply.profileImgUrl}
         />
       ))}
     </RecommentListWrapper>

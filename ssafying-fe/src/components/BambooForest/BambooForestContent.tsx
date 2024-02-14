@@ -2,14 +2,29 @@ import styled from "styled-components";
 import BambooForestList from "./BambooForestList";
 import Modal from "../Common/Modal";
 import BambooWriteModal from "./BambooWriteModal";
+import { useState } from "react";
 
 function BambooForestContent() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div>
       <BambooForestList />
       <ButtonWrapper>
-        <Modal btnTxt="대나무숲에 소리치기">
-          <BambooWriteModal />
+        <Modal
+          btnTxt="대나무숲에 소리치기"
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+        >
+          <BambooWriteModal onCloseModal={handleCloseModal} />
         </Modal>
       </ButtonWrapper>
     </div>

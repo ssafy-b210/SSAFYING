@@ -41,7 +41,7 @@ function UserInformation(props: { profileDownloadUrl: string | null }) {
     setEditedUserInfo(null);
   };
 
-  console.log("확인용링크", props.profileDownloadUrl);
+  // console.log("확인용링크", props.profileDownloadUrl);
   const handleSaveClick = () => {
     //바이오링크 저장 로직 추가.
     let {
@@ -108,41 +108,75 @@ function UserInformation(props: { profileDownloadUrl: string | null }) {
         <UserInfoContainer>
           {isEditMode ? (
             <>
-              <div className="category">닉네임</div>
-              <input
-                type="text"
-                name="nickname"
-                value={editedUserInfo?.nickname || ""}
-                onChange={handleInputChange}
-              />
-              <div className="category">비밀번호</div>
-              <input
-                type="password"
-                name="password"
-                value={editedUserInfo?.password || ""}
-                onChange={handleInputChange}
-              />
-              <div className="category">비밀번호 확인</div>
-              <input
-                type="password"
-                name="password2"
-                value={editedUserInfo?.password2 || ""}
-                onChange={handleInputChange}
-              />
-              <div className="category">전화번호</div>
-              <input
-                type="text"
-                name="phoneNumber"
-                value={editedUserInfo?.phoneNumber || ""}
-                onChange={handleInputChange}
-              />
-              <div className="category">한줄 소개</div>
-              <input
-                type="text"
-                name="intro"
-                value={editedUserInfo?.intro || ""}
-                onChange={handleInputChange}
-              />
+              <SignUpInput className="input-area">
+                <input
+                  type="text"
+                  id="nickname"
+                  placeholder=" "
+                  name="nickname"
+                  value={editedUserInfo?.nickname || ""}
+                  onChange={handleInputChange}
+                  required
+                />
+                <label htmlFor="nickname">닉네임</label>
+              </SignUpInput>
+              <SignUpInput className="input-area">
+                <input
+                  type="password"
+                  placeholder=" "
+                  name="password"
+                  value={editedUserInfo?.password || ""}
+                  onChange={handleInputChange}
+                  required
+                />
+                <label htmlFor="password">비밀번호</label>
+              </SignUpInput>
+              <SignUpInput className="input-area">
+                <input
+                  type="password"
+                  placeholder=" "
+                  name="password2"
+                  value={editedUserInfo?.password2 || ""}
+                  onChange={handleInputChange}
+                  required
+                />
+                <label htmlFor="password">비밀번호 확인</label>
+              </SignUpInput>
+              <SignUpInput className="input-area">
+                <input
+                  type="tel"
+                  placeholder=" "
+                  name="phoneNumber"
+                  value={editedUserInfo?.phoneNumber || ""}
+                  onChange={handleInputChange}
+                  required
+                />
+                <label htmlFor="phoneNumber">
+                  전화번호를 입력해주세요 (010-nnnn-nnnn 형식으로 입력해주세요)
+                </label>
+              </SignUpInput>
+              <SignUpInput className="input-area">
+                <input
+                  type="text"
+                  placeholder=" "
+                  name="intro"
+                  value={editedUserInfo?.intro || ""}
+                  onChange={handleInputChange}
+                  required
+                />
+                <label htmlFor="intro">한줄 소개를 입력해주세요</label>
+              </SignUpInput>
+              <SignUpInput className="input-area">
+                <input
+                  type="text"
+                  placeholder=" "
+                  name="intro"
+                  value={editedUserInfo?.intro || ""}
+                  onChange={handleInputChange}
+                  required
+                />
+                <label htmlFor="intro">바이오링크를 입력해주세요</label>
+              </SignUpInput>
               {/* <div className="category">바이오링크</div>
               <input
                 type="text"
@@ -200,13 +234,14 @@ export default UserInformation;
 const UserInfoContainer = styled.div`
   border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.5);
-  height: 500px;
+  height: 600px;
   width: 80%;
   padding: 20px;
   .category {
     color: black;
-    font-weight: bold;
-    padding-top: 15px;
+    width: 70%;
+    position: relative;
+    padding-top: 20px;
     font-family: "Noto Sans KR", "Noto Sans";
   }
   .content {
@@ -228,7 +263,7 @@ const UserButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 15px;
+  margin-top: 20px;
 `;
 const UserButton = styled.button`
   background-color: #565cf8;
@@ -242,7 +277,7 @@ const UserButton = styled.button`
 `;
 
 const Profile = styled.div`
-  margin-top: 15px;
+  margin-top: 20px;
   position: relative;
 `;
 
@@ -251,5 +286,54 @@ const MyIntroduction = styled.div`
   margin-top: 10px;
   h3 {
     margin-top: 0;
+  }
+`;
+
+const SignUpInput = styled.div`
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 15px;
+
+  .passwdCheck {
+    font-size: 12px;
+    color: red;
+  }
+
+  .input-area {
+    width: 70%;
+    position: relative;
+    font-size: 18px;
+    margin-top: 20px;
+  }
+
+  input {
+    width: 60%;
+    height: 30px;
+    border: none;
+    border-bottom: 2px solid gray;
+    border-radius: 0;
+    outline: none;
+    min-width: 60vmin;
+    font-size: 15px;
+    padding-bottom: 5px;
+    background-color: transparent;
+    padding-left: 10px;
+    padding-top: 20px;
+    font-family: "Noto Sans KR", "Noto Sans";
+  }
+  label {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: transform 0.3s ease-out;
+    padding-left: 10px;
+    font-size: 15px;
+  }
+  input:focus + label,
+  input:not(:placeholder-shown) + label {
+    transform: translateY(-150%);
+    font-size: 12px;
   }
 `;

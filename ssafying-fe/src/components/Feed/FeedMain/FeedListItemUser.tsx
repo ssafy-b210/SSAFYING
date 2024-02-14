@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import more from "../../../assets/img/imgBtn/more.svg";
 import RoundImg from "../utils/RoundImg";
@@ -6,18 +6,34 @@ import ImgBtn from "../utils/ImgBtn";
 import Modal from "react-modal";
 import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
+import { deleteFeedItem } from "../../../apis/api/Feed";
 
 interface userProps {
   userImg: string;
   nickname: string;
-  userId: number;
+  userId: Number;
   time: string;
+  feedId: Number;
 }
 
-function FeedListItemUser({ userImg, nickname, userId, time }: userProps) {
+function FeedListItemUser({
+  userImg,
+  nickname,
+  userId,
+  time,
+  feedId,
+}: userProps) {
   const user = useAppSelector(selectUser);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [timeDiff, setTimediff] = useState("");
+
+  console.log("date" + time);
+
+  useEffect(() => {
+    if (time !== null && time !== undefined) {
+      calcTimeDiff();
+    }
+  }, []);
 
   function clickMoreBtn() {
     setModalIsOpen(true);
@@ -27,8 +43,12 @@ function FeedListItemUser({ userImg, nickname, userId, time }: userProps) {
     setModalIsOpen(false);
   }
 
+  const deleteFeed = async () => {
+    await deleteFeedItem(feedId);
+  };
+
   function calcTimeDiff() {
-    const date = new Date(time);
+    const date = new Date(time.substring(0, 19));
     const now = new Date();
     const diff = Math.abs(date.getTime() - now.getTime());
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -37,7 +57,11 @@ function FeedListItemUser({ userImg, nickname, userId, time }: userProps) {
     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
     if (days > 0) {
-      setTimediff(`${days}일 전`);
+      if (days < 7) {
+        setTimediff(`${days}일 전`);
+      } else {
+        setTimediff(`${date}`);
+      }
     } else if (hours > 0) {
       setTimediff(`${hours}시간 전`);
     } else if (minutes > 0) {
@@ -65,8 +89,7 @@ function FeedListItemUser({ userImg, nickname, userId, time }: userProps) {
             style={customStyles}
           >
             <ButtonWrapper>
-              <Button>수정</Button>
-              <Button>삭제</Button>
+              <Button onClick={deleteFeed}>삭제</Button>
             </ButtonWrapper>
           </Modal>
         </>
@@ -106,28 +129,28 @@ const customStyles = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "200px",
-    height: "120px",
+    width: "130px",
+    height: "40px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: "10px",
   },
 };
 
 const ButtonWrapper = styled.div`
-  width: 200px;
-  height: 120px;
-  border-radius: 15px; // 버튼 모서리 둥글게 만들기
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
 `;
 
 const Button = styled.button`
-  background-color: #ccc; // 버튼 배경색 설정
-  border: none; // 버튼 테두리 없애기
+  background-color: transparent; 
+  border: none;
   cursor: pointer;
-  transition: background-color 0.3s; // 호버 효과를 위한 전환 효과
+  transition: background-color 0.3s;
   width: 100%;
-  height: 50%;
+  height: 100%;
   &:hover {
-    background-color: #999; // 호버 시 배경색 변경
-  }
+    background-color: lightGray;
 `;

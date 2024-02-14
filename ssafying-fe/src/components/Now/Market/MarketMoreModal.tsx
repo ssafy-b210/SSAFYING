@@ -105,7 +105,7 @@ function MarketMoreModal({ card, marketId, onDelete }: MarketMoreModalProps) {
 
             {user.nickname === card.writer ? (
               <Flex>
-                <BoardBtn btnmsg="수정" link="" />
+                {/* <BoardBtn btnmsg="수정" link="" /> */}
                 <BoardBtn
                   btnmsg="삭제"
                   link="/market"

@@ -3,21 +3,31 @@ import ImgBtn from "../../../Feed/utils/ImgBtn";
 import deleteBtn from "../../../../assets/img/imgBtn/deleteBtn.svg";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectUser } from "../../../../store/reducers/user";
+import { deleteBoardComment } from "../../../../apis/api/Board";
 
 interface RecommentProps {
   commentId: number;
   nickname: string;
+  userId: number;
   content: string;
-  onClickDelete: () => void;
+  time: string;
+  profile: string;
 }
 
 function BoardRecommentItem({
   commentId,
-  content,
   nickname,
-  onClickDelete,
+  userId,
+  time,
+  profile,
+  content,
 }: RecommentProps) {
   const user = useAppSelector(selectUser);
+
+  const onClickDelete = () => {
+    deleteBoardComment(commentId);
+  };
+
   return (
     <RecommentWrapper>
       <RecommentContent>
@@ -25,7 +35,7 @@ function BoardRecommentItem({
         <Content>{content}</Content>
       </RecommentContent>
       <ButtonsWrapper>
-        {commentId === user.userId && (
+        {userId === user.userId && (
           <ImgBtn src={deleteBtn} onClick={onClickDelete} size="12px" />
         )}
       </ButtonsWrapper>

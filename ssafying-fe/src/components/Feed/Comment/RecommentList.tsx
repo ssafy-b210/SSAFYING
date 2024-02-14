@@ -2,7 +2,6 @@ import styled from "styled-components";
 import RecommentItem from "./RecommentItem";
 
 interface RepliesProps {
-  onClick: () => void;
   replies: {
     id: number;
     user: {
@@ -16,7 +15,7 @@ interface RepliesProps {
   }[];
 }
 
-function RecommentList({ onClick, replies }: RepliesProps) {
+function RecommentList({ replies }: RepliesProps) {
   return (
     <RecommentListWrapper>
       {replies.map((reply) => (
@@ -25,7 +24,6 @@ function RecommentList({ onClick, replies }: RepliesProps) {
           commentId={reply.id}
           commentUser={reply.user}
           content={reply.content}
-          onClickDelete={() => onClick}
         />
       ))}
     </RecommentListWrapper>

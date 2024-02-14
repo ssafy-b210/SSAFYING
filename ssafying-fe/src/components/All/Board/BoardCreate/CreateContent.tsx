@@ -5,10 +5,7 @@ interface CreateContentProps {
   initialContent?: string;
 }
 
-function CreateContent({
-  onContentChange,
-  initialContent = "",
-}: CreateContentProps) {
+function CreateContent({ onContentChange }: CreateContentProps) {
   const handleContentChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -18,7 +15,7 @@ function CreateContent({
     <Content>
       <h4>내용</h4>
       <ContentContainer>
-        <StyledInput onChange={handleContentChange} value={initialContent} />
+        <StyledInput onChange={handleContentChange} />
       </ContentContainer>
     </Content>
   );

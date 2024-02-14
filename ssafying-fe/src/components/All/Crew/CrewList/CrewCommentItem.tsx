@@ -5,24 +5,23 @@ import deleteBtn from "../../../../assets/img/imgBtn/deleteBtn.svg";
 import CrewRecommentList from "./CrewRecommentList";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectUser } from "../../../../store/reducers/user";
+import { deleteCrew, deleteCrewComment } from "../../../../apis/api/Crew";
 
 interface CommentProps {
   commentId: number;
-  nickname: string;
+  commentUser: {
+    id: Number;
+    nickname: string;
+  };
   content: string;
   isHighlighted: boolean;
   onClick: () => void;
-  //대댓글
-  replies: {
-    replyId: number;
-    commentId: number;
-    nickname: string;
-    content: string;
-  }[];
+  replies: any[];
 }
 
 function CrewCommentItem({
   commentId,
+  commentUser,
   content,
   isHighlighted,
   onClick,
@@ -30,26 +29,24 @@ function CrewCommentItem({
 }: CommentProps) {
   const user = useAppSelector(selectUser);
 
-  function clickDeleteBtn() {
-    console.log("delete comment");
+  async function clickDeleteBtn() {
+    await deleteCrewComment(commentId);
   }
   return (
     <>
       <UserWrapper isHighlighted={isHighlighted} onClick={onClick}>
         <CommentContent>
-          <UserId>{commentId}</UserId>
+          <UserId>{commentUser.nickname}</UserId>
           <Content>{content}</Content>
         </CommentContent>
         <ButtonsWrapper>
           <TextBtn onClick={onClick}>답글달기</TextBtn>
-          {commentId === user.userId && (
+          {commentUser.id === user.userId && (
             <ImgBtn src={deleteBtn} onClick={clickDeleteBtn} size="15px" />
           )}
         </ButtonsWrapper>
       </UserWrapper>
-      {replies.length > 0 && (
-        <CrewRecommentList onClick={clickDeleteBtn} replies={replies} />
-      )}
+      {replies.length > 0 && <CrewRecommentList replies={replies} />}
     </>
   );
 }

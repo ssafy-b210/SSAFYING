@@ -36,6 +36,7 @@ function BoardMoreModal({ card, onDelete }: moreProps) {
   const [isSaved, setIsSaved] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [boardData, setBoardData] = useState<any>(null);
+  const [highlighted, setHighlighted] = useState<Number | null>(null);
 
   useEffect(() => {
     const savedStatus = localStorage.getItem(`savedStatus_${card.boardId}`);
@@ -49,9 +50,9 @@ function BoardMoreModal({ card, onDelete }: moreProps) {
     localStorage.setItem(`savedStatus_${card.boardId}`, String(newSavedStatus));
     if (!newSavedStatus) {
       //scrapBoard(userId, boardId)
-      scrapBoard(1, 1);
+      scrapBoard(user.userId, 1);
     } else {
-      cancelscrapBoard(1, 1);
+      cancelscrapBoard(user.userId, 1);
     }
   };
 
@@ -126,18 +127,7 @@ function BoardMoreModal({ card, onDelete }: moreProps) {
               <Flex>
                 {/* 수정화면만들기 */}
                 {/* <BoardBtn btnmsg="수정" onClick={handleEditBoard} link="" /> */}
-                <Modal
-                  btnTxt="수정"
-                  isOpen={isModalOpen}
-                  onClose={handleCloseModal}
-                >
-                  {" "}
-                  {/* 모달 컴포넌트 */}
-                  <BoardUpdateModal
-                    onUpdateBoard={handleUpdateBoard}
-                    onCloseModal={handleCloseModal}
-                  />
-                </Modal>
+
                 <BoardBtn
                   btnmsg="삭제"
                   onClick={handleDeleteBoard}
@@ -148,11 +138,16 @@ function BoardMoreModal({ card, onDelete }: moreProps) {
             <hr />
           </Content>
           <CommentContainer>
-            <BoardCommentList />
+            <BoardCommentList
+              boardId={card.boardId}
+              parent={(id) => setHighlighted(id)}
+              commentList={boardData.comments}
+            />
             <MoreCommentInput
               onSubmit={handleCommentSubmit}
               target="board"
               id={card.boardId}
+              highlighted={highlighted}
             ></MoreCommentInput>
           </CommentContainer>
         </Card>
