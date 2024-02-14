@@ -91,24 +91,9 @@ public class BambooService {
         // 24시간이 지났는지 확인해야 함
         Duration diff = Duration.between(bamboo.getCreatedAt().toLocalTime(), now.toLocalTime()); //시간차
 
-        /** 현재 시간과 저장된 시간의 차이를 계산 값으로 test
-        if (diff.getSeconds() >= 5) {
-            System.out.println("**1**");
-            System.out.println("now = " + now);
-            System.out.println("bamboo.getCreatedAt() = " + bamboo.getCreatedAt());
-        } else {
-            System.out.println("**2**");
-            System.out.println("now = " + now);
-            System.out.println("bamboo.getCreatedAt() = " + bamboo.getCreatedAt());
-        }
-
-         System.out.println("=============BambooService.findDetailBamboo");
-         */
-
         if (diff.toHours() >= 24) {
             throw new RuntimeException("해당 대나무숲이 24시간이 지나 삭제되었습니다.");
         }
-
 
         //bambooComment 를 BambooCommentResponse 로 변환
         List<BambooCommentResponse> bambooCommentResponseList = new ArrayList<>(); // list 준비
@@ -117,6 +102,8 @@ public class BambooService {
         List<BambooComment> commentList = bamboo.getCommentList();
         for (BambooComment comment : commentList) { // 저장되어있던 댓글 하나씩 돌면서 BambooCommentResponse 로 변환
             BambooCommentResponse buildBambooComment = BambooCommentResponse.builder()
+                    .userId(comment.getUser().getId())
+                    .commentId(comment.getId())
                     .content(comment.getContent())
                     .createAt(comment.getCreatedAt())
                     .build();
@@ -126,6 +113,8 @@ public class BambooService {
 
         // 24시간이 지나지 않은 대나무숲 상세정보 조회
         FindDetailBambooResponse result = FindDetailBambooResponse.builder()
+                .bambooId(bamboo.getId())
+                .userId(bamboo.getUser().getId())
                 .content(bamboo.getContent())
                 .createdAt(bamboo.getCreatedAt())
                 .comments(bambooCommentResponseList)
