@@ -4,8 +4,9 @@ import BambooMoreModal from "./BambooMoreModal";
 
 interface BambooItemProps {
   card: {
-    time: string;
+    createdAt: string;
     content: string;
+    bambooId: number;
   };
   index: number;
 }
@@ -16,7 +17,7 @@ function BambooForestListItem({ card, index }: BambooItemProps) {
       <Card key={index}>
         <Content>
           <Copy>{card.content}</Copy>
-          <Time>{card.time} 전</Time>
+          <Time>{card.createdAt} 전</Time>
           <Button>
             <Modal btnTxt="더보기">
               <BambooMoreModal card={card} />

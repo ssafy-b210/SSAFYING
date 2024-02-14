@@ -1,21 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TextArea from "../Feed/FeedCreate/TextArea";
 import styled from "styled-components";
+import { selectOneBamboo } from "../../apis/api/Forest";
 
 interface moreProps {
   card: {
-    time: string;
+    createdAt: string;
     content: string;
+    bambooId: number;
   };
 }
 
 function BambooMoreModal({ card }: moreProps) {
+  const [bambooData, setBambooData] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
+  //상세조회 api 호출
+  useEffect(() => {
+    const fetchBoardData = async () => {
+      try {
+        const data = await selectOneBamboo(card.bambooId);
+        console.log("data", data);
+        setBambooData(data.resultData.title);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    if (isModalOpen) {
+      fetchBoardData();
+    }
+  }, [card.bambooId, isModalOpen]);
+
   return (
     <div>
       <Card>
         <Content>
           <Copy>{card.content}</Copy>
-          <Time>{card.time} 전</Time>
+          <Time>{card.createdAt} 전</Time>
         </Content>
       </Card>
     </div>

@@ -1,5 +1,3 @@
-import { error } from "console";
-import { useNavigate } from "react-router";
 import { axios } from "../utils/axios";
 
 const REST_BOARD_API = `/api/boards`;
