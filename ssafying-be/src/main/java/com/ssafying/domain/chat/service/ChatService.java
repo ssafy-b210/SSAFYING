@@ -36,6 +36,8 @@ public class ChatService {
     private final ChatRoomUserRepository chatRoomUserRepository;
     private final UserRepository userRepository;
 
+    private final EntityManager entityManager;
+
     // 방 생성 (생성과 동시에 초대 : 다중 초대 가능)
     @Transactional
     public Integer addChatRoom(InviteChatRoomRequest inviteChatRoomRequest) {
@@ -122,17 +124,19 @@ public class ChatService {
         ChatRoomUser chatRoomUser = chatRoomUserRepository.findById(joinRoomId)
                 .orElseThrow(() -> new RuntimeException("해당하는 참여 채팅방이 없습니다"));
         ChatRoom chatRoom = chatRoomUser.getChatRoom();
-        System.out.println("채팅방 : "+chatRoom.getId());
-        chatRoomUserRepository.delete(chatRoomUser);
 
         List<ChatRoomUser> chatRoomUsers = chatRoom.getChatRoomUserList();
-        System.out.println(chatRoomUsers.toString());
+
+        System.out.println("채팅방 : "+chatRoom.getId());
+        chatRoomUserRepository.delete(chatRoomUser);
+        chatRoomUsers.remove(chatRoomUser);
+
         // 해당 채팅방 참여 중인 유저가 없다면 방 삭제
         if (chatRoomUsers.isEmpty()) {
             chatRoomRepository.deleteById(chatRoom.getId());
         }
 
-        return chatRoom.getId();
+        return joinRoomId;
     }
 
 
@@ -156,6 +160,8 @@ public class ChatService {
                 user
         );
 
+        chatMessage = chatMessageRepository.save(chatMessage);
+
         ChatMessageDto stompChatResponse = ChatMessageDto.builder()
                 .id(chatMessage.getId())
                 .chatRoomId(chatRoom.getId())
@@ -163,9 +169,6 @@ public class ChatService {
                 .message(chatMessage.getMessage())
                 .createdAt(chatMessage.getCreatedAt())
                 .build();
-
-        chatMessageRepository.save(chatMessage);
-
         simpMessagingTemplate.convertAndSend("/sub/chatting/" + roomId, stompChatResponse);
 
         // 각 ChatRoomUser의 최근 메시지 업데이트

@@ -21,14 +21,14 @@ public class ChatRoomUser extends BaseTimeEntity {
     @Column(name = "chat_room_user_id")
     private int id; //채팅방 입장관리 id
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     @Column(name = "last_message")
     private String lastMessage; // 마지막에 전송된 메시지
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chat_room_id")
     private ChatRoom chatRoom; // 채팅방
 //
