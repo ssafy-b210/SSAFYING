@@ -1,16 +1,20 @@
 package com.ssafying.domain.feed.service;
 
+import com.ssafying.domain.alert.dto.response.SseResponse;
+import com.ssafying.domain.alert.entity.Notification;
+import com.ssafying.domain.alert.entity.NotificationTypeStatus;
+import com.ssafying.domain.alert.repository.NotificationRepository;
+import com.ssafying.domain.alert.service.NotificationService;
 import com.ssafying.domain.feed.dto.*;
-import com.ssafying.domain.feed.dto.response.GetFeedResponse;
 import com.ssafying.domain.feed.dto.request.*;
 import com.ssafying.domain.feed.dto.response.GetFeedLikesResponse;
+import com.ssafying.domain.feed.dto.response.GetFeedResponse;
 import com.ssafying.domain.feed.entity.*;
 import com.ssafying.domain.feed.repository.*;
 import com.ssafying.domain.follow.dto.response.FindFollowingListResponse;
 import com.ssafying.domain.follow.repository.jdbc.FollowRepository;
 import com.ssafying.domain.follow.service.FollowService;
 import com.ssafying.domain.user.dto.SimpleUserDto;
-import com.ssafying.domain.user.entity.InterestTag;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.InterestTagRepository;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
@@ -21,7 +25,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.ssafying.global.entity.Hashtag.createTag;
@@ -43,6 +50,8 @@ public class FeedService {
     private final UserRepository userRepository;
     private final HashtagRepository hashtagRepository;
     private final FollowRepository followRepository;
+    private final NotificationService notificationService;
+    private final NotificationRepository notificationRepository;
 
     private final FollowService followService;
 
@@ -190,6 +199,27 @@ public class FeedService {
         } else {
             FeedLike feedLike = FeedLike.createFeedLike(feed, user);
             feedLike = feedLikeRepository.save(feedLike);
+
+            //sse 추가
+            SseResponse sseResponse = SseResponse.builder()
+                    .receiverId(user.getId())
+                    .nickname(user.getNickname())
+                    .imgUrl(user.getProfileImageUrl())
+                    .feedId(feed.getId())
+                    .createdAt(feed.getCreatedAt())
+                    .build();
+
+            notificationService.customNotify(feed.getUser().getId(), sseResponse, "작성하신 피드에 좋아요가 달렸습니다", "like");
+
+            //Notification data 생성
+            Notification notification = Notification.createNotification(
+                    user,
+                    feed.getUser(),
+                    NotificationTypeStatus.LIKE,
+                    feed
+            );
+            notificationRepository.save(notification);
+
             return feedLike.getId();
         }
     }
