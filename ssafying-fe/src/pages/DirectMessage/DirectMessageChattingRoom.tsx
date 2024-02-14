@@ -73,12 +73,16 @@ function DirectMessageChattingRoom() {
   const [messages, setMessages] = useState<RecievedMessage[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const stompClient = useRef<CompatClient | null>(null); // useRef 사용
 
   useEffect(() => {
     getChattingRoomDetail();
     connection();
     getChatList();
+
+    inputRef.current?.focus();
   }, []);
 
   // 연결
@@ -114,8 +118,8 @@ function DirectMessageChattingRoom() {
   // 메시지 구독(수신)
   function onMessageReceived(frame: StompJS.IMessage) {
     try {
+      console.log("수신 메시지", frame);
       const newMessage = JSON.parse(frame.body);
-      console.log(newMessage);
       setMessages((prevMessage) => [...prevMessage, newMessage]);
     } catch (error) {
       console.error("오류가 발생했습니다:", error);
@@ -136,6 +140,7 @@ function DirectMessageChattingRoom() {
       });
 
       console.log("보낸 메시지", sendMessage);
+
       setInputValue("");
     }
   }
@@ -152,14 +157,30 @@ function DirectMessageChattingRoom() {
   // 채팅 메시지 리스트 조회
   async function getChatList() {
     const res = await selecctChatList(Number(roomId));
-    console.log("채팅리스트", res);
-
     setMessages(res);
+    scrollToBottom();
+  }
+
+  // 스크롤 가장 아래로 내리기
+  function scrollToBottom() {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
   }
 
   // 채팅 입력창 Change event handler
   function handleChangeInputValue(e: ChangeEvent<HTMLInputElement>) {
     setInputValue(e.target.value);
+  }
+
+  // 채팅방 나가기 버튼 Click event handler
+  function handleClickExitButton() {
+    // confirm 띄우고
+    // 채팅방 상세 조회 후
+    // id로 삭제 API 실행
+    // /chat으로 나가기
+    // 구독 끊기
+    // 서버 연결 끊기
   }
 
   // 다음 채팅과 연속되어 보냈는지 검사
@@ -182,28 +203,32 @@ function DirectMessageChattingRoom() {
   }
 
   return (
-    <div>
+    <Wrapper>
       <BackBtnHeader
         backLink="/chat"
         isCenter={false}
         htext={<ChatHeaderProfile imageUrl="" name={roomName} />}
+        extraBtn={<ExitBtn link="/chat" onClick={handleClickExitButton} />}
       />
-      {messages.map((message, index) => {
-        let isContinuous: boolean = false;
-        isContinuous = checkContinuousMessage(message, messages[index + 1]);
+      <ChatContainer ref={scrollRef}>
+        {messages.map((message, index) => {
+          let isContinuous: boolean = false;
+          isContinuous = checkContinuousMessage(message, messages[index + 1]);
 
-        return (
-          <Chat
-            // key={message.id}
-            key={index}
-            userId={message.userInfo.id}
-            message={message.message}
-            isContinuous={isContinuous}
-          />
-        );
-      })}
+          return (
+            <Chat
+              // key={message.id}
+              key={index}
+              userId={message.userInfo.id}
+              message={message.message}
+              isContinuous={isContinuous}
+            />
+          );
+        })}
+      </ChatContainer>
       <ChatInputBox>
         <input
+          ref={inputRef}
           type="text"
           value={inputValue}
           onChange={handleChangeInputValue}
@@ -215,70 +240,46 @@ function DirectMessageChattingRoom() {
           <button onClick={sendMessage}>보내기</button>
         ) : null}
       </ChatInputBox>
-      {/* <button onClick={sendMessage}>채팅 보내기</button> */}
-      {/* <BackBtnHeader
-        backLink="/direct"
-        isCenter={false}
-        htext={
-          <HeaderTextWrapper>
-            <RoundImg size="30px" src={userImg} />
-            <div className="text">su00</div>
-          </HeaderTextWrapper>
-        }
-        extraBtn={<ExitBtn link="/direct" />}
-      />
-      <div>
-        {chatList.map((chat, idx) => {
-          const nextChat = chatList[idx + 1]; */}
-      {/* 특정 유저가 같은 시간에 2개 이상의 채팅을 보낸 상황을 연속 채팅이라고
-      정의합니다. 아래의 조건이 모두 만족할 때 연속 채팅이라고 판단합니다. 1.
-      다음 채팅(nextChat)이 존재함 2. 현재 채팅(chat)의 작성자가 다음 채팅과
-      같음 3. 현재 채팅의 작성시간이 다음 채팅과 같음 */}
-      {/* const isContinuous =
-            nextChat &&
-            nextChat.userId === chat.userId &&
-            nextChat.createdAt === chat.createdAt
-              ? true
-              : false;
-
-          return (
-            <Chat
-              key={chat.id}
-              userId={chat.userId}
-              message={chat.message}
-              isContinuous={isContinuous}
-            />
-          );
-        })}
-      </div>
-      <ChatInputBox>
-        <input type="text" onChange={chatInputChangeHandle} />
-        {chatInputValue.length > 0 ? <button>보내기</button> : null}
-      </ChatInputBox> */}
-    </div>
+    </Wrapper>
   );
 }
 
 export default DirectMessageChattingRoom;
 
-const HeaderTextWrapper = styled.div`
-  display: flex;
-  align-items: center;
+const Wrapper = styled.div`
+  position: relative;
+  height: 100vh;
+`;
 
-  .text {
-    margin: 10px;
-    font-weight: 600;
+const ChatContainer = styled.div`
+  position: relative;
+  overflow: hidden;
+  height: 78%;
+  overflow-y: scroll;
+  padding: 0 10px;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
   }
 `;
 
 const ChatInputBox = styled.div`
   position: relative;
   width: 100%;
+  margin-top: 10px;
 
   input {
     width: 100%;
     height: 40px;
-    padding: 10px 18px;
+    padding: 10px 75px 10px 18px;
     font-size: 14px;
     font-family: "Noto Sans KR", "Noto Sans", sans-serif;
     border: 2px solid #ddd9e0;
