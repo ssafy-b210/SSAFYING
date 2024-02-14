@@ -7,16 +7,19 @@ import { deleteBoardComment } from "../../../../apis/api/Board";
 
 interface RecommentProps {
   commentId: number;
-  commentUser: {
-    id: number;
-    nickname: string;
-  };
+  nickname: string;
+  userId: number;
   content: string;
+  time: string;
+  profile: string;
 }
 
 function BoardRecommentItem({
   commentId,
-  commentUser,
+  nickname,
+  userId,
+  time,
+  profile,
   content,
 }: RecommentProps) {
   const user = useAppSelector(selectUser);
@@ -28,11 +31,11 @@ function BoardRecommentItem({
   return (
     <RecommentWrapper>
       <RecommentContent>
-        <UserId>{commentUser.nickname}</UserId>
+        <UserId>{nickname}</UserId>
         <Content>{content}</Content>
       </RecommentContent>
       <ButtonsWrapper>
-        {commentUser.id === user.userId && (
+        {userId === user.userId && (
           <ImgBtn src={deleteBtn} onClick={onClickDelete} size="12px" />
         )}
       </ButtonsWrapper>

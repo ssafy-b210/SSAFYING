@@ -89,7 +89,6 @@ function FeedListItemUser({
             style={customStyles}
           >
             <ButtonWrapper>
-              <Button>수정</Button>
               <Button onClick={deleteFeed}>삭제</Button>
             </ButtonWrapper>
           </Modal>
@@ -130,8 +129,8 @@ const customStyles = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "150px",
-    height: "80px",
+    width: "130px",
+    height: "40px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -151,7 +150,7 @@ const Button = styled.button`
   cursor: pointer;
   transition: background-color 0.3s;
   width: 100%;
-  height: 50%;
+  height: 100%;
   &:hover {
     background-color: lightGray;
 `;

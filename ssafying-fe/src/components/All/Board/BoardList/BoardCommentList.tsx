@@ -12,6 +12,7 @@ interface Props {
     nickname: string;
     userName: string;
     commentId: number;
+    profileImgUrl: string;
     userId: number;
   }[];
 }
@@ -36,6 +37,8 @@ function BoardCommentList({ boardId, parent, commentList }: Props) {
           nickname={comment.nickname}
           content={comment.comment}
           userId={comment.userId}
+          time={comment.createdAt}
+          profile={comment.profileImgUrl}
           isHighlighted={comment.commentId === highlightedCommentId}
           onClick={() => handleCommentClick(comment.commentId)}
           replies={comment.childCommentList}

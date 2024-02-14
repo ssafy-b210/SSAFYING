@@ -3,14 +3,15 @@ import BoardRecommentItem from "./BoardRecommentItem";
 
 interface RepliesProps {
   replies: {
-    id: number;
-    user: {
-      id: number;
-      nickname: string;
-    };
-    content: string;
-    likeCounts: number;
-    deleted: boolean;
+    anonymous: boolean;
+    childCommentList: any[];
+    comment: string;
+    createdAt: string;
+    nickname: string;
+    userName: string;
+    commentId: number;
+    profileImgUrl: string;
+    userId: number;
   }[];
 }
 
@@ -19,10 +20,13 @@ function BoardRecommentList({ replies }: RepliesProps) {
     <RecommentListWrapper>
       {replies.map((reply) => (
         <BoardRecommentItem
-          key={reply.id}
-          commentId={reply.id}
-          commentUser={reply.user}
-          content={reply.content}
+          key={reply.commentId}
+          commentId={reply.commentId}
+          nickname={reply.nickname}
+          content={reply.comment}
+          userId={reply.userId}
+          time={reply.createdAt}
+          profile={reply.profileImgUrl}
         />
       ))}
     </RecommentListWrapper>

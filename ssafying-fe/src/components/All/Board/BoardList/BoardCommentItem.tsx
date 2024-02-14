@@ -13,6 +13,8 @@ interface CommentProps {
   userId: number;
   content: string;
   isHighlighted: boolean;
+  time: string;
+  profile: string;
   onClick: () => void;
   replies: any[];
 }
@@ -23,6 +25,8 @@ function BoardCommentItem({
   userId,
   content,
   isHighlighted,
+  time,
+  profile,
   onClick,
   replies,
 }: CommentProps) {
