@@ -152,7 +152,7 @@ function BusRealTimeMap() {
       <BackBtnHeader
         backLink="/shuttle"
         isCenter={true}
-        htext={<h3>대전 1호차 위치공유</h3>}
+        htext={<h3>{`대전 ${SHUTTLE_ID}호차 위치공유`}</h3>}
       />
       <MapContainer>
         {currLocation.latitude > 0 && currLocation.longitude > 0 ? (
