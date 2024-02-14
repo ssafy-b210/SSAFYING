@@ -1,12 +1,18 @@
-import { Link } from "react-router-dom";
 import exitIcon from "../../assets/img/imgBtn/exit.svg";
+import styled from "styled-components";
 
-function ExitBtn(props: { link: string }) {
+function ExitBtn(props: { onClick?: () => void }) {
   return (
-    <Link to={props.link}>
+    <Button onClick={props.onClick}>
       <img src={exitIcon} alt="나기기" />
-    </Link>
+    </Button>
   );
 }
 
 export default ExitBtn;
+
+const Button = styled.button`
+  border: none;
+  background: transparent;
+  cursor: pointer;
+`;

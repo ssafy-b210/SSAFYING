@@ -3,7 +3,7 @@ import styled from "styled-components";
 // 채팅 말풍선 컴포넌트입니다.
 
 interface ChatProps {
-  userId: string;
+  userId: number;
   message: string;
   isMine: boolean;
 }
@@ -17,6 +17,8 @@ function SpeechBubble(props: ChatProps) {
     </Wrapper>
   );
 }
+
+export default SpeechBubble;
 
 const Wrapper = styled.div<{ $isMine: boolean }>`
   display: flex;
@@ -35,5 +37,3 @@ const StyledSpeechBubble = styled.div<{ $isMine: boolean }>`
   border-radius: 20px;
   background-color: ${(props) => (props.$isMine ? "#fdfdfd" : "#ffefff")};
 `;
-
-export default SpeechBubble;

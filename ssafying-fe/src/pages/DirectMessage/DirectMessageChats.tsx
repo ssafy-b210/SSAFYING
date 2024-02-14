@@ -38,10 +38,6 @@ function DirectMessageChats() {
     setChattingRoomList(res);
   }
 
-  function handleClickCreate(): void {
-    // 채팅방 생성
-  }
-
   return (
     <div>
       <CenterHeader />
@@ -49,7 +45,7 @@ function DirectMessageChats() {
         backLink="/"
         isCenter={true}
         text={user.nickname}
-        extraBtn={<PlusBtn onClick={handleClickCreate} />}
+        extraBtn={<PlusBtn link="create" />}
       />
       <ProfileList>
         {chattingRoomList.map((room: ChattingRoom) => (

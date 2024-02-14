@@ -30,11 +30,11 @@ function Chat(props: ChatProps) {
           <RoundImg size="36px" src={userImg} />
         )}
       </ProfileImgWrapper>
-      {/* <SpeechBubble
+      <SpeechBubble
         userId={props.userId}
         message={props.message}
         isMine={props.userId === userId}
-      /> */}
+      />
     </Wrapper>
   );
 }
