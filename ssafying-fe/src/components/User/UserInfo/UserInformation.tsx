@@ -9,6 +9,11 @@ import {
   updateUserInfo,
 } from "../../../apis/api/User";
 
+import {
+  createPortfolioLink,
+  modifyPortfolioLink,
+} from "../../../apis/api/Profile";
+
 function UserInformation(props: { profileDownloadUrl: string | null }) {
   const user = useAppSelector(selectUser);
   const navigate = useNavigate();
@@ -42,7 +47,7 @@ function UserInformation(props: { profileDownloadUrl: string | null }) {
   };
 
   // console.log("확인용링크", props.profileDownloadUrl);
-  const handleSaveClick = () => {
+  const handleSaveClick = async () => {
     //바이오링크 저장 로직 추가.
     let {
       nickname,
@@ -51,6 +56,7 @@ function UserInformation(props: { profileDownloadUrl: string | null }) {
       password2,
       intro,
       profileDownloadUrl,
+      bioLink,
     } = editedUserInfo;
 
     profileDownloadUrl = props.profileDownloadUrl;
@@ -166,24 +172,41 @@ function UserInformation(props: { profileDownloadUrl: string | null }) {
                 />
                 <label htmlFor="intro">한줄 소개를 입력해주세요</label>
               </SignUpInput>
-              <SignUpInput className="input-area">
+              {/* <SignUpInput className="input-area">
                 <input
                   type="text"
                   placeholder=" "
                   name="intro"
+                  className="biolink"
                   value={editedUserInfo?.intro || ""}
                   onChange={handleInputChange}
                   required
                 />
                 <label htmlFor="intro">바이오링크를 입력해주세요</label>
-              </SignUpInput>
-              {/* <div className="category">바이오링크</div>
-              <input
-                type="text"
-                name="bioLink"
-                value={editedUserInfo?.bioLink || ""}
-                onChange={handleInputChange}
-              /> */}
+                <select>
+                  <option>github</option>
+                  <option>notion</option>
+                  <option>tistory</option>
+                  <option>blog</option>
+                  <option>etc</option>
+                </select>
+              </SignUpInput> */}
+              <BioLink>
+                <label>바이오링크를 입력해주세요</label>
+                <select>
+                  <option>github</option>
+                  <option>notion</option>
+                  <option>tistory</option>
+                  <option>blog</option>
+                  <option>etc</option>
+                </select>
+                <input
+                  type="text"
+                  name="bioLink"
+                  value={editedUserInfo?.bioLink || ""}
+                  onChange={handleInputChange}
+                />
+              </BioLink>
               <UserButtonContainer>
                 <UserButton onClick={handleSaveClick}>저장</UserButton>
                 <UserButton className="outBtn" onClick={handleCancelClick}>
@@ -208,7 +231,7 @@ function UserInformation(props: { profileDownloadUrl: string | null }) {
                   <div className="category">바이오링크</div>
                   <div className="content">
                     {userInfo.bioLink === null
-                      ? "(아직 바이오링크를 등록하지 않았습니다. 바이오링크는 최대 5개까지 작성이 가능합니다.)"
+                      ? "(아직 바이오링크를 등록하지 않았습니다. 바이오링크를 작성해주세요!)"
                       : userInfo.bioLink}
                   </div>
                 </>
@@ -230,6 +253,29 @@ function UserInformation(props: { profileDownloadUrl: string | null }) {
 }
 
 export default UserInformation;
+
+const BioLink = styled.div`
+  display: flex;
+  flex-direction: column;
+  label {
+    margin-top: 10px;
+    font-size: 15px;
+    padding-left: 10px;
+  }
+  select {
+    width: 100px;
+    border-radius: 20px;
+    margin: 10px;
+    border: none;
+  }
+  input {
+    margin: 10px;
+    padding-left: 10px;
+    border: none;
+    border-radius: 20px;
+    font-family: "Noto Sans KR", "Noto Sans";
+  }
+`;
 
 const UserInfoContainer = styled.div`
   border-radius: 20px;
@@ -307,13 +353,12 @@ const SignUpInput = styled.div`
   }
 
   input {
-    width: 60%;
+    width: 400px;
     height: 30px;
     border: none;
     border-bottom: 2px solid gray;
     border-radius: 0;
     outline: none;
-    min-width: 60vmin;
     font-size: 15px;
     padding-bottom: 5px;
     background-color: transparent;

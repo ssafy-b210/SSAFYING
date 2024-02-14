@@ -33,7 +33,7 @@ function SavedRecruitmentList() {
   return (
     <div>
       {savedRecruitList.length > 0 ? (
-        <div>
+        <CardWrapper>
           {savedRecruitList.map((item, index) => (
             <FlipCard
               key={index}
@@ -44,7 +44,7 @@ function SavedRecruitmentList() {
               index={item.index}
             />
           ))}
-        </div>
+        </CardWrapper>
       ) : (
         <InfoText>저장된 채용공고가 없습니다.</InfoText>
       )}
@@ -56,4 +56,9 @@ export default SavedRecruitmentList;
 
 const InfoText = styled.div`
   text-align: center;
+`;
+
+const CardWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
 `;

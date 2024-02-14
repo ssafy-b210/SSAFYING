@@ -40,6 +40,7 @@ function ContentPortfolioSection() {
 
   return (
     <div>
+      <Info>나만의 포트폴리오를 작성해봅시다!</Info>
       <ButtonWrapper className="reverse">
         {isModified ? (
           <div>
@@ -101,6 +102,11 @@ function ContentPortfolioSection() {
 
 export default ContentPortfolioSection;
 
+const Info = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const ButtonWrapper = styled.div`
   display: flex;
   padding-bottom: 10px;
@@ -132,6 +138,7 @@ const Button = styled.button`
   border-radius: 6px;
   background-color: #fff;
   cursor: pointer;
+  font-family: "Noto Sans KR", "Noto Sans", sans-serif;
 
   &.danger {
     color: #fff;

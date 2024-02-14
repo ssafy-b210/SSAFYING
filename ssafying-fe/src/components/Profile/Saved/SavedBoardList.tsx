@@ -33,7 +33,7 @@ function SavedBoardList() {
   return (
     <div>
       {savedBoardList.length > 0 ? (
-        <div>
+        <CardWrapper>
           {savedBoardList.map((item: any, index) => {
             const data = {
               card: {
@@ -55,7 +55,7 @@ function SavedBoardList() {
               />
             );
           })}
-        </div>
+        </CardWrapper>
       ) : (
         <InfoText>저장된 게시판이 없습니다.</InfoText>
       )}
@@ -67,4 +67,9 @@ export default SavedBoardList;
 
 const InfoText = styled.div`
   text-align: center;
+`;
+
+const CardWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
 `;

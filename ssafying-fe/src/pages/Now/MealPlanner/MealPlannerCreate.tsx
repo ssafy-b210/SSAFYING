@@ -10,7 +10,7 @@ function MealPlannerCreate() {
         backLink="/"
         isCenter={true}
         htext={<h2>오늘 점심은 뭘까</h2>}
-        extraBtn={<PlusBtn link="/meal/create" />}
+        // extraBtn={<PlusBtn link="/meal/create" />}
       ></BackBtnHeader>
       <SelectCampus></SelectCampus>
       {/* <ImageRecognition

@@ -18,7 +18,7 @@ function SelectCampusMeal() {
         backLink="/now"
         isCenter={true}
         htext={<h3>오늘 점심은 뭘까</h3>}
-        extraBtn={<PlusBtn link="/meal/create" />}
+        // extraBtn={<PlusBtn link="/meal/create" />}
       ></BackBtnHeader>
       <SelectCampus></SelectCampus>
       {hasMealPlanner ? (

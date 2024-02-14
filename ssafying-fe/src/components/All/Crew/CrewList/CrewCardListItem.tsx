@@ -51,7 +51,7 @@ function CrewCardListItem({ card, index }: CrewItemProps) {
                 ? card.content
                 : card.content.slice(0, 29) + "..."}
             </Content>
-            <Location>구인 지역 : {card.region}</Location>
+            <Location>{card.region}에서 구합니다!</Location>
             <Button>
               <Modal btnTxt="더보기">
                 <CrewMoreModal
@@ -109,9 +109,9 @@ const Front = styled.div`
   }
 
   img {
-    width: 100px;
+    width: 80px;
     height: 30px;
-    padding: 10px;
+    padding-top: 10px;
   }
 `;
 
