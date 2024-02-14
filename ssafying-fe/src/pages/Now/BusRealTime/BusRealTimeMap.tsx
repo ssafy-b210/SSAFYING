@@ -7,6 +7,7 @@ import { Stomp } from "@stomp/stompjs";
 import { REACT_APP_HOME_URL } from "../../../apis/constants";
 import { selectBusStopList } from "../../../apis/api/Bus";
 import { useParams } from "react-router-dom";
+import arrowToDown from "../../../assets/img/imgBtn/arrowToDown.svg";
 
 type Location = {
   latitude: number; // 위도
@@ -41,6 +42,18 @@ function BusRealTimeMap() {
     latitude: 0,
     longitude: 0,
   });
+
+  //arrivalAt을 시간 형식으로 바꾸기
+  const formatTime = (timeString: string): string => {
+    const [hours, minutes] = timeString.split(":");
+    const formattedHours = hours.padStart(2, "0");
+    const formattedMinutes = minutes.padStart(2, "0");
+    return `${formattedHours}:${formattedMinutes}`;
+  };
+
+  const formatArrivalTime = (arrivalTime: string): string => {
+    return formatTime(arrivalTime);
+  };
 
   useEffect(() => {
     connection();
@@ -155,15 +168,23 @@ function BusRealTimeMap() {
           />
         ) : null}
       </MapContainer>
+      <ButtonWrapper>
+        <Button onClick={sendLocation}>📍 위치공유하기</Button>
+      </ButtonWrapper>
       {busStopList.map((item) => (
-        <div style={{ border: "1px solid black" }}>
-          <div>{item.busStopName}</div>
-          <div>{item.arrivalAt}</div>
-          <div>{item.latitude}</div>
-          <div>{item.longitude}</div>
-        </div>
+        <BusWrapper>
+          <BusInfo>
+            <InfoDetail>{item.busStopName}</InfoDetail>
+            <InfoDetail>
+              {formatArrivalTime(item.arrivalAt)}에 도착예정!
+            </InfoDetail>
+            {/* <InfoDetail>{item.latitude}</InfoDetail> */}
+            {/* <InfoDetail>{item.longitude}</InfoDetail> */}
+            <img src={arrowToDown} alt="arrow" />
+          </BusInfo>
+        </BusWrapper>
       ))}
-      <button onClick={sendLocation}>위치공유하기</button>
+      <Ssafy>싸피 도착!</Ssafy>
     </div>
   );
 }
@@ -172,4 +193,49 @@ export default BusRealTimeMap;
 
 const MapContainer = styled.div`
   border: 1px solid black;
+`;
+
+const Button = styled.button`
+  font-family: "Noto Sans KR", "Noto Sans", sans-serif;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  border-radius: 20px;
+  padding: 10px;
+  width: 150px;
+  height: 50px;
+  font-size: 15px;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+`;
+const BusWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+const BusInfo = styled.div`
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 18px;
+  border-radius: 20px;
+  padding: 10px;
+  width: 330px;
+  height: 70px;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  img {
+    padding: 33px;
+  }
+`;
+
+const InfoDetail = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 6px;
+`;
+
+const Ssafy = styled.p`
+  text-align: center;
 `;

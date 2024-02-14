@@ -59,11 +59,15 @@ function SsafyAuth() {
         </Input>
         <Input className="input-area">
           <input type="email" id="email" placeholder=" " />
-          <label htmlFor="email">이메일을 입력해주세요</label>
+          <label htmlFor="email">
+            에듀싸피에서 사용하신 이메일을 입력해주세요
+          </label>
         </Input>
         <Input className="input-area">
           <input type="number" id="ssafyid" placeholder=" " />
-          <label htmlFor="ssafyid">싸피 학번을 입력해주세요</label>
+          <label htmlFor="ssafyid">
+            싸피 학번을 입력해주세요 (예: 1234567)
+          </label>
         </Input>
         <button type="button" onClick={handleAuth} className="button">
           인증하기

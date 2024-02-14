@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import likeBtn from "../../../assets/img/imgBtn/like.svg";
 import likeFillRed from "../../../assets/img/imgBtn/likeFillRed.svg";
-import saveBtn from "../../../assets/img/imgBtn/save.svg";
 import commentBtn from "../../../assets/img/imgBtn/comment.svg";
 import FeedLikeCnt from "./FeedLikeCnt";
 import ImgBtn from "../utils/ImgBtn";
@@ -24,6 +23,8 @@ interface Props {
 const FeedListItemBtn: React.FC<Props> = ({ likeCount, feedId }: Props) => {
   const user = useAppSelector(selectUser);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
   const openComment = () => {
     setModalIsOpen(true);
@@ -33,18 +34,19 @@ const FeedListItemBtn: React.FC<Props> = ({ likeCount, feedId }: Props) => {
     setModalIsOpen(false);
   }
 
-  const [isSaved, setIsSaved] = useState(false);
-
   useEffect(() => {
-    const savedStatus = localStorage.getItem("savedStatus");
-    setIsSaved(savedStatus === "true");
-  }, []);
+    const saveSaveStatus = localStorage.getItem(`savedStatus_${feedId}`);
+    setIsSaved(saveSaveStatus === "true");
+
+    const saveLikeStatus = localStorage.getItem(`likedStatus_${feedId}`);
+    setIsLiked(saveLikeStatus === "true");
+  }, [feedId]);
 
   const toggleSaved = () => {
     const newSavedStatus = !isSaved;
     setIsSaved(newSavedStatus);
 
-    localStorage.setItem("savedStatus", String(newSavedStatus));
+    localStorage.setItem(`savedStatus_${feedId}`, String(newSavedStatus));
     if (!newSavedStatus) {
       scrapFeed(user.userId, feedId);
     } else {
@@ -52,10 +54,12 @@ const FeedListItemBtn: React.FC<Props> = ({ likeCount, feedId }: Props) => {
     }
   };
 
-  const [isLiked, setIsLiked] = useState(false);
   const toggleLiked = () => {
-    setIsLiked(!isLiked);
-    if (!isLiked) {
+    const newLikedStatus = !isLiked;
+    setIsLiked(newLikedStatus);
+
+    localStorage.setItem(`likedStatus_${feedId}`, String(newLikedStatus));
+    if (!newLikedStatus) {
       likeCount++;
       likeFeed(user.userId, feedId);
     } else {
@@ -68,7 +72,6 @@ const FeedListItemBtn: React.FC<Props> = ({ likeCount, feedId }: Props) => {
     <>
       <BtnWrapper>
         <div>
-          {/* Assume ImgBtn component receives and forwards the onClick prop */}
           <ImgBtn
             src={isLiked ? likeFillRed : likeBtn}
             onClick={toggleLiked}
