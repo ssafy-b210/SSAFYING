@@ -12,6 +12,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FindListBambooResponse {
+    Long bambooId;
+
+    int userId;
 
     String content;
 
