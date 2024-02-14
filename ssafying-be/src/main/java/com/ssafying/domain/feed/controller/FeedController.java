@@ -2,11 +2,9 @@ package com.ssafying.domain.feed.controller;
 
 import com.ssafying.domain.feed.dto.FeedDto;
 import com.ssafying.domain.feed.dto.ParentCommentDto;
-import com.ssafying.domain.feed.dto.response.GetFeedResponse;
 import com.ssafying.domain.feed.dto.request.*;
 import com.ssafying.domain.feed.dto.response.GetFeedLikesResponse;
 import com.ssafying.domain.feed.service.FeedService;
-import com.ssafying.domain.user.entity.User;
 import com.ssafying.global.result.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -186,7 +184,7 @@ public class FeedController {
      * 3.11 피드댓글 삭제
      *
      */
-    @DeleteMapping("feeds/comments/like/{commentId}")
+    @DeleteMapping("feeds/comments/{commentId}")
     @Operation(summary = "피드 댓글 삭제")
     public ResponseEntity<ResultResponse<Integer>> feedCommentRemove(@PathVariable(name = "commentId") int commentId) {
         int result = feedService.removeFeedComment(commentId);
@@ -208,7 +206,7 @@ public class FeedController {
      * 3.12 피드댓글 좋아요 삭제
      *
      */
-    @DeleteMapping("feeds/comments/{commentId}")
+    @DeleteMapping("feeds/comments/like/{commentId}")
     @Operation(summary = "피드 댓글 좋아요 삭제")
     public ResponseEntity<ResultResponse<Integer>> feedCommentLikeRemove(@RequestBody SaveFeedCommentLikeRequest request) {
         int result = feedService.removeFeedCommentLike(request);
