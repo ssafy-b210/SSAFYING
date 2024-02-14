@@ -19,7 +19,7 @@ function RecruitSortTab() {
 
   const handleList = async () => {
     const list = await getRecruitList(recruitCode);
-    setRecruitList(list.jobs.job);
+    setRecruitList(list);
   };
 
   return (

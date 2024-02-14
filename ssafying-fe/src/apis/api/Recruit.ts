@@ -7,7 +7,8 @@ export async function getRecruitList(code: string) {
         code: code,
       },
     });
-    return response.data;
+    console.log(response.data.resultData);
+    return response.data.resultData;
   } catch (error) {
     console.error("Error fetching recruit list:", error);
     throw error;
