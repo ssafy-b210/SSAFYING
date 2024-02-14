@@ -34,13 +34,13 @@ const CommentInput: React.FC<CommentInputProps> = ({
       try {
         if (target === "board") {
           if (highlighted === null) {
-            await createBoardComment(id, user.userId, comment);
+            await createBoardComment(id, user.userId, comment, -1);
           } else {
             await createBoardComment(id, user.userId, comment, highlighted);
           }
         } else if (target === "crew") {
           if (highlighted === null) {
-            await createCrewComment(id, user.userId, comment);
+            await createCrewComment(id, user.userId, comment, -1);
           } else {
             await createCrewComment(id, user.userId, comment, highlighted);
           }

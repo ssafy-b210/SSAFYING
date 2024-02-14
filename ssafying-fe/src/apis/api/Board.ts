@@ -128,15 +128,13 @@ export async function createBoardComment(
   boardId: Number,
   userId: Number,
   content: string,
-  parentId?: Number,
-  isAnonymous?: boolean
+  parentId?: Number
 ) {
   const data = {
     boardId: boardId,
     userId: userId,
     content: content,
     parentId: parentId,
-    isAnonymous: isAnonymous,
   };
   try {
     const response = await axios.post(
