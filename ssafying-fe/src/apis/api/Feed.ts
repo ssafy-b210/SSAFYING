@@ -192,6 +192,7 @@ export async function deleteFeedComment(feedCommentId: Number) {
   try {
     const response = await axios.delete(`api/feeds/comments/${feedCommentId}`);
     console.log(response.data);
+    return response.data;
   } catch (e) {
     console.log(e);
   }

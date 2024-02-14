@@ -13,6 +13,8 @@ import { scrapFeed } from "../../../apis/api/Feed";
 import { cancelscrapFeed } from "../../../apis/api/Feed";
 import { likeFeed } from "../../../apis/api/Feed";
 import { cancelLikeFeed } from "../../../apis/api/Feed";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
 
 interface Props {
   likeCount: number;
@@ -20,6 +22,7 @@ interface Props {
 }
 
 const FeedListItemBtn: React.FC<Props> = ({ likeCount, feedId }: Props) => {
+  const user = useAppSelector(selectUser);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openComment = () => {
@@ -30,13 +33,6 @@ const FeedListItemBtn: React.FC<Props> = ({ likeCount, feedId }: Props) => {
     setModalIsOpen(false);
   }
 
-  // const closeComment = () => {
-  //   setTimeout(() => {
-  //     setModalIsOpen(false);
-  //   }, 700);
-  // };
-
-  //feedId 바꾸기!!!
   const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
@@ -50,9 +46,9 @@ const FeedListItemBtn: React.FC<Props> = ({ likeCount, feedId }: Props) => {
 
     localStorage.setItem("savedStatus", String(newSavedStatus));
     if (!newSavedStatus) {
-      scrapFeed(1, 1);
+      scrapFeed(user.userId, feedId);
     } else {
-      cancelscrapFeed(1, 1);
+      cancelscrapFeed(user.userId, feedId);
     }
   };
 
@@ -60,9 +56,11 @@ const FeedListItemBtn: React.FC<Props> = ({ likeCount, feedId }: Props) => {
   const toggleLiked = () => {
     setIsLiked(!isLiked);
     if (!isLiked) {
-      likeFeed(1, 1);
+      likeCount++;
+      likeFeed(user.userId, feedId);
     } else {
-      cancelLikeFeed(1, 1);
+      likeCount--;
+      cancelLikeFeed(user.userId, feedId);
     }
   };
 

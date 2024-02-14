@@ -3,29 +3,36 @@ import ImgBtn from "../../../Feed/utils/ImgBtn";
 import deleteBtn from "../../../../assets/img/imgBtn/deleteBtn.svg";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectUser } from "../../../../store/reducers/user";
+import { deleteCrewComment } from "../../../../apis/api/Crew";
 
 interface RecommentProps {
   commentId: number;
-  nickname: string;
+  commentUser: {
+    id: number;
+    nickname: string;
+  };
   content: string;
-  onClickDelete: () => void;
 }
 
 function CrewRecommentItem({
   commentId,
-  nickname,
+  commentUser,
   content,
-  onClickDelete,
 }: RecommentProps) {
   const user = useAppSelector(selectUser);
+
+  const onClickDelete = () => {
+    deleteCrewComment(commentId);
+  };
+
   return (
     <RecommentWrapper>
       <RecommentContent>
-        <UserId>{nickname}</UserId>
+        <UserId>{commentUser.nickname}</UserId>
         <Content>{content}</Content>
       </RecommentContent>
       <ButtonsWrapper>
-        {commentId === user.userId && (
+        {commentUser.id === user.userId && (
           <ImgBtn src={deleteBtn} onClick={onClickDelete} size="12px" />
         )}
       </ButtonsWrapper>

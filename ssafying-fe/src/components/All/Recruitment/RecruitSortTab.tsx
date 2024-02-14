@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { getRecruitList } from "../../../apis/api/recruitment/saramin";
+import { getRecruitList } from "../../../apis/api/Recruit";
 import FlipCardList from "./FlipCardList";
 
 function RecruitSortTab() {

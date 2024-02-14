@@ -128,17 +128,15 @@ export async function createBoardComment(
   boardId: Number,
   userId: Number,
   content: string,
-  parentId: Number,
-  isAnonymous: boolean
+  parentId?: Number
 ) {
+  const data = {
+    boardId: boardId,
+    userId: userId,
+    content: content,
+    parentId: parentId,
+  };
   try {
-    const data = {
-      boardId: boardId,
-      userId: userId,
-      content: content,
-      parentId: parentId,
-      isAnonymous: isAnonymous,
-    };
     const response = await axios.post(
       `${REST_BOARD_API}/comments/${boardId}`,
       data
@@ -161,7 +159,7 @@ export async function deleteBoardComment(boardCommentId: number) {
   }
 }
 
-// 게시판 게시글 댓글 수정
+// 게시판 게시글 댓글 수정 - 보류
 export async function updateBoardComment(
   boardCommentId: number,
   content?: string

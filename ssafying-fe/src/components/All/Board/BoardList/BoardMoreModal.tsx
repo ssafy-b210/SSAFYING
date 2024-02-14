@@ -36,6 +36,7 @@ function BoardMoreModal({ card, onDelete }: moreProps) {
   const [isSaved, setIsSaved] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [boardData, setBoardData] = useState<any>(null);
+  const [highlighted, setHighlighted] = useState<Number | null>(null);
 
   useEffect(() => {
     const savedStatus = localStorage.getItem(`savedStatus_${card.boardId}`);
@@ -148,11 +149,15 @@ function BoardMoreModal({ card, onDelete }: moreProps) {
             <hr />
           </Content>
           <CommentContainer>
-            <BoardCommentList />
+            <BoardCommentList
+              boardId={card.boardId}
+              parent={(id) => setHighlighted(id)}
+            />
             <MoreCommentInput
               onSubmit={handleCommentSubmit}
               target="board"
               id={card.boardId}
+              highlighted={highlighted}
             ></MoreCommentInput>
           </CommentContainer>
         </Card>
