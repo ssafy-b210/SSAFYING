@@ -8,6 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 public class FindRecommendResponse {
 
+    int userId;
     String nickname;
     String profileImageUrl;
 }

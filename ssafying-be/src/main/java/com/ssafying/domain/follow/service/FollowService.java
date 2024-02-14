@@ -250,6 +250,7 @@ public class FollowService {
 
             resultList.add(
                     FindRecommendResponse.builder()
+                            .userId(resultUsers.getId())
                             .nickname(resultUsers.getNickname())
                             .profileImageUrl(resultUsers.getProfileImageUrl())
                             .build()
