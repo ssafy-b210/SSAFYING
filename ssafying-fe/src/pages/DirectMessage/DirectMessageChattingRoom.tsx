@@ -45,7 +45,7 @@ type RecievedMessage = {
 };
 
 type SendMessage = {
-  usersId: number;
+  userId: number;
   message: string;
 };
 
@@ -68,10 +68,10 @@ function DirectMessageChattingRoom() {
       createdAt: "",
       updatedAt: "",
     });
-  const [roomName, setRoomName] = useState<string>("");
-  // const [stompClient, setStompClient] = useState<Stomp.Client | null>(null);
 
+  const [roomName, setRoomName] = useState<string>("");
   const [messages, setMessages] = useState<RecievedMessage[]>([]);
+  const [inputValue, setInputValue] = useState<string>("");
 
   const stompClient = useRef<CompatClient | null>(null); // useRef 사용
 
@@ -125,8 +125,8 @@ function DirectMessageChattingRoom() {
   function sendMessage() {
     if (stompClient && stompClient.current?.connected) {
       const sendMessage: SendMessage = {
-        usersId: user.userId,
-        message: "채팅을 보냈습니다.",
+        userId: user.userId,
+        message: inputValue,
       };
 
       stompClient.current.publish({
@@ -135,6 +135,7 @@ function DirectMessageChattingRoom() {
       });
 
       console.log("보낸 메시지", sendMessage);
+      setInputValue("");
     }
   }
 
@@ -146,6 +147,10 @@ function DirectMessageChattingRoom() {
     setRoomName(name);
   }
 
+  function handleChangeInputValue(e: ChangeEvent<HTMLInputElement>) {
+    setInputValue(e.target.value);
+  }
+
   return (
     <div>
       <BackBtnHeader
@@ -153,7 +158,21 @@ function DirectMessageChattingRoom() {
         isCenter={false}
         htext={<ChatHeaderProfile imageUrl="" name={roomName} />}
       />
-      <button onClick={sendMessage}>채팅 보내기</button>
+
+      <ChatInputBox>
+        <input
+          type="text"
+          value={inputValue}
+          onChange={handleChangeInputValue}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") sendMessage();
+          }}
+        />
+        {inputValue.length > 0 ? (
+          <button onClick={sendMessage}>보내기</button>
+        ) : null}
+      </ChatInputBox>
+      {/* <button onClick={sendMessage}>채팅 보내기</button> */}
       {/* <BackBtnHeader
         backLink="/direct"
         isCenter={false}
