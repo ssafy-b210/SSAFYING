@@ -66,6 +66,28 @@ function LoginForm() {
             profileImgUrl: userData.profileImgUrl,
           })
         );
+
+        const eventSource = new EventSource(
+          `http://localhost:8081/api/notifications/subscribe/${userData.id}`
+        );
+
+        eventSource.onopen = async () => {
+          await console.log("sse opened!");
+        };
+
+        eventSource.addEventListener("like", (event) => {
+          console.log("like");
+          const data = JSON.parse(event.data);
+          console.log(data);
+        });
+
+        eventSource.onerror = async (e) => {
+          await console.log(e);
+        };
+
+        return () => {
+          eventSource.close();
+        };
       } catch (error) {
         console.error("로그인 요청 실패:", error);
         setError("로그인에 실패했습니다. 다시 시도해주세요.");

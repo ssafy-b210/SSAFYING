@@ -1,10 +1,11 @@
-import FeedList from "../../components/Feed/FeedMain/FeedList";
-import DetailComment from "../../components/Feed/FeedDetail/DetailComment";
+import FeedDetailContent from "../../components/Feed/FeedDetail/FeedDetailContent";
+import { useParams } from "react-router-dom";
+
 function FeedDetail() {
+  const feedId = useParams().feedId; // 현재 프로필 유저 아이디
   return (
     <div>
-      <FeedList />
-      <DetailComment />
+      <FeedDetailContent feedId={Number(feedId)} />
     </div>
   );
 }
