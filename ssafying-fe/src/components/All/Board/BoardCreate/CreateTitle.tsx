@@ -5,7 +5,7 @@ interface CreateTitleProps {
   initialTitle?: string;
 }
 
-function CreateTitle({ onTitleChange, initialTitle = "" }: CreateTitleProps) {
+function CreateTitle({ onTitleChange }: CreateTitleProps) {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newTitle = event.target.value;
     onTitleChange(newTitle);
@@ -15,7 +15,7 @@ function CreateTitle({ onTitleChange, initialTitle = "" }: CreateTitleProps) {
     <Title>
       <h4>제목</h4>
       <TitleContainer>
-        <input type="text" value={initialTitle} onChange={handleInputChange} />
+        <input type="text" onChange={handleInputChange} />
       </TitleContainer>
     </Title>
   );

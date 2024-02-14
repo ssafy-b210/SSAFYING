@@ -1,3 +1,4 @@
+import { error } from "console";
 import { axios } from "../utils/axios";
 // import { URLSearchParams } from "url";
 
@@ -110,6 +111,26 @@ export async function updateCrew(crewId: number, updateData: UpdateCrewData) {
 }
 
 // 구인 글 검색
+export async function searchCrew(
+  title: string,
+  region: string,
+  category: string
+) {
+  try {
+    const response = await axios.get(`crew`, {
+      params: {
+        title,
+        region,
+        category,
+      },
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
 // 댓글 작성
 export async function createCrewComment(
