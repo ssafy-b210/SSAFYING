@@ -1,6 +1,9 @@
 package com.ssafying.domain.alert.service;
 
+import com.ssafying.domain.alert.dto.response.FindListNotificationResponse;
+import com.ssafying.domain.alert.entity.Notification;
 import com.ssafying.domain.alert.repository.EmitterRepository;
+import com.ssafying.domain.alert.repository.NotificationRepository;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -15,6 +19,7 @@ public class NotificationService {
 
     private final UserRepository userRepository;
     private final EmitterRepository emitterRepository;
+    private final NotificationRepository notificationRepository;
 
     private static final Long DEFAULT_TIMEOUT = 600L * 1000 * 60;
 
@@ -85,5 +90,19 @@ public class NotificationService {
 
     private User validUser(int userId) {
         return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("일치하는 사용자가 없습니다."));
+    }
+
+    public List<FindListNotificationResponse> findListNotification(int userId) {
+        // 유저가 존재하는지 확인
+        User receiverUser = validUser(userId);
+
+        List<Notification> notificationList = notificationRepository.findByReceiverId(receiverUser);
+
+        System.out.println("NotificationService.findListNotification");
+        for(Notification notification : notificationList){
+            System.out.println("notification.getId() = " + notification.getId());
+        }
+
+        return null;
     }
 }
