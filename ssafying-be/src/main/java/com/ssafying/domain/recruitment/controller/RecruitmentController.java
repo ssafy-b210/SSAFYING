@@ -5,6 +5,7 @@ import com.ssafying.domain.recruitment.dto.response.SaraminResponse;
 import com.ssafying.domain.recruitment.service.RecruitmentService;
 import com.ssafying.global.result.ResultResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -31,16 +32,16 @@ public class RecruitmentController {
     }
 
     @PostMapping("/scrap")
-    public ResponseEntity<ResultResponse<Long>> recruitmentScrapAdd(@RequestBody SaveRecruitmentScrapRequest request) {
+    public ResponseEntity<ResultResponse<Long>> recruitmentScrapAdd(@RequestBody @Valid SaveRecruitmentScrapRequest request) {
 
         Long result = recruitmentService.addRecruitmentScrap(request);
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
-    @DeleteMapping("/scrap/{recruitmentScrapId}")
-    public ResponseEntity<ResultResponse<Long>> recruitmentScrapAdd(@PathVariable(name = "recruitmentScrapId") Long recruitmentScrapId) {
+    @DeleteMapping("/scrap")
+    public ResponseEntity<ResultResponse<Integer>> recruitmentScrapRemove(@RequestBody @Valid SaveRecruitmentScrapRequest request) {
 
-        Long result = recruitmentService.removeRecruitmentScrap(recruitmentScrapId);
+        int result = recruitmentService.removeRecruitmentScrap(request);
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 

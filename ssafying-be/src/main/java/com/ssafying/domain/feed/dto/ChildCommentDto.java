@@ -1,7 +1,10 @@
 package com.ssafying.domain.feed.dto;
 
+import com.ssafying.domain.feed.entity.FeedComment;
 import com.ssafying.domain.user.dto.SimpleUserDto;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -22,6 +25,19 @@ public class ChildCommentDto {
     boolean isDeleted;
 
     // 댓글 좋아요 개수
-    int likeCounts;
+//    int likeCounts;
 
+    LocalDateTime createdAt;
+    LocalDateTime updatedAt;
+
+
+    public static ChildCommentDto convertToChildCommentDto(FeedComment childComment) {
+        return ChildCommentDto.builder()
+                .id(childComment.getId())
+                .user(SimpleUserDto.convertToSimpleUserDto(childComment.getUser()))
+                .content(childComment.getContent())
+                .isDeleted(childComment.isDeleted())
+//                .likeCounts(childComment.getCommentLikes().size())
+                .build();
+    }
 }

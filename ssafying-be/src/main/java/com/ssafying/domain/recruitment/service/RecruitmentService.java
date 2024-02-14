@@ -92,13 +92,15 @@ public class RecruitmentService {
     }
 
     @Transactional
-    public Long removeRecruitmentScrap(Long recruitmentScrapId) {
-        RecruitmentScrap recruitmentScrap = recruitmentScrapRepository.findById(recruitmentScrapId)
+    public int removeRecruitmentScrap(SaveRecruitmentScrapRequest request) {
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new RuntimeException("해당하는 사용자를 찾을 수 없습니다"));
+        RecruitmentScrap recruitmentScrap = recruitmentScrapRepository.findByUserAndRecruitmentId(user, request.getRecruitmentId())
                 .orElseThrow(() -> new RuntimeException("해당하는 채용공고 스크랩이 존재하지 않습니다"));
 
         recruitmentScrapRepository.delete(recruitmentScrap);
 
-        return recruitmentScrapId;
+        return request.getRecruitmentId();
     }
 
     public List<SaraminResponse> parseSaraminResponse(String jsonResponse) throws Exception {

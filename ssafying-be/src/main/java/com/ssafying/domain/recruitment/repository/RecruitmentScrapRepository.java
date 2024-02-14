@@ -14,4 +14,6 @@ public interface RecruitmentScrapRepository extends JpaRepository<RecruitmentScr
     List<RecruitmentScrap> findByUserOrderByCreatedAtDesc(User user);
     Optional<RecruitmentScrap> findByRecruitmentId(int recruitmentId);
 
+    Optional<RecruitmentScrap> findByUserAndRecruitmentId(User user, Integer recruitmentId);
+
 }

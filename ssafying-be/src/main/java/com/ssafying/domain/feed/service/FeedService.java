@@ -178,8 +178,10 @@ public class FeedService {
         feedRepository.save(feed);
 
         FeedDto response = convertToFeedDto(feed);
-        List<FeedComment> parentComment = feedCommentRepository.findParentCommentsByFeed(feed);
-        response.setParentCommentList(convertToParentCommentDtoList(parentComment));
+        List<FeedComment> parentComments = feedCommentRepository.findParentCommentsByFeed(feed);
+        response.setParentCommentList(parentComments.stream()
+                .map(ParentCommentDto::convertToParentCommentDto)
+                .collect(Collectors.toList()));
 
         return response;
     }
@@ -350,9 +352,11 @@ public class FeedService {
      */
     public List<ParentCommentDto> findFeedList(int feedId) {
         Feed feed = getFeed(feedId);
-        List<FeedComment> parentComment = feedCommentRepository.findParentCommentsByFeed(feed);
+        List<FeedComment> parentComments = feedCommentRepository.findParentCommentsByFeed(feed);
 
-        return convertToParentCommentDtoList(parentComment);
+        return parentComments.stream()
+                .map(ParentCommentDto::convertToParentCommentDto)
+                .collect(Collectors.toList());
     }
     
     /**
@@ -537,42 +541,6 @@ public class FeedService {
                 .updatedAt(feed.getUpdatedAt())
                  .commentCount(commentCount)
                  .likeCount(likeCount)
-                .build();
-    }
-
-    private List<ParentCommentDto> convertToParentCommentDtoList(List<FeedComment> parentComments) {
-        return parentComments.stream()
-                .map(parentComment -> ParentCommentDto.builder()
-                        .id(parentComment.getId())
-                        .user(convertToSimpleUserDto(parentComment.getUser()))
-                        .content(parentComment.getContent())
-                        .likeCounts(parentComment.getCommentLikes().size())
-                        .childComments(convertToChildCommentDtoList(parentComment.getChildComments()))
-                        .build())
-                .collect(Collectors.toList());
-    }
-
-    private SimpleUserDto convertToSimpleUserDto(User user) {
-        return SimpleUserDto.builder()
-                .id(user.getId())
-                .nickname(user.getNickname())
-                .profileImageUrl(user.getProfileImageUrl())
-                .build();
-    }
-
-    private List<ChildCommentDto> convertToChildCommentDtoList(List<FeedComment> childComments) {
-        return childComments.stream()
-                .map(this::convertToChildCommentDto)
-                .collect(Collectors.toList());
-    }
-
-    private ChildCommentDto convertToChildCommentDto(FeedComment childComment) {
-        return ChildCommentDto.builder()
-                .id(childComment.getId())
-                .user(convertToSimpleUserDto(childComment.getUser()))
-                .content(childComment.getContent())
-                .isDeleted(childComment.isDeleted())
-                .likeCounts(childComment.getCommentLikes().size())
                 .build();
     }
 
