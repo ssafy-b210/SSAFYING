@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 
 @Entity
-@Table(name = "meal_vote") //자유게시판
+@Table(name = "meal_vote") // 식단표 투표
 @Getter
 public class MealVote {
 
@@ -23,18 +23,18 @@ public class MealVote {
     private MealPlanner mealPlanner; // 투표한 식단표 날짜 정보
 
     @Column(name = "menu_num")
-    private int menuNum; // 투표한 메뉴 번호
+    private MealOrderStatus order; // 투표한 메뉴 번호
 
 
     public static MealVote createMealVote(
             User user,
             MealPlanner mealPlanner,
-            int menuNum) {
+            MealOrderStatus order) {
         MealVote mealVote = new MealVote();
 
         mealVote.user = user;
         mealVote.mealPlanner = mealPlanner;
-        mealVote.menuNum = menuNum;
+        mealVote.order = order;
 
         return mealVote;
     }
