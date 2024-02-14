@@ -22,7 +22,7 @@ function Modal({ btnTxt, children }: modalProps) {
 
   return (
     <React.Fragment>
-      <Button variant="text" onClick={handleClickOpen}>
+      <Button variant="text" onClick={handleClickOpen} className="btn">
         {btnTxt}
       </Button>
       <Dialog

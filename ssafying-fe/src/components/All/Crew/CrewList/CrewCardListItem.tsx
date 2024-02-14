@@ -31,9 +31,9 @@ function CrewCardListItem({ card, index }: CrewItemProps) {
         <Wrapper>
           <Front>
             <Title>
-              {card.title.length < 18
+              {card.title.length < 15
                 ? card.title
-                : card.title.slice(0, 17) + "..."}
+                : card.title.slice(0, 14) + "..."}
             </Title>
             <hr />
             <SmallContainer>

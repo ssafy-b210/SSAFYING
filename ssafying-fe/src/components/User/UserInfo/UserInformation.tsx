@@ -9,11 +9,7 @@ import {
   updateUserInfo,
 } from "../../../apis/api/User";
 
-function UserInformation({
-  profileDownloadUrl,
-}: {
-  profileDownloadUrl: string | null;
-}) {
+function UserInformation(props: { profileDownloadUrl: string | null }) {
   const user = useAppSelector(selectUser);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState<any>(null);
@@ -45,16 +41,24 @@ function UserInformation({
     setEditedUserInfo(null);
   };
 
-  console.log("확인용링크", profileDownloadUrl);
+  console.log("확인용링크", props.profileDownloadUrl);
   const handleSaveClick = () => {
     //바이오링크 저장 로직 추가.
-    const { nickname, phoneNumber, password, intro, profileDownloadUrl } =
-      editedUserInfo;
+    let {
+      nickname,
+      phoneNumber,
+      password,
+      password2,
+      intro,
+      profileDownloadUrl,
+    } = editedUserInfo;
 
-    // if (password !== password2) {
-    //   alert("비밀번호가 일치하지 않습니다.");
-    //   return;
-    // }
+    profileDownloadUrl = props.profileDownloadUrl;
+
+    if (password !== password2) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
 
     updateUserInfo(
       user.userId,

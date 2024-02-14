@@ -11,6 +11,8 @@ import BoardBtn from "../BoardBtn";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectUser } from "../../../../store/reducers/user";
 import { deleteBoard, selectOneBoard } from "../../../../apis/api/Board";
+import Modal from "../../../Common/Modal";
+import BoardUpdateModal from "./BoardUpdateModal";
 
 // 카드눌렀을 때 detail 보이게 하기
 interface moreProps {
@@ -87,6 +89,20 @@ function BoardMoreModal({ card, onDelete }: moreProps) {
     setIsModalOpen(true);
   };
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false); //모달닫기
+    console.log("Modal Closed");
+  };
+
+  const handleUpdateBoard = (newCardInfo: {
+    title: string;
+    writer: string;
+    category: string;
+    content: string;
+  }) => {
+    console.log("New", newCardInfo);
+  };
+
   return (
     <div>
       {isModalOpen && boardData && (
@@ -100,16 +116,28 @@ function BoardMoreModal({ card, onDelete }: moreProps) {
             <Title>{boardData.title}</Title>
             <Writer>
               <div className="small-title">By.</div>
-              {boardData.isAnonymous ? "익명" : boardData.writer}
+              {boardData.anonymous ? "익명" : boardData.nickname}
             </Writer>
             <Category>
               <div className="small-title">카테고리</div> {boardData.category}
             </Category>
             <Copy>{boardData.content}</Copy>
-            {user.nickname === boardData.writer && (
+            {user.nickname === boardData.nickname && (
               <Flex>
                 {/* 수정화면만들기 */}
-                <BoardBtn btnmsg="수정" onClick={handleEditBoard} link="" />
+                {/* <BoardBtn btnmsg="수정" onClick={handleEditBoard} link="" /> */}
+                <Modal
+                  btnTxt="수정"
+                  isOpen={isModalOpen}
+                  onClose={handleCloseModal}
+                >
+                  {" "}
+                  {/* 모달 컴포넌트 */}
+                  <BoardUpdateModal
+                    onUpdateBoard={handleUpdateBoard}
+                    onCloseModal={handleCloseModal}
+                  />
+                </Modal>
                 <BoardBtn
                   btnmsg="삭제"
                   onClick={handleDeleteBoard}
