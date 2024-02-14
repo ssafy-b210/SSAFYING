@@ -11,9 +11,12 @@ import com.ssafying.domain.chat.repository.ChatRoomUserRepository;
 import com.ssafying.domain.user.dto.SimpleUserDto;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
+import com.ssafying.global.result.ResultResponse;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -169,7 +172,10 @@ public class ChatService {
                 .message(chatMessage.getMessage())
                 .createdAt(chatMessage.getCreatedAt())
                 .build();
-        simpMessagingTemplate.convertAndSend("/sub/chatting/" + roomId, stompChatResponse);
+
+        ResponseEntity<ResultResponse<ChatMessageDto>> response = ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), stompChatResponse));
+
+        simpMessagingTemplate.convertAndSend("/sub/chatting/" + roomId, response);
 
         // 각 ChatRoomUser의 최근 메시지 업데이트
         for (ChatRoomUser chatRoomUser : chatRoomUsers) {
