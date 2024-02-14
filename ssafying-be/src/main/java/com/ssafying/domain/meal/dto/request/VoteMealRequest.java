@@ -1,5 +1,6 @@
 package com.ssafying.domain.meal.dto.request;
 
+import com.ssafying.domain.meal.entity.MealOrderStatus;
 import lombok.*;
 
 @Getter
@@ -12,5 +13,5 @@ public class VoteMealRequest {
 
     int mealPlannerId;
 
-    int menuNum;
+    MealOrderStatus order;
 }
