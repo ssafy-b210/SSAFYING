@@ -58,7 +58,11 @@ function ContentPortfolioSection() {
             </Button>
           </div>
         ) : (
-          <Button onClick={handleClickModifyButton}>글 수정</Button>
+          <>
+            {user.userId === Number(profileUserId) && (
+              <Button onClick={handleClickModifyButton}>글 수정</Button>
+            )}
+          </>
         )}
       </ButtonWrapper>
       <MarkdownContainer>
