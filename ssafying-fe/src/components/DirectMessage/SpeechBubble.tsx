@@ -3,7 +3,7 @@ import styled from "styled-components";
 // 채팅 말풍선 컴포넌트입니다.
 
 interface ChatProps {
-  userId: string;
+  userId: number;
   message: string;
   isMine: boolean;
 }

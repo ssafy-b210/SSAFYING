@@ -162,21 +162,24 @@ function DirectMessageChattingRoom() {
     setInputValue(e.target.value);
   }
 
-  // function checkContinuousMessage(
-  //   message: RecievedMessage,
-  //   prevMessage: RecievedMessage
-  // ): boolean {
-  //   if ()
+  // 다음 채팅과 연속되어 보냈는지 검사
+  // 작성 유저, 생성 날짜, 시, 분이 같으면 true 반환
+  function checkContinuousMessage(
+    message: RecievedMessage,
+    nextMessage: RecievedMessage | undefined
+  ): boolean {
+    if (!nextMessage) return false;
 
-  //       //         const nextChat = chatList[idx + 1];
-  //       //  nextChat &&
-  //       //  nextChat.userId === chat.userId &&
-  //       //  nextChat.createdAt === chat.createdAt
-  //       //    ? true
-  //       //    : false;
+    const msgCreateTime = new Date(message.createdAt);
+    const nextMsgCreateTime = new Date(nextMessage.createdAt);
 
-  //   return true;
-  // }
+    return (
+      message.userInfo.nickname === nextMessage.userInfo.nickname &&
+      msgCreateTime.getDate() === nextMsgCreateTime.getDate() &&
+      msgCreateTime.getHours() === nextMsgCreateTime.getHours() &&
+      msgCreateTime.getMinutes() === nextMsgCreateTime.getMinutes()
+    );
+  }
 
   return (
     <div>
@@ -185,22 +188,20 @@ function DirectMessageChattingRoom() {
         isCenter={false}
         htext={<ChatHeaderProfile imageUrl="" name={roomName} />}
       />
-      {/* {messages.map((message, index) => {
+      {messages.map((message, index) => {
         let isContinuous: boolean = false;
-        // console.log("이전 메시지", messages[index - 1]);
-
-        // if (index > 0)
-        // isContinuous = checkContinuousMessage(message, messages[index - 1]);
+        isContinuous = checkContinuousMessage(message, messages[index + 1]);
 
         return (
           <Chat
-            key={message.id}
+            // key={message.id}
+            key={index}
             userId={message.userInfo.id}
             message={message.message}
             isContinuous={isContinuous}
           />
         );
-      })} */}
+      })}
       <ChatInputBox>
         <input
           type="text"
