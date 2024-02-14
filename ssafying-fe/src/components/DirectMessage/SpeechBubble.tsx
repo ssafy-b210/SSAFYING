@@ -18,6 +18,8 @@ function SpeechBubble(props: ChatProps) {
   );
 }
 
+export default SpeechBubble;
+
 const Wrapper = styled.div<{ $isMine: boolean }>`
   display: flex;
   justify-content: ${(props) => (props.$isMine ? "flex-end" : "flex-start")};
@@ -35,5 +37,3 @@ const StyledSpeechBubble = styled.div<{ $isMine: boolean }>`
   border-radius: 20px;
   background-color: ${(props) => (props.$isMine ? "#fdfdfd" : "#ffefff")};
 `;
-
-export default SpeechBubble;
