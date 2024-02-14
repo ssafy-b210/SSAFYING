@@ -149,12 +149,20 @@ function BusRealTimeMap() {
               lng: currLocation.longitude,
             }}
             nextLocation={{
-              lat: 36.3579,
-              lng: 127.396,
+              lat: busStopList[0].latitude,
+              lng: busStopList[0].longitude,
             }}
           />
         ) : null}
       </MapContainer>
+      {busStopList.map((item) => (
+        <div style={{ border: "1px solid black" }}>
+          <div>{item.busStopName}</div>
+          <div>{item.arrivalAt}</div>
+          <div>{item.latitude}</div>
+          <div>{item.longitude}</div>
+        </div>
+      ))}
       <button onClick={sendLocation}>위치공유하기</button>
     </div>
   );
