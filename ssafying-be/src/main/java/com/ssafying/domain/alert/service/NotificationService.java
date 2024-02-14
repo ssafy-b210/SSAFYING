@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -96,13 +97,26 @@ public class NotificationService {
         // 유저가 존재하는지 확인
         User receiverUser = validUser(userId);
 
+        // 저장되어있던 알림 조회
         List<Notification> notificationList = notificationRepository.findByReceiverId(receiverUser);
 
-        System.out.println("NotificationService.findListNotification");
+        // Notification 에서 FindListNotificationResponse 로 convert 해줌
+        List<FindListNotificationResponse> notificationResponseList = new ArrayList<>();
+
         for(Notification notification : notificationList){
             System.out.println("notification.getId() = " + notification.getId());
+
+            FindListNotificationResponse build = FindListNotificationResponse.builder()
+                    .receiverId(receiverUser.getId())
+                    .nickname(receiverUser.getNickname())
+                    .imgUrl(receiverUser.getProfileImageUrl())
+                    .createdAt(notification.getCreatedAt())
+                    .feedId(notification.getFeedId().getId())
+                    .build();
+
+            notificationResponseList.add(build);
         }
 
-        return null;
+        return notificationResponseList;
     }
 }
