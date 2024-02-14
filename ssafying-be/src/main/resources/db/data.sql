@@ -206,3 +206,30 @@ values (1, '나 사실 좋아하는 사람 있다. 그것도 싸피 대전캠 2�
        (4, '생각보다 프로젝트 빌런이 많은듯..', now()),
        (1, '알고리즘 풀어야 하는데 ㅠㅠ 언제하지', now()),
        (5, '메롱', now());
+
+-- 채팅방 더미데이터
+INSERT INTO chat_room (chat_room_id, type, created_at, updated_at) VALUES
+    (1, 'PERSONAL', NOW(), NOW()),
+    (2, 'GROUP', NOW(), NOW());
+
+-- 참여 채팅방 더미데이터
+INSERT INTO chat_room_user (user_id, last_message, chat_room_id, created_at, updated_at) VALUES
+    (1, '마지막 채팅1', 1, NOW(), NOW()),
+    (2, '마지막 채팅1', 1, NOW(), NOW()),
+    (1, '마지막 채팅2', 2, NOW(), NOW()),
+    (2, '마지막 채팅2', 2, NOW(), NOW()),
+    (3, '마지막 채팅2', 2, NOW(), NOW()),
+    (4, '마지막 채팅2', 2, NOW(), NOW()),
+    (3, '마지막 채팅3', 2, NOW(), NOW());
+
+-- 채팅메시지 더미데이터
+INSERT INTO chat_message (message, is_read, chat_room_id, user_id, created_at, updated_at) VALUES
+    ('채팅 메시지1', true, 1, 1, NOW(), NOW()),
+    ('채팅 메시지2', true, 1, 2, NOW(), NOW()),
+    ('채팅 메시지3', true, 1, 1, NOW(), NOW()),
+    ('채팅 메시지4', false, 1, 2, NOW(), NOW()),
+    ('채팅 메시지1', true, 2, 1, NOW(), NOW()),
+    ('채팅 메시지2', true, 2, 2, NOW(), NOW()),
+    ('채팅 메시지3', true, 2, 3, NOW(), NOW()),
+    ('채팅 메시지4', true, 2, 4, NOW(), NOW()),
+    ('채팅 메시지5', true, 2, 1, NOW(), NOW());
