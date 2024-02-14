@@ -181,6 +181,8 @@ public class BoardService {
             // 자식댓글 list 를 하나씩 돌면서 response 에 들어갈 DTO 에 넣어줌
             for (BoardComment boardComment : childComment) { //자식댓글 하나씩 돌면서 DTO 에 내용 넣어줌
                 ChildCommentDTO build = ChildCommentDTO.builder()
+                        .commentId(boardComment.getId())
+                        .profileImgUrl(boardComment.getUser().getProfileImageUrl())
                         .nickname(boardComment.getUser().getNickname())
                         .comment(boardComment.getContent())
                         .userName(boardComment.getUser().getName())
@@ -194,6 +196,8 @@ public class BoardService {
 
             // 해당 댓글 DTO 를 만들어줌
             ParentCommentDTO parentCommentDTO = ParentCommentDTO.builder()
+                    .commentId(comment.getId())
+                    .profileImgUrl(comment.getUser().getProfileImageUrl())
                     .comment(comment.getContent())
                     .nickname(comment.getUser().getNickname())
                     .userName(comment.getUser().getName())
