@@ -1,15 +1,28 @@
 import React, { useState } from "react";
 import TextArea from "../Feed/FeedCreate/TextArea";
 import styled from "styled-components";
+import { createBamboo } from "../../apis/api/Forest";
+import { useAppSelector } from "../../store/hooks";
+import { selectUser } from "../../store/reducers/user";
 
 function BambooWriteModal() {
   const [content, setContent] = useState(""); // TextArea의 내용을 저장할 상태
+  const user = useAppSelector(selectUser);
 
+  const handleWrtie = async () => {
+    try {
+      const userId = user.userId;
+      await createBamboo(userId, content);
+      setContent("");
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <ModalWrapper>
       <TextArea value={content} onChange={(e) => setContent(e.target.value)} />
       <ButtonWrapper>
-        <button>작성</button>
+        <button onClick={handleWrtie}>작성</button>
       </ButtonWrapper>
     </ModalWrapper>
   );

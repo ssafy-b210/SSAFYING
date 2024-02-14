@@ -71,6 +71,7 @@ function ProfileImage({ onDownloadUrlChange }: ProfileImageProps) {
   return (
     <FeedCreateWrapper>
       <Profile>
+        {/* 기본이미지 저장 */}
         {compressedImage ? (
           <img src={compressedImage} />
         ) : (
