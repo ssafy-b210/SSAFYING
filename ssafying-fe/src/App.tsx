@@ -103,7 +103,10 @@ function App() {
               element={<FollowerList />}
             />
             <Route path="/chat" element={<DirectMessageChats />} />
-            <Route path="/chat/:id" element={<DirectMessageChattingRoom />} />
+            <Route
+              path="/chat/:roomId"
+              element={<DirectMessageChattingRoom />}
+            />
             <Route path="/meal/create" element={<MealPlannerCreate />} />
           </Routes>
         )}

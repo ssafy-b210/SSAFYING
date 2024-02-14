@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import RoundImg from "../../components/Feed/utils/RoundImg";
 import CenterHeader from "../../components/Common/CenterHeader";
 import BackBtnHeader from "../../components/Common/BackBtnHeader";
 import { useAppSelector } from "../../store/hooks";

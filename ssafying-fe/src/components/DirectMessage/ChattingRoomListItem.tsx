@@ -3,6 +3,8 @@ import styled from "styled-components";
 import RoundImg from "../Feed/utils/RoundImg";
 import { useAppSelector } from "../../store/hooks";
 import { selectUser } from "../../store/reducers/user";
+import { getChattingRoomName } from "./chatModule";
+import { useEffect, useState } from "react";
 
 type ChattingRoom = {
   id: number;
@@ -23,23 +25,11 @@ type ChattingRoom = {
 function ChattingRoomListItem(room: ChattingRoom) {
   const user = useAppSelector(selectUser);
 
-  function getAllJoinUserNickname() {
-    let text = "";
+  const [roomName, setRoomName] = useState<string>("");
 
-    // 채팅방 유저 이름 나열 텍스트 getter
-    for (let i = 0; i < room.roomInfo.joinUserInfo.length; i++) {
-      const nickname = room.roomInfo.joinUserInfo[i].nickname;
-
-      // 내 닉네임은 나오지 않도록
-      if (nickname === user.nickname) continue;
-
-      // 닉네임 나열
-      if (text.length === 0) text += nickname;
-      else text += ", " + nickname;
-    }
-
-    return text;
-  }
+  useEffect(() => {
+    setRoomName(getChattingRoomName(room.roomInfo.joinUserInfo, user.nickname));
+  }, []);
 
   return (
     <Wrapper>
@@ -51,16 +41,9 @@ function ChattingRoomListItem(room: ChattingRoom) {
           />
         </ProfileImg>
         <TextWrapper>
-          <div className="join-users">{getAllJoinUserNickname()}</div>
+          <div className="room-name">{roomName}</div>
           <div className="last-message">{room.lastMessage}</div>
         </TextWrapper>
-        {/* <ProfileImg>
-          <RoundImg size="54px" src="" />
-        </ProfileImg>
-        <div>
-          <div>{chat.name}</div>
-          <div className="preview-text">{chat.message}</div>
-        </div> */}
       </Link>
     </Wrapper>
   );
@@ -77,7 +60,7 @@ const Wrapper = styled.div`
     text-decoration: none;
   }
 
-  .join-users {
+  .room-name {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
