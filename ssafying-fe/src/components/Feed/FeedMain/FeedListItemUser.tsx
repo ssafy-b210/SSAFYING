@@ -6,15 +6,23 @@ import ImgBtn from "../utils/ImgBtn";
 import Modal from "react-modal";
 import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
+import { deleteFeedItem } from "../../../apis/api/Feed";
 
 interface userProps {
   userImg: string;
   nickname: string;
-  userId: number;
+  userId: Number;
   time: string;
+  feedId: Number;
 }
 
-function FeedListItemUser({ userImg, nickname, userId, time }: userProps) {
+function FeedListItemUser({
+  userImg,
+  nickname,
+  userId,
+  time,
+  feedId,
+}: userProps) {
   const user = useAppSelector(selectUser);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [timeDiff, setTimediff] = useState("");
@@ -26,6 +34,10 @@ function FeedListItemUser({ userImg, nickname, userId, time }: userProps) {
   function closeModal() {
     setModalIsOpen(false);
   }
+
+  const deleteFeed = async () => {
+    await deleteFeedItem(feedId);
+  };
 
   function calcTimeDiff() {
     const date = new Date(time);
@@ -66,7 +78,7 @@ function FeedListItemUser({ userImg, nickname, userId, time }: userProps) {
           >
             <ButtonWrapper>
               <Button>수정</Button>
-              <Button>삭제</Button>
+              <Button onClick={deleteFeed}>삭제</Button>
             </ButtonWrapper>
           </Modal>
         </>
@@ -106,28 +118,28 @@ const customStyles = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "200px",
-    height: "120px",
+    width: "150px",
+    height: "80px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: "10px",
   },
 };
 
 const ButtonWrapper = styled.div`
-  width: 200px;
-  height: 120px;
-  border-radius: 15px; // 버튼 모서리 둥글게 만들기
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
 `;
 
 const Button = styled.button`
-  background-color: #ccc; // 버튼 배경색 설정
-  border: none; // 버튼 테두리 없애기
+  background-color: transparent; 
+  border: none;
   cursor: pointer;
-  transition: background-color 0.3s; // 호버 효과를 위한 전환 효과
+  transition: background-color 0.3s;
   width: 100%;
   height: 50%;
   &:hover {
-    background-color: #999; // 호버 시 배경색 변경
-  }
+    background-color: lightGray;
 `;

@@ -1,36 +1,33 @@
 import React, { useEffect, useState } from "react";
 import CommentItem from "./CommentItem";
 import { getFeedComment } from "../../../apis/api/Feed";
+import styled from "styled-components";
 
 interface Props {
-  feedId: Number;
-  parent: (id: Number | null) => void; // 부모 컴포넌트로부터 전달된 함수
+  feedId: number;
+  parent: (id: number | null) => void; // 부모 컴포넌트로부터 전달된 함수
+  commentList: any[]; // 댓글 리스트를 상태로 받음
 }
 
-function CommentList({ feedId, parent }: Props) {
-  const [highlightedCommentId, setHighlightedCommentId] =
-    useState<Number | null>(null);
-  const [commentList, setCommentList] = useState<any[]>([]);
+function CommentList({ feedId, parent, commentList }: Props) {
+  const [highlightedCommentId, setHighlightedCommentId] = useState<
+    number | null
+  >(null);
 
   useEffect(() => {
-    handleCommentList();
-  }, []);
+    // 댓글 리스트가 업데이트될 때마다 효과적으로 동작하도록 설정
+    console.log("Comment list updated:", commentList);
+  }, [commentList]);
 
-  const handleCommentList = async () => {
-    const list = await getFeedComment(feedId);
-    console.log(list);
-    setCommentList(list || []);
-  };
-
-  const handleCommentClick = (commentId: Number) => {
-    parent(commentId === highlightedCommentId ? null : commentId); // 클릭된 댓글 ID를 부모 컴포넌트로 전달
+  const handleCommentClick = (commentId: number) => {
+    parent(commentId === highlightedCommentId ? null : commentId);
     setHighlightedCommentId(
       commentId === highlightedCommentId ? null : commentId
-    ); // 댓글 ID를 업데이트
+    );
   };
 
   return (
-    <div>
+    <CommentWrapper>
       {commentList.map((comment) => (
         <CommentItem
           key={comment.id}
@@ -42,8 +39,12 @@ function CommentList({ feedId, parent }: Props) {
           replies={comment.childComments}
         />
       ))}
-    </div>
+    </CommentWrapper>
   );
 }
 
 export default CommentList;
+
+const CommentWrapper = styled.div`
+  padding-bottom: 30px;
+`;

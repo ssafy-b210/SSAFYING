@@ -22,18 +22,16 @@ interface Props {
 }
 
 const FeedListItemBtn: React.FC<Props> = ({ likeCount, feedId }: Props) => {
-  const [modalOpen, setModalOpen] = useState(false);
   const user = useAppSelector(selectUser);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openComment = () => {
-    setModalOpen(true);
+    setModalIsOpen(true);
   };
 
-  const closeComment = () => {
-    setTimeout(() => {
-      setModalOpen(false);
-    }, 700);
-  };
+  function closeModal() {
+    setModalIsOpen(false);
+  }
 
   const [isSaved, setIsSaved] = useState(false);
 
@@ -85,7 +83,7 @@ const FeedListItemBtn: React.FC<Props> = ({ likeCount, feedId }: Props) => {
         </div>
         <FeedLikeCnt likeCount={likeCount} />
       </BtnWrapper>
-      {modalOpen && <CommentModal onClose={closeComment} feedId={feedId} />}
+      {modalIsOpen && <CommentModal onClose={closeModal} feedId={feedId} />}
     </>
   );
 };
