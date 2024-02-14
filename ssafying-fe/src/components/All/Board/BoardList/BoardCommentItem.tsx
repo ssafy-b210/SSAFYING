@@ -9,11 +9,8 @@ import { deleteBoardComment } from "../../../../apis/api/Board";
 
 interface CommentProps {
   commentId: number;
-  commentUser: {
-    id: Number;
-    nickname: string;
-    profileImageUrl?: string;
-  };
+  nickname: string;
+  userId: number;
   content: string;
   isHighlighted: boolean;
   onClick: () => void;
@@ -22,7 +19,8 @@ interface CommentProps {
 
 function BoardCommentItem({
   commentId,
-  commentUser,
+  nickname,
+  userId,
   content,
   isHighlighted,
   onClick,
@@ -37,12 +35,12 @@ function BoardCommentItem({
     <>
       <UserWrapper isHighlighted={isHighlighted} onClick={onClick}>
         <CommentContent>
-          <UserId>{commentUser.nickname}</UserId>
+          <UserId>{nickname}</UserId>
           <Content>{content}</Content>
         </CommentContent>
         <ButtonsWrapper>
           <TextBtn onClick={onClick}>답글달기</TextBtn>
-          {commentUser.id === user.userId && (
+          {userId === user.userId && (
             <ImgBtn src={deleteBtn} onClick={clickDeleteBtn} size="15px" />
           )}
         </ButtonsWrapper>

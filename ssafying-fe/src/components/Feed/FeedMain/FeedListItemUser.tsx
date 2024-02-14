@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import more from "../../../assets/img/imgBtn/more.svg";
 import RoundImg from "../utils/RoundImg";
@@ -27,6 +27,14 @@ function FeedListItemUser({
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [timeDiff, setTimediff] = useState("");
 
+  console.log("date" + time);
+
+  useEffect(() => {
+    if (time !== null && time !== undefined) {
+      calcTimeDiff();
+    }
+  }, []);
+
   function clickMoreBtn() {
     setModalIsOpen(true);
   }
@@ -40,7 +48,7 @@ function FeedListItemUser({
   };
 
   function calcTimeDiff() {
-    const date = new Date(time);
+    const date = new Date(time.substring(0, 19));
     const now = new Date();
     const diff = Math.abs(date.getTime() - now.getTime());
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -49,7 +57,11 @@ function FeedListItemUser({
     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
     if (days > 0) {
-      setTimediff(`${days}일 전`);
+      if (days < 7) {
+        setTimediff(`${days}일 전`);
+      } else {
+        setTimediff(`${date}`);
+      }
     } else if (hours > 0) {
       setTimediff(`${hours}시간 전`);
     } else if (minutes > 0) {

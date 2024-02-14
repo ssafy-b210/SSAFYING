@@ -152,6 +152,7 @@ function BoardMoreModal({ card, onDelete }: moreProps) {
             <BoardCommentList
               boardId={card.boardId}
               parent={(id) => setHighlighted(id)}
+              commentList={boardData.comments}
             />
             <MoreCommentInput
               onSubmit={handleCommentSubmit}

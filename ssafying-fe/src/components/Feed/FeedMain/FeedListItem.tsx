@@ -16,7 +16,7 @@ function FeedListItem({ feed }: FeedProps) {
         userImg={feed.user.profileImageUrl}
         nickname={feed.user.nickname}
         userId={feed.user.id}
-        time={feed.user.createdAt}
+        time={feed.createdAt}
         feedId={feed.id}
       />
       <FeedContent content={feed.content} hashtag={feed.feedTags} />
