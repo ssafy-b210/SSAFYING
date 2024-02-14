@@ -87,7 +87,7 @@ function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
             {user.nickname === crewData.nickname && (
               <Flex>
                 {/* 수정화면만들기 */}
-                <BoardBtn btnmsg="수정" link="" />
+                {/* <BoardBtn btnmsg="수정" link="" /> */}
                 <BoardBtn
                   btnmsg="삭제"
                   link="/crew"

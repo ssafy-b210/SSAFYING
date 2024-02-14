@@ -10,8 +10,10 @@ function FlipCardList({ recruitList }: recruitProps) {
   console.log(recruitList);
   return (
     <Container>
-      {recruitList.map((item) => (
+      {recruitList.map((item, index) => (
         <FlipCard
+          key={index}
+          arrIdx={index + 1}
           index={item.id}
           title={item.title}
           company={item.company}

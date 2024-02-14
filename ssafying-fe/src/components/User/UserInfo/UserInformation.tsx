@@ -166,6 +166,17 @@ function UserInformation(props: { profileDownloadUrl: string | null }) {
                 />
                 <label htmlFor="intro">한줄 소개를 입력해주세요</label>
               </SignUpInput>
+              <SignUpInput className="input-area">
+                <input
+                  type="text"
+                  placeholder=" "
+                  name="intro"
+                  value={editedUserInfo?.intro || ""}
+                  onChange={handleInputChange}
+                  required
+                />
+                <label htmlFor="intro">바이오링크를 입력해주세요</label>
+              </SignUpInput>
               {/* <div className="category">바이오링크</div>
               <input
                 type="text"
