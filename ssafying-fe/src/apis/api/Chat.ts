@@ -12,10 +12,20 @@ export async function selectChattingRoomDetail(roomId: number) {
   }
 }
 
+// 참여 중인 채팅방 나가기
+export async function exitChattingRoom(joinRoomId: number) {
+  try {
+    const res = await axios.post(`${REST_CHAT_API}/rooms/${joinRoomId}`);
+    return res.data.resultData;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // 참여 중인 채팅방 목록 조회
 export async function selectChattingRoomList(userId: number) {
   try {
-    const res = await axios(`${REST_CHAT_API}/${userId}`);
+    const res = await axios.get(`${REST_CHAT_API}/${userId}`);
     return res.data.resultData;
   } catch (error) {
     console.log(error);

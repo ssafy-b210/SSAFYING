@@ -1,7 +1,5 @@
 import BackBtnHeader from "../../components/Common/BackBtnHeader";
 import Chat from "../../components/DirectMessage/Chat";
-import RoundImg from "../../components/Feed/utils/RoundImg";
-import userImg from "../../assets/img/testImg/user.jpg"; // TEST
 import styled from "styled-components";
 import ExitBtn from "../../components/Common/ExitBtn";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
@@ -51,7 +49,7 @@ type SendMessage = {
 
 function DirectMessageChattingRoom() {
   const SOCKET_SERVER_URL = `${REACT_APP_HOME_URL}/api/ws`; // 소켓 통신 url
-  const roomId = useParams().roomId;
+  const roomId = Number(useParams().roomId);
   const user = useAppSelector(selectUser);
 
   const [chattingRoomDetail, setChattingRoomDetail] =
@@ -83,10 +81,23 @@ function DirectMessageChattingRoom() {
     getChatList();
 
     inputRef.current?.focus();
-  }, []);
+
+    return () => {
+      if (stompClient && stompClient.current?.connected) {
+        stompClient.current?.disconnect();
+        console.log("연결을 끊습니다.");
+      }
+    };
+  }, [roomId]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   // 연결
   function connection() {
+    if (stompClient && stompClient.current?.connected) return;
+
     const socket = new SockJS(SOCKET_SERVER_URL);
     stompClient.current = Stomp.over(socket);
     // stompClient.debug = () => {}; // 이벤트마다 콘솔 로깅 기록 방지
@@ -104,7 +115,7 @@ function DirectMessageChattingRoom() {
     // 구독, 메세지 수신 콜백, 에러 콜백
     if (stompClient.current) {
       stompClient.current.subscribe(
-        `sub/chatting/${roomId}`,
+        `/sub/chatting/${roomId}`,
         onMessageReceived
       );
     }
@@ -118,7 +129,7 @@ function DirectMessageChattingRoom() {
   // 메시지 구독(수신)
   function onMessageReceived(frame: StompJS.IMessage) {
     try {
-      console.log("수신 메시지", frame);
+      console.log("수신 메시지", frame.body);
       const newMessage = JSON.parse(frame.body);
       setMessages((prevMessage) => [...prevMessage, newMessage]);
     } catch (error) {
@@ -147,7 +158,7 @@ function DirectMessageChattingRoom() {
 
   // 채팅방 디테일 조회
   async function getChattingRoomDetail() {
-    const res = await selectChattingRoomDetail(Number(roomId));
+    const res = await selectChattingRoomDetail(roomId);
     setChattingRoomDetail(res);
 
     const name = getChattingRoomName(res.joinUserInfo, user.nickname);
@@ -156,7 +167,7 @@ function DirectMessageChattingRoom() {
 
   // 채팅 메시지 리스트 조회
   async function getChatList() {
-    const res = await selecctChatList(Number(roomId));
+    const res = await selecctChatList(roomId);
     setMessages(res);
     scrollToBottom();
   }
@@ -174,7 +185,8 @@ function DirectMessageChattingRoom() {
   }
 
   // 채팅방 나가기 버튼 Click event handler
-  function handleClickExitButton() {
+  async function handleClickExitButton() {
+    alert("채팅방을 나갑니다.");
     // confirm 띄우고
     // 채팅방 상세 조회 후
     // id로 삭제 API 실행
@@ -208,7 +220,7 @@ function DirectMessageChattingRoom() {
         backLink="/chat"
         isCenter={false}
         htext={<ChatHeaderProfile imageUrl="" name={roomName} />}
-        extraBtn={<ExitBtn link="/chat" onClick={handleClickExitButton} />}
+        extraBtn={<ExitBtn onClick={handleClickExitButton} />}
       />
       <ChatContainer ref={scrollRef}>
         {messages.map((message, index) => {
