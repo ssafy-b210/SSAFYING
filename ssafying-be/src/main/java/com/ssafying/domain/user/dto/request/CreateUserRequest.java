@@ -42,6 +42,10 @@ public class CreateUserRequest {
 
     int isMajor;
 
-    UserStatus userStatus;
+    @Builder.Default
+    UserStatus userStatus = UserStatus.ACTIVE;
+
+    @Builder.Default
+    String profileImageUrl = "https://firebasestorage.googleapis.com/v0/b/ssafying-5667d.appspot.com/o/%EC%95%A0%EC%98%B9%EC%9D%B4%2F80eppje2E%2BgAAAAAElFTkSuQmCC?alt=media&token=12053ee8-759b-4bde-8c4a-b446aef1a2a3";
 
 }
