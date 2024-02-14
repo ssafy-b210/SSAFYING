@@ -13,6 +13,7 @@ import StompJS, { CompatClient } from "@stomp/stompjs";
 import { Stomp } from "@stomp/stompjs";
 import { REACT_APP_HOME_URL } from "../../apis/constants";
 import SockJS from "sockjs-client";
+import CenterHeader from "../../components/Common/CenterHeader";
 
 type ChattingRoomDetail = {
   id: number;
@@ -216,6 +217,7 @@ function DirectMessageChattingRoom() {
 
   return (
     <Wrapper>
+      <CenterHeader />
       <BackBtnHeader
         backLink="/chat"
         isCenter={false}
@@ -266,7 +268,7 @@ const Wrapper = styled.div`
 const ChatContainer = styled.div`
   position: relative;
   overflow: hidden;
-  height: 78%;
+  height: 70%;
   overflow-y: scroll;
   padding: 0 10px;
 
