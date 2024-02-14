@@ -15,43 +15,10 @@ const Container = styled.div`
   }
 `;
 
-// const cards = [
-//   {
-//     time: "1시간",
-//     content: "나 사실 좋아하는 사람 있다. 싸피 대전캠 2반에,,,",
-//   },
-//   {
-//     time: "2시간",
-//     content: "대전 요즘 점심 왤케 맛있어",
-//   },
-//   {
-//     time: "3시간",
-//     content: " TESTTEST TEST TEST TEST TEST TEST TEST TEST",
-//   },
-//   {
-//     time: "4시간",
-//     content: "Seriously, straight up, just blast off into outer space today",
-//   },
-//   {
-//     time: "3시간",
-//     content: " TESTTEST TEST TEST TEST TEST TEST TEST TEST",
-//   },
-//   {
-//     time: "4시간",
-//     content: "Seriously, straight up, just blast off into outer space today",
-//   },
-//   {
-//     time: "3시간",
-//     content: " TESTTEST TEST TEST TEST TEST TEST TEST TEST",
-//   },
-//   {
-//     time: "3시간",
-//     content: " TESTTEST TEST TEST TEST TEST TEST TEST TEST",
-//   },
-// ];
-
 const BambooForestList: React.FC = () => {
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState<
+    { content: string; bambooId: number; createdAt: string }[]
+  >([]);
 
   useEffect(() => {
     const fetchData = async () => {
