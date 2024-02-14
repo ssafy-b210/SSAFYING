@@ -10,6 +10,10 @@ import java.time.LocalDateTime;
 @Getter
 public class BambooCommentResponse {
 
+    int userId;
+
+    Long commentId;
+
     String content;
 
     LocalDateTime createAt;
