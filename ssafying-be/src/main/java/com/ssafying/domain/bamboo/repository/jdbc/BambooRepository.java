@@ -66,6 +66,8 @@ public interface BambooRepository extends JpaRepository<Bamboo, Long> {
     @Query("""
             select
             new com.ssafying.domain.bamboo.dto.response.FindListBambooResponse(
+                b.id,
+                b.user.id,
                 b.content,
                 b.createdAt,
                 count(bc.id)
