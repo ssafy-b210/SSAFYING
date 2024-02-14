@@ -8,11 +8,11 @@ import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import { selectChattingRoomDetail } from "../../apis/api/Chat";
 import ChatHeaderProfile from "../../components/DirectMessage/ChatHeaderProfile";
-import { getChattingRoomName } from "../../components/DirectMessage/chatModule";
+import { getChattingRoomName } from "../../components/DirectMessage/util";
 import { useAppSelector } from "../../store/hooks";
 import { selectUser } from "../../store/reducers/user";
 import StompJS, { CompatClient } from "@stomp/stompjs";
-import { Stomp, Client } from "@stomp/stompjs";
+import { Stomp } from "@stomp/stompjs";
 import { REACT_APP_HOME_URL } from "../../apis/constants";
 import SockJS from "sockjs-client";
 
@@ -74,20 +74,6 @@ function DirectMessageChattingRoom() {
   const [messages, setMessages] = useState<RecievedMessage[]>([]);
 
   const stompClient = useRef<CompatClient | null>(null); // useRef 사용
-
-  // const stomp = new Client({
-  //   brokerURL: SOCKET_SERVER_URL,
-  //   // debug: (str: string) => {
-  //   //   console.log(str);
-  //   // },
-  //   // reconnectDelay: 5000, // 자동 재 연결
-  //   // heartbeatIncoming: 4000,
-  //   // heartbeatOutgoing: 4000,
-  // });
-
-  // setStompClient(stomp);
-  // stompClient.current = stomp;
-  // stomp.activate();
 
   useEffect(() => {
     getChattingRoomDetail();

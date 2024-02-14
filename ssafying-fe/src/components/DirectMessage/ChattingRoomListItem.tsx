@@ -3,7 +3,7 @@ import styled from "styled-components";
 import RoundImg from "../Feed/utils/RoundImg";
 import { useAppSelector } from "../../store/hooks";
 import { selectUser } from "../../store/reducers/user";
-import { getChattingRoomName } from "./chatModule";
+import { getChattingRoomName } from "./util";
 import { useEffect, useState } from "react";
 
 type ChattingRoom = {
