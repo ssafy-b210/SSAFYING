@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 public class ChildCommentDTO {
+    int commentId;
+    String profileImgUrl;
     String comment;
     String nickname;
     String userName;
