@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Modal from "../Common/Modal";
 import BambooMoreModal from "./BambooMoreModal";
+import React, { useState, useEffect } from "react";
 
 interface BambooItemProps {
   card: {
@@ -11,23 +12,51 @@ interface BambooItemProps {
   index: number;
 }
 
-function BambooForestListItem({ card, index }: BambooItemProps) {
+const BambooForestListItem: React.FC<BambooItemProps> = ({ card, index }) => {
+  const bambooId = index + 1;
+  const [isVisible, setIsVisible] = useState(true);
+
+  const getCurrentTime = () => {
+    return new Date();
+  };
+
+  const getTimeDifference = (startTime: Date, endTime: Date) => {
+    const difference = endTime.getTime() - startTime.getTime();
+    return difference;
+  };
+
+  const getElapsedTimeInHours = (createdAt: string) => {
+    const currentTime = getCurrentTime();
+    const startTime = new Date(createdAt);
+    const differenceInMilliseconds = getTimeDifference(startTime, currentTime);
+    const differenceInHours = differenceInMilliseconds / (1000 * 60 * 60); // milliseconds -> hours
+    return Math.floor(differenceInHours);
+  };
+
+  useEffect(() => {
+    const hideAfter24Hours = setTimeout(() => {
+      setIsVisible(false);
+    }, 24 * 60 * 60 * 1000); // 24시간
+
+    return () => clearTimeout(hideAfter24Hours);
+  }, []);
+
   return (
     <div>
       <Card key={index}>
         <Content>
           <Copy>{card.content}</Copy>
-          <Time>{card.createdAt} 전</Time>
+          <Time>{getElapsedTimeInHours(card.createdAt)}시간 경과</Time>
           <Button>
             <Modal btnTxt="더보기">
-              <BambooMoreModal card={card} />
+              <BambooMoreModal card={card} index={index} />
             </Modal>
           </Button>
         </Content>
       </Card>
     </div>
   );
-}
+};
 
 export default BambooForestListItem;
 

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import TextArea from "../Feed/FeedCreate/TextArea";
 import styled from "styled-components";
 import { selectOneBamboo } from "../../apis/api/Forest";
 
@@ -9,9 +8,10 @@ interface moreProps {
     content: string;
     bambooId: number;
   };
+  index: number;
 }
 
-function BambooMoreModal({ card }: moreProps) {
+function BambooMoreModal({ card, index }: moreProps) {
   const [bambooData, setBambooData] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(true);
 
@@ -19,8 +19,7 @@ function BambooMoreModal({ card }: moreProps) {
   useEffect(() => {
     const fetchBoardData = async () => {
       try {
-        const data = await selectOneBamboo(card.bambooId);
-        console.log("data", data);
+        const data = await selectOneBamboo(index + 1);
         setBambooData(data.resultData.title);
       } catch (error) {
         console.error(error);
