@@ -105,7 +105,8 @@ public class User extends BaseTimeEntity {
         user.name = request.getName();
         user.generation = request.getGeneration();
         user.isMajor = request.getIsMajor();
-        user.status = UserStatus.ACTIVE;
+        user.status = request.getUserStatus();
+        user.profileImageUrl = request.getProfileImageUrl();
 
         return user;
     }
