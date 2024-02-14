@@ -3,6 +3,7 @@ package com.ssafying.domain.meal.controller;
 import com.ssafying.domain.meal.dto.request.AddMealRequest;
 import com.ssafying.domain.meal.dto.request.ModifyMealRequest;
 import com.ssafying.domain.meal.dto.request.VoteMealRequest;
+import com.ssafying.domain.meal.dto.response.FindMealPlannerResponse;
 import com.ssafying.domain.meal.service.MealService;
 import com.ssafying.global.result.ResultResponse;
 import jakarta.validation.Valid;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -59,4 +62,13 @@ public class MealController {
     /**
      * 13.4 식단표 조회
      */
+    @GetMapping("/{userId}")
+    public ResponseEntity<ResultResponse<List<FindMealPlannerResponse>>> mealPlannerList(
+            @PathVariable(name = "userId") int userId
+    ) {
+        System.out.println("MealController.mealPlannerList");
+        List<FindMealPlannerResponse> result = mealService.findMealPlannerList(userId);
+
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
+    }
 }
