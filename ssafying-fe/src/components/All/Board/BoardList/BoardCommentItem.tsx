@@ -5,24 +5,24 @@ import deleteBtn from "../../../../assets/img/imgBtn/deleteBtn.svg";
 import BoardRecommentList from "./BoardRecommentList";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectUser } from "../../../../store/reducers/user";
+import { deleteBoardComment } from "../../../../apis/api/Board";
 
 interface CommentProps {
   commentId: number;
-  nickname: string;
+  commentUser: {
+    id: Number;
+    nickname: string;
+    profileImageUrl?: string;
+  };
   content: string;
   isHighlighted: boolean;
   onClick: () => void;
-  replies: {
-    replyId: number;
-    commentId: number;
-    nickname: string;
-    content: string;
-  }[];
+  replies: any[];
 }
 
 function BoardCommentItem({
   commentId,
-  nickname,
+  commentUser,
   content,
   isHighlighted,
   onClick,
@@ -30,26 +30,24 @@ function BoardCommentItem({
 }: CommentProps) {
   const user = useAppSelector(selectUser);
 
-  function clickDeleteBtn() {
-    console.log("delete comment");
+  async function clickDeleteBtn() {
+    await deleteBoardComment(commentId);
   }
   return (
     <>
       <UserWrapper isHighlighted={isHighlighted} onClick={onClick}>
         <CommentContent>
-          <UserId>{commentId}</UserId>
+          <UserId>{commentUser.nickname}</UserId>
           <Content>{content}</Content>
         </CommentContent>
         <ButtonsWrapper>
           <TextBtn onClick={onClick}>답글달기</TextBtn>
-          {commentId === user.userId && (
+          {commentUser.id === user.userId && (
             <ImgBtn src={deleteBtn} onClick={clickDeleteBtn} size="15px" />
           )}
         </ButtonsWrapper>
       </UserWrapper>
-      {replies.length > 0 && (
-        <BoardRecommentList onClick={clickDeleteBtn} replies={replies} />
-      )}
+      {replies.length > 0 && <BoardRecommentList replies={replies} />}
     </>
   );
 }

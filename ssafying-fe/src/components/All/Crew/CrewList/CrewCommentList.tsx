@@ -1,46 +1,19 @@
 import { useState } from "react";
 import CrewCommentItem from "./CrewCommentItem";
+import { comment } from "@uiw/react-md-editor";
 
-function CrewCommentList() {
+interface Props {
+  crewId: Number;
+  parent: (id: Number | null) => void;
+}
+
+function CrewCommentList({ crewId, parent }: Props) {
   const [highlightedCommentId, setHighlightedCommentId] =
     useState<Number | null>(null);
+  const [commentList, setCommentList] = useState<any[]>([]);
 
-  const comments = [
-    {
-      commentId: 1,
-      nickname: "aeong",
-      content: "ㅋㅋㅋㅋㅋ",
-      replies: [
-        {
-          replyId: 1,
-          commentId: 2,
-          nickname: "aeong",
-          content: "ㅎㅎㅎㅎ",
-        },
-        { replyId: 2, commentId: 1, nickname: "aeong", content: "뭐야" },
-        { replyId: 2, commentId: 1, nickname: "aeong", content: "뭐야" },
-      ],
-    },
-    {
-      commentId: 1,
-      nickname: "yes",
-      content: "화이팅",
-      replies: [
-        { replyId: 1, commentId: 5, nickname: "yes.hh", content: "안녕" },
-        { replyId: 2, commentId: 3, nickname: "yes", content: "애옹" },
-      ],
-    },
-    {
-      commentId: 1,
-      nickname: "yes.hh",
-      content: "안녕ㅎㅎ",
-      replies: [
-        { replyId: 1, commentId: 5, nickname: "yes.hh", content: "안녕" },
-        { replyId: 2, commentId: 3, nickname: "yes", content: "애옹" },
-      ],
-    },
-  ];
   const handleCommentClick = (commentId: number) => {
+    parent(commentId === highlightedCommentId ? null : commentId);
     setHighlightedCommentId(
       commentId === highlightedCommentId ? null : commentId
     );
@@ -48,15 +21,15 @@ function CrewCommentList() {
 
   return (
     <div>
-      {comments.map((comment) => (
+      {commentList.map((comment) => (
         <CrewCommentItem
-          key={comment.commentId}
-          commentId={comment.commentId}
-          nickname={comment.nickname}
+          key={comment.id}
+          commentId={comment.id}
+          commentUser={comment.user}
           content={comment.content}
-          isHighlighted={comment.commentId === highlightedCommentId}
-          onClick={() => handleCommentClick(comment.commentId)}
-          replies={comment.replies}
+          isHighlighted={comment.id === highlightedCommentId}
+          onClick={() => handleCommentClick(comment.id)}
+          replies={comment.childComments}
         />
       ))}
     </div>

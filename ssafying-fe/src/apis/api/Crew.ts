@@ -116,7 +116,7 @@ export async function createCrewComment(
   crewId: Number,
   userId: Number,
   content: string,
-  parentId: Number //부모댓글의 아이디
+  parentId?: Number //부모댓글의 아이디
 ) {
   const data = {
     crewId: crewId,
@@ -142,6 +142,7 @@ export async function deleteCrewComment(crewCommentId: number) {
       `${REST_CREW_API}/comments/${crewCommentId}`
     );
     console.log(response.data);
+    return response.data;
   } catch (e) {
     console.log(e);
   }
