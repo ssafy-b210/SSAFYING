@@ -2,18 +2,20 @@ import styled from "styled-components";
 
 interface CreateTitleProps {
   onTitleChange: (newTitle: string) => void;
+  initialTitle?: string;
 }
 
-function CreateTitle({ onTitleChange }: CreateTitleProps) {
+function CreateTitle({ onTitleChange, initialTitle = "" }: CreateTitleProps) {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onTitleChange(event.target.value);
+    const newTitle = event.target.value;
+    onTitleChange(newTitle);
   };
 
   return (
     <Title>
       <h4>제목</h4>
       <TitleContainer>
-        <input type="text" onChange={handleInputChange} />
+        <input type="text" value={initialTitle} onChange={handleInputChange} />
       </TitleContainer>
     </Title>
   );

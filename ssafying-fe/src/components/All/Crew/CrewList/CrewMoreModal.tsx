@@ -68,7 +68,7 @@ function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
           <Content>
             <Title>{crewData.title}</Title>
             <Writer>
-              <div className="small-title">By.</div> {crewData.writer}
+              <div className="small-title">By.</div> {crewData.nickname}
             </Writer>
             <Location>
               <div className="small-title">지역</div>
@@ -83,7 +83,7 @@ function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
               {crewData.isRecruit}
             </IsRecruiting>
             <Copy>{crewData.content}</Copy>
-            {user.nickname === crewData.writer && (
+            {user.nickname === crewData.nickname && (
               <Flex>
                 {/* 수정화면만들기 */}
                 <BoardBtn btnmsg="수정" link="" />
