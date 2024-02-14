@@ -11,6 +11,9 @@ import java.util.List;
 @Builder
 public class
 FindDetailBambooResponse {
+    Long bambooId;
+
+    int userId;
 
     String content;
 
