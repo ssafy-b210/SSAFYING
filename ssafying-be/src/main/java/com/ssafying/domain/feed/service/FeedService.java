@@ -5,7 +5,10 @@ import com.ssafying.domain.alert.entity.Notification;
 import com.ssafying.domain.alert.entity.NotificationTypeStatus;
 import com.ssafying.domain.alert.repository.NotificationRepository;
 import com.ssafying.domain.alert.service.NotificationService;
-import com.ssafying.domain.feed.dto.*;
+import com.ssafying.domain.feed.dto.FeedDto;
+import com.ssafying.domain.feed.dto.FeedHashtagDto;
+import com.ssafying.domain.feed.dto.FeedImageDto;
+import com.ssafying.domain.feed.dto.FeedSpecification;
 import com.ssafying.domain.feed.dto.request.*;
 import com.ssafying.domain.feed.dto.response.GetFeedLikesResponse;
 import com.ssafying.domain.feed.dto.response.GetFeedResponse;
@@ -18,6 +21,7 @@ import com.ssafying.domain.user.dto.SimpleUserDto;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.InterestTagRepository;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
+import com.ssafying.global.dto.ParentCommentDto;
 import com.ssafying.global.entity.Hashtag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
@@ -180,7 +184,7 @@ public class FeedService {
         FeedDto response = convertToFeedDto(feed);
         List<FeedComment> parentComments = feedCommentRepository.findParentCommentsByFeed(feed);
         response.setParentCommentList(parentComments.stream()
-                .map(ParentCommentDto::convertToParentCommentDto)
+                .map(ParentCommentDto::convertToFeedParentCommentDto)
                 .collect(Collectors.toList()));
 
         return response;
@@ -355,7 +359,7 @@ public class FeedService {
         List<FeedComment> parentComments = feedCommentRepository.findParentCommentsByFeed(feed);
 
         return parentComments.stream()
-                .map(ParentCommentDto::convertToParentCommentDto)
+                .map(com.ssafying.global.dto.ParentCommentDto::convertToFeedParentCommentDto)
                 .collect(Collectors.toList());
     }
     
