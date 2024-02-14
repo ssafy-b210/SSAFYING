@@ -6,7 +6,7 @@ import styled from "styled-components";
 import ExitBtn from "../../components/Common/ExitBtn";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
-import { selectChattingRoomDetail } from "../../apis/api/Chat";
+import { selecctChatList, selectChattingRoomDetail } from "../../apis/api/Chat";
 import ChatHeaderProfile from "../../components/DirectMessage/ChatHeaderProfile";
 import { getChattingRoomName } from "../../components/DirectMessage/util";
 import { useAppSelector } from "../../store/hooks";
@@ -78,6 +78,7 @@ function DirectMessageChattingRoom() {
   useEffect(() => {
     getChattingRoomDetail();
     connection();
+    getChatList();
   }, []);
 
   // 연결
@@ -139,6 +140,7 @@ function DirectMessageChattingRoom() {
     }
   }
 
+  // 채팅방 디테일 조회
   async function getChattingRoomDetail() {
     const res = await selectChattingRoomDetail(Number(roomId));
     setChattingRoomDetail(res);
@@ -147,9 +149,34 @@ function DirectMessageChattingRoom() {
     setRoomName(name);
   }
 
+  // 채팅 메시지 리스트 조회
+  async function getChatList() {
+    const res = await selecctChatList(Number(roomId));
+    console.log("채팅리스트", res);
+
+    setMessages(res);
+  }
+
+  // 채팅 입력창 Change event handler
   function handleChangeInputValue(e: ChangeEvent<HTMLInputElement>) {
     setInputValue(e.target.value);
   }
+
+  // function checkContinuousMessage(
+  //   message: RecievedMessage,
+  //   prevMessage: RecievedMessage
+  // ): boolean {
+  //   if ()
+
+  //       //         const nextChat = chatList[idx + 1];
+  //       //  nextChat &&
+  //       //  nextChat.userId === chat.userId &&
+  //       //  nextChat.createdAt === chat.createdAt
+  //       //    ? true
+  //       //    : false;
+
+  //   return true;
+  // }
 
   return (
     <div>
@@ -158,7 +185,22 @@ function DirectMessageChattingRoom() {
         isCenter={false}
         htext={<ChatHeaderProfile imageUrl="" name={roomName} />}
       />
+      {/* {messages.map((message, index) => {
+        let isContinuous: boolean = false;
+        // console.log("이전 메시지", messages[index - 1]);
 
+        // if (index > 0)
+        // isContinuous = checkContinuousMessage(message, messages[index - 1]);
+
+        return (
+          <Chat
+            key={message.id}
+            userId={message.userInfo.id}
+            message={message.message}
+            isContinuous={isContinuous}
+          />
+        );
+      })} */}
       <ChatInputBox>
         <input
           type="text"

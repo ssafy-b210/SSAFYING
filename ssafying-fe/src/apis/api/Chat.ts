@@ -21,3 +21,13 @@ export async function selectChattingRoomList(userId: number) {
     console.log(error);
   }
 }
+
+// 채팅 목록 조회
+export async function selecctChatList(roomId: number) {
+  try {
+    const res = await axios.get(`${REST_CHAT_API}/rooms/${roomId}/messages`);
+    return res.data.resultData;
+  } catch (error) {
+    console.log(error);
+  }
+}
