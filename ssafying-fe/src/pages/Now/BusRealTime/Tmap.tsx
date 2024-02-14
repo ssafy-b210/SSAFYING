@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import markerImg from "../../../assets/img/imgBtn/dm.svg";
+// import markerImg from "../../../assets/img/imgBtn/dm.svg";
 
 declare global {
   interface Window {
@@ -22,8 +22,8 @@ function Tmap(props: { currLocation: Location; nextLocation: Location }) {
 
     const currLat = props.currLocation.lat;
     const currLng = props.currLocation.lng;
-    const nextLat = props.nextLocation.lat;
-    const nextLng = props.nextLocation.lng;
+    // const nextLat = props.nextLocation.lat;
+    // const nextLng = props.nextLocation.lng;
 
     if (!mapDiv?.firstChild) {
       map = new window.Tmapv3.Map("map_div", {
@@ -33,12 +33,12 @@ function Tmap(props: { currLocation: Location; nextLocation: Location }) {
         zoom: 15,
       });
 
-      //Marker 객체 생성.
-      const marker = new Tmapv3.Marker({
-        position: new Tmapv3.LatLng(nextLat, nextLng),
-        icon: markerImg,
-        map: map,
-      });
+      // //Marker 객체 생성.
+      // const marker = new Tmapv3.Marker({
+      //   position: new Tmapv3.LatLng(nextLat, nextLng),
+      //   icon: markerImg,
+      //   map: map,
+      // });
 
       resizeMap();
       map.resize();
