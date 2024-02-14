@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import CommentList from "./CommentList";
 import CommentInput from "./CommentInput";
+import { getFeedComment } from "../../../apis/api/Feed";
+import Modal from "react-modal";
 
 interface CommentModalProps {
   onClose: () => void;
@@ -9,82 +11,62 @@ interface CommentModalProps {
 }
 
 const CommentModal: React.FC<CommentModalProps> = ({ onClose, feedId }) => {
-  const [modalClosed, setModalClosed] = useState(false);
-  const [highlighted, setHighlighted] = useState<Number | null>(null);
+  const [commentList, setCommentList] = useState<any[]>([]);
+  const [highlighted, setHighlighted] = useState<number | null>(null);
 
-  const handleCommentSubmit = (comment: string) => {
+  useEffect(() => {
+    fetchComments();
+  }, []);
+
+  const fetchComments = async () => {
+    const list = await getFeedComment(feedId);
+    setCommentList(list || []);
+  };
+
+  const handleCommentSubmit = async (comment: string) => {
     console.log("Comment submitted:", comment);
-    setModalClosed(true);
-    onClose();
+    await fetchComments();
   };
 
   return (
-    <ModalOverlay>
-      <ModalContent closed={modalClosed}>
-        <CloseButtonContainer>
-          <CloseButton onClick={() => handleCommentSubmit("")}>
-            &times;
-          </CloseButton>
-        </CloseButtonContainer>
-        <CommentList feedId={feedId} parent={(id) => setHighlighted(id)} />
-      </ModalContent>
+    <Modal isOpen={true} onRequestClose={onClose} style={customStyles}>
+      <CommentWrapper>
+        <CommentList
+          feedId={feedId}
+          parent={(id) => setHighlighted(id)}
+          commentList={commentList}
+        />
+      </CommentWrapper>
       <CommentInputContainer>
         <CommentInput
           onSubmit={handleCommentSubmit}
           target="feed"
           id={feedId}
-          highlighted={highlighted} // Pass highlightedCommentId to CommentInput
+          highlighted={highlighted}
         />
       </CommentInputContainer>
-    </ModalOverlay>
+    </Modal>
   );
 };
 
 export default CommentModal;
 
-const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  margin: 0 auto;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-`;
-
-const ModalContent = styled.div<{ closed: boolean }>`
-  background: white;
-  height: 90%;
-  padding: 10px;
-  border-radius: 10px;
-  width: 100%;
-  max-width: 560px;
-  overflow-y: scroll;
-  padding-bottom: 55px;
-  transition: transform 0.7s ease-in-out;
-  transform: translateY(${(props) => (props.closed ? "100%" : "0")});
-  &::-webkit-scrollbar {
-    width: 0;
-    background: transparent; /* Optional: just make scrollbar invisible */
-  }
-`;
-
-const CloseButtonContainer = styled.div`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-`;
-
-const CloseButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 30px;
-  cursor: pointer;
-  color: #555;
-`;
+// 모달 스타일을 위한 설정
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "90%",
+    maxWidth: "560px",
+    height: "80%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: "10px",
+    overflow: "hidden",
+  },
+};
 
 const CommentInputContainer = styled.div`
   position: fixed;
@@ -92,4 +74,14 @@ const CommentInputContainer = styled.div`
   width: 100%;
   max-width: 560px;
   background-color: white;
+`;
+
+const CommentWrapper = styled.div`
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 10px 20px;
+  overflow-y: scroll;
+  margin-bottom: 10px;
 `;

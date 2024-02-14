@@ -24,7 +24,7 @@ export async function createFeedItem(
 }
 
 //피드 삭제
-export async function deleteFeedItem(feedId: number) {
+export async function deleteFeedItem(feedId: Number) {
   try {
     const response = await axios.delete(`api/feeds/${feedId}`);
     console.log(response.data);
