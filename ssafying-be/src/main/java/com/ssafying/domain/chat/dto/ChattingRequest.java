@@ -1,10 +1,8 @@
-package com.ssafying.domain.chat.dto;
+    package com.ssafying.domain.chat.dto;
+    import lombok.Getter;
 
-import lombok.Getter;
-
-@Getter
-public class ChattingRequest {
-    private int chatRoomId; // 채팅방 id
-    private int userId; // 유저 id
-    private String message; // 채팅메시지
-}
+    @Getter
+    public class ChattingRequest {
+        private Integer userId; // 유저 id
+        private String message; // 채팅메시지
+    }
