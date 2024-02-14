@@ -102,8 +102,8 @@ function App() {
               path="/profile/:userId/follower"
               element={<FollowerList />}
             />
-            <Route path="/direct" element={<DirectMessageChats />} />
-            <Route path="/direct/:id" element={<DirectMessageChattingRoom />} />
+            <Route path="/chat" element={<DirectMessageChats />} />
+            <Route path="/chat/:id" element={<DirectMessageChattingRoom />} />
             <Route path="/meal/create" element={<MealPlannerCreate />} />
           </Routes>
         )}

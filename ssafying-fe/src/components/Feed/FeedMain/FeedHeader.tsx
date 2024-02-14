@@ -25,7 +25,9 @@ function FeedHeader() {
         <Link to="/alarmdetail" className="alarm">
           <ImgBtn src={alarm} size="21px" />
         </Link>
-        <ImgBtn src={dm} size="21px" />
+        <Link to="/chat">
+          <ImgBtn src={dm} size="21px" />
+        </Link>
       </div>
     </Header>
   );

@@ -1,69 +1,74 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import RoundImg from "../../components/Feed/utils/RoundImg";
+import CenterHeader from "../../components/Common/CenterHeader";
+import BackBtnHeader from "../../components/Common/BackBtnHeader";
+import { useAppSelector } from "../../store/hooks";
+import { selectUser } from "../../store/reducers/user";
+import { selectChattingRoomList } from "../../apis/api/Chat";
+import ChattingRoomListItem from "../../components/DirectMessage/ChattingRoomListItem";
+import PlusBtn from "../../components/Common/PlusBtn";
+
+type ChattingRoom = {
+  id: number;
+  lastMessage: string;
+  roomInfo: {
+    id: number;
+    type: string;
+    joinUserInfo: [
+      {
+        id: number;
+        nickname: string;
+        profileImageUrl: string;
+      }
+    ];
+  };
+};
 
 function DirectMessageChats() {
-  const [chatList, setChatList] = useState([
-    {
-      img: "../../assets/img/testImg/user.svg",
-      name: "su00",
-      message: "점심 뭐먹을거야?",
-    },
-    {
-      img: "../../assets/img/testImg/user2.svg",
-      name: "hhyyee",
-      message: "알고리즘 문제 풀었어??",
-    },
-    {
-      img: "../../assets/img/testImg/user3.svg",
-      name: "yes.hs",
-      message: "알고리즘 스터디 가입하고 싶어요!",
-    },
-    {
-      img: "../../assets/img/testImg/user4.svg",
-      name: "2.ye",
-      message: "키보드 구매하고 싶어요",
-    },
-  ]);
+  const user = useAppSelector(selectUser);
+  const [chattingRoomList, setChattingRoomList] = useState<ChattingRoom[]>([]);
+
+  useEffect(() => {
+    getChattingRoomList();
+  }, []);
+
+  // 모든 채팅방 목록 조회
+  async function getChattingRoomList(): Promise<void> {
+    const res: ChattingRoom[] = await selectChattingRoomList(user.userId);
+    setChattingRoomList(res);
+  }
+
+  function handleClickCreate(): void {
+    // 채팅방 생성
+  }
 
   return (
     <div>
-      {chatList.map((chat, index) => (
-        <ProfileListItem key={index}>
-          <Link to={`${index}`}>
-            <ProfileImg>
-              <RoundImg size="54px" src={chat.img} />
-            </ProfileImg>
-            <div>
-              <div>{chat.name}</div>
-              <div className="preview-text">{chat.message}</div>
-            </div>
-          </Link>
-        </ProfileListItem>
-      ))}
+      <CenterHeader />
+      <BackBtnHeader
+        backLink="/"
+        isCenter={true}
+        text={user.nickname}
+        extraBtn={<PlusBtn onClick={handleClickCreate} />}
+      />
+      <ProfileList>
+        {chattingRoomList.map((room: ChattingRoom) => (
+          <ChattingRoomListItem
+            key={room.id}
+            id={room.id}
+            lastMessage={room.lastMessage}
+            roomInfo={room.roomInfo}
+          />
+        ))}
+      </ProfileList>
     </div>
   );
 }
 
 export default DirectMessageChats;
 
-const ProfileListItem = styled.div`
-  margin-bottom: 16px;
-
-  a {
-    display: flex;
-    color: #000;
-    text-decoration: none;
-  }
-
-  .preview-text {
-    line-height: 24px;
-    font-size: 14px;
-    color: #9c9c9c;
-  }
-`;
-
-const ProfileImg = styled.div`
-  margin-right: 10px;
+const ProfileList = styled.div`
+  padding: 12px;
 `;
