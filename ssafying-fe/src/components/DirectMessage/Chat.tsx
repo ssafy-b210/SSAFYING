@@ -2,6 +2,8 @@ import styled from "styled-components";
 import SpeechBubble from "./SpeechBubble";
 import RoundImg from "../Feed/utils/RoundImg";
 import userImg from "../../assets/img/testImg/user.jpg"; // TEST
+import { useAppSelector } from "../../store/hooks";
+import { selectUser } from "../../store/reducers/user";
 
 // 프로필 사진과 말풍선을 묶는 컴포넌트입니다.
 
@@ -12,15 +14,14 @@ import userImg from "../../assets/img/testImg/user.jpg"; // TEST
 // 연속된 채팅이 아닌 경우, margin-bottom을 추가합니다.
 
 interface ChatProps {
-  userId: string;
+  userId: number;
   message: string;
   isContinuous: boolean;
 }
 
-const loginUser = "user1"; // TEST
-
 function Chat(props: ChatProps) {
-  const isMine = props.userId === loginUser;
+  const userId = Number(useAppSelector(selectUser).userId);
+  const isMine = props.userId === userId;
 
   return (
     <Wrapper $isContinuous={props.isContinuous}>
@@ -29,11 +30,11 @@ function Chat(props: ChatProps) {
           <RoundImg size="36px" src={userImg} />
         )}
       </ProfileImgWrapper>
-      <SpeechBubble
+      {/* <SpeechBubble
         userId={props.userId}
         message={props.message}
-        isMine={props.userId === loginUser}
-      />
+        isMine={props.userId === userId}
+      /> */}
     </Wrapper>
   );
 }
