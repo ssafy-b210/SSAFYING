@@ -8,48 +8,53 @@ interface BambooItemProps {
     createdAt: string;
     content: string;
     bambooId: number;
+    userId: number;
   };
-  index: number;
 }
 
-const BambooForestListItem: React.FC<BambooItemProps> = ({ card, index }) => {
-  const bambooId = index + 1;
+const BambooForestListItem: React.FC<BambooItemProps> = ({ card }) => {
   const [isVisible, setIsVisible] = useState(true);
-
-  const getCurrentTime = () => {
-    return new Date();
-  };
-
-  const getTimeDifference = (startTime: Date, endTime: Date) => {
-    const difference = endTime.getTime() - startTime.getTime();
-    return difference;
-  };
-
-  const getElapsedTimeInHours = (createdAt: string) => {
-    const currentTime = getCurrentTime();
-    const startTime = new Date(createdAt);
-    const differenceInMilliseconds = getTimeDifference(startTime, currentTime);
-    const differenceInHours = differenceInMilliseconds / (1000 * 60 * 60); // milliseconds -> hours
-    return Math.floor(differenceInHours);
-  };
+  const [timeDiff, setTimediff] = useState("");
 
   useEffect(() => {
-    const hideAfter24Hours = setTimeout(() => {
-      setIsVisible(false);
-    }, 24 * 60 * 60 * 1000); // 24시간
-
-    return () => clearTimeout(hideAfter24Hours);
+    if (card.createdAt !== null && card.createdAt !== undefined) {
+      calcTimeDiff();
+    }
   }, []);
+
+  function calcTimeDiff() {
+    const date = new Date(card.createdAt.substring(0, 19));
+    const now = new Date();
+    const diff = Math.abs(date.getTime() - now.getTime());
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    if (days > 0) {
+      if (days < 7) {
+        setTimediff(`${days}일 전`);
+      } else {
+        setTimediff(`${date}`);
+      }
+    } else if (hours > 0) {
+      setTimediff(`${hours}시간 전`);
+    } else if (minutes > 0) {
+      setTimediff(`${minutes}분 전`);
+    } else {
+      setTimediff(`${seconds}초 전`);
+    }
+  }
 
   return (
     <div>
-      <Card key={index}>
+      <Card key={card.bambooId}>
         <Content>
           <Copy>{card.content}</Copy>
-          <Time>{getElapsedTimeInHours(card.createdAt)}시간 경과</Time>
+          <Time>{timeDiff}</Time>
           <Button>
             <Modal btnTxt="더보기">
-              <BambooMoreModal card={card} index={index} />
+              <BambooMoreModal card={card} time={timeDiff} />
             </Modal>
           </Button>
         </Content>
@@ -97,15 +102,17 @@ const Time = styled.h2`
 
 const Copy = styled.p`
   font-family: var(--font-serif);
-  font-size: 1.125rem;
+  font-size: 18px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  height: 75px;
 `;
 
 const Button = styled.div`
+  width: 100%;
   button {
     color: white;
     background-color: rgba(0, 0, 0, 0.7);

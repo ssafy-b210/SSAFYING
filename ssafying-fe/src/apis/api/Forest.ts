@@ -44,18 +44,18 @@ export async function selectOneBamboo(bambooId: number) {
 
 //대나무숲 댓글 작성
 export async function createBambooComment(
-  bambooId: number,
-  userId: number,
+  bambooId: Number,
+  userId: Number,
   content: string
 ) {
   try {
     const data = {
-      bambooId: bambooId,
       userId: userId,
       content: content,
     };
     const response = await axios.post(
-      `${REST_FOREST_API}/comments/${bambooId}`
+      `${REST_FOREST_API}/comments/${bambooId}`,
+      data
     );
     console.log(response.data);
   } catch (error) {

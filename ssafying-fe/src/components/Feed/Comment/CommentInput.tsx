@@ -5,10 +5,11 @@ import { createCrewComment } from "../../../apis/api/Crew";
 import { createFeedComment } from "../../../apis/api/Feed";
 import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
+import { createBambooComment } from "../../../apis/api/Forest";
 
 interface CommentInputProps {
   onSubmit: (comment: string) => void;
-  target: "board" | "crew" | "feed";
+  target: "board" | "crew" | "feed" | "bamboo";
   id: Number;
   highlighted?: Number | null;
 }
@@ -50,6 +51,8 @@ const CommentInput: React.FC<CommentInputProps> = ({
           } else {
             await createFeedComment(id, user.userId, comment, highlighted);
           }
+        } else if (target === "bamboo") {
+          await createBambooComment(id, user.userId, comment);
         }
       } catch (e) {
         console.log(e);

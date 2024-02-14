@@ -27,8 +27,6 @@ function FeedListItemUser({
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [timeDiff, setTimediff] = useState("");
 
-  console.log("date" + time);
-
   useEffect(() => {
     if (time !== null && time !== undefined) {
       calcTimeDiff();
