@@ -162,14 +162,14 @@ function BusRealTimeMap() {
               lng: currLocation.longitude,
             }}
             nextLocation={{
-              lat: busStopList[0].latitude,
-              lng: busStopList[0].longitude,
+              lat: busStopList[5].latitude,
+              lng: busStopList[5].longitude,
             }}
           />
         ) : null}
       </MapContainer>
       <ButtonWrapper>
-        <Button onClick={sendLocation}>📍 위치공유하기</Button>
+        <ShareButton onClick={sendLocation}>📍 위치공유하기</ShareButton>
       </ButtonWrapper>
       {busStopList.map((item) => (
         <BusWrapper>
@@ -204,6 +204,14 @@ const Button = styled.button`
   width: 150px;
   height: 50px;
   font-size: 15px;
+`;
+
+const ShareButton = styled(Button)`
+  cursor: pointer;
+
+  &:active {
+    background-color: rgba(142, 142, 142, 0.5);
+  }
 `;
 
 const ButtonWrapper = styled.div`
