@@ -2,8 +2,6 @@ import styled from "styled-components";
 import RoundImg from "../Feed/utils/RoundImg";
 
 function ChatHeaderProfile(props: { imageUrl: string; name: string }) {
-  console.log(props.name);
-
   return (
     <HeaderTextWrapper>
       <RoundImg size="30px" src={props.imageUrl} />

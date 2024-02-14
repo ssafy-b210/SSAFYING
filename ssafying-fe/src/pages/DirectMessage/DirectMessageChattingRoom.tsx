@@ -11,6 +11,10 @@ import ChatHeaderProfile from "../../components/DirectMessage/ChatHeaderProfile"
 import { getChattingRoomName } from "../../components/DirectMessage/chatModule";
 import { useAppSelector } from "../../store/hooks";
 import { selectUser } from "../../store/reducers/user";
+import StompJS, { CompatClient } from "@stomp/stompjs";
+import { Stomp, Client } from "@stomp/stompjs";
+import { REACT_APP_HOME_URL } from "../../apis/constants";
+import SockJS from "sockjs-client";
 
 type ChattingRoomDetail = {
   id: number;
@@ -26,7 +30,27 @@ type ChattingRoomDetail = {
   updatedAt: string;
 };
 
+type RecievedMessage = {
+  id: number;
+  chatRoomId: number;
+  // 수신자
+  userInfo: {
+    id: number;
+    nickname: string;
+    profileImageUrl: string;
+  };
+  message: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+type SendMessage = {
+  usersId: number;
+  message: string;
+};
+
 function DirectMessageChattingRoom() {
+  const SOCKET_SERVER_URL = `${REACT_APP_HOME_URL}/api/ws`; // 소켓 통신 url
   const roomId = useParams().roomId;
   const user = useAppSelector(selectUser);
 
@@ -45,10 +69,88 @@ function DirectMessageChattingRoom() {
       updatedAt: "",
     });
   const [roomName, setRoomName] = useState<string>("");
+  // const [stompClient, setStompClient] = useState<Stomp.Client | null>(null);
+
+  const [messages, setMessages] = useState<RecievedMessage[]>([]);
+
+  const stompClient = useRef<CompatClient | null>(null); // useRef 사용
+
+  // const stomp = new Client({
+  //   brokerURL: SOCKET_SERVER_URL,
+  //   // debug: (str: string) => {
+  //   //   console.log(str);
+  //   // },
+  //   // reconnectDelay: 5000, // 자동 재 연결
+  //   // heartbeatIncoming: 4000,
+  //   // heartbeatOutgoing: 4000,
+  // });
+
+  // setStompClient(stomp);
+  // stompClient.current = stomp;
+  // stomp.activate();
 
   useEffect(() => {
     getChattingRoomDetail();
+    connection();
   }, []);
+
+  // 연결
+  function connection() {
+    const socket = new SockJS(SOCKET_SERVER_URL);
+    stompClient.current = Stomp.over(socket);
+    // stompClient.debug = () => {}; // 이벤트마다 콘솔 로깅 기록 방지
+
+    console.log("WebSocket 연결이 열렸습니다.");
+    console.log(`소켓 연결을 시도합니다. 서버 주소: ${SOCKET_SERVER_URL}`);
+
+    stompClient.current.connect({}, onConnected, onError);
+  }
+
+  // 소켓 통신 시작
+  function onConnected() {
+    console.log("소켓 연결 성공");
+
+    // 구독, 메세지 수신 콜백, 에러 콜백
+    if (stompClient.current) {
+      stompClient.current.subscribe(
+        `sub/chatting/${roomId}`,
+        onMessageReceived
+      );
+    }
+  }
+
+  // 에러 콜백
+  function onError(error: any) {
+    console.log("소켓 연결 실패", error);
+  }
+
+  // 메시지 구독(수신)
+  function onMessageReceived(frame: StompJS.IMessage) {
+    try {
+      const newMessage = JSON.parse(frame.body);
+      console.log(newMessage);
+      setMessages((prevMessage) => [...prevMessage, newMessage]);
+    } catch (error) {
+      console.error("오류가 발생했습니다:", error);
+    }
+  }
+
+  // 메시지 전송
+  function sendMessage() {
+    if (stompClient && stompClient.current?.connected) {
+      const sendMessage: SendMessage = {
+        usersId: user.userId,
+        message: "채팅을 보냈습니다.",
+      };
+
+      stompClient.current.publish({
+        destination: `/pub/chatting/${roomId}`,
+        body: JSON.stringify(sendMessage),
+      });
+
+      console.log("보낸 메시지", sendMessage);
+    }
+  }
 
   async function getChattingRoomDetail() {
     const res = await selectChattingRoomDetail(Number(roomId));
@@ -65,7 +167,7 @@ function DirectMessageChattingRoom() {
         isCenter={false}
         htext={<ChatHeaderProfile imageUrl="" name={roomName} />}
       />
-
+      <button onClick={sendMessage}>채팅 보내기</button>
       {/* <BackBtnHeader
         backLink="/direct"
         isCenter={false}
