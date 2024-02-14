@@ -21,27 +21,38 @@ public class ChatRoomUser extends BaseTimeEntity {
     @Column(name = "chat_room_user_id")
     private int id; //채팅방 입장관리 id
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Column(name = "last_message")
+    private String lastMessage; // 마지막에 전송된 메시지
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chat_room_id")
     private ChatRoom chatRoom; // 채팅방
+//
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "chat_message_id")
+//    private ChatMessage chatMessage; // 메시지
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chat_message_id")
-    private ChatMessage chatMessage; // 메시지
+    public static ChatRoomUser createChatRoomUser(
+            User user,
+            ChatRoom chatRoom
+    ) {
+        ChatRoomUser chatRoomUser = new ChatRoomUser();
+        chatRoomUser.user = user;
+        chatRoomUser.chatRoom = chatRoom;
+        return chatRoomUser;
+    }
 
-    @Enumerated(EnumType.STRING)
-    private RoomType type; //
-
-    @Builder
-    public ChatRoomUser(int id, User user, ChatRoom chatRoom, ChatMessage chatMessage, RoomType type) {
-        this.id = id;
-        this.user = user;
-        this.chatRoom = chatRoom;
-        this.chatMessage = chatMessage;
-        this.type = type;
+    public static ChatRoomUser updateLastMessage(
+            ChatRoomUser chatRoomUser,
+            String lastMessage
+    ) {
+        if(lastMessage != null) {
+            chatRoomUser.lastMessage = lastMessage;
+        }
+        return chatRoomUser;
     }
 }

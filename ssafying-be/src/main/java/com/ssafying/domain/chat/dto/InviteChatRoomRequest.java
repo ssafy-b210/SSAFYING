@@ -1,6 +1,5 @@
 package com.ssafying.domain.chat.dto;
 
-import com.ssafying.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChatRoomInviteRequest {
-    private int chatRoomId;
-    private List<User> users; // 초대할 유저들
+public class InviteChatRoomRequest {
+    private List<Integer> usersId; // 초대할 유저들
 }

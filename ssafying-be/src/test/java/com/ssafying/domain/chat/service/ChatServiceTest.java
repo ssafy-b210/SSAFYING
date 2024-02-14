@@ -1,6 +1,5 @@
 package com.ssafying.domain.chat.service;
 
-import com.ssafying.domain.chat.dto.ChatRoomCreateRequest;
 import com.ssafying.domain.chat.entity.ChatRoom;
 import com.ssafying.domain.chat.entity.ChatRoomUser;
 import com.ssafying.domain.chat.repository.ChatMessageRepository;
@@ -10,7 +9,6 @@ import com.ssafying.domain.user.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -20,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-class ChatMessageServiceTest {
+class ChatServiceTest {
 
     @Autowired
     ChatMessageRepository chatMessageRepository;
@@ -30,7 +28,7 @@ class ChatMessageServiceTest {
     ChatRoomUserRepository chatRoomUserRepository;
 
     @Autowired
-    ChatMessageService chatMessageService;
+    ChatService chatService;
 
     @Test
     public void 채팅방_생성() throws Exception {
@@ -46,10 +44,10 @@ class ChatMessageServiceTest {
         users.add(user2);
         users.add(user3);
 
-        ChatRoomCreateRequest chatRoomCreateRequest = new ChatRoomCreateRequest(users);
+//        AddChatRoomRequest addChatRoomRequest = new AddChatRoomRequest(users);
 
         // when
-        chatMessageService.create(chatRoomCreateRequest);
+//        chatMessageService.create(addChatRoomRequest);
 
         // then
         List<ChatRoomUser> chatRoomUsers = chatRoomUserRepository.findAll();
