@@ -45,6 +45,7 @@ import SavedBoardList from "./components/Profile/Saved/SavedBoardList";
 import SavedRecruitmentList from "./components/Profile/Saved/SavedRecruitmentList";
 import { useAppSelector } from "./store/hooks";
 import { RootState } from "./store";
+import DirectMessageCreate from "./pages/DirectMessage/DirectMessageCreate";
 
 function App() {
   const isLoggedIn = useAppSelector(
@@ -107,6 +108,7 @@ function App() {
               path="/chat/:roomId"
               element={<DirectMessageChattingRoom />}
             />
+            <Route path="/chat/create" element={<DirectMessageCreate />} />
             <Route path="/meal/create" element={<MealPlannerCreate />} />
           </Routes>
         )}

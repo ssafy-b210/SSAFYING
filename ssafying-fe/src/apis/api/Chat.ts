@@ -2,6 +2,18 @@ import { axios } from "../utils/axios";
 
 const REST_CHAT_API = `/api/chat`;
 
+// 채팅방 생성
+export async function createChattingRoom(userIdList: number[]) {
+  try {
+    const res = await axios.post(`${REST_CHAT_API}/rooms`, {
+      usersId: userIdList,
+    });
+    return res.data.resultData;
+  } catch (e: any) {
+    console.log(e);
+  }
+}
+
 // 채팅방 상세보기 조회
 export async function selectChattingRoomDetail(roomId: number) {
   try {
