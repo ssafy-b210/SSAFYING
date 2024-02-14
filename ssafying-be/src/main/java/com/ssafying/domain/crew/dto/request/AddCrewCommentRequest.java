@@ -16,7 +16,8 @@ public class AddCrewCommentRequest {
     @NotNull(message = "댓글 내용을 작성해주세요.")
     String content; //내용
 
-    int parentId; //부모댓글
+    @Builder.Default
+    Integer parentId = null; //부모댓글
 
 
 }

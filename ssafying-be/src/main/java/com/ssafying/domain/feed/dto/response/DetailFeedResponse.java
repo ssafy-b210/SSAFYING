@@ -2,8 +2,8 @@ package com.ssafying.domain.feed.dto.response;
 
 import com.ssafying.domain.feed.dto.FeedHashtagDto;
 import com.ssafying.domain.feed.dto.FeedImageDto;
-import com.ssafying.domain.feed.dto.ParentCommentDto;
 import com.ssafying.domain.user.dto.SimpleUserDto;
+import com.ssafying.global.dto.ParentCommentDto;
 import lombok.*;
 
 import java.time.LocalDateTime;

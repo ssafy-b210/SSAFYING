@@ -3,6 +3,7 @@ package com.ssafying.domain.crew.dto.response;
 import com.ssafying.domain.crew.entity.Category;
 import com.ssafying.domain.crew.entity.CrewComment;
 import com.ssafying.domain.crew.entity.Region;
+import com.ssafying.global.dto.ParentCommentDto;
 import lombok.*;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class CrewDetailResponse {
     Region region;
     Category category;
     Boolean isRecruit;
-    List<CrewComment> comments;
+    List<ParentCommentDto> parentCommentList;
 
 
 }

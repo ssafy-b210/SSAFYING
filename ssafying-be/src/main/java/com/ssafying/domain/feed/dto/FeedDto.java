@@ -4,6 +4,7 @@ import com.ssafying.domain.feed.entity.FeedHashtag;
 import com.ssafying.domain.feed.entity.FeedImage;
 import com.ssafying.domain.user.dto.SimpleUserDto;
 import com.ssafying.domain.user.entity.User;
+import com.ssafying.global.dto.ParentCommentDto;
 import lombok.*;
 
 import java.time.LocalDateTime;

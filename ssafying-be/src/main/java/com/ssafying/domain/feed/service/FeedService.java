@@ -19,6 +19,7 @@ import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.InterestTagRepository;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
 import com.ssafying.global.entity.Hashtag;
+import com.ssafying.global.dto.ParentCommentDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -180,7 +181,7 @@ public class FeedService {
         FeedDto response = convertToFeedDto(feed);
         List<FeedComment> parentComments = feedCommentRepository.findParentCommentsByFeed(feed);
         response.setParentCommentList(parentComments.stream()
-                .map(ParentCommentDto::convertToParentCommentDto)
+                .map(ParentCommentDto::convertToFeedParentCommentDto)
                 .collect(Collectors.toList()));
 
         return response;
@@ -355,7 +356,7 @@ public class FeedService {
         List<FeedComment> parentComments = feedCommentRepository.findParentCommentsByFeed(feed);
 
         return parentComments.stream()
-                .map(ParentCommentDto::convertToParentCommentDto)
+                .map(com.ssafying.global.dto.ParentCommentDto::convertToFeedParentCommentDto)
                 .collect(Collectors.toList());
     }
     
@@ -365,29 +366,23 @@ public class FeedService {
     @Transactional
     public int addFeedComment(int feedId, AddCommentRequest request) {
         User user = getUser(request.getUserId());
+        Feed feed = getFeed(feedId);
+        FeedComment parentComment = null;
 
-        if (request.getParentId() == null) {
-            // 부모댓글 없으면 일반 댓글
-            FeedComment feedComment = FeedComment.createComment(
-                    user,
-                    getFeed(feedId),
-                    request.getContent(),
-                    null);
-            feedComment = feedCommentRepository.save(feedComment);
-            return feedComment.getId();
-        } else {
-            // 부모댓글 있으면 대댓글
-            FeedComment parentComment = feedCommentRepository.findById(request.getParentId())
+        if (request.getParentId() != null) {
+            // 부모댓글이 있으면 대댓글 처리
+            parentComment = feedCommentRepository.findById(request.getParentId())
                     .orElseThrow(() -> new RuntimeException("해당하는 부모 댓글이 없습니다"));
-
-            FeedComment childComment = FeedComment.createComment(
-                    user,
-                    getFeed(feedId),
-                    request.getContent(),
-                    parentComment);
-            childComment = feedCommentRepository.save(childComment);
-            return childComment.getId();
         }
+
+        FeedComment feedComment = FeedComment.createComment(
+                user,
+                feed,
+                request.getContent(),
+                parentComment);
+
+        feedComment = feedCommentRepository.save(feedComment);
+        return feedComment.getId();
     }
 
 

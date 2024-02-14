@@ -14,6 +14,7 @@ import com.ssafying.domain.crew.repository.jdbc.CrewCommentsRepository;
 import com.ssafying.domain.crew.repository.jdbc.CrewRepository;
 import com.ssafying.domain.user.entity.User;
 import com.ssafying.domain.user.repository.jdbc.UserRepository;
+import com.ssafying.global.dto.ParentCommentDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -77,6 +79,8 @@ public class CrewService {
         Crew crew = crewRepository.findById(crewId)
                 .orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
 
+        List<CrewComment> parentComments =  crewCommentsRepository.findParentCommentsByCrew(crew);
+
         CrewDetailResponse response = CrewDetailResponse.builder()
                 .crewId(crew.getCrewId())
                 .title(crew.getTitle())
@@ -85,7 +89,10 @@ public class CrewService {
                 .region(crew.getRegion())
                 .category(crew.getCategory())
                 .isRecruit(crew.getIsRecruit())
-                .comments(crew.getComments())
+                .parentCommentList(parentComments
+                        .stream()
+                        .map(ParentCommentDto::convertToCrewParentCommentDto)
+                        .collect(Collectors.toList()))
                 .build();
 
         return response;
@@ -198,7 +205,7 @@ public class CrewService {
         CrewComment parentComment = null;
 
         //자식 댓글이라면 부모 댓글 달아줌
-        if(request.getParentId() != -1){
+        if(request.getParentId() != null){
             parentComment = crewCommentsRepository.findById(request.getParentId())
                     .orElseThrow(() -> new RuntimeException("부모 댓글이 존재하지 않습니다."));
         }

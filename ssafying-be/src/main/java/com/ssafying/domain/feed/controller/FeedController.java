@@ -1,10 +1,10 @@
 package com.ssafying.domain.feed.controller;
 
 import com.ssafying.domain.feed.dto.FeedDto;
-import com.ssafying.domain.feed.dto.ParentCommentDto;
 import com.ssafying.domain.feed.dto.request.*;
 import com.ssafying.domain.feed.dto.response.GetFeedLikesResponse;
 import com.ssafying.domain.feed.service.FeedService;
+import com.ssafying.global.dto.ParentCommentDto;
 import com.ssafying.global.result.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
