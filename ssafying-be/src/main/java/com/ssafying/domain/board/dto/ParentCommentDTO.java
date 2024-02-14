@@ -14,6 +14,7 @@ import java.util.List;
 @Getter
 public class ParentCommentDTO {
     //부모댓글, 댓글쓴유저, 자식댓글들
+    int userId;
     int commentId;
     String profileImgUrl;
     String comment;
