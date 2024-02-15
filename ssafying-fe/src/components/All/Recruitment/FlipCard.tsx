@@ -20,14 +20,16 @@ function FlipCard({ title, company, url, index, arrIdx }: cardProps) {
   const user = useAppSelector(selectUser);
 
   useEffect(() => {
-    const savedStatus = localStorage.getItem("savedStatus");
+    const savedStatus = localStorage.getItem(`savedStatus_${index}`);
     setIsSaved(savedStatus === "true");
-  }, []);
+  }, [index]);
 
   const toggleSaved = () => {
     const newSavedStatus = !isSaved;
     setIsSaved(newSavedStatus);
+
     localStorage.setItem(`savedStatus_${index}`, String(newSavedStatus));
+    console.log("유저스크랩할때", user.userId);
     if (!newSavedStatus) {
       scrapRecruit(user.userId, index);
     } else {

@@ -9,11 +9,6 @@ import {
   updateUserInfo,
 } from "../../../apis/api/User";
 
-import {
-  createPortfolioLink,
-  modifyPortfolioLink,
-} from "../../../apis/api/Profile";
-
 function UserInformation(props: { profileDownloadUrl: string | null }) {
   const user = useAppSelector(selectUser);
   const navigate = useNavigate();
@@ -72,7 +67,8 @@ function UserInformation(props: { profileDownloadUrl: string | null }) {
       phoneNumber,
       password,
       intro,
-      profileDownloadUrl
+      profileDownloadUrl,
+      bioLink
     );
 
     setIsEditMode(false);
@@ -168,29 +164,9 @@ function UserInformation(props: { profileDownloadUrl: string | null }) {
                   name="intro"
                   value={editedUserInfo?.intro || ""}
                   onChange={handleInputChange}
-                  required
                 />
                 <label htmlFor="intro">한줄 소개를 입력해주세요</label>
               </SignUpInput>
-              {/* <SignUpInput className="input-area">
-                <input
-                  type="text"
-                  placeholder=" "
-                  name="intro"
-                  className="biolink"
-                  value={editedUserInfo?.intro || ""}
-                  onChange={handleInputChange}
-                  required
-                />
-                <label htmlFor="intro">바이오링크를 입력해주세요</label>
-                <select>
-                  <option>github</option>
-                  <option>notion</option>
-                  <option>tistory</option>
-                  <option>blog</option>
-                  <option>etc</option>
-                </select>
-              </SignUpInput> */}
               <BioLink>
                 <label>바이오링크를 입력해주세요</label>
                 <select>

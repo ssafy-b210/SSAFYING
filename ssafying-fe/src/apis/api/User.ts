@@ -21,9 +21,17 @@ export async function updateUserInfo(
   phoneNumber?: string,
   password?: string,
   intro?: string,
-  profileImageUrl?: string
+  profileImageUrl?: string,
+  bioLink?: string
 ) {
-  const data = { nickname, phoneNumber, password, intro, profileImageUrl };
+  const data = {
+    nickname,
+    phoneNumber,
+    password,
+    intro,
+    profileImageUrl,
+    bioLink,
+  };
   try {
     const response = await axios.patch(`${REST_USER_API}/${userId}`, data);
     console.log(response.data);

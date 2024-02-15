@@ -47,9 +47,11 @@ const FeedListItemBtn: React.FC<Props> = ({ likeCount, feedId }: Props) => {
     setIsSaved(newSavedStatus);
 
     localStorage.setItem(`savedStatus_${feedId}`, String(newSavedStatus));
+
     if (!newSavedStatus) {
       scrapFeed(user.userId, feedId);
     } else {
+      console.log("스크랩취소", user.userId);
       cancelscrapFeed(user.userId, feedId);
     }
   };

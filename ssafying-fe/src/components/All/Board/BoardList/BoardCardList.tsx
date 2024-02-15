@@ -64,20 +64,25 @@ const BoardCardList: React.FC<BoardCardListProps> = ({
           }));
           setCards(newCards);
 
-          if (Array.isArray(searchWord) && searchWord.length > 0) {
-            const filtered = newCards.filter((card: any) =>
-              searchWord.some((word: string) =>
-                card.title.toLowerCase().includes(word.toLowerCase())
-              )
-            );
+          if (typeof searchWord === "string" && searchWord.trim() !== "") {
+            const filtered = newCards.filter((card: any) => {
+              return card.title
+                .replace(" ", "")
+                .toLocaleLowerCase()
+                .includes(
+                  searchWord.trim().toLocaleLowerCase().replace(" ", "")
+                );
+            });
+            console.log(filtered);
             setFilteredCards(filtered);
+            console.log("필터링", filteredCards);
           } else {
             setFilteredCards(newCards);
           }
         }
       } catch (error) {
         console.error(error);
-        // setCards([]);
+        setCards([]);
         setFilteredCards([]);
       }
     };
