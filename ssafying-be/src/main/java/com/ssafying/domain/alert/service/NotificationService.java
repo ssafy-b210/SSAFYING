@@ -109,9 +109,10 @@ public class NotificationService {
 
             FindListNotificationResponse build = FindListNotificationResponse.builder()
                     .senderId(notification.getSenderUser().getId())
-                    .nickname(receiverUser.getNickname())
-                    .imgUrl(receiverUser.getProfileImageUrl())
+                    .nickname(notification.getSenderUser().getNickname())
+                    .imgUrl(notification.getSenderUser().getProfileImageUrl())
                     .createdAt(notification.getCreatedAt())
+                    .type(notification.getNotificationType())
                     .build();
 
             // FOLLOW 일 경우 getFeedId() 가 null 이기 때문에 아닌 경우에만 feed 값을 넣어줌
