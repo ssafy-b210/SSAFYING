@@ -45,9 +45,9 @@ public interface FeedRepository extends JpaRepository<Feed, Integer>, JpaSpecifi
     SELECT DISTINCT f
     FROM Feed f
     JOIN f.feedTags ft
-    WHERE ft.hashtag.id IN (:tagIds)
+    WHERE ft.hashtag.id IN (:tagIds) AND f.user.id != :userId
     """)
-    List<Feed> findInterestFeedList(@Param("tagIds") List<Integer> tagIds);
+    List<Feed> findInterestFeedList(@Param("tagIds") List<Integer> tagIds, @Param("userId") int userId);
 
     //팔로워 많은순으로 - 이미 팔로잉유저가 작성한 피드를 제공해줬기때문에 이 쿼리에선 제거
     @Query("""

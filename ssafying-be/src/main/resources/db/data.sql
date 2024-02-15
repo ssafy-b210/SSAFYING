@@ -118,11 +118,11 @@ values (1, 'SELL', true, 10000, '한무무 GK898B  키보드 팔아요', '얼마
        (7, 'SELL', false, 10000, '햇반 10개 팔아요', '햇반 살사람 구해요!');
 
 -- 피드 더미 데이터
-INSERT INTO feed (user_id, content, hit) VALUES (1, '오늘 팀 회식하러 간다 ㅎㅎ 벌써 마지막 주라니 ㅜㅜ...!!', 10),
-                                                (2, '점심 너모 맛있었음', 15),
-                                                (3, '우리 팀장 딸요스 사줬다~~~ 애옹 최고**', 20),
-                                                (4, '오늘 밤샘 개발 간다..', 25),
-                                                (5, '저녁으로 플랭크 버거 추천', 30);
+INSERT INTO feed (user_id, content, hit, created_at, updated_at) VALUES (1, '오늘 팀 회식하러 간다 ㅎㅎ 벌써 마지막 주라니 ㅜㅜ...!!', 10, now(), now()),
+                                                (2, '점심 너모 맛있었음', 15, now(), now()),
+                                                (3, '우리 팀장 딸요스 사줬다~~~ 애옹 최고**', 20, now(), now()),
+                                                (4, '오늘 밤샘 개발 간다..', 25, now(), now()),
+                                                (5, '저녁으로 플랭크 버거 추천', 30, now(), now());
 
 -- 해시태그 더미 데이터
 INSERT INTO hashtag (hashtag_id, tag_name) VALUES (1, '딸요스'),

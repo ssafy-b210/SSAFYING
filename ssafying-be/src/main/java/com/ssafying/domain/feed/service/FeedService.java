@@ -118,11 +118,9 @@ public class FeedService {
      */
     public List<FeedDto> findFeed(int userId) {
 
-        // 팔로잉한 유저들이 쓴 게시글 중 7일 이내에 작성한 게시글, 최대 20개 리턴
-
+        User user = getUser(userId);
         List<Feed> allFeeds = new ArrayList<>();
         List<FindFollowingListResponse> followingList = followService.followingList(userId);
-
         // 팔로잉한 유저들이 쓴 게시글 중 7일 이내에 작성한 게시글, 최대 20개 리턴
         for (FindFollowingListResponse followingUser : followingList) {
             List<Feed> userFeeds = feedRepository.findFeedsByUserIdAndDate(
@@ -130,6 +128,10 @@ public class FeedService {
             );
             allFeeds.addAll(userFeeds);
         }
+
+        List<Feed> myFeeds = feedRepository.findByUser(user);
+        allFeeds.addAll(myFeeds);
+
         allFeeds.sort(Comparator.comparing(Feed::getCreatedAt).reversed());
         allFeeds = allFeeds.stream().limit(MAXIMUM_NUMBER_FEEDS).collect(Collectors.toList());
 
@@ -147,21 +149,23 @@ public class FeedService {
                 .map(interestTag -> interestTag.getTag().getId())
                 .collect(Collectors.toList());
         /**
-         * 본인 관심사태그와 일치하는 게시글
+         * 본인 관심사태그와 일치하는 게시글 - 본인 글 제외
          * 팔로워 많은 유저의 최근 게시글
          * 
          */
         if (!interestTags.isEmpty()) {
-            List<Feed> interestFeed = feedRepository.findInterestFeedList(interestTags);
+            List<Feed> interestFeed = feedRepository.findInterestFeedList(interestTags, userId);
             allFeeds.addAll(interestFeed);
         }
 
-        List<Integer> followingList = followService.followingList(userId)
+        List<Integer> excludeUserList = followService.followingList(userId)
                 .stream()
                 .map(followingUser -> followingUser.getId())
                 .collect(Collectors.toList());
-
-        List<Feed> hotFeeds = feedRepository.findFeedsExcludeFollowingOrderByFollowersDesc(followingList);
+        
+        // 본인이 작성한 글도 제외조건 추가
+        excludeUserList.add(userId);
+        List<Feed> hotFeeds = feedRepository.findFeedsExcludeFollowingOrderByFollowersDesc(excludeUserList);
         allFeeds.addAll(hotFeeds);
 
         return  allFeeds.stream()
