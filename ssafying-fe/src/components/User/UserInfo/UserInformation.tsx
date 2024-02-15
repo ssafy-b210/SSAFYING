@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useAppSelector } from "../../../store/hooks";
+import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
 import { useNavigate } from "react-router-dom";
+import { saveUserInfo } from "../../../store/reducers/user";
+
 import {
   leaveUser,
   selectOneUserInfo,
@@ -11,6 +13,7 @@ import {
 
 function UserInformation(props: { profileDownloadUrl: string | null }) {
   const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState<any>(null);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -69,6 +72,19 @@ function UserInformation(props: { profileDownloadUrl: string | null }) {
       intro,
       profileDownloadUrl,
       bioLink
+    );
+
+    dispatch(
+      saveUserInfo({
+        isLoggedIn: true,
+        userId: user.userId,
+        username: user.username,
+        email: user.email,
+        password: password || user.password,
+        nickname: nickname || user.nickname,
+        campus: user.campus,
+        profileImgUrl: profileDownloadUrl || user.profileImgUrl,
+      })
     );
 
     setIsEditMode(false);

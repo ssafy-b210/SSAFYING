@@ -1,7 +1,4 @@
-import { error } from "console";
 import { axios } from "../utils/axios";
-import { saveUserInfo } from "../../store/reducers/user";
-import { useAppDispatch } from "../../store/hooks";
 
 const REST_USER_API = `/api/users`;
 

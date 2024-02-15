@@ -3,12 +3,13 @@ import ImageCropper from "./ImageCropper";
 import ImgCompress from "../../ImgHandle/ImgCompress";
 import { dataURItoFile } from "../../ImgHandle/DataToFile";
 import styled from "styled-components";
-import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
 import { fstorage } from "../../../apis/firebase";
 import { uploadString, ref, getDownloadURL } from "firebase/storage";
-import { selectOneUserInfo } from "../../../apis/api/User";
+import { selectOneUserInfo, updateUserInfo } from "../../../apis/api/User";
 import profileImage from "../../../assets/img/userIcons/profileImage.jpg";
+import { useAppSelector, useAppDispatch } from "../../../store/hooks";
+import { saveUserInfo } from "../../../store/reducers/user";
 
 interface ProfileImageProps {
   onDownloadUrlChange: (downloadURL: string) => void;
@@ -19,6 +20,7 @@ function ProfileImage({ onDownloadUrlChange }: ProfileImageProps) {
   const [compressedImage, setCompressedImage] = useState<string | null>(null);
   const [userInfo, setUserInfo] = useState<any>(null);
   const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
   const { isLoading: isCompressLoading, compressImage } = ImgCompress();
 
   const handleUploadImage = (image: string) => setUploadImage(image);
@@ -34,6 +36,29 @@ function ProfileImage({ onDownloadUrlChange }: ProfileImageProps) {
     if (!compressedImage) return;
     const imageUrl = URL.createObjectURL(compressedImage);
     setCompressedImage(imageUrl);
+
+    updateUserInfo(
+      user.userId,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      imageUrl,
+      undefined
+    );
+
+    dispatch(
+      saveUserInfo({
+        isLoggedIn: true,
+        userId: user.userId,
+        username: user.username,
+        email: user.email,
+        password: user.password,
+        nickname: user.nickname,
+        campus: user.campus,
+        profileImgUrl: imageUrl,
+      })
+    );
 
     const reader = new FileReader();
     reader.readAsDataURL(compressedImage);
