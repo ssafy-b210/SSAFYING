@@ -299,9 +299,18 @@ public class FollowService {
                 .orElseThrow(() -> new RuntimeException("확인하려는 유저를 찾을 수 없습니다."));
 
         // 내 팔로잉 목록에 selectedUser 있는지 확인
-        List<Follow> isFollow = followRepository.findByToUser(selectedUser);
+//        List<Follow> isFollow1 = followRepository.findByToUser(selectedUser);
 
-        if(isFollow.isEmpty()){
+        //user following List check
+        List<Follow> followList1 = followRepository.findByToUserAndNickname(user, "%" + selectedUser.getNickname() + "%");
+
+        //user follower List check
+        List<Follow> followList2 = followRepository.findByFromUserAndNickname(user, "%" + selectedUser.getNickname() + "%");
+
+        System.out.println("following List size : " + followList1.size());
+        System.out.println("follower List size : " + followList2.size());
+
+        if(followList1.isEmpty() && followList2.isEmpty()){
             return 0; //팔로우 X
         }else{
             return 1; //팔로잉
