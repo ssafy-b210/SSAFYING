@@ -8,18 +8,6 @@ interface BoardCardListProps {
   searchWord?: string;
 }
 
-const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  padding: 0 30px;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
 const BoardCardList: React.FC<BoardCardListProps> = ({
   selectedCategory,
   searchWord,
@@ -112,4 +100,16 @@ const NoResultsMessage = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  // padding: 0 30px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;

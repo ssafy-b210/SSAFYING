@@ -1,4 +1,3 @@
-import { error } from "console";
 import { axios } from "../utils/axios";
 
 //공고 조회
@@ -40,7 +39,7 @@ export async function cancelscrapRecruit(
   try {
     const response = await axios.delete("/api/recruit/scrap", {
       data: {
-        usreId: userId,
+        userId: userId,
         recruitmentId: recruitmentId,
       },
     });
