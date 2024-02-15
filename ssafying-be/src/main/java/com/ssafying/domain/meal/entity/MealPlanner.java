@@ -24,8 +24,8 @@ public class MealPlanner extends BaseTimeEntity {
     @Column(name = "meal_planner_date")
     private LocalDate mealPlannerDate; // 식단표 날짜
 
-    @Enumerated(EnumType.STRING)
-    private MealOrderStatus mealOrder; // 몇번째 메뉴인지
+//    @Enumerated(EnumType.STRING)
+//    private MealOrderStatus mealOrder; // 몇번째 메뉴인지
 
     //서울은 층 수도 고려해줘야 하려나...
     //일단 대전을 기준으로 생각하겠음
@@ -41,14 +41,14 @@ public class MealPlanner extends BaseTimeEntity {
     public static MealPlanner createMeal(
             Campus campus,
             LocalDate mealPlannerDate,
-            MealOrderStatus mealOrder,
+//            MealOrderStatus mealOrder,
             String menu,
             int vote) {
         MealPlanner meal = new MealPlanner();
 
         meal.campus = campus;
         meal.mealPlannerDate = mealPlannerDate;
-        meal.mealOrder = mealOrder;
+//        meal.mealOrder = mealOrder;
         meal.menu = menu;
         meal.vote = vote;
 
