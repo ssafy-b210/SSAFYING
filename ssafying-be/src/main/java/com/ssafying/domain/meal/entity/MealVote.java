@@ -22,19 +22,20 @@ public class MealVote {
     @JoinColumn(name = "meal_planner_id")
     private MealPlanner mealPlanner; // 투표한 식단표 날짜 정보
 
-    @Column(name = "menu_num")
-    private MealOrderStatus order; // 투표한 메뉴 번호
+//    @Column(name = "menu_order")
+//    private MealOrderStatus order; // 투표한 메뉴 번호
 
 
     public static MealVote createMealVote(
             User user,
-            MealPlanner mealPlanner,
-            MealOrderStatus order) {
+            MealPlanner mealPlanner
+//            ,MealOrderStatus order
+    ) {
         MealVote mealVote = new MealVote();
 
         mealVote.user = user;
         mealVote.mealPlanner = mealPlanner;
-        mealVote.order = order;
+//        mealVote.order = order;
 
         return mealVote;
     }
