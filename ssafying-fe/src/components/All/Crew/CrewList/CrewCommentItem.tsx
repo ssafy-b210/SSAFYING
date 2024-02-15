@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ImgBtn from "../../../Feed/utils/ImgBtn";
 import deleteBtn from "../../../../assets/img/imgBtn/deleteBtn.svg";
 import CrewRecommentList from "./CrewRecommentList";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectUser } from "../../../../store/reducers/user";
-import { deleteCrew, deleteCrewComment } from "../../../../apis/api/Crew";
+import { deleteCrewComment } from "../../../../apis/api/Crew";
 
 interface CommentProps {
   commentId: number;

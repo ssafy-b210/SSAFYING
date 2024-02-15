@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import FeedListItemUser from "../FeedMain/FeedListItemUser";
 import FeedListItemImg from "../FeedMain/FeedListItemImg";

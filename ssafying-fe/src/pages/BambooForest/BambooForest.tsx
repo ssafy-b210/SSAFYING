@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import BambooForestBack from "../../components/BambooForest/BambooForestBack";
 import BambooForestContent from "../../components/BambooForest/BambooForestContent";

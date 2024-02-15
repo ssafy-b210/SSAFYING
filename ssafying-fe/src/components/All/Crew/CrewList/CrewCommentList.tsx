@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import CrewCommentItem from "./CrewCommentItem";
-import { comment } from "@uiw/react-md-editor";
 import styled from "styled-components";
 
 interface Props {

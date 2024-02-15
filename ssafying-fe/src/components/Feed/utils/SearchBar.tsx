@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import backArrow from "../../../assets/img/imgBtn/backBtn.svg";
 import ImgBtn from "./ImgBtn";
 import styled from "styled-components";

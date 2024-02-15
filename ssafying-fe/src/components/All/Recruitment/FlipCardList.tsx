@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import FlipCard from "./FlipCard";
 import styled from "styled-components";
 

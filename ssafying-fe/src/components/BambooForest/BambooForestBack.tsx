@@ -19,17 +19,6 @@ const Container = styled.div`
   background: linear-gradient(to bottom, #020107 0%, #201b46 100%);
 `;
 
-const Text = styled.div`
-  color: #fff;
-  position: absolute;
-  top: 50%;
-  right: 50%;
-  margin: -10px -75px 0 0;
-  font-size: 20px;
-  font-family: sans-serif;
-  font-weight: bold;
-`;
-
 const createStars = (n: number) => {
   let stars = "";
   for (let i = 0; i < n; i++) {

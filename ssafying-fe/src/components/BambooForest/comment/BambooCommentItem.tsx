@@ -58,10 +58,3 @@ const ButtonsWrapper = styled.div`
   align-items: center;
   margin-left: auto;
 `;
-
-const TextBtn = styled.div`
-  font-size: 12px;
-  color: #385185;
-  cursor: pointer;
-  margin-right: 10px;
-`;

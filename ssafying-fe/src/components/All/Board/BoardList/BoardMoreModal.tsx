@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import MoreCommentInput from "../../../Feed/Comment/CommentInput";
 import saveBtnBlack from "../../../../assets/img/imgBtn/saveBtnBlack.svg";
@@ -11,8 +11,6 @@ import BoardBtn from "../BoardBtn";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectUser } from "../../../../store/reducers/user";
 import { deleteBoard, selectOneBoard } from "../../../../apis/api/Board";
-import Modal from "../../../Common/Modal";
-import BoardUpdateModal from "./BoardUpdateModal";
 
 // 카드눌렀을 때 detail 보이게 하기
 interface moreProps {

@@ -1,7 +1,5 @@
-import ImageRecognition from "../../../components/Now/MealPlanner/ImgToText";
 import SelectCampus from "../../../components/Now/MealPlanner/SelectCampus";
 import BackBtnHeader from "../../../components/Common/BackBtnHeader";
-import PlusBtn from "../../../components/Common/PlusBtn";
 
 function MealPlannerCreate() {
   return (

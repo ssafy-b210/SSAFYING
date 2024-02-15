@@ -1,6 +1,6 @@
 import FeedDetailContent from "../../components/Feed/FeedDetail/FeedDetailContent";
 import { useParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getFeedDetail } from "../../apis/api/Feed";
 import styled from "styled-components";
 

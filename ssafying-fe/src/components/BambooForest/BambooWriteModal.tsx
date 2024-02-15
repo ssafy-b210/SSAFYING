@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import TextArea from "../Feed/FeedCreate/TextArea";
 import styled from "styled-components";
 import { createBamboo } from "../../apis/api/Forest";

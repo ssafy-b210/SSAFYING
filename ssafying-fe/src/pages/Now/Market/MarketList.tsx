@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import MarketCardList from "../../../components/Now/Market/MarketCardList";
 import MarketSortTab from "../../../components/Now/Market/MarketSortTab";
 import BackBtnHeader from "../../../components/Common/BackBtnHeader";
-import PlusBtn from "../../../components/Common/PlusBtn";
 import Modal from "../../../components/Common/Modal";
 import MarketCreateModal from "../../../components/Now/Market/MarketCreateModal";
 import CenterHeader from "../../../components/Common/CenterHeader";
@@ -26,10 +25,6 @@ function MarketList() {
     content: string;
   }) => {
     console.log("New", newCardInfo);
-  };
-
-  const handleOpenModal = () => {
-    setIsModalOpen(true); // 모달 열기
   };
 
   const handleCloseModal = () => {
