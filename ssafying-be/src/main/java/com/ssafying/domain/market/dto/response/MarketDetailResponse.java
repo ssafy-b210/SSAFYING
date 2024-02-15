@@ -19,4 +19,6 @@ public class MarketDetailResponse {
     int price;
     String content;
     List<MarketImage> imageUrl;
+
+    int userId;
 }
