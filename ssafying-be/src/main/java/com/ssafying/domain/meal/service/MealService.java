@@ -43,15 +43,15 @@ public class MealService {
 
         // 해당 날짜로 이미 식단표가 생성되어있다면 익셉션 발생
         // 해당 날짜로 이미 식단표가 있는 경우라면 add 대신 modify를 진행해야함
-        Optional<MealPlanner> find = mealRepository.findByMealPlannerDateAndCampusAndMealOrder(
-                LocalDate.now(),
-                campus,
-                request.getMealOrder()
-        );
-
-        if (find.isPresent()) {
-            throw new RuntimeException("Found meal planner is not null.");
-        }
+//        Optional<MealPlanner> find = mealRepository.findByMealPlannerDateAndCampusAndMealOrder(
+//                LocalDate.now(),
+//                campus,
+//                request.getMealOrder()
+//        );
+//
+//        if (find.isPresent()) {
+//            throw new RuntimeException("Found meal planner is not null.");
+//        }
 
         System.out.println("LocalDate.now() = " + LocalDate.now());
         
@@ -59,7 +59,7 @@ public class MealService {
         MealPlanner meal = MealPlanner.createMeal(
                 campus,
                 LocalDate.now(),
-                request.getMealOrder(),
+//                request.getMealOrder(),
                 request.getMenu(),
                 0
         );
@@ -161,7 +161,7 @@ public class MealService {
 
             FindMealPlannerResponse build = FindMealPlannerResponse.builder()
                     .mealPlannerId(mealPlanner.getId())
-                    .mealOrder(mealPlanner.getMealOrder())
+//                    .mealOrder(mealPlanner.getMealOrder())
                     .menu(mealPlanner.getMenu())
                     .vote(mealPlanner.getVote())
                     .isVoted(isVoted)
