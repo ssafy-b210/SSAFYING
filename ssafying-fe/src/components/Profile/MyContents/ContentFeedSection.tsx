@@ -51,7 +51,8 @@ function ContentFeedSection() {
   async function getAllMyFeedList() {
     const res = await selectMyFeedList(Number(profileUserId));
     if (res !== undefined) {
-      setAllMyFeedList(res.data.resultData || []);
+      setAllMyFeedList(res.data.resultData);
+      setMyFeedList(res.data.resultData);
     }
   }
 
@@ -70,7 +71,9 @@ function ContentFeedSection() {
       const feedTags = item.feedTags;
 
       for (const tag of feedTags) {
-        const isIncluded = selectedTagList.some((item) => item.tagName === tag);
+        const isIncluded = selectedTagList.some(
+          (el) => el.tagName === tag.tagName
+        );
 
         if (isIncluded) {
           tempArr.push(item);
@@ -89,14 +92,10 @@ function ContentFeedSection() {
 
   useEffect(() => {
     filterMyFeedList();
-  }, [toggleSelectedTag]);
+  }, [selectedTagList]);
 
   return (
     <div>
-      {/* 
-        NOTE: 해시태그 리스트 높이가 45px 이상일 때 isShow=false 시키기
-        NOTE : 피드 리스트 10개씩 가져오기
-      */}
       <HashtagList className={isShow ? "show" : "hidden"}>
         <div className="tag-list">
           {hashtagList.map((data) => (
