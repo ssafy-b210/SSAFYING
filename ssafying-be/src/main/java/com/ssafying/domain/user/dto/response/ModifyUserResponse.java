@@ -14,5 +14,6 @@ public class ModifyUserResponse {
     String phoneNumber;
     String intro;
     String profileImageUrl;
+    String bioLink;
 
 }

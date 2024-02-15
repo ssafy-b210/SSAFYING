@@ -65,6 +65,7 @@ public class UserService {
                 .phoneNumber(user.getPhoneNumber())
                 .intro(user.getIntro())
                 .profileImageUrl(user.getProfileImageUrl())
+                .bioLink(user.getBioLink())
                 .build();
 
         return response;
@@ -92,6 +93,7 @@ public class UserService {
                 .phoneNumber(updatedUser.getPhoneNumber())
                 .intro(updatedUser.getIntro())
                 .profileImageUrl(updatedUser.getProfileImageUrl())
+                .bioLink(updatedUser.getBioLink())
                 .build();
 
         userRepository.save(user);

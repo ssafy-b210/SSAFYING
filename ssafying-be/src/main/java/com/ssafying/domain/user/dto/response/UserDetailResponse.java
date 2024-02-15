@@ -17,5 +17,6 @@ public class UserDetailResponse{
     String phoneNumber;
     String intro;
     String profileImageUrl;
+    String bioLink;
 
 }

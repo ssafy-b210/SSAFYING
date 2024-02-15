@@ -62,6 +62,9 @@ public class User extends BaseTimeEntity {
     /* board entity */
     @Column(name = "is_major")
     private int isMajor; //전공 유무
+    
+    @Column(name = "bio_link")
+    private String bioLink; //바이오링크
 
     /* chat entity */
     @OneToMany(mappedBy = "user")
@@ -136,6 +139,10 @@ public class User extends BaseTimeEntity {
         if(request.getProfileImageUrl() != null){
             user.profileImageUrl = request.getProfileImageUrl();
         }
+        if(request.getBioLink() != null){
+            user.bioLink = request.getBioLink();
+        }
+
         return user;
     }
 

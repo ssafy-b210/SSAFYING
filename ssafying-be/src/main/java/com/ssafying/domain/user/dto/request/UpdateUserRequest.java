@@ -18,5 +18,6 @@ public class UpdateUserRequest {
 
     String profileImageUrl;
 
+    String bioLink;
 
 }
