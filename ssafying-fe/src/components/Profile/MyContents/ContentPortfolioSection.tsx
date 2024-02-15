@@ -15,7 +15,7 @@ function ContentPortfolioSection() {
   const [isPreview, setIsPreview] = useState(false);
 
   const user = useAppSelector(selectUser);
-  const profileUserId = useParams().userId;
+  const profileUserId = Number(useParams().userId);
 
   // 리드미 수정하기
   function modifyReadme() {
@@ -25,12 +25,12 @@ function ContentPortfolioSection() {
 
   // 리드미 조회
   async function getReadme() {
-    const res = await selectPortfolioReadMe(user.userId);
+    const res = await selectPortfolioReadMe(profileUserId);
     setMdValue(res.readme);
   }
 
   function handleClickModifyButton() {
-    if (user.userId === Number(profileUserId)) setIsModified(true);
+    if (user.userId === profileUserId) setIsModified(true);
     else alert("수정할 권한이 없습니다.");
   }
 
@@ -60,7 +60,7 @@ function ContentPortfolioSection() {
           </div>
         ) : (
           <>
-            {user.userId === Number(profileUserId) && (
+            {user.userId === profileUserId && (
               <Button onClick={handleClickModifyButton}>글 수정</Button>
             )}
           </>
