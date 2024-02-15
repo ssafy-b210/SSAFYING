@@ -58,6 +58,7 @@ export async function getRecommendFeedList(userId: number) {
 //피드상세
 export async function getFeedDetail(feedId: number) {
   try {
+    console.log(feedId);
     const response = await axios.get(`/api/feeds/${feedId}`);
     console.log(response.data.resultData);
     return response.data.resultData;

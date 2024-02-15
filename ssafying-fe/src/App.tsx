@@ -140,19 +140,11 @@ const MoveGrad = keyframes`
   100%{background-position:0% 50%}
 `;
 
-// const AppWrapper = styled.div`
-//   background: linear-gradient(70deg, #e9feff, #b5e7ef, #ffc6fc);
-//   background-size: 200% 200%;
-//   animation: ${MoveGrad} 5s ease infinite;
-//   -webkit-animation: ${MoveGrad} 5s ease infinite;
-//   height: 100%;
-//   width: 100%;
-// `;
-
 const AppWrapper = styled.div`
   background: linear-gradient(70deg, #e9feff, #b5e7ef, #ffc6fc);
   background-size: 200% 200%;
   animation: ${MoveGrad} 5s ease infinite;
   -webkit-animation: ${MoveGrad} 5s ease infinite;
   min-height: -webkit-fill-available; /* iOS에서 뷰포트 전체의 높이로 설정 */
+  width: 100%;
 `;

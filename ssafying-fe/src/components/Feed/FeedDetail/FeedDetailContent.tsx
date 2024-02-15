@@ -4,23 +4,16 @@ import FeedListItemUser from "../FeedMain/FeedListItemUser";
 import FeedListItemImg from "../FeedMain/FeedListItemImg";
 import FeedListItemBtn from "../FeedMain/FeedListItemBtn";
 import FeedContent from "../FeedMain/FeedContent";
-import { getFeedDetail } from "../../../apis/api/Feed";
 import CommentList from "../Comment/CommentList";
 
 interface Props {
-  feedId: number;
+  feed: any;
 }
 
-function FeedDetailContent({ feedId }: Props) {
-  const [feed, setFeed] = useState<any>([]);
+function FeedDetailContent({ feed }: Props) {
   const [highlighted, setHighlighted] = useState<number | null>(null);
 
-  useEffect(() => {
-    getFeedDetail(feedId).then((res) => {
-      console.log(res);
-      setFeed(res.resultData);
-    });
-  }, [feedId]);
+  console.log(feed);
 
   return (
     <FeedListItemWrapper>

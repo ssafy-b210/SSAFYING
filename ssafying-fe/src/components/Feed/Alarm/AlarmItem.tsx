@@ -5,24 +5,20 @@ import { Link } from "react-router-dom";
 import FeedDetail from "../../../pages/Feed/FeedDetail";
 
 interface userProps {
-  userId: number;
+  senderId: number;
   nickname: string;
   imageUrl: string;
   type: string;
-  time: string;
-  sendId: number;
-  sendNickname: string;
   feedId: number;
+  time: string;
 }
 
 function AlarmItem({
-  userId,
+  senderId,
   imageUrl,
   nickname,
   type,
   time,
-  sendId,
-  sendNickname,
   feedId,
 }: userProps) {
   const [timediff, setTimediff] = useState("");
@@ -61,24 +57,24 @@ function AlarmItem({
     <UserWrapper>
       {
         {
-          like: (
+          LIKE: (
             <Link to={`/feed/${feedId}`} className="home">
               <RoundImg src={imageUrl} size="30px" />
-              <UserDiv>{sendNickname}</UserDiv>님이 &nbsp;회원님의 게시글을
+              <UserDiv>{nickname}</UserDiv>님이 &nbsp;회원님의 게시글을
               좋아합니다.
             </Link>
           ),
-          follow: (
-            <Link to={`/profile/${sendId}`} className="home">
+          FOLLOW: (
+            <Link to={`/profile/${senderId}`} className="home">
               <RoundImg src={imageUrl} size="30px" />
-              <UserDiv>{sendNickname}</UserDiv>님이 &nbsp;회원님을 팔로우합니다.
+              <UserDiv>{nickname}</UserDiv>님이 &nbsp;회원님을 팔로우합니다.
             </Link>
           ),
-          comment: (
+          COMMENT: (
             <Link to={`/feed/${feedId}`} className="home">
               <RoundImg src={imageUrl} size="30px" />
-              <UserDiv>{sendNickname}</UserDiv>님이 &nbsp;회원님의 게시글에
-              댓글을 남겼습니다.
+              <UserDiv>{nickname}</UserDiv>님이 &nbsp;회원님의 게시글에 댓글을
+              남겼습니다.
             </Link>
           ),
         }[type]
@@ -94,6 +90,10 @@ const UserWrapper = styled.div`
   padding: 10px 5px;
   display: flex;
   align-items: center;
+  a {
+    text-decoration: none;
+    color: black;
+  }
 `;
 
 const UserDiv = styled.span`
