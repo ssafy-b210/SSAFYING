@@ -137,22 +137,27 @@ function MarketMoreModal({ card, marketId, onDelete }: MarketMoreModalProps) {
 export default MarketMoreModal;
 
 const Card = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  padding: 20px 10px;
-  width: 500px;
-  height: 90%;
+  align-items: center;
+  width: 320px;
+  height: 500px;
   text-align: center;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.5);
-  margin-right: 20px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.1),
     0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 8px rgba(0, 0, 0, 0.1),
     0 16px 16px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: all 0.2s linear;
+
+  hr {
+    width: 100%;
+    margin: 10px 0;
+    height: 1px;
+    border: none;
+    background-color: #ccc;
+  }
 `;
 const Content = styled.div`
   position: relative;

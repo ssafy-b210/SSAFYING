@@ -10,8 +10,9 @@ interface MarketCardListProps {
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  padding: 0 30px;
+  // justify-content: flex-start;
+  justify-content: center;
+  // padding: 0 30px;
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
