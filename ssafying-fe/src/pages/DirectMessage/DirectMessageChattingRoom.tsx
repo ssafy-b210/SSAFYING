@@ -18,6 +18,7 @@ import { Stomp } from "@stomp/stompjs";
 import { REACT_APP_HOME_URL } from "../../apis/constants";
 import SockJS from "sockjs-client";
 import CenterHeader from "../../components/Common/CenterHeader";
+import { useNavigate } from "react-router";
 
 type ChattingRoomDetail = {
   id: number;
@@ -56,6 +57,7 @@ function DirectMessageChattingRoom() {
   const SOCKET_SERVER_URL = `${REACT_APP_HOME_URL}/api/ws`; // 소켓 통신 url
   const roomId = Number(useParams().roomId);
   const user = useAppSelector(selectUser);
+  const navigate = useNavigate();
 
   const [chattingRoomDetail, setChattingRoomDetail] =
     useState<ChattingRoomDetail>({
@@ -191,15 +193,26 @@ function DirectMessageChattingRoom() {
 
   // 채팅방 나가기 버튼 Click event handler
   async function handleClickExitButton() {
-    alert("채팅방을 나갑니다.");
-    // const res = await exitChattingRoom()
+    if (window.confirm("채팅방을 나가시겠습니까?")) {
+      // 채팅방 나가기
+      const res = await exitChattingRoom(user.userId, chattingRoomDetail.id);
 
-    // confirm 띄우고
-    // 채팅방 상세 조회 후
-    // id로 삭제 API 실행
-    // /chat으로 나가기
-    // 구독 끊기
-    // 서버 연결 끊기
+      // 구독 끊기
+      if (stompClient.current) {
+        stompClient.current
+          .subscribe(`/sub/chatting/${roomId}`, onMessageReceived)
+          .unsubscribe();
+      }
+
+      // 서버 연결 끊기
+      if (stompClient && stompClient.current?.connected) {
+        stompClient.current?.disconnect();
+        console.log("연결을 끊습니다.");
+      }
+
+      // 채팅방 리스트로 나가기
+      navigate("/chat");
+    }
   }
 
   // 다음 채팅과 연속되어 보냈는지 검사

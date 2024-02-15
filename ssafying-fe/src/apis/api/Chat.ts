@@ -25,10 +25,14 @@ export async function selectChattingRoomDetail(roomId: number) {
 }
 
 // 참여 중인 채팅방 나가기
-export async function exitChattingRoom(joinRoomId: number) {
+export async function exitChattingRoom(userId: number, chatRoomId: number) {
   try {
-    const res = await axios.post(`${REST_CHAT_API}/rooms/${joinRoomId}`);
-    return res.data.resultData;
+    return await axios.delete(`${REST_CHAT_API}/rooms`, {
+      data: {
+        userId: userId,
+        chatRoomId: chatRoomId,
+      },
+    });
   } catch (error) {
     console.log(error);
   }
