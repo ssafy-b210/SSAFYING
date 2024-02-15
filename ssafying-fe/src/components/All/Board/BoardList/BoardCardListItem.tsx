@@ -15,7 +15,6 @@ interface BoardItemProps {
 }
 
 function BoardCardListItem({ card, index }: BoardItemProps) {
-  const boardId = index + 1;
   const handleDeleteBoard = () => {
     // console.log("Board item deleted", boardId);
   };

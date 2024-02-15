@@ -13,6 +13,7 @@ interface CrewItemProps {
     category: string;
     region: string;
     content: string;
+    crewId: number;
   };
   index: number;
 }
@@ -76,11 +77,7 @@ function CrewCardListItem({ card, index }: CrewItemProps) {
             </Location>
             <Button>
               <Modal btnTxt="더보기">
-                <CrewMoreModal
-                  card={card}
-                  crewId={crewId}
-                  onDelete={handleDeleteBoard}
-                />
+                <CrewMoreModal card={card} onDelete={handleDeleteBoard} />
               </Modal>
             </Button>
           </Back>

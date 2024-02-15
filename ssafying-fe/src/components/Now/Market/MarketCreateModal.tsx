@@ -179,7 +179,7 @@ const MarketCreateModal: React.FC<MarketCreateModalProps> = ({
         <button onClick={handleCreateMarket}>작성</button>
       </ButtonWrapper>
       {/* <UploadImage setImage={setImage}></UploadImage> */}
-      {/* <UploadImage setImageUrls={setImageUrls} /> */}
+      <UploadImage setImageUrls={setImageUrls} />
     </ModalWrapper>
   );
 };

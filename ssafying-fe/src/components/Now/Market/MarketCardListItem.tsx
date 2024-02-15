@@ -14,13 +14,14 @@ interface MarketItemProps {
     price: number;
     content: string;
     soldout: boolean;
+    marketId: number;
   };
   index: number;
 }
 
 function MarketCardListItem({ card, index }: MarketItemProps) {
   //상세조회 api를 하고 boardId를 거기서 받아오자. 아자아자 화이팅.....
-  const marketId = index + 1;
+  // const marketId = index + 1;
 
   const isSoldout = card.soldout !== undefined ? card.soldout : false;
 
@@ -57,7 +58,7 @@ function MarketCardListItem({ card, index }: MarketItemProps) {
               <Modal btnTxt="더보기">
                 <MarketMoreModal
                   card={card}
-                  marketId={marketId}
+                  // marketId={card.marketId}
                   onDelete={handleDeleteBoard}
                 />
               </Modal>

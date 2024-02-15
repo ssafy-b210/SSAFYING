@@ -17,12 +17,12 @@ interface MarketMoreModalProps {
     content: string;
     imageUrl?: { imageId: number; imageUrl: string }[] | undefined;
     soldout: boolean;
+    marketId: number;
   };
-  marketId: number;
   onDelete: () => void;
 }
 
-function MarketMoreModal({ card, marketId, onDelete }: MarketMoreModalProps) {
+function MarketMoreModal({ card, onDelete }: MarketMoreModalProps) {
   const user = useAppSelector(selectUser);
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(true);
@@ -30,7 +30,7 @@ function MarketMoreModal({ card, marketId, onDelete }: MarketMoreModalProps) {
   const [marketData, setMarketData] = useState<any>(null);
 
   const handleDeleteMarket = () => {
-    deleteMarket(marketId)
+    deleteMarket(card.marketId)
       .then((response: any) => {
         console.log("market deleted successfully", response);
         onDelete();
@@ -50,7 +50,7 @@ function MarketMoreModal({ card, marketId, onDelete }: MarketMoreModalProps) {
   useEffect(() => {
     const fetchMarketData = async () => {
       try {
-        const data = await selectMarketOne(marketId); // API 호출
+        const data = await selectMarketOne(card.marketId); // API 호출
         setMarketData(data.resultData); // API 응답을 상태에 저장
       } catch (error) {
         console.error("Error fetching market data", error);
@@ -58,9 +58,10 @@ function MarketMoreModal({ card, marketId, onDelete }: MarketMoreModalProps) {
     };
 
     if (isModalOpen) {
+      console.log(card.marketId);
       fetchMarketData(); // 모달이 열릴 때만 API 호출
     }
-  }, [marketId, isModalOpen]);
+  }, [card.marketId, isModalOpen]);
 
   useEffect(() => {
     const fetchImageUrls = async () => {

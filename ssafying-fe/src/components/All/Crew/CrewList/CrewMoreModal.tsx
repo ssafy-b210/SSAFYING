@@ -16,8 +16,8 @@ interface moreProps {
     category: string;
     region: string;
     content: string;
+    crewId: number;
   };
-  crewId: number;
   onDelete: () => void;
 }
 
@@ -25,7 +25,7 @@ const handleCommentSubmit = (comment: string) => {
   console.log("Comment submitted:", comment);
 };
 
-function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
+function CrewMoreModal({ card, onDelete }: moreProps) {
   const user = useAppSelector(selectUser);
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [crewData, setCrewData] = useState<any>(null);
@@ -33,7 +33,7 @@ function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
 
   //삭제 api 호출
   const handleDeleteCrew = () => {
-    deleteCrew(crewId)
+    deleteCrew(card.crewId)
       .then((response: any) => {
         console.log("crew deleted successfully", response);
         onDelete();
@@ -49,8 +49,8 @@ function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
   useEffect(() => {
     const fetchCrewData = async () => {
       try {
-        const data = await selectCrewOne(crewId);
-        console.log("크루아이디", crewId);
+        const data = await selectCrewOne(card.crewId);
+        console.log("크루아이디", card.crewId);
         console.log("data", data);
         setCrewData(data.resultData);
       } catch (error) {
@@ -60,7 +60,7 @@ function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
     if (isModalOpen) {
       fetchCrewData(); // 모달이 열릴 때만 API 호출
     }
-  }, [crewId, isModalOpen]);
+  }, [card.crewId, isModalOpen]);
 
   return (
     <div>
@@ -77,9 +77,9 @@ function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
             <Text>
               카테고리 &nbsp; <span>{crewData.category}</span>
             </Text>
-            <Text>
-              모집여부 &nbsp;<span>{crewData.isRecruit}</span>
-            </Text>
+            {/* <Text>
+              모집여부 &nbsp; <span>{crewData.isRecruit}</span>
+            </Text> */}
             <Copy>{crewData.content}</Copy>
             {user.nickname === crewData.nickname && (
               <Flex>
@@ -97,14 +97,14 @@ function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
           <div>댓글</div>
           <CommentContainer>
             <CrewCommentList
-              crewId={crewId}
+              crewId={card.crewId}
               parent={(id) => setHighlighted(id)}
               commentList={crewData.parentCommentList}
             />
             <MoreCommentInput
               onSubmit={handleCommentSubmit}
               target="crew"
-              id={crewId}
+              id={card.crewId}
               highlighted={highlighted}
             ></MoreCommentInput>
           </CommentContainer>

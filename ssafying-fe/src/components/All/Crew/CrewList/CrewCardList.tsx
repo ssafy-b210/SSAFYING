@@ -32,6 +32,7 @@ const CrewCardList: React.FC<CrewCardListProps> = ({
       category: string;
       region: string;
       content: string;
+      crewId: number;
     }[]
   >([]);
 

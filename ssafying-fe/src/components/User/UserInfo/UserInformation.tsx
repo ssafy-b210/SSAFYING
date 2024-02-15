@@ -236,9 +236,7 @@ function UserInformation(props: { profileDownloadUrl: string | null }) {
       </BigContainer>
       <UserButtonContainer>
         <UserButton onClick={handleEditClick}>수정하기</UserButton>
-        <UserButton className="outBtn" onClick={goToLeave}>
-          탈퇴하기
-        </UserButton>
+        <UserButton className="outBtn">탈퇴하기</UserButton>
       </UserButtonContainer>
     </div>
   );

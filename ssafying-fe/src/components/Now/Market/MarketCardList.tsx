@@ -31,10 +31,9 @@ const MarketCardList: React.FC<MarketCardListProps> = ({
       marketWay: string;
       price: number;
       content: string;
+      marketId: number;
     }[]
   >([]);
-
-  const [lastIdx, setLastIdx] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,7 +43,6 @@ const MarketCardList: React.FC<MarketCardListProps> = ({
         );
         console.log(marketData);
         if (marketData && marketData.resultData) {
-          setLastIdx(lastIdx + 1);
           const newCards = await marketData.resultData.map((res: any) => ({
             title: res.title,
             writer: res.nickname,
@@ -52,6 +50,7 @@ const MarketCardList: React.FC<MarketCardListProps> = ({
             marketWay: res.marketWay,
             price: res.price,
             content: res.content,
+            marketId: res.marketId,
           }));
           setCards(newCards);
         }
