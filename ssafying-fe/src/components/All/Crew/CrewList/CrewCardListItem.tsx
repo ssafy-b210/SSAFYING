@@ -17,6 +17,26 @@ interface CrewItemProps {
   index: number;
 }
 
+// 지역 한글 이름
+const regionNameData: any = {
+  "": "지역",
+  ALL: "전체",
+  SEOUL: "서울",
+  GYEONGGI: "경기",
+  INCHEON: "인천",
+  BUSAN: "부산",
+  GWANGJU: "광주",
+  DAEJEON: "대전",
+  DAEGU: "대구",
+  ULSAN: "울산",
+  SEJONG: "세종",
+  GANGWON: "광원",
+  GYEONGSANG: "경상",
+  JEOLLA: "전라",
+  CHUNGCHEONG: "춘천",
+  JEJU: "제주",
+};
+
 function CrewCardListItem({ card, index }: CrewItemProps) {
   //상세조회 api를 하고 boardId를 거기서 받아오자. 아자아자 화이팅.....
   const crewId = index + 1;
@@ -51,7 +71,9 @@ function CrewCardListItem({ card, index }: CrewItemProps) {
                 ? card.content
                 : card.content.slice(0, 29) + "..."}
             </Content>
-            <Location>{card.region}에서 구합니다!</Location>
+            <Location>
+              {regionNameData[`${card.region}`]}에서 구합니다!
+            </Location>
             <Button>
               <Modal btnTxt="더보기">
                 <CrewMoreModal
