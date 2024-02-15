@@ -8,6 +8,7 @@ import { selectUser } from "../../../store/reducers/user";
 import { fstorage } from "../../../apis/firebase";
 import { uploadString, ref, getDownloadURL } from "firebase/storage";
 import { selectOneUserInfo } from "../../../apis/api/User";
+import profileImage from "../../../assets/img/userIcons/profileImage.jpg";
 
 interface ProfileImageProps {
   onDownloadUrlChange: (downloadURL: string) => void;
@@ -50,6 +51,8 @@ function ProfileImage({ onDownloadUrlChange }: ProfileImageProps) {
     };
   };
 
+  const profileImg = user.profileImgUrl || profileImage;
+
   useEffect(() => {
     if (uploadImage) {
       handleCompressImage();
@@ -75,9 +78,7 @@ function ProfileImage({ onDownloadUrlChange }: ProfileImageProps) {
         {compressedImage ? (
           <img src={compressedImage} />
         ) : (
-          <div className="cover">
-            {isCompressLoading ? "이미지 압축 중.." : "이미지가 없어요."}
-          </div>
+          <img src={profileImg} />
         )}
         {/* {userInfo && userInfo.resultData ? (
           <img src={userInfo.resultData} />
