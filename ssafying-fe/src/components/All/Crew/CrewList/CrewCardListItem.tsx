@@ -157,19 +157,22 @@ const Back = styled.div`
   word-wrap: break-word;
 `;
 
-const Title = styled.h2`
+const Title = styled.div`
   height: 30%;
   display: flex;
   text-align: start;
   justify-content: center;
   padding: 0 12px;
+  font-weight: bold;
 `;
-const Writer = styled.p`
+const Writer = styled.div`
   margin-left: 30px;
 `;
-const Content = styled.p`
+const Content = styled.div`
   padding: 0 10px;
 `;
 
-const Location = styled.p``;
-const Button = styled.div``;
+const Location = styled.div``;
+const Button = styled.div`
+  width: 100%;
+`;

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import profileImage from "../../../assets/img/userIcons/profileImage.jpg";
 
 function ProfileImageContainer(props: {
   profileImageUrl: string;
@@ -7,10 +8,12 @@ function ProfileImageContainer(props: {
   followerCount: number;
   followingCount: number;
 }) {
+  const profile = props.profileImageUrl || profileImage;
+
   return (
     <StyledProfileImageContainer>
       <ProfileImage>
-        <img src={props.profileImageUrl} alt="" />
+        <img src={profile} alt="" />
       </ProfileImage>
       <ProfileInfo>
         <ProfileInfoItem>

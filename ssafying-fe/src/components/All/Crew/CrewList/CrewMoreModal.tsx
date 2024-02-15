@@ -21,10 +21,6 @@ interface moreProps {
   onDelete: () => void;
 }
 
-const handleCommentSubmit = (comment: string) => {
-  console.log("Comment submitted:", comment);
-};
-
 function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
   const user = useAppSelector(selectUser);
   const [isModalOpen, setIsModalOpen] = useState(true);
@@ -102,7 +98,6 @@ function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
               commentList={crewData.parentCommentList}
             />
             <MoreCommentInput
-              onSubmit={handleCommentSubmit}
               target="crew"
               id={crewId}
               highlighted={highlighted}
@@ -149,20 +144,20 @@ const Content = styled.div`
   z-index: 1;
   hr {
     width: 90%;
+    margin-top: 30px;
   }
   div {
     margin-top: 5px;
   }
 `;
 const Title = styled.div`
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
 `;
 const Copy = styled.div`
   font-size: 13px;
   width: 90%;
-  height: 100px;
-  margin-top: 5px;
+  margin-top: 0 10px;
 `;
 
 const Text = styled.div`
@@ -175,6 +170,7 @@ const CommentContainer = styled.div`
   width: 100%;
   height: 40%;
   background-color: white;
+  overflow-y: auto;
 `;
 
 const Flex = styled.div`

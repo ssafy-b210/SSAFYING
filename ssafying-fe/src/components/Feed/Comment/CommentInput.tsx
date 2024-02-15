@@ -8,7 +8,7 @@ import { selectUser } from "../../../store/reducers/user";
 import { createBambooComment } from "../../../apis/api/Forest";
 
 interface CommentInputProps {
-  onSubmit: (comment: string) => void;
+  onSubmit?: (comment: string) => void;
   target: "board" | "crew" | "feed" | "bamboo";
   id: Number;
   highlighted?: Number | null;
@@ -30,7 +30,10 @@ const CommentInput: React.FC<CommentInputProps> = ({
 
   const handleSubmit = async () => {
     if (comment.trim() !== "") {
-      onSubmit(comment);
+      {
+        onSubmit && onSubmit(comment);
+      }
+
       setComment("");
       try {
         if (target === "board") {

@@ -13,7 +13,7 @@ function CreateContent({ onContentChange }: CreateContentProps) {
   };
   return (
     <Content>
-      <h4>내용</h4>
+      <span>내용</span>
       <ContentContainer>
         <StyledInput onChange={handleContentChange} />
       </ContentContainer>
@@ -24,8 +24,11 @@ function CreateContent({ onContentChange }: CreateContentProps) {
 export default CreateContent;
 
 const Content = styled.div`
-  h4 {
-    margin-left: 20px;
+  width: 300px;
+  margin-top: 20px;
+  span {
+    margin-left: 15px;
+    font-weight: bold;
   }
 `;
 const ContentContainer = styled.div`
@@ -34,7 +37,7 @@ const ContentContainer = styled.div`
   align-items: center;
 `;
 const StyledInput = styled.textarea`
-  width: 500px;
+  width: 95%;
   height: 300px;
   border: 0;
   border-radius: 15px;

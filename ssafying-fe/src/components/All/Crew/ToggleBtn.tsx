@@ -17,7 +17,7 @@ function ToggleBtn({ isRecruit, onToggle }: ToggleBtnProps) {
 
   return (
     <ToggleContainer>
-      <h4>모집여부</h4>
+      <span>모집여부</span>
       <Toggle>
         <input
           role="switch"
@@ -34,8 +34,10 @@ function ToggleBtn({ isRecruit, onToggle }: ToggleBtnProps) {
 export default ToggleBtn;
 
 const ToggleContainer = styled.div`
-  h4 {
-    margin-left: 20px;
+  margin-top: 20px;
+  span {
+    margin-left: 15px;
+    font-weight: bold;
   }
   display: flex;
 `;
