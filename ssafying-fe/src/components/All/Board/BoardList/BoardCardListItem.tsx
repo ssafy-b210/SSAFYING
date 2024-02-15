@@ -64,6 +64,9 @@ const Wrapper = styled.div`
   background-color: rgba(255, 255, 255, 0.5);
   border: none;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const Card = styled.div`
   width: 200px;

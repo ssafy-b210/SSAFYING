@@ -20,11 +20,15 @@ interface Props {
   feedId: number;
 }
 
-const FeedListItemBtn: React.FC<Props> = ({ likeCount, feedId }: Props) => {
+const FeedListItemBtn: React.FC<Props> = ({
+  likeCount: initialLikeCount,
+  feedId,
+}: Props) => {
   const user = useAppSelector(selectUser);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(initialLikeCount);
 
   const openComment = () => {
     setModalIsOpen(true);
@@ -51,7 +55,6 @@ const FeedListItemBtn: React.FC<Props> = ({ likeCount, feedId }: Props) => {
     if (!newSavedStatus) {
       scrapFeed(user.userId, feedId);
     } else {
-      console.log("스크랩취소", user.userId);
       cancelscrapFeed(user.userId, feedId);
     }
   };
@@ -62,23 +65,27 @@ const FeedListItemBtn: React.FC<Props> = ({ likeCount, feedId }: Props) => {
 
     localStorage.setItem(`likedStatus_${feedId}`, String(newLikedStatus));
     if (!newLikedStatus) {
-      likeCount++;
+      setLikeCount((prevCount) => prevCount - 1);
       likeFeed(user.userId, feedId);
     } else {
-      likeCount--;
+      setLikeCount((prevCount) => prevCount + 1);
       cancelLikeFeed(user.userId, feedId);
     }
   };
+  console.log(likeCount);
 
   return (
     <>
       <BtnWrapper>
         <div>
-          <ImgBtn
-            src={isLiked ? likeFillRed : likeBtn}
-            onClick={toggleLiked}
-            size="20px"
-          />
+          <LikeWrapper>
+            <ImgBtn
+              src={isLiked ? likeFillRed : likeBtn}
+              onClick={toggleLiked}
+              size="20px"
+            />
+            {/* <div>{likeCount}</div> */}
+          </LikeWrapper>
           <ImgBtn src={commentBtn} onClick={openComment} size="20px" />
           <ImgBtn
             src={isSaved ? saveBtnBlack : saveBtnWhite}
@@ -104,5 +111,15 @@ const BtnWrapper = styled.div`
   div {
     display: flex;
     align-items: center;
+  }
+`;
+
+const LikeWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-size: 10px;
+  div {
+    padding: 0;
+    margin: 0;
   }
 `;
