@@ -101,33 +101,26 @@ public class MealService {
         MealPlanner mealPlanner = mealRepository.findById(request.getMealPlannerId())
                 .orElseThrow(() -> (new RuntimeException("투표하려는 식단표가 존재하지 않습니다.")));
 
-        // 해당 유저가 해당 식단표 메뉴에 투표를 이미 했는지 확인
-        // TODO 그 날에 해당하는 식단표 메뉴 A 혹은 B에 이미 투표했다면 취소를 해줘야할 듯???
-        int findVote = mealVoteRepository.findByUserAndMealPlannerAndOrder(user, mealPlanner, request.getOrder());
-        if (findVote > 0) throw new RuntimeException("이미 해당 메뉴에 투표하였습니다.");
+        // 해당 유저가 해당 날짜에 투표한 결과가 존재한다면 (몇 번째 메뉴에 투표한지는 상관없음)
+        // 투표 자체를 못하도록 함 !
 
-        //TODO 해당 메뉴는 아니더라도 해당 날에 다른 식단표에 투표를 이미 했다면 (order만 다름)
+        // 해당 유저가 해당 식단표 메뉴에 투표를 이미 했는지 확인
+        // 그 날에 해당하는 식단표 메뉴 A 혹은 B에 이미 투표했다면 취소를 해줘야할 듯???
+//        int findVote = mealVoteRepository.findByUserAndMealPlannerAndOrder(user, mealPlanner, request.getOrder());
+//        if (findVote > 0) throw new RuntimeException("이미 해당 메뉴에 투표하였습니다.");
+
+        // 해당 메뉴는 아니더라도 해당 날에 다른 식단표에 투표를 이미 했다면 (order만 다름)
         // 그 식단표 mealVote 데이터를 없애고 해당 mealPlanner의 투표값도 -1 해줘야 할 듯 ..???
         Optional<MealVote> mealVote = mealVoteRepository.findByUserAndMealPlanner(user, mealPlanner);
         if (mealVote.isPresent()) {
-
-            // 같은 날에 다른 메뉴 투표한 경우이므로
-            // 투표했던 mealPlanner의 vote-1 해주고
-            // 새로운 거 vote+1 해주고
-            // 저 경우는 지움
-
-
             throw new RuntimeException("이미 같은 날에 다른 메뉴의 식단표 투표를 진행하였습니다.");
         }
 
-        //else 아닌지....?
-        // 위의 두 경우가 모두 아니라면
         // 아직 투표 진행을 하지 않은 상태라면
         // 투표를 결과를 반영시켜줌
         MealVote mealvote = MealVote.createMealVote(
                 user,
-                mealPlanner,
-                request.getOrder()
+                mealPlanner
         );
 
         // 투표 결과를 디비에 저장
@@ -152,18 +145,26 @@ public class MealService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
 
-        // user의 캠퍼스를 찾고 오늘 날짜로 mealPlanner를 찾음
+        // user 의 캠퍼스를 찾고 오늘 날짜로 mealPlanner 를 찾음
         List<MealPlanner> mealPlannerList = mealRepository.findByMealPlannerDateAndCampus(LocalDate.now(), user.getCampus());
 
+        // 해당유저가 해당 캠퍼스에 해당 날짜로 해당 order 에다가 vote 결과가 있는지 확인
         List<FindMealPlannerResponse> result = new ArrayList<>();
         for (MealPlanner mealPlanner : mealPlannerList) {
+
+            // user 가 해당 MealPlanner 에 투표를 했었는가?
+            boolean isVoted = false;
+            Optional<MealVote> mealVote = mealVoteRepository.findByUserAndMealPlanner(user, mealPlanner);
+            if (mealVote.isPresent()) {
+                isVoted = true;
+            }
+
             FindMealPlannerResponse build = FindMealPlannerResponse.builder()
                     .mealPlannerId(mealPlanner.getId())
-//                    .campus(mealPlanner.getCampus())
-//                    .mealPlannerDate(mealPlanner.getMealPlannerDate())
                     .mealOrder(mealPlanner.getMealOrder())
                     .menu(mealPlanner.getMenu())
                     .vote(mealPlanner.getVote())
+                    .isVoted(isVoted)
                     .build();
 
             result.add(build);
@@ -171,9 +172,4 @@ public class MealService {
 
         return result;
     }
-
-
-
-
-
 }
