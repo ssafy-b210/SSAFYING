@@ -196,7 +196,7 @@ public class FeedService {
     @Transactional
     public int addFeedLike(SaveLikeFeedRequest request) {
         Feed feed = getFeed(request.getFeedId());
-        User user = getUser(request.getUserId());
+        User user = getUser(request.getUserId()); // sender
 
         Optional<FeedLike> existingFeedLike = feedLikeRepository.findByUserAndFeed(user, feed);
 
@@ -208,11 +208,12 @@ public class FeedService {
 
             //sse 추가
             SseResponse sseResponse = SseResponse.builder()
-                    .receiverId(user.getId())
+                    .senderId(user.getId())
                     .nickname(user.getNickname())
                     .imgUrl(user.getProfileImageUrl())
                     .feedId(feed.getId())
                     .createdAt(feed.getCreatedAt())
+                    .type(NotificationTypeStatus.LIKE)
                     .build();
 
             notificationService.customNotify(feed.getUser().getId(), sseResponse, "작성하신 피드에 좋아요가 달렸습니다", "like");
@@ -368,7 +369,7 @@ public class FeedService {
      */
     @Transactional
     public int addFeedComment(int feedId, AddCommentRequest request) {
-        User user = getUser(request.getUserId());
+        User user = getUser(request.getUserId()); //sender
 
         int result = 0;
 
@@ -397,11 +398,12 @@ public class FeedService {
 
         // sse 추가
         SseResponse sseResponse = SseResponse.builder()
-                .receiverId(user.getId())
+                .senderId(user.getId())
                 .nickname(user.getNickname())
                 .imgUrl(user.getProfileImageUrl())
                 .feedId(Long.valueOf((Integer) feedId))
                 .createdAt(getFeed(feedId).getCreatedAt())
+                .type(NotificationTypeStatus.COMMENT)
                 .build();
 
         notificationService.customNotify(getFeed(feedId).getUser().getId(), sseResponse, "작성하신 피드에 댓글이 달렸습니다", "comment");
