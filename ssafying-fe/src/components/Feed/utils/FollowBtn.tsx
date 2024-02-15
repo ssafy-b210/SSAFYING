@@ -20,6 +20,7 @@ function FollowBtn({ userId }: Props) {
 export default FollowBtn;
 
 const BtnWrapper = styled.button`
+  font-family: "Noto Sans KR", "Noto Sans", sans-serif;
   background-color: #fff4f9;
   border: none;
   border-radius: 5px;
@@ -29,4 +30,5 @@ const BtnWrapper = styled.button`
   margin-top: 5px;
   font-size: 12px;
   cursor: pointer;
+  color: gray;
 `;

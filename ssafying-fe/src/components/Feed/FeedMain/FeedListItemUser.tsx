@@ -8,6 +8,7 @@ import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
 import { deleteFeedItem } from "../../../apis/api/Feed";
 import { Link } from "react-router-dom";
+import ProfileImage from "../../../assets/img/userIcons/profileImage.jpg";
 
 interface userProps {
   userImg: string;
@@ -27,6 +28,8 @@ function FeedListItemUser({
   const user = useAppSelector(selectUser);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [timeDiff, setTimediff] = useState("");
+
+  const profileImg = userImg || ProfileImage;
 
   useEffect(() => {
     if (time !== null && time !== undefined) {
@@ -75,7 +78,7 @@ function FeedListItemUser({
     <UserWrapper>
       <div>
         <Link to={`/profile/${userId}`} className="home">
-          <RoundImg src={userImg} size="30px" />
+          <RoundImg src={profileImg} size="30px" />
         </Link>
         <Link to={`/profile/${userId}`} className="home">
           <UserId>{nickname}</UserId>
