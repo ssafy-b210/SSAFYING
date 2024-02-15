@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 interface BoardBtnProps {
   btnmsg: string;
-  link: string;
+  link?: string;
   onClick?: () => void;
 }
 
@@ -11,9 +11,15 @@ function BoardBtn(props: BoardBtnProps) {
   const btnmsg = props.btnmsg;
   return (
     <ButtonContainer>
-      <Link to={props.link}>
-        <Button onClick={props.onClick}>{btnmsg}</Button>
-      </Link>
+      <div>
+        {props.link ? (
+          <Link to={props.link}>
+            <Button onClick={props.onClick}>{btnmsg}</Button>
+          </Link>
+        ) : (
+          <Button onClick={props.onClick}>{btnmsg}</Button>
+        )}
+      </div>
     </ButtonContainer>
   );
 }
