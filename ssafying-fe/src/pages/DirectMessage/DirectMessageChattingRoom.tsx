@@ -107,7 +107,7 @@ function DirectMessageChattingRoom() {
 
     const socket = new SockJS(SOCKET_SERVER_URL);
     stompClient.current = Stomp.over(socket);
-    // stompClient.debug = () => {}; // 이벤트마다 콘솔 로깅 기록 방지
+    stompClient.current.debug = () => {}; // 이벤트마다 콘솔 로깅 기록 방지
 
     console.log("WebSocket 연결이 열렸습니다.");
     console.log(`소켓 연결을 시도합니다. 서버 주소: ${SOCKET_SERVER_URL}`);
