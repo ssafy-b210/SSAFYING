@@ -4,6 +4,8 @@ import BoardBtn from "../../All/Board/BoardBtn";
 import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
 import { deleteMarket, selectMarketOne } from "../../../apis/api/Market";
+import { createChattingRoom } from "../../../apis/api/Chat";
+import { useNavigate } from "react-router-dom";
 
 //카드 눌렀을 때 중고장터 detail
 interface MarketMoreModalProps {
@@ -22,6 +24,7 @@ interface MarketMoreModalProps {
 
 function MarketMoreModal({ card, marketId, onDelete }: MarketMoreModalProps) {
   const user = useAppSelector(selectUser);
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [marketData, setMarketData] = useState<any>(null);
@@ -39,11 +42,15 @@ function MarketMoreModal({ card, marketId, onDelete }: MarketMoreModalProps) {
       });
   };
 
+  const handleCreateChattingRoom = async () => {
+    const res = await createChattingRoom([marketData.userId, user.userId]);
+    navigate(`/chat/${res}`);
+  };
+
   useEffect(() => {
     const fetchMarketData = async () => {
       try {
         const data = await selectMarketOne(marketId); // API 호출
-        console.log("data", data);
         setMarketData(data.resultData); // API 응답을 상태에 저장
       } catch (error) {
         console.error("Error fetching market data", error);
@@ -114,7 +121,10 @@ function MarketMoreModal({ card, marketId, onDelete }: MarketMoreModalProps) {
               </Flex>
             ) : (
               <Flex>
-                <BoardBtn btnmsg="채팅하기" link="/direct" />
+                <BoardBtn
+                  btnmsg="채팅하기"
+                  onClick={handleCreateChattingRoom}
+                />
               </Flex>
             )}
           </Content>
