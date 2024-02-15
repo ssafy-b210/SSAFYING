@@ -80,13 +80,6 @@ function ProfileImage({ onDownloadUrlChange }: ProfileImageProps) {
         ) : (
           <img src={profileImg} />
         )}
-        {/* {userInfo && userInfo.resultData ? (
-          <img src={userInfo.resultData} />
-        ) : (
-          <div className="cover">
-            {isCompressLoading ? "이미지 압축 중.." : "이미지가 없어요."}
-          </div>
-        )} */}
         <ImageCropper aspectRatio={1 / 1} onCrop={handleUploadImage}>
           <ImgUploadBtn>📷</ImgUploadBtn>
         </ImageCropper>
