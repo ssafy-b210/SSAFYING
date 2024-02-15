@@ -3,16 +3,19 @@ import { styled } from "styled-components";
 import FollowBtn from "../utils/FollowBtn";
 import RoundImg from "../utils/RoundImg";
 import { Link } from "react-router-dom";
+import profileImage from "../../../assets/img/userIcons/profileImage.jpg";
 
 interface RecommendProps {
   recommendItem: { nickname: string; profileImageUrl: string; userId: number };
 }
 
 function UserRecommendListItem({ recommendItem }: RecommendProps) {
+  const profileImg = recommendItem.profileImageUrl || profileImage;
+
   return (
     <UserItem>
       <Link to={`/profile/${recommendItem.userId}`} className="home">
-        <RoundImg src={recommendItem.profileImageUrl} size="50px" />
+        <RoundImg src={profileImg} size="50px" />
       </Link>
       <div>{recommendItem.nickname}</div>
       <FollowBtn userId={recommendItem.userId} />
