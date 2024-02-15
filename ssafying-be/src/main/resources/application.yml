@@ -11,7 +11,7 @@ spring:
       mode: always
       platform: mysql
   profiles:
-    active: local
+    active: ${profile}
 
 logging:
   level:
