@@ -22,7 +22,7 @@ interface moreProps {
 }
 
 const handleCommentSubmit = (comment: string) => {
-  console.log("Comment submitted:", comment);
+  // console.log("Comment submitted:", comment);
 };
 
 function CrewMoreModal({ card, onDelete }: moreProps) {
@@ -35,7 +35,7 @@ function CrewMoreModal({ card, onDelete }: moreProps) {
   const handleDeleteCrew = () => {
     deleteCrew(card.crewId)
       .then((response: any) => {
-        console.log("crew deleted successfully", response);
+        // console.log("crew deleted successfully", response);
         onDelete();
         setIsModalOpen(false);
         window.location.reload();
@@ -50,8 +50,8 @@ function CrewMoreModal({ card, onDelete }: moreProps) {
     const fetchCrewData = async () => {
       try {
         const data = await selectCrewOne(card.crewId);
-        console.log("크루아이디", card.crewId);
-        console.log("data", data);
+        // console.log("크루아이디", card.crewId);
+        // console.log("data", data);
         setCrewData(data.resultData);
       } catch (error) {
         console.log(error);
