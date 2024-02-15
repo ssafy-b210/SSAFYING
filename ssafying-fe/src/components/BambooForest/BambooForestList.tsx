@@ -31,7 +31,7 @@ const BambooForestList: React.FC = () => {
           ))}
         </Container>
       ) : (
-        <NoResultsMessage>검색 결과가 없습니다.</NoResultsMessage>
+        <NoResultsMessage>글이 존재하지 않습니다.</NoResultsMessage>
       )}
     </>
   );
@@ -42,9 +42,9 @@ export default BambooForestList;
 const NoResultsMessage = styled.div`
   color: white;
   display: flex;
-  justify-contnet: center;
-  text-align: center;
+  justify-content: center;
   align-items: center;
+  height: 100%;
 `;
 
 const Container = styled.div`
