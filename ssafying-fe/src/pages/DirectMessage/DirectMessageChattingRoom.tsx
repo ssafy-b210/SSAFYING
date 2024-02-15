@@ -136,8 +136,10 @@ function DirectMessageChattingRoom() {
   // 메시지 구독(수신)
   function onMessageReceived(frame: StompJS.IMessage) {
     try {
-      // console.log("수신 메시지", JSON.parse(frame.body).body.resultData);
       const newMessage = JSON.parse(frame.body).body.resultData;
+
+      console.log("수신 메시지", newMessage);
+
       setMessages((prevMessage) => [...prevMessage, newMessage]);
     } catch (error) {
       console.error("오류가 발생했습니다:", error);
