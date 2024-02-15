@@ -36,19 +36,15 @@ function FollowButton(props: { toUserId: number }) {
   async function handleClickButton() {
     // 팔로우 버튼일 경우
     if (!currFollowState) {
-      const msg = await followUser(user.userId, props.toUserId);
-      if (msg !== undefined) {
-        alert(msg);
-        setCurrFollowState(true);
-      }
+      await followUser(user.userId, props.toUserId);
+      alert("팔로우 되었습니다.");
+      setCurrFollowState(true);
     }
     // 언팔로우 버튼일 경우
     else {
-      const msg = await unfollowUser(props.toUserId);
-      if (msg !== undefined) {
-        alert(msg);
-        setCurrFollowState(false);
-      }
+      await unfollowUser(props.toUserId);
+      alert("언팔로우 되었습니다");
+      setCurrFollowState(false);
     }
   }
 

@@ -1,4 +1,3 @@
-import { MouseEvent } from "react";
 import FollowProfileListItem from "./FollowProfileListItem";
 
 type FollowProfileType = {
