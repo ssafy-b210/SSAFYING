@@ -8,15 +8,13 @@ import { selectUser } from "../../../store/reducers/user";
 import { createBambooComment } from "../../../apis/api/Forest";
 
 interface CommentInputProps {
-  onSubmit?: (comment: string) => void;
-  target: "board" | "crew" | "feed" | "bamboo";
+  onSubmit: (comment: string) => void;
   id: Number;
   highlighted?: Number | null;
 }
 
 const CommentInput: React.FC<CommentInputProps> = ({
   onSubmit,
-  target,
   id,
   highlighted,
 }) => {
@@ -30,36 +28,8 @@ const CommentInput: React.FC<CommentInputProps> = ({
 
   const handleSubmit = async () => {
     if (comment.trim() !== "") {
-      {
-        onSubmit && onSubmit(comment);
-      }
-
+      onSubmit(comment);
       setComment("");
-      try {
-        if (target === "board") {
-          if (highlighted === null) {
-            await createBoardComment(id, user.userId, comment, -1);
-          } else {
-            await createBoardComment(id, user.userId, comment, highlighted);
-          }
-        } else if (target === "crew") {
-          if (highlighted === null) {
-            await createCrewComment(id, user.userId, comment);
-          } else {
-            await createCrewComment(id, user.userId, comment, highlighted);
-          }
-        } else if (target === "feed") {
-          if (highlighted === null) {
-            await createFeedComment(id, user.userId, comment);
-          } else {
-            await createFeedComment(id, user.userId, comment, highlighted);
-          }
-        } else if (target === "bamboo") {
-          await createBambooComment(id, user.userId, comment);
-        }
-      } catch (e) {
-        console.log(e);
-      }
     }
   };
   return (

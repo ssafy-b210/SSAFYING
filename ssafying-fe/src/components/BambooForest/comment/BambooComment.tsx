@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import BambooCommentList from "./BambooCommentList";
 import CommentInput from "../../Feed/Comment/CommentInput";
-import { useState } from "react";
-import { selectOneBamboo } from "../../../apis/api/Forest";
+import { useEffect, useState } from "react";
+import { selectOneBamboo, createBambooComment } from "../../../apis/api/Forest";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
 
 interface Props {
   bambooList: any[];
@@ -10,12 +12,12 @@ interface Props {
 }
 
 function BambooComment({ bambooList, bambooId }: Props) {
-  const [bambooData, setBambooData] = useState<any>(bambooList);
+  const [bambooData, setBambooData] = useState<any>([]);
+  const user = useAppSelector(selectUser);
 
-  const handleCommentSubmit = async (comment: string) => {
-    console.log("Comment submitted:", comment);
-    await fetchComments();
-  };
+  useEffect(() => {
+    fetchComments();
+  }, []);
 
   const fetchComments = async () => {
     try {
@@ -29,17 +31,22 @@ function BambooComment({ bambooList, bambooId }: Props) {
 
   console.log(bambooList);
 
+  const handleCommentSubmit = async (comment: string) => {
+    try {
+      await createBambooComment(bambooId, user.userId, comment);
+      await fetchComments();
+    } catch (error) {
+      console.error("Error submitting comment", error);
+    }
+  };
+
   return (
     <div>
       <CommentWrapper>
-        {bambooList && <BambooCommentList commentList={bambooList} />}
+        {bambooData && <BambooCommentList commentList={bambooData} />}
       </CommentWrapper>
       <CommentInputContainer>
-        <CommentInput
-          onSubmit={handleCommentSubmit}
-          target="bamboo"
-          id={bambooId}
-        />
+        <CommentInput onSubmit={handleCommentSubmit} id={bambooId} />
       </CommentInputContainer>
     </div>
   );

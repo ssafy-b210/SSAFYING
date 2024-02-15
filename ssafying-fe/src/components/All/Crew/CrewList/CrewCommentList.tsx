@@ -6,9 +6,10 @@ interface Props {
   crewId: Number;
   parent: (id: Number | null) => void;
   commentList: any[]; // 댓글 리스트를 상태로 받음
+  onDelete: (id: number) => void;
 }
 
-function CrewCommentList({ crewId, parent, commentList }: Props) {
+function CrewCommentList({ crewId, parent, commentList, onDelete }: Props) {
   const [highlightedCommentId, setHighlightedCommentId] =
     useState<Number | null>(null);
 
@@ -36,6 +37,7 @@ function CrewCommentList({ crewId, parent, commentList }: Props) {
           onClick={() => handleCommentClick(comment.id)}
           replies={comment.childComments}
           time={comment.createdAt}
+          onDelete={onDelete}
         />
       ))}
     </CommentWrapper>

@@ -5,7 +5,12 @@ import CrewCommentList from "./CrewCommentList";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectUser } from "../../../../store/reducers/user";
 import BoardBtn from "../../Board/BoardBtn";
-import { deleteCrew, selectCrewOne } from "../../../../apis/api/Crew";
+import {
+  deleteCrew,
+  selectCrewOne,
+  deleteCrewComment,
+  createCrewComment,
+} from "../../../../apis/api/Crew";
 
 // 카드 눌렀을때 crew detail
 interface moreProps {
@@ -18,10 +23,9 @@ interface moreProps {
     content: string;
     crewId: number;
   };
-  onDelete: () => void;
 }
 
-function CrewMoreModal({ card, onDelete }: moreProps) {
+function CrewMoreModal({ card }: moreProps) {
   const user = useAppSelector(selectUser);
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [crewData, setCrewData] = useState<any>(null);
@@ -32,7 +36,6 @@ function CrewMoreModal({ card, onDelete }: moreProps) {
     deleteCrew(card.crewId)
       .then((response: any) => {
         // console.log("crew deleted successfully", response);
-        onDelete();
         setIsModalOpen(false);
         window.location.reload();
       })
@@ -46,8 +49,6 @@ function CrewMoreModal({ card, onDelete }: moreProps) {
     const fetchCrewData = async () => {
       try {
         const data = await selectCrewOne(card.crewId);
-        // console.log("크루아이디", card.crewId);
-        // console.log("data", data);
         setCrewData(data.resultData);
       } catch (error) {
         console.log(error);
@@ -57,6 +58,33 @@ function CrewMoreModal({ card, onDelete }: moreProps) {
       fetchCrewData(); // 모달이 열릴 때만 API 호출
     }
   }, [card.crewId, isModalOpen]);
+
+  const handleCommentSubmit = async (comment: string) => {
+    console.log("Comment submitted:", comment);
+    try {
+      if (highlighted === null) {
+        await createCrewComment(card.crewId, user.userId, comment);
+      } else {
+        await createCrewComment(card.crewId, user.userId, comment, highlighted);
+      }
+      const updatedCrewData = await selectCrewOne(card.crewId);
+      setCrewData(updatedCrewData.resultData);
+    } catch (error) {
+      console.error("Error submitting comment", error);
+    }
+  };
+
+  //삭제 api 호출
+  const handleDeleteComment = async (commentId: number) => {
+    try {
+      await deleteCrewComment(commentId);
+
+      const updatedCrewData = await selectCrewOne(card.crewId);
+      setCrewData(updatedCrewData.resultData);
+    } catch (error) {
+      console.error("Error deleting crew", error);
+    }
+  };
 
   return (
     <div>
@@ -79,8 +107,6 @@ function CrewMoreModal({ card, onDelete }: moreProps) {
             <Copy>{crewData.content}</Copy>
             {user.nickname === crewData.nickname && (
               <Flex>
-                {/* 수정화면만들기 */}
-                {/* <BoardBtn btnmsg="수정" link="" /> */}
                 <BoardBtn
                   btnmsg="삭제"
                   link="/crew"
@@ -96,9 +122,10 @@ function CrewMoreModal({ card, onDelete }: moreProps) {
               crewId={card.crewId}
               parent={(id) => setHighlighted(id)}
               commentList={crewData.parentCommentList}
+              onDelete={handleDeleteComment}
             />
             <MoreCommentInput
-              target="crew"
+              onSubmit={handleCommentSubmit}
               id={card.crewId}
               highlighted={highlighted}
             ></MoreCommentInput>

@@ -18,6 +18,7 @@ interface CommentProps {
   onClick: () => void;
   replies: any[];
   time: string;
+  onDelete: (id: number) => void;
 }
 
 function CrewCommentItem({
@@ -28,6 +29,7 @@ function CrewCommentItem({
   onClick,
   replies,
   time,
+  onDelete,
 }: CommentProps) {
   const user = useAppSelector(selectUser);
   const [timeDiff, setTimediff] = useState("");
@@ -63,7 +65,8 @@ function CrewCommentItem({
   }
 
   async function clickDeleteBtn() {
-    await deleteCrewComment(commentId);
+    console.log("clickDeleteBtn");
+    onDelete(commentId);
   }
   return (
     <>

@@ -10,7 +10,11 @@ import BoardCommentList from "./BoardCommentList";
 import BoardBtn from "../BoardBtn";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectUser } from "../../../../store/reducers/user";
-import { deleteBoard, selectOneBoard } from "../../../../apis/api/Board";
+import {
+  deleteBoard,
+  selectOneBoard,
+  createBoardComment,
+} from "../../../../apis/api/Board";
 
 // 카드눌렀을 때 detail 보이게 하기
 interface moreProps {
@@ -24,10 +28,6 @@ interface moreProps {
   };
   onDelete: () => void;
 }
-
-const handleCommentSubmit = (comment: string) => {
-  console.log("Comment submitted:", comment);
-};
 
 function BoardMoreModal({ card, onDelete }: moreProps) {
   const user = useAppSelector(selectUser);
@@ -84,22 +84,23 @@ function BoardMoreModal({ card, onDelete }: moreProps) {
     }
   }, [card.boardId, isModalOpen]);
 
-  const handleEditBoard = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false); //모달닫기
-    console.log("Modal Closed");
-  };
-
-  const handleUpdateBoard = (newCardInfo: {
-    title: string;
-    writer: string;
-    category: string;
-    content: string;
-  }) => {
-    console.log("New", newCardInfo);
+  const handleCommentSubmit = async (comment: string) => {
+    try {
+      if (highlighted === null) {
+        await createBoardComment(card.boardId, user.userId, comment, -1);
+      } else {
+        await createBoardComment(
+          card.boardId,
+          user.userId,
+          comment,
+          highlighted
+        );
+      }
+      const data = await selectOneBoard(card.boardId, user.userId);
+      setBoardData(data.resultData);
+    } catch (error) {
+      console.error("Error submitting comment", error);
+    }
   };
 
   return (
@@ -143,7 +144,6 @@ function BoardMoreModal({ card, onDelete }: moreProps) {
             />
             <MoreCommentInput
               onSubmit={handleCommentSubmit}
-              target="board"
               id={card.boardId}
               highlighted={highlighted}
             ></MoreCommentInput>

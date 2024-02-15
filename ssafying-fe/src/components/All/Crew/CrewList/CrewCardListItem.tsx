@@ -39,13 +39,6 @@ const regionNameData: any = {
 };
 
 function CrewCardListItem({ card, index }: CrewItemProps) {
-  //상세조회 api를 하고 boardId를 거기서 받아오자. 아자아자 화이팅.....
-  const crewId = index + 1;
-
-  const handleDeleteBoard = () => {
-    // console.log("Board item deleted", boardId);
-  };
-
   return (
     <div>
       <Card key={index}>
@@ -77,7 +70,7 @@ function CrewCardListItem({ card, index }: CrewItemProps) {
             </Location>
             <Button>
               <Modal btnTxt="더보기">
-                <CrewMoreModal card={card} onDelete={handleDeleteBoard} />
+                <CrewMoreModal card={card} />
               </Modal>
             </Button>
           </Back>

@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import CommentList from "./CommentList";
 import CommentInput from "./CommentInput";
-import { getFeedComment } from "../../../apis/api/Feed";
+import { getFeedComment, createFeedComment } from "../../../apis/api/Feed";
 import Modal from "react-modal";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
 
 interface CommentModalProps {
   onClose: () => void;
@@ -13,6 +15,7 @@ interface CommentModalProps {
 const CommentModal: React.FC<CommentModalProps> = ({ onClose, feedId }) => {
   const [commentList, setCommentList] = useState<any[]>([]);
   const [highlighted, setHighlighted] = useState<number | null>(null);
+  const user = useAppSelector(selectUser);
 
   useEffect(() => {
     fetchComments();
@@ -25,7 +28,16 @@ const CommentModal: React.FC<CommentModalProps> = ({ onClose, feedId }) => {
 
   const handleCommentSubmit = async (comment: string) => {
     console.log("Comment submitted:", comment);
-    await fetchComments();
+    try {
+      if (highlighted === null) {
+        await createFeedComment(feedId, user.userId, comment);
+      } else {
+        await createFeedComment(feedId, user.userId, comment, highlighted);
+      }
+      await fetchComments();
+    } catch (error) {
+      console.error("Error submitting comment", error);
+    }
   };
 
   return (
@@ -40,7 +52,6 @@ const CommentModal: React.FC<CommentModalProps> = ({ onClose, feedId }) => {
       <CommentInputContainer>
         <CommentInput
           onSubmit={handleCommentSubmit}
-          target="feed"
           id={feedId}
           highlighted={highlighted}
         />
