@@ -1,10 +1,12 @@
 package com.ssafying.domain.chat.controller;
 
 import com.ssafying.domain.chat.dto.*;
+import com.ssafying.domain.chat.dto.request.ChatRoomExitRequest;
 import com.ssafying.domain.chat.service.ChatService;
 import com.ssafying.global.result.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -67,12 +69,13 @@ public class ChatController {
      * 7.4 참여 중인 채팅방 나가기
      *
      */
-    @DeleteMapping("/rooms/{joinRoomId}")
+    @DeleteMapping("/rooms")
     @Operation(summary = "채팅방 나가기")
     public ResponseEntity<ResultResponse<Integer>> chatRoomExit(
-            @PathVariable(name = "joinRoomId") int joinRoomId
-    ) {
-        Integer result = chatService.exitChatRoom(joinRoomId);
+            @RequestBody @Valid ChatRoomExitRequest request
+
+            ) {
+        Integer result = chatService.exitChatRoom(request);
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
 
