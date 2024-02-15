@@ -6,19 +6,29 @@ values ('SEOUL'),
        ('BOOLKYUNG');
 
 insert into users (campus_id, email, password, nickname, phone_number, name, generation, is_major, status)
-values (2, 'ssafy1@ssafy.com', '1234', '애옹이', '010-1111-1111', '이싸피', 10, 0, 'ACTIVE'),
-       (1, 'ssafy2@ssafy.com', '1234', '리오레이비', '010-2222-2222', '이싸피', 10, 0, 'ACTIVE'),
-       (3, 'ssafy3@ssafy.com', '1234', '숭', '010-3333-3333', '김싸피', 10, 1, 'ACTIVE'),
-       (2, 'ssafy4@ssafy.com', '1234', '깃마스터', '010-4444-4444', '임싸피', 11, 0, 'ACTIVE'),
-       (4, 'ssafy5@ssafy.com', '1234', '폭주기관차', '010-5555-5555', '김싸피', 11, 1, 'ACTIVE'),
-       (1, 'ssafy6@ssafy.com', '1234', '예스맨', '010-6666-6666', '노싸피', 11, 1, 'ACTIVE'),
-       (2, 'test1@test.com', '1234','추천테스트1', '010-8888-9999', '최싸피', 7, 0, 'ACTIVE'),
-       (2, 'test3@test.com', '1234', '추천테스트2', '010-3453-5678', '이싸피', 8, 1, 'ACTIVE'),
-       (3, 'test4@test.com', '1234', '추천테스트3', '010-3453-1212', '남궁싸피', 9, 0, 'ACTIVE'),
-       (2, 'test5@test.com', '1234', '추천테스트4', '010-3453-2323', '독고싸피', 9, 1, 'ACTIVE'),
-       (1, 'test6@test.com', '1234', '추천테스트5', '010-3453-3434', '구싸피', 11, 1, 'ACTIVE'),
-       (4, 'test7@test.com', '1234', '추천테스트6', '010-3453-2232', '신싸피', 10, 0, 'ACTIVE'),
-       (1, 'test8@test.com', '1234', '추천테스트7', '010-3453-6543', '양싸피', 10, 1, 'ACTIVE');
+values (2, 'ssafy1@ssafy.com', 'ssafy210', '애옹이', '010-1111-1111', '이싸피', 10, 0, 'ACTIVE'),
+       (1, 'ssafy2@ssafy.com', 'ssafy210', '윈터', '010-2222-2222', '이싸피', 10, 0, 'ACTIVE'),
+       (3, 'ssafy3@ssafy.com', 'ssafy210', '숭', '010-3333-3333', '김싸피', 10, 1, 'ACTIVE'),
+       (2, 'ssafy4@ssafy.com', 'ssafy210', '깃마스터', '010-4444-4444', '임싸피', 11, 0, 'ACTIVE'),
+       (4, 'ssafy5@ssafy.com', 'ssafy210', '폭주기관차', '010-5555-5555', '김싸피', 11, 1, 'ACTIVE'),
+       (1, 'ssafy6@ssafy.com', 'ssafy210', '예스맨', '010-6666-6666', '노싸피', 11, 1, 'ACTIVE'),
+       (2, 'ssafy7@ssafy.com', 'ssafy210','키보드마스터', '010-7777-7777', '최싸피', 7, 0, 'ACTIVE'),
+       (2, 'ssafy8@ssafy.com', 'ssafy210', '김삿갓', '010-8888-8888', '이싸피', 8, 1, 'ACTIVE'),
+       (3, 'ssafy9@ssafy.com', 'ssafy210', '얼죽아', '010-9999-9999', '남궁싸피', 9, 0, 'ACTIVE'),
+       (2, 'ssafy10@ssafy.com', 'ssafy210', '닝닝', '010-1010-1010', '독고싸피', 9, 1, 'ACTIVE'),
+       (1, 'ssafy11@ssafy.com', 'ssafy210', '행돈이', '010-1111-1101', '구싸피', 11, 1, 'ACTIVE'),
+       (4, 'ssafy12@ssafy.com', 'ssafy210', '유고걸', '010-1212-1212', '신싸피', 10, 0, 'ACTIVE'),
+       (1, 'ssafy13@ssafy.com', 'ssafy210', '좋은날123', '010-1313-1313', '양싸피', 10, 1, 'ACTIVE'),
+       (2, 'ssafy14@ssafy.com', 'ssafy210', '덕선이0923', '010-1414-1414', '임싸피', 10, 0, 'ACTIVE'),
+       (3, 'ssafy15@ssafy.com', 'ssafy210', '민트초코', '010-1515-1515', '이싸피', 10, 0, 'ACTIVE'),
+       (4, 'ssafy16@ssafy.com', 'ssafy210', '반민초', '010-1616-1616', '김싸피', 10, 1, 'ACTIVE'),
+       (5, 'ssafy17@ssafy.com', 'ssafy210', '여름조아', '010-1717-1717', '최싸피', 10, 0, 'ACTIVE'),
+       (4, 'ssafy18@ssafy.com', 'ssafy210', '더워요', '010-1818-1818', '최싸피', 10, 1, 'ACTIVE'),
+       (5, 'ssafy19@ssafy.com', 'ssafy210', '띵균', '010-1919-1919', '신싸피', 10, 0, 'ACTIVE'),
+       (2, 'ssafy20@ssafy.com', 'ssafy210', '델타마스터', '010-2020-2020', '최싸피', 10, 1, 'ACTIVE'),
+       (1, 'ssafy21@ssafy.com', 'ssafy210', '달팽이', '010-2121-2121', '노싸피', 10, 0, 'ACTIVE'),
+       (3, 'ssafy22@ssafy.com', 'ssafy210', 'N-Queen', '010-2222-2202', '박싸피', 10, 1, 'ACTIVE'),
+       (1, 'ssafy23@ssafy.com', 'ssafy210', 'algomorgo', '010-2323-2323', '박싸피', 10, 0, 'ACTIVE');
 
 insert into crew (title, user_id, content, region, category, is_recruit)
 values ('springboot 스터디 할 팀원 구해요!!', 2, '서울캠에서 springboot 스터디할 분을 모집합니다. 주 1-2회로 생각중입니다. 오프라인, 온라인 모두 상관없어요~', 'SEOUL',
@@ -26,26 +36,39 @@ values ('springboot 스터디 할 팀원 구해요!!', 2, '서울캠에서 sprin
        ('1일 1백준 챌린지', 1, '1일 1백준 문제 푸는 챌린지에 함께 할 분을 모집합니다. 함께 힘내봐요 ~!!', 'DAEJEON', 'CHALLENGE', true),
        ('등산함께 하실 분', 3, '내용3', 'DAEJEON', 'SOCIETY', false),
        ('토이프로젝트 프론트엔드 팀원 구합니다', 4, '내용4', 'SEOUL', 'PROJECT', false),
-       ('CS 스터디 함께해요', 5, '내용5', 'GWANGJU', 'STUDY', false);
+       ('클라이밍 같이 하실 분', 5, '내용5', 'DAEJEON', 'ACTIVITY', true),
+       ('이번주 주말에 카공 하실분', 3, '내용5', 'SEOUL', 'STUDY', false),
+       ('프론트엔드 스터디 구해요', 6, '내용5', 'DAEGU', 'STUDY', true),
+       ('피그마 알려주실분', 10, '내용5', 'DAEJEON', 'STUDY', false),
+       ('이번주 금요일에 쇠주한잔?', 20, '내용5', 'DAEJEON', 'FLASHMOB', true),
+       ('러닝크루 구합니다', 23, '내용5', 'DAEJEON', 'ACTIVITY', true),
+       ('삼성연계 공모전 같이 준비하실 분?', 14, '내용5', 'ALL', 'PROJECT', false),
+       ('신한은행 해커톤 팀원 모집합니다.', 11, '내용5', 'DAEJEON', 'PROJECT', true),
+       ('SQL-D 같이 공부하실분', 9, '내용5', 'SEOUL', 'STUDY', true),
+       ('점심에 대전 캠퍼스에서 같이 도시락 싸서 먹으실 분', 7, '내용5', 'SEOUL', 'ETC', false);
 
 insert into board(user_id, is_anonymous, content, title, category)
 values (1, true, '요새 점심시간이 너무 기대됨ㅋㅋ', '요새 대전 점심시간', 'FREEDOM'),
-       (2, false, '요새 점심시간이 너무 기대됨ㅋㅋ 나만 그럼?', '대전캠 근처 맛집 추천', 'FREEDOM'),
-       (3, false, '요새 점심시간이 너무 기대됨ㅋㅋ 나만 그럼?', '유온역 공부하기 좋은 카페', 'FREEDOM'),
-       (4, true, '요새 점심시간이 너무 기대됨ㅋㅋ 나만 그럼?', '영화 웡카 본 사람??', 'FREEDOM'),
-       (5, false, '요새 점심시간이 너무 기대됨ㅋㅋ 나만 그럼?', '우리집 강아지 보고가세여', 'FREEDOM'),
-       (6, true, '요새 점심시간이 너무 기대됨ㅋㅋ 나만 그럼?', '데스크탑 추천', 'FREEDOM'),
-       (7, true, '요새 점심시간이 너무 기대됨ㅋㅋ 나만 그럼?', '코테 너무 어렵다...', 'FREEDOM'),
+       (2, false, '마시기 통차 가성비 미쳤어요', '대전캠 근처 맛집 추천', 'TIP'),
+       (3, false, '하이테이블보다는 탐탐 추천', '유온역 공부하기 좋은 카페', 'TIP'),
+       (4, true, '움파둠파 계속 귀에 맴돌지 않음?ㅋㅋ', '영화 웡카 본 사람??', 'FREEDOM'),
+       (5, false, '피곤하다...', '설연휴 돌려줘', 'FREEDOM'),
+       (6, true, '해주세요', '데스크탑 추천', 'TIP'),
+       (7, true, '어떻게 공부해야하냐...', '코테 너무 어렵다...', 'FREEDOM'),
        (2, false, 'intellij 정말 유용한 툴이라서 intellij를 이용한 개발 꿀팁 알려드립니다.', 'intellij 이용한 개발 꿀팁', 'DEVELOPMENT'),
        (3, false, '저는 이번에 N사에 취업하게 되었습니다. 제 취업에 대한 내용을 공유하면 좋을 듯하여 글을 쓰게 되었습니다.', 'N사 취업과 느끼고 배운 점', 'EMPLOYMENT'),
-       (4, false, 'content', '팀 제주도 프로젝트 홍보', 'PROMOTION'),
-       (5, true, 'content', '팀 제주도 프로젝트 홍보', 'PROMOTION'),
-       (6, false, 'content', '팀 제주도 프로젝트 홍보', 'PROMOTION');
+       (4, false, '다들 많이 이용해주세요!^^', '팀 제주도 프로젝트 홍보', 'PROMOTION'),
+       (5, true, '나는 당연히 알탕ㅋㅋ', '오늘 대전캠 점심 뭐먹을거임?', 'FREEDOM'),
+       (6, false, '푹 자고 싶다 ㅠㅠ', '자도자도 졸리다', 'FREEDOM');
 
 insert into follow (from_user, to_user)
 values (1, 2), (1, 3), (1, 4), (1, 5), (1, 6),
-       (2, 6), (3, 6), (4, 6), (5, 6), (1, 7),
-       (2, 3), (5, 6), (1, 8);
+       (2, 6), (3, 6), (4, 6), (1, 7),(2, 3),
+       (5, 6), (1, 8),(2, 11), (14, 20),
+       (12, 16), (3, 7), (8, 18), (4, 21), (9, 15),
+       (1, 19), (5, 10), (6, 22), (13, 17), (23, 8),
+       (2, 14), (10, 6), (12, 19), (1, 16), (15, 3),
+       (20, 11), (4, 9), (7, 21);
 
 insert into student (student_name, student_email, student_number)
 values ('이예원', '2_yewon@naver.com', 1035775),
@@ -57,7 +80,10 @@ values ('이예원', '2_yewon@naver.com', 1035775),
        ('김동학', 'kdh19583@gmail.com', 1033298),
        ('전성수', 'ke_wer@naver.com', 1032467),
        ('구본민', 'gugabm@naver.com', 1030955),
-       ('조민준', 'cjmg1085@naver.com', 1038855);
+       ('조민준', 'cjmg1085@naver.com', 1038855),
+       ('양성주', 'ztjdwnz@naver.com', 1039656),
+       ('김준섭', 'wns1915@naver.com', 1030350),
+       ('박소현', 's_971001@naver.com', 1037688);
 
 insert into shuttle (campus_id)
 values (2), (2), (2), (2), (2), (2);
@@ -109,27 +135,45 @@ values ('오정동 육교 밑 (국민연금북대전지사)', 1, 36.3587785, 127
        ('현충원역', 6, 36.359521, 127.320080, '08:14');
 
 insert into market (user_id, market_way,is_soldout, price, title, content)
-values (1, 'SELL', true, 10000, '한무무 GK898B  키보드 팔아요', '얼마안썼어용'),
+values (1, 'SELL', true, 800000, '한무무 GK898B  키보드 팔아요', '얼마안썼어용'),
        (2, 'BUY', false, 10000, '노트북 거치대 삽니다', '상태 좋은 걸로 구해요'),
-       (5, 'SELL', true, 30000, '모니터 팔아요', '얼마안썼어용'),
+       (5, 'SELL', true, 55000, '삼성 모니터 팔아요', '2020년에 삼성에서 구입했습니다.'),
        (3, 'SHARE', true, 0, '키보드 나눔합니다', '사용감 있어요'),
        (4, 'SHARE', false, 0, '싸피 블랙 XL 후드집업 새거 L랑 사이즈 교환', '새거에요@@@!!'),
        (6, 'SELL', false, 300000, '덕명동 집 팔아요', '10평입니다.'),
-       (7, 'SELL', false, 10000, '햇반 10개 팔아요', '햇반 살사람 구해요!');
+       (7, 'SELL', false, 10000, '햇반 10개 팔아요', '햇반 살사람 구해요!'),
+       (7, 'SELL', false, 70000, '포터블 모니터 싸게 내놔요', '싸피 2학기 5개월 동안 썼어요!'),
+       (7, 'SHARE', false, 0, '유통기한 2일 남은 치즈 무나합니다.', '자취해서 다 못먹었음'),
+       (7, 'SELL', false, 3000, '싸피에서 받은 스벅 기프티콘 팝니다ㅋㅋ', '전 필요 없어요'),
+       (7, 'SELL', false, 5000, '키캡 팔아요 완전 귀여움!', '사용감 있어서 싸게 팔아용');
 
 -- 피드 더미 데이터
-INSERT INTO feed (user_id, content, hit) VALUES (1, '오늘 팀 회식하러 간다 ㅎㅎ 벌써 마지막 주라니 ㅜㅜ...!!', 10),
-                                                (2, '점심 너모 맛있었음', 15),
-                                                (3, '우리 팀장 딸요스 사줬다~~~ 애옹 최고**', 20),
-                                                (4, '오늘 밤샘 개발 간다..', 25),
-                                                (5, '저녁으로 플랭크 버거 추천', 30);
+INSERT INTO feed (user_id, content, hit)
+VALUES (1, '딸요스 냠냠굿', 10),
+       (2, '메리크리스마스 ~!', 100),
+       (3, '우리 팀장 딸요스 사줬다~~~ 애옹 최고**', 77),
+       (4, '싸피.. 니가 날 떨어트려?', 25),
+       (5, '저녁으로 플랭크 버거 추천', 30);
 
 -- 해시태그 더미 데이터
-INSERT INTO hashtag (hashtag_id, tag_name) VALUES (1, '딸요스'),
-                                                  (2, '일상'),
-                                                  (3, '개발'),
-                                                  (4, '공통프로젝트'),
-                                                  (5, '오저추');
+INSERT INTO hashtag (hashtag_id, tag_name)
+VALUES (1, '딸요스'),
+       (2, '일상'),
+       (3, '개발'),
+       (4, '공통프로젝트'),
+       (5, '오저추'),
+       (6, '카공'),
+       (7, '자바'),
+       (8, '프론트엔드'),
+       (9, '백엔드'),
+       (10, '아메리카노'),
+       (11, '키보드'),
+       (12, '웹개발'),
+       (13, '취업'),
+       (14, '립밤'),
+       (15, '삼성'),
+       (16, '애플'),
+       (17, 'KTX');
 
 -- 피드-해시태그 연결 더미 데이터
 INSERT INTO feed_hashtag (feed_id, hashtag_id) VALUES
@@ -141,11 +185,7 @@ INSERT INTO feed_hashtag (feed_id, hashtag_id) VALUES
 
 -- 이미지 더미 데이터
 INSERT INTO feed_image (feed_id, image_url) VALUES
-    (1, 'image_url_1'),
-    (2, 'image_url_2'),
-    (3, 'image_url_3'),
-    (4, 'image_url_4'),
-    (5, 'image_url_5');
+    (1, 'https://firebasestorage.googleapis.com/v0/b/ssafying-5667d.appspot.com/o/애옹이%2FZ?alt=media&token=cc311250-8d63-4c79-b707-6ee08de07038');
 
 -- 피드 좋아요 더미 데이터
 INSERT INTO feed_like (feed_id, user_id) VALUES
@@ -200,10 +240,10 @@ INSERT INTO board_scrap (board_scrap_id, user_id, board_id) VALUES
 -- 대나무숲 더미 데이터
 
 insert into bamboo (user_id, content, created_at)
-values (1, '나 사실 좋아하는 사람 있다. 그것도 싸피 대전캠 2반에.... 언제 고백하지?', now()),
-       (2, '고민이 있는데,,,,, 나 너무 힘드러!!!!!!! 직장 때려칠게요', now()),
-       (3, '다들 하루하루 버틸만해? 나는 너무 힘들다', now()),
-       (4, '생각보다 프로젝트 빌런이 많은듯..', now()),
+values (1, '나 사실 좋아하는 사람 있다. 그것도 대전캠 2반에.... 언제 고백하지?', now()),
+       (2, '고민이 있는데,,,,, 나 너무 힘드러!!!!', now()),
+       (3, '비전공 싸피인들 버틸만해? 나는 너무 힘들다...', now()),
+       (4, '생각보다 프로젝트 빌런이 많은듯ㅋㅋ', now()),
        (1, '알고리즘 풀어야 하는데 ㅠㅠ 언제하지', now()),
        (5, '메롱', now());
 
@@ -214,22 +254,20 @@ INSERT INTO chat_room (chat_room_id, type, created_at, updated_at) VALUES
 
 -- 참여 채팅방 더미데이터
 INSERT INTO chat_room_user (user_id, last_message, chat_room_id, created_at, updated_at) VALUES
-    (1, '마지막 채팅1', 1, NOW(), NOW()),
-    (2, '마지막 채팅1', 1, NOW(), NOW()),
-    (1, '마지막 채팅2', 2, NOW(), NOW()),
-    (2, '마지막 채팅2', 2, NOW(), NOW()),
-    (3, '마지막 채팅2', 2, NOW(), NOW()),
-    (4, '마지막 채팅2', 2, NOW(), NOW()),
-    (3, '마지막 채팅3', 2, NOW(), NOW());
+    (2, '그럼 이따봐 ㅋㅋ', 1, NOW(), NOW()),
+    (2, 'ㅇㅇ', 1, NOW(), NOW()),
+    (1, '오늘 지각했다며?', 2, NOW(), NOW()),
+    (2, '딸요스 사주라', 2, NOW(), NOW()),
+    (3, '연휴 잘 보냈어?', 2, NOW(), NOW()),
+    (4, '걍 있어', 2, NOW(), NOW()),
+    (3, '삼성 SDS 공고 떴대', 2, NOW(), NOW());
 
 -- 채팅메시지 더미데이터
 INSERT INTO chat_message (message, is_read, chat_room_id, user_id, created_at, updated_at) VALUES
-    ('채팅 메시지1', true, 1, 1, NOW(), NOW()),
-    ('채팅 메시지2', true, 1, 2, NOW(), NOW()),
-    ('채팅 메시지3', true, 1, 1, NOW(), NOW()),
-    ('채팅 메시지4', false, 1, 2, NOW(), NOW()),
-    ('채팅 메시지1', true, 2, 1, NOW(), NOW()),
-    ('채팅 메시지2', true, 2, 2, NOW(), NOW()),
-    ('채팅 메시지3', true, 2, 3, NOW(), NOW()),
-    ('채팅 메시지4', true, 2, 4, NOW(), NOW()),
-    ('채팅 메시지5', true, 2, 1, NOW(), NOW());
+    ('잘 일어났어?', true, 1, 2, NOW(), NOW()),
+    ('나 늦잠잤다 ㅠㅠㅠ', true, 1, 1, NOW(), NOW()),
+    ('나 오늘 춤 출 것 같아...어떡해', true, 1, 1, NOW(), NOW()),
+    ('ㅋㅋㅋ어떡하긴 뭘 어떡해...춰야지...', false, 1, 2, NOW(), NOW()),
+    ('은수야', true, 2, 3, NOW(), NOW()),
+    ('머해?ㅋㅋ', true, 2, 4, NOW(), NOW()),
+    ('아 심심허다', true, 2, 1, NOW(), NOW());
