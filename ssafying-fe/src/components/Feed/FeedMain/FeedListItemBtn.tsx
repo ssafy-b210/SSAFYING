@@ -16,6 +16,7 @@ import {
 } from "../../../apis/api/Feed";
 import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
+import { getFeedLikeList } from "../../../apis/api/Feed";
 
 interface Props {
   likeCount: number;
@@ -41,65 +42,58 @@ const FeedListItemBtn: React.FC<Props> = ({
   }
 
   useEffect(() => {
-    const saveSaveStatus = localStorage.getItem(`savedStatus_${feedId}`);
-    setIsSaved(saveSaveStatus === "true");
-
-    const saveLikeStatus = localStorage.getItem(`likedStatus_${feedId}`);
-    setIsLiked(saveLikeStatus === "true");
-  }, [feedId]);
-
-  const toggleSaved = () => {
-    const newSavedStatus = !isSaved;
-    setIsSaved(newSavedStatus);
-
-    localStorage.setItem(`savedStatus_${feedId}`, String(newSavedStatus));
-
-    if (!newSavedStatus) {
-      scrapFeed(user.userId, feedId);
-    } else {
-      cancelscrapFeed(user.userId, feedId);
-    }
-  };
+    toggleLiked();
+  }, []);
 
   const toggleLiked = async () => {
-    const newLikedStatus = !isLiked;
-    setIsLiked(newLikedStatus);
+    const b = await getFeedLikeList(feedId, user.userId);
+    setIsLiked(b);
+  };
 
-    localStorage.setItem(`likedStatus_${feedId}`, String(newLikedStatus));
+  useEffect(() => {
+    const saveSaveStatus = localStorage.getItem(`savedStatus_${feedId}`);
+    setIsSaved(saveSaveStatus === "true");
+  }, [feedId]);
 
+  const likePlus = async () => {
     try {
-      if (!newLikedStatus) {
-        await cancelLikeFeed(user.userId, feedId);
-        setLikeCount((prevCount) => prevCount - 1);
-      } else {
-        await likeFeed(user.userId, feedId);
-        setLikeCount((prevCount) => prevCount + 1);
-      }
+      await likeFeed(user.userId, feedId);
+      setLikeCount((prevCount) => prevCount + 1);
+      setIsLiked(!isLiked);
     } catch (error) {
       console.error("Error toggling like:", error);
     }
   };
 
-  console.log(likeCount);
+  const likeMinus = async () => {
+    try {
+      await cancelLikeFeed(user.userId, feedId);
+      setLikeCount((prevCount) => prevCount - 1);
+      setIsLiked(!isLiked);
+    } catch (error) {
+      console.error("Error toggling like:", error);
+    }
+  };
 
   return (
     <>
       <BtnWrapper>
         <div>
           <LikeWrapper>
-            <ImgBtn
-              src={isLiked ? likeFillRed : likeBtn}
-              onClick={toggleLiked}
-              size="20px"
-            />
+            {isLiked ? (
+              <ImgBtn src={likeFillRed} onClick={likeMinus} size="20px" />
+            ) : (
+              <ImgBtn src={likeBtn} onClick={likePlus} size="20px" />
+            )}
+
             {/* <div>{likeCount}</div> */}
           </LikeWrapper>
           <ImgBtn src={commentBtn} onClick={openComment} size="20px" />
-          <ImgBtn
+          {/* <ImgBtn
             src={isSaved ? saveBtnBlack : saveBtnWhite}
             onClick={toggleSaved}
             size="20px"
-          />
+          /> */}
         </div>
         <FeedLikeCnt likeCount={likeCount} />
       </BtnWrapper>
