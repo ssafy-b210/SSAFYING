@@ -1,6 +1,5 @@
 package com.ssafying.domain.meal.dto.response;
 
-import com.ssafying.domain.meal.entity.MealOrderStatus;
 import lombok.*;
 
 @Getter
@@ -10,7 +9,7 @@ import lombok.*;
 public class FindMealPlannerResponse {
 
     //mealOrder
-    private MealOrderStatus mealOrder;
+//    private MealOrderStatus mealOrder;
 
     //vote
     private int vote;
