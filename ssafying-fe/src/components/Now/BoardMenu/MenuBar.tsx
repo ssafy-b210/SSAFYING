@@ -17,7 +17,7 @@ function MenuBar() {
               <img src={Shuttle} className="shuttle" />
             </Icon>
             <Title>셔틀버스 위치공유</Title>
-            <Text>광역 캠퍼스만 제공, 오전 9시 전까지만 제공</Text>
+            <Text>광역 캠퍼스만 오전 9시 전까지 제공해요!</Text>
           </Card>
         </Link>
         <Link to={"/mealplan"}>
@@ -26,7 +26,7 @@ function MenuBar() {
               <img src={Meal} className="meal" />
             </Icon>
             <Title>식단표</Title>
-            <Text>오점뭐?</Text>
+            <Text>오늘 점심에 대해 고민해봐요!</Text>
           </Card>
         </Link>
         <Link to={"/market"}>
@@ -35,7 +35,7 @@ function MenuBar() {
               <img src={Market} className="market" />
             </Icon>
             <Title>중고 거래 장터</Title>
-            <Text>당신 근처의 소중한 거래</Text>
+            <Text>당신 근처의 소중한 거래!</Text>
           </Card>
         </Link>
       </Content>

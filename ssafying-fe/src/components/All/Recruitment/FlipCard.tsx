@@ -31,9 +31,9 @@ function FlipCard({ title, company, url, index, arrIdx }: cardProps) {
     localStorage.setItem(`savedStatus_${index}`, String(newSavedStatus));
     console.log("유저스크랩할때", user.userId);
     if (!newSavedStatus) {
-      scrapRecruit(user.userId, index);
-    } else {
       cancelscrapRecruit(user.userId, index);
+    } else {
+      scrapRecruit(user.userId, index);
     }
   };
 

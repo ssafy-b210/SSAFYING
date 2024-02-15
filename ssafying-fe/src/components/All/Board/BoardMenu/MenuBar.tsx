@@ -27,7 +27,7 @@ function MenuBar() {
               <img src={Crew} />
             </Icon>
             <Title>사람 구하기</Title>
-            <Text>내가 찾는 사람이 어디있나</Text>
+            <Text>함께 프로젝트나 취미공유할 동료를 구해봐요!</Text>
           </Card>
         </Link>
         <Link to={"/recruit"}>
@@ -36,7 +36,7 @@ function MenuBar() {
               <img src={Recruitment} />
             </Icon>
             <Title>취업공고</Title>
-            <Text>너 내 동료가 되라</Text>
+            <Text>취업을 위해 공고를 자주 확인해봐요!</Text>
           </Card>
         </Link>
       </Content>
