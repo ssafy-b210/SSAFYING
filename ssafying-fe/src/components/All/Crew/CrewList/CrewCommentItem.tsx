@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ImgBtn from "../../../Feed/utils/ImgBtn";
 import deleteBtn from "../../../../assets/img/imgBtn/deleteBtn.svg";
@@ -17,6 +17,7 @@ interface CommentProps {
   isHighlighted: boolean;
   onClick: () => void;
   replies: any[];
+  time: string;
 }
 
 function CrewCommentItem({
@@ -26,8 +27,40 @@ function CrewCommentItem({
   isHighlighted,
   onClick,
   replies,
+  time,
 }: CommentProps) {
   const user = useAppSelector(selectUser);
+  const [timeDiff, setTimediff] = useState("");
+
+  useEffect(() => {
+    if (time !== null && time !== undefined) {
+      calcTimeDiff();
+    }
+  }, []);
+
+  function calcTimeDiff() {
+    const date = new Date(time.substring(0, 19));
+    const now = new Date();
+    const diff = Math.abs(date.getTime() - now.getTime());
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    if (days > 0) {
+      if (days < 7) {
+        setTimediff(`${days}일 전`);
+      } else {
+        setTimediff(`${date}`);
+      }
+    } else if (hours > 0) {
+      setTimediff(`${hours}시간 전`);
+    } else if (minutes > 0) {
+      setTimediff(`${minutes}분 전`);
+    } else {
+      setTimediff(`${seconds}초 전`);
+    }
+  }
 
   async function clickDeleteBtn() {
     await deleteCrewComment(commentId);
@@ -40,7 +73,10 @@ function CrewCommentItem({
           <Content>{content}</Content>
         </CommentContent>
         <ButtonsWrapper>
-          <TextBtn onClick={onClick}>답글달기</TextBtn>
+          <div>
+            <p>{timeDiff}</p>
+            <TextBtn onClick={onClick}>답글달기</TextBtn>
+          </div>
           {commentUser.id === user.userId && (
             <ImgBtn src={deleteBtn} onClick={clickDeleteBtn} size="15px" />
           )}
@@ -79,6 +115,10 @@ const ButtonsWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-left: auto;
+  p {
+    font-size: 10px;
+    color: gray;
+  }
 `;
 
 const TextBtn = styled.div`

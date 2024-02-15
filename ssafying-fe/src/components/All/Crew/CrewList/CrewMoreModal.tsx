@@ -101,6 +101,7 @@ function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
             <CrewCommentList
               crewId={crewId}
               parent={(id) => setHighlighted(id)}
+              commentList={crewData.parentCommentList}
             />
             <MoreCommentInput
               onSubmit={handleCommentSubmit}

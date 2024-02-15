@@ -21,6 +21,7 @@ function BambooComment({ bambooList, bambooId }: Props) {
     try {
       const data = await selectOneBamboo(bambooId);
       setBambooData(data.resultData.comments);
+      bambooList = data.resultData.comments;
     } catch (error) {
       console.error(error);
     }
@@ -47,10 +48,7 @@ function BambooComment({ bambooList, bambooId }: Props) {
 export default BambooComment;
 
 const CommentInputContainer = styled.div`
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  max-width: 560px;
+  width: 300px;
   background-color: white;
 `;
 

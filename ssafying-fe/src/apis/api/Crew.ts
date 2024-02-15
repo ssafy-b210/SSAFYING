@@ -140,7 +140,6 @@ export async function createCrewComment(
   parentId?: Number //부모댓글의 아이디
 ) {
   const data = {
-    crewId: crewId,
     userId: userId,
     content: content,
     parentId: parentId,
