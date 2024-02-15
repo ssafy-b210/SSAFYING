@@ -85,7 +85,9 @@ function CrewCommentItem({
           )}
         </ButtonsWrapper>
       </UserWrapper>
-      {replies.length > 0 && <CrewRecommentList replies={replies} />}
+      {replies.length > 0 && (
+        <CrewRecommentList replies={replies} onDelete={onDelete} />
+      )}
     </>
   );
 }

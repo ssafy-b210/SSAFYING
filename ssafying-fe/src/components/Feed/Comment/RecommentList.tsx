@@ -13,9 +13,10 @@ interface RepliesProps {
     likeCounts: number;
     deleted: boolean;
   }[];
+  onDelete: (id: number) => void;
 }
 
-function RecommentList({ replies }: RepliesProps) {
+function RecommentList({ replies, onDelete }: RepliesProps) {
   return (
     <RecommentListWrapper>
       {replies.map((reply) => (
@@ -24,6 +25,7 @@ function RecommentList({ replies }: RepliesProps) {
           commentId={reply.id}
           commentUser={reply.user}
           content={reply.content}
+          onDelete={onDelete}
         />
       ))}
     </RecommentListWrapper>

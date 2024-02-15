@@ -10,7 +10,7 @@ import { selectUser } from "../../../store/reducers/user";
 import { deleteFeedComment } from "../../../apis/api/Feed";
 
 interface CommentProps {
-  commentId: Number;
+  commentId: number;
   commentUser: {
     id: Number;
     nickname: string;
@@ -20,6 +20,7 @@ interface CommentProps {
   isHighlighted: boolean;
   onClick: () => void;
   replies: any[];
+  onDelete: (id: number) => void;
 }
 
 function CommentItem({
@@ -29,12 +30,13 @@ function CommentItem({
   isHighlighted,
   onClick,
   replies,
+  onDelete,
 }: CommentProps) {
   const user = useAppSelector(selectUser);
   const profileImageUrl = commentUser.profileImageUrl || profileImage;
 
   async function clickDeleteBtn() {
-    await deleteFeedComment(commentId);
+    onDelete(commentId);
   }
 
   return (
@@ -52,7 +54,9 @@ function CommentItem({
           )}
         </ButtonsWrapper>
       </UserWrapper>
-      {replies.length > 0 && <RecommentList replies={replies} />}
+      {replies.length > 0 && (
+        <RecommentList replies={replies} onDelete={onDelete} />
+      )}
     </>
   );
 }

@@ -6,9 +6,10 @@ interface Props {
   feedId: number;
   parent: (id: number | null) => void; // 부모 컴포넌트로부터 전달된 함수
   commentList: any[]; // 댓글 리스트를 상태로 받음
+  onDelete: (id: number) => void;
 }
 
-function CommentList({ feedId, parent, commentList }: Props) {
+function CommentList({ feedId, parent, commentList, onDelete }: Props) {
   const [highlightedCommentId, setHighlightedCommentId] = useState<
     number | null
   >(null);
@@ -36,6 +37,7 @@ function CommentList({ feedId, parent, commentList }: Props) {
           isHighlighted={comment.id === highlightedCommentId}
           onClick={() => handleCommentClick(comment.id)}
           replies={comment.childComments}
+          onDelete={onDelete}
         />
       ))}
     </CommentWrapper>

@@ -108,7 +108,7 @@ const Back = styled.div`
   word-wrap: break-word;
 `;
 
-const Title = styled.h2`
+const Title = styled.h3`
   height: 30%;
   display: flex;
   text-align: start;

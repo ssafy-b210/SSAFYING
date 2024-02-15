@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import CommentList from "./CommentList";
 import CommentInput from "./CommentInput";
-import { getFeedComment, createFeedComment } from "../../../apis/api/Feed";
+import {
+  getFeedComment,
+  createFeedComment,
+  deleteFeedComment,
+} from "../../../apis/api/Feed";
 import Modal from "react-modal";
 import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
@@ -40,6 +44,17 @@ const CommentModal: React.FC<CommentModalProps> = ({ onClose, feedId }) => {
     }
   };
 
+  //삭제 api 호출
+  const handleDeleteComment = async (commentId: number) => {
+    try {
+      await deleteFeedComment(commentId);
+
+      await fetchComments();
+    } catch (error) {
+      console.error("Error deleting comment", error);
+    }
+  };
+
   return (
     <Modal isOpen={true} onRequestClose={onClose} style={customStyles}>
       <CommentWrapper>
@@ -47,6 +62,7 @@ const CommentModal: React.FC<CommentModalProps> = ({ onClose, feedId }) => {
           feedId={feedId}
           parent={(id) => setHighlighted(id)}
           commentList={commentList}
+          onDelete={handleDeleteComment}
         />
       </CommentWrapper>
       <CommentInputContainer>

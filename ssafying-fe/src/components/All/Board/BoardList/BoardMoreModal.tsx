@@ -197,24 +197,26 @@ const Title = styled.h1`
   font-size: 20px;
 `;
 
-const Copy = styled.p`
+const Copy = styled.div`
   font-family: var(--font-serif);
-  font-size: 1.125rem;
+  font-size: 15px;
   line-height: 1.35;
   width: 100%;
-  height: 100px;
 `;
-const Writer = styled.p`
+const Writer = styled.div`
   display: flex;
   flex-direction: row;
+  font-size: 13px;
   .small-title {
     font-weight: bold;
     padding-right: 10px;
   }
 `;
-const Category = styled.p`
+const Category = styled.div`
   display: flex;
   flex-direction: row;
+  margin: 5px;
+  font-size: 13px;
   .small-title {
     font-weight: bold;
     padding-right: 10px;
@@ -224,6 +226,7 @@ const Category = styled.p`
 const CommentContainer = styled.div`
   width: 100%;
   background-color: white;
+  overflow-y: auto;
 `;
 
 const Flex = styled.div`

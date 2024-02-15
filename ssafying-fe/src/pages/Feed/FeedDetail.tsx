@@ -1,7 +1,7 @@
 import FeedDetailContent from "../../components/Feed/FeedDetail/FeedDetailContent";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getFeedDetail } from "../../apis/api/Feed";
+import { getFeedDetail, deleteFeedComment } from "../../apis/api/Feed";
 import styled from "styled-components";
 
 function FeedDetail() {
@@ -21,7 +21,21 @@ function FeedDetail() {
     getList();
   }, []);
 
-  return <FeedWrapper>{feed && <FeedDetailContent feed={feed} />}</FeedWrapper>;
+  const handleDeleteComment = async (commentId: number) => {
+    try {
+      await deleteFeedComment(commentId);
+
+      getList();
+    } catch (error) {
+      console.error("Error deleting comment", error);
+    }
+  };
+
+  return (
+    <FeedWrapper>
+      {feed && <FeedDetailContent feed={feed} onDelete={handleDeleteComment} />}
+    </FeedWrapper>
+  );
 }
 
 export default FeedDetail;

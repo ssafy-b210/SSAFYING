@@ -12,17 +12,19 @@ interface RecommentProps {
     nickname: string;
   };
   content: string;
+  onDelete: (id: number) => void;
 }
 
 function CrewRecommentItem({
   commentId,
   commentUser,
   content,
+  onDelete,
 }: RecommentProps) {
   const user = useAppSelector(selectUser);
 
   const onClickDelete = () => {
-    deleteCrewComment(commentId);
+    onDelete(commentId);
   };
 
   return (

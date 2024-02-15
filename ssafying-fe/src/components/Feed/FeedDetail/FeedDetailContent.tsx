@@ -8,9 +8,10 @@ import CommentList from "../Comment/CommentList";
 
 interface Props {
   feed: any;
+  onDelete: (id: number) => void;
 }
 
-function FeedDetailContent({ feed }: Props) {
+function FeedDetailContent({ feed, onDelete }: Props) {
   const [highlighted, setHighlighted] = useState<number | null>(null);
 
   console.log(feed);
@@ -33,6 +34,7 @@ function FeedDetailContent({ feed }: Props) {
         feedId={feed.id}
         parent={(id) => setHighlighted(id)}
         commentList={feed.parentCommentList}
+        onDelete={onDelete}
       />
     </FeedListItemWrapper>
   );

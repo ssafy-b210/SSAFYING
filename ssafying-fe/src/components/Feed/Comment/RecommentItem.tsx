@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import userProfileImg from "../../../assets/img/userIcons/userProfileImg.svg";
 import RoundImg from "../utils/RoundImg";
 import ImgBtn from "../utils/ImgBtn";
 import deleteBtn from "../../../assets/img/imgBtn/deleteBtn.svg";
 import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
 import { deleteFeedComment } from "../../../apis/api/Feed";
+import userProfileImg from "../../../assets/img/userIcons/profileImage.jpg";
 
 interface RecommentProps {
   commentId: number;
@@ -15,15 +15,21 @@ interface RecommentProps {
     profileImageUrl?: string;
   };
   content: string;
+  onDelete: (id: number) => void;
 }
 
-function RecommentItem({ commentId, commentUser, content }: RecommentProps) {
+function RecommentItem({
+  commentId,
+  commentUser,
+  content,
+  onDelete,
+}: RecommentProps) {
   const user = useAppSelector(selectUser);
 
   const profileImageUrl = commentUser.profileImageUrl || userProfileImg;
 
   const onClickDelete = () => {
-    deleteFeedComment(commentId);
+    onDelete(commentId);
   };
 
   return (
