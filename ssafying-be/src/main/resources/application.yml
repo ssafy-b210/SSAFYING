@@ -5,11 +5,6 @@ server:
   port: 8081
 
 spring:
-  sql:
-    init:
-      data-locations: classpath*:db/data.sql
-      mode: always
-      platform: mysql
   profiles:
     active: ${profile}
 
