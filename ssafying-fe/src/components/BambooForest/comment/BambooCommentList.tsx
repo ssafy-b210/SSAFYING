@@ -9,9 +9,10 @@ interface Props {
     createAt: string;
     userId: number;
   }[];
+  onDelete: (id: number) => void;
 }
 
-function BambooCommentList({ commentList }: Props) {
+function BambooCommentList({ commentList, onDelete }: Props) {
   useEffect(() => {
     // 댓글 리스트가 업데이트될 때마다 효과적으로 동작하도록 설정
     console.log("Comment list updated:", commentList);
@@ -26,6 +27,7 @@ function BambooCommentList({ commentList }: Props) {
           commentId={comment.commentId}
           content={comment.content}
           userId={comment.userId}
+          onDelete={onDelete}
         />
       ))}
     </CommentWrapper>

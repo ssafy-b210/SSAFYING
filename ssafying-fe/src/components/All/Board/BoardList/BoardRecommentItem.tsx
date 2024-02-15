@@ -12,6 +12,7 @@ interface RecommentProps {
   content: string;
   time: string;
   profile: string;
+  onDelete: (id: number) => void;
 }
 
 function BoardRecommentItem({
@@ -21,11 +22,12 @@ function BoardRecommentItem({
   time,
   profile,
   content,
+  onDelete,
 }: RecommentProps) {
   const user = useAppSelector(selectUser);
 
   const onClickDelete = () => {
-    deleteBoardComment(commentId);
+    onDelete(commentId);
   };
 
   return (

@@ -15,9 +15,10 @@ interface Props {
     profileImgUrl: string;
     userId: number;
   }[];
+  onDelete: (id: number) => void;
 }
 
-function BoardCommentList({ boardId, parent, commentList }: Props) {
+function BoardCommentList({ boardId, parent, commentList, onDelete }: Props) {
   const [highlightedCommentId, setHighlightedCommentId] =
     useState<Number | null>(null);
 
@@ -42,6 +43,7 @@ function BoardCommentList({ boardId, parent, commentList }: Props) {
           isHighlighted={comment.commentId === highlightedCommentId}
           onClick={() => handleCommentClick(comment.commentId)}
           replies={comment.childCommentList}
+          onDelete={onDelete}
         />
       ))}
     </div>

@@ -16,6 +16,7 @@ interface CommentProps {
   profile: string;
   onClick: () => void;
   replies: any[];
+  onDelete: (id: number) => void;
 }
 
 function BoardCommentItem({
@@ -28,11 +29,12 @@ function BoardCommentItem({
   profile,
   onClick,
   replies,
+  onDelete,
 }: CommentProps) {
   const user = useAppSelector(selectUser);
 
   async function clickDeleteBtn() {
-    await deleteBoardComment(commentId);
+    onDelete(commentId);
   }
   return (
     <>
@@ -48,7 +50,9 @@ function BoardCommentItem({
           )}
         </ButtonsWrapper>
       </UserWrapper>
-      {replies.length > 0 && <BoardRecommentList replies={replies} />}
+      {replies.length > 0 && (
+        <BoardRecommentList replies={replies} onDelete={onDelete} />
+      )}
     </>
   );
 }

@@ -14,6 +14,7 @@ import {
   deleteBoard,
   selectOneBoard,
   createBoardComment,
+  deleteBoardComment,
 } from "../../../../apis/api/Board";
 
 // 카드눌렀을 때 detail 보이게 하기
@@ -103,6 +104,18 @@ function BoardMoreModal({ card, onDelete }: moreProps) {
     }
   };
 
+  //삭제 api 호출
+  const handleDeleteComment = async (commentId: number) => {
+    try {
+      await deleteBoardComment(commentId);
+
+      const data = await selectOneBoard(card.boardId, user.userId);
+      setBoardData(data.resultData);
+    } catch (error) {
+      console.error("Error deleting crew", error);
+    }
+  };
+
   return (
     <Wrapper>
       {isModalOpen && boardData && (
@@ -141,6 +154,7 @@ function BoardMoreModal({ card, onDelete }: moreProps) {
               boardId={card.boardId}
               parent={(id) => setHighlighted(id)}
               commentList={boardData.comments}
+              onDelete={handleDeleteComment}
             />
             <MoreCommentInput
               onSubmit={handleCommentSubmit}

@@ -13,9 +13,10 @@ interface RepliesProps {
     profileImgUrl: string;
     userId: number;
   }[];
+  onDelete: (id: number) => void;
 }
 
-function BoardRecommentList({ replies }: RepliesProps) {
+function BoardRecommentList({ replies, onDelete }: RepliesProps) {
   return (
     <RecommentListWrapper>
       {replies.map((reply) => (
@@ -27,6 +28,7 @@ function BoardRecommentList({ replies }: RepliesProps) {
           userId={reply.userId}
           time={reply.createdAt}
           profile={reply.profileImgUrl}
+          onDelete={onDelete}
         />
       ))}
     </RecommentListWrapper>

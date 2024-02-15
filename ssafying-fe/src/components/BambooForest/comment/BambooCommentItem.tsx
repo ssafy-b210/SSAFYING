@@ -9,13 +9,19 @@ interface CommentProps {
   commentId: number;
   content: string;
   userId: number;
+  onDelete: (id: number) => void;
 }
 
-function BambooCommentItem({ commentId, content, userId }: CommentProps) {
+function BambooCommentItem({
+  commentId,
+  content,
+  userId,
+  onDelete,
+}: CommentProps) {
   const user = useAppSelector(selectUser);
 
   async function clickDeleteBtn() {
-    await deleteBambooComment(commentId);
+    await onDelete(commentId);
   }
 
   return (

@@ -2,7 +2,11 @@ import styled from "styled-components";
 import BambooCommentList from "./BambooCommentList";
 import CommentInput from "../../Feed/Comment/CommentInput";
 import { useEffect, useState } from "react";
-import { selectOneBamboo, createBambooComment } from "../../../apis/api/Forest";
+import {
+  selectOneBamboo,
+  createBambooComment,
+  deleteBambooComment,
+} from "../../../apis/api/Forest";
 import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
 
@@ -40,10 +44,26 @@ function BambooComment({ bambooList, bambooId }: Props) {
     }
   };
 
+  //삭제 api 호출
+  const handleDeleteComment = async (commentId: number) => {
+    try {
+      await deleteBambooComment(commentId);
+
+      await fetchComments();
+    } catch (error) {
+      console.error("Error deleting crew", error);
+    }
+  };
+
   return (
     <div>
       <CommentWrapper>
-        {bambooData && <BambooCommentList commentList={bambooData} />}
+        {bambooData && (
+          <BambooCommentList
+            commentList={bambooData}
+            onDelete={handleDeleteComment}
+          />
+        )}
       </CommentWrapper>
       <CommentInputContainer>
         <CommentInput onSubmit={handleCommentSubmit} id={bambooId} />
