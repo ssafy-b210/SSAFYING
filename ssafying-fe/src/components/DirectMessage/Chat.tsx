@@ -16,6 +16,7 @@ import { selectUser } from "../../store/reducers/user";
 interface ChatProps {
   userId: number;
   message: string;
+  profileImageUrl: string;
   isContinuous: boolean;
 }
 
@@ -27,7 +28,7 @@ function Chat(props: ChatProps) {
     <Wrapper $isContinuous={props.isContinuous}>
       <ProfileImgWrapper>
         {isMine || (!isMine && props.isContinuous) ? null : (
-          <RoundImg size="36px" src={userImg} />
+          <RoundImg size="36px" src={props.profileImageUrl} />
         )}
       </ProfileImgWrapper>
       <SpeechBubble
