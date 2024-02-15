@@ -11,8 +11,8 @@ import CenterHeader from "../../../components/Common/CenterHeader";
 import Footer from "../../../components/Common/Footer";
 
 function CrewList() {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedLocation, setSelectedLocation] = useState<string>("지역");
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedLocation, setSelectedLocation] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleCategoryChange = (category: string) => {
@@ -71,7 +71,7 @@ function CrewList() {
       <SearchBar onLocationChange={handleLocationChange}></SearchBar>
       <CrewCardList
         selectedCategory={selectedCategory}
-        // selectedLocation={selectedLocation}
+        selectedLocation={selectedLocation}
       ></CrewCardList>
       <Footer></Footer>
     </Wrapper>

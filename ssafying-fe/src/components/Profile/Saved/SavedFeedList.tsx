@@ -3,6 +3,7 @@ import { selectSavedFeedList } from "../../../apis/api/Profile";
 import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
 import { useEffect, useState } from "react";
+import FeedListItem from "../../Feed/FeedMain/FeedListItem";
 
 function SavedFeedList() {
   const user = useAppSelector(selectUser);
@@ -11,7 +12,7 @@ function SavedFeedList() {
 
   async function getSavedFeedList() {
     const res = await selectSavedFeedList(user.userId);
-    if (res !== undefined) setSavedFeedList(res.data);
+    if (res !== undefined) setSavedFeedList(res.data.resultData);
   }
 
   useEffect(() => {
@@ -22,14 +23,21 @@ function SavedFeedList() {
     <div>
       {savedFeedList.length > 0 ? (
         <div>
-          {savedFeedList.map((data: any) => (
-            // FIX: 여기에 FeedItem 추가하기
-            <div key={data.id}>
-              <div>Scrap Feed Item</div>
-              <div>{`Content: ${data.content}`}</div>
-              <div>{`user: ${data.user.nickname}`}</div>
-            </div>
-          ))}
+          {savedFeedList.map((data: any) => {
+            const temp = { ...data };
+            const feedTags: { id: any; tagName: any }[] = [];
+
+            data.feedTags.map((el: any, index: any) => {
+              feedTags.push({
+                id: index + 1,
+                tagName: el,
+              });
+            });
+
+            temp.feedTags = feedTags;
+
+            return <FeedListItem key={data.id} feed={temp} />;
+          })}
         </div>
       ) : (
         <InfoText>저장된 게시물이 없습니다.</InfoText>

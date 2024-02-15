@@ -11,7 +11,7 @@ import { deleteCrew, selectCrewOne } from "../../../../apis/api/Crew";
 interface moreProps {
   card: {
     title: string;
-    writer: string;
+    nickname: string;
     isRecruit: boolean;
     category: string;
     region: string;

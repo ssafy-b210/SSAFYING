@@ -54,24 +54,24 @@ export async function selectCrewOne(crewId: number) {
 }
 
 // 구인 글 전체 조회
-export async function selectCrewList(
-  title?: string,
-  category?: string,
-  region?: string
-) {
+export async function selectCrewList(option: {
+  title?: string;
+  category?: string;
+  region?: string;
+}) {
   try {
     let url = "/api/crew";
 
     // URL에 추가될 쿼리스트링 파라미터들을 저장할 배열
     const queryParams = new URLSearchParams();
-    if (title) {
-      queryParams.append("title", title);
+    if (option.title) {
+      queryParams.append("title", option.title);
     }
-    if (category) {
-      queryParams.append("category", category);
+    if (option.category) {
+      queryParams.append("category", option.category);
     }
-    if (region) {
-      queryParams.append("region", region);
+    if (option.region) {
+      queryParams.append("region", option.region);
     }
 
     // 쿼리스트링 파라미터 배열을 URL에 추가
