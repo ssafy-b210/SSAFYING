@@ -2,7 +2,7 @@ import styled from "styled-components";
 import RoundImg from "../utils/RoundImg";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import FeedDetail from "../../../pages/Feed/FeedDetail";
+import profileImage from "../../../assets/img/userIcons/profileImage.jpg";
 
 interface userProps {
   senderId: number;
@@ -22,6 +22,8 @@ function AlarmItem({
   feedId,
 }: userProps) {
   const [timediff, setTimediff] = useState("");
+
+  const profileImg = imageUrl || profileImage;
 
   useEffect(() => {
     if (time !== null && time !== undefined) {
@@ -59,20 +61,20 @@ function AlarmItem({
         {
           LIKE: (
             <Link to={`/feed/${feedId}`} className="home">
-              <RoundImg src={imageUrl} size="30px" />
+              <RoundImg src={profileImg} size="30px" />
               <UserDiv>{nickname}</UserDiv>님이 &nbsp;회원님의 게시글을
               좋아합니다.
             </Link>
           ),
           FOLLOW: (
             <Link to={`/profile/${senderId}`} className="home">
-              <RoundImg src={imageUrl} size="30px" />
+              <RoundImg src={profileImg} size="30px" />
               <UserDiv>{nickname}</UserDiv>님이 &nbsp;회원님을 팔로우합니다.
             </Link>
           ),
           COMMENT: (
             <Link to={`/feed/${feedId}`} className="home">
-              <RoundImg src={imageUrl} size="30px" />
+              <RoundImg src={profileImg} size="30px" />
               <UserDiv>{nickname}</UserDiv>님이 &nbsp;회원님의 게시글에 댓글을
               남겼습니다.
             </Link>

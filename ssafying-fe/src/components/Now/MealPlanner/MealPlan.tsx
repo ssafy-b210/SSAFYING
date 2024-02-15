@@ -1,20 +1,47 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ImageRecognition from "./ImgToText";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
+import { createMeal, selectMealList } from "../../../apis/api/Meal";
 
 interface MealPlanProps {
   onVote: () => void;
   voteCount: number;
 }
-
 const MealPlan: React.FC<MealPlanProps> = ({ onVote, voteCount = 0 }) => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [mealPlanResult, setMealPlanResult] = useState<string[]>([]);
+  const user = useAppSelector(selectUser);
 
-  console.log(onVote);
+  useEffect(() => {
+    const savedMealPlanResult = localStorage.getItem("mealPlanResult");
+    if (savedMealPlanResult) {
+      setMealPlanResult(JSON.parse(savedMealPlanResult));
+    }
+  }, []);
 
-  console.log(mealPlanResult);
+  // 변경된 mealPlanResult를 로컬 스토리지에 저장
+  useEffect(() => {
+    localStorage.setItem("mealPlanResult", JSON.stringify(mealPlanResult));
+  }, [mealPlanResult]);
+
+  useEffect(() => {
+    async function fetchMealList() {
+      try {
+        const meals = await selectMealList(user.userId);
+        console.log("meals", meals);
+        setMealPlanResult(meals);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    if (mealPlanResult.length === 0) {
+      fetchMealList();
+    }
+  }, [user.campus, mealPlanResult.length]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -35,6 +62,17 @@ const MealPlan: React.FC<MealPlanProps> = ({ onVote, voteCount = 0 }) => {
   // 고유한 id 생성
   const inputId = `chooseFile_${Math.random().toString(36).substr(2, 9)}`;
 
+  const saveMealPlanResult = async () => {
+    try {
+      for (const result of mealPlanResult) {
+        await createMeal(user.campus, result);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  console.log(mealPlanResult);
   return (
     <div>
       <MealPlanContainer>
@@ -49,7 +87,11 @@ const MealPlan: React.FC<MealPlanProps> = ({ onVote, voteCount = 0 }) => {
       </MealPlanContainer>
       <IsLikeContainer>
         <button onClick={onVote}>투표하기</button>
-        <label className="file-label" htmlFor={inputId}>
+        <label
+          className="file-label"
+          htmlFor={inputId}
+          onClick={saveMealPlanResult}
+        >
           추가하기
         </label>
         <input
@@ -113,28 +155,7 @@ const IsLikeContainer = styled.div`
     display: none;
   }
 `;
-// const IsLikeButton = styled.button`
-//   border-radius: 20px;
-//   border: 1px solid gray;
-//   background-color: transparent;
-//   font-family: "Noto Sans KR", "Noto Sans";
-//   font-size: 15px;
-//   padding: 10px;
-//   transition: background-color 0.3s;
 
-//   &:hover {
-//     background-color: lightblue;
-//   }
-//   &:active {
-//     background-color: lightcoral;
-//   }
-//   margin: 5px;
-// `;
-// const VoteCountText = styled.p`
-//   margin-top: 5px;
-//   font-size: 14px;
-//   color: gray;
-// `;
 const StyledParagraph = styled.p`
   margin: 5px 0;
 `;

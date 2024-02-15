@@ -68,21 +68,18 @@ function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
         <Card>
           <Content>
             <Title>{crewData.title}</Title>
-            <Writer>
-              <div className="small-title">By.</div> {crewData.nickname}
-            </Writer>
-            <Location>
-              <div className="small-title">지역</div>
-              {crewData.region}
-            </Location>
-            <Category>
-              <div className="small-title">카테고리</div>
-              {crewData.category}
-            </Category>
-            <IsRecruiting>
-              <div className="small-title">모집여부</div>
-              {crewData.isRecruit}
-            </IsRecruiting>
+            <Text>
+              By. &nbsp; <span>{crewData.nickname}</span>
+            </Text>
+            <Text>
+              지역 &nbsp; <span>{crewData.region}</span>
+            </Text>
+            <Text>
+              카테고리 &nbsp; <span>{crewData.category}</span>
+            </Text>
+            <Text>
+              모집여부 &nbsp;<span>{crewData.isRecruit}</span>
+            </Text>
             <Copy>{crewData.content}</Copy>
             {user.nickname === crewData.nickname && (
               <Flex>
@@ -97,6 +94,7 @@ function CrewMoreModal({ card, crewId, onDelete }: moreProps) {
             )}
             <hr />
           </Content>
+          <div>댓글</div>
           <CommentContainer>
             <CrewCommentList
               crewId={crewId}
@@ -121,7 +119,8 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 320px;
+  width: 100%;
+  max-width: 500px;
   height: 500px;
   text-align: center;
   border-radius: 10px;
@@ -146,57 +145,35 @@ const Content = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 1rem;
+  padding: 5px;
   z-index: 1;
   hr {
     width: 90%;
   }
+  div {
+    margin-top: 5px;
+  }
 `;
-const Title = styled.h1`
-  font-size: 20px;
+const Title = styled.div`
+  font-size: 18px;
+  font-weight: bold;
 `;
-const Copy = styled.p`
-  font-family: var(--font-serif);
-  font-size: 1.125rem;
-  line-height: 1.35;
-  width: 100%;
+const Copy = styled.div`
+  font-size: 13px;
+  width: 90%;
   height: 100px;
+  margin-top: 5px;
 `;
-const Writer = styled.p`
-  display: flex;
-  flex-direction: row;
-  .small-title {
-    font-weight: bold;
-    padding-right: 10px;
-  }
-`;
-const IsRecruiting = styled.p`
-  display: flex;
-  flex-direction: row;
-  .small-title {
-    font-weight: bold;
-    padding-right: 10px;
-  }
-`;
-const Location = styled.p`
-  display: flex;
-  flex-direction: row;
-  .small-title {
-    font-weight: bold;
-    padding-right: 10px;
-  }
-`;
-const Category = styled.p`
-  display: flex;
-  flex-direction: row;
-  .small-title {
-    font-weight: bold;
-    padding-right: 10px;
+
+const Text = styled.div`
+  span {
+    font-size: 13px;
   }
 `;
 
 const CommentContainer = styled.div`
   width: 100%;
+  height: 40%;
   background-color: white;
 `;
 

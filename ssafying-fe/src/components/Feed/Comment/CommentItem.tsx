@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import deleteBtn from "../../../assets/img/imgBtn/deleteBtn.svg";
-import userProfileImg from "../../../assets/img/userIcons/userProfileImg.svg";
+import profileImage from "../../../assets/img/userIcons/profileImage.jpg";
 import RoundImg from "../utils/RoundImg";
 import ImgBtn from "../utils/ImgBtn";
 import RecommentList from "./RecommentList";
@@ -31,7 +31,7 @@ function CommentItem({
   replies,
 }: CommentProps) {
   const user = useAppSelector(selectUser);
-  const profileImageUrl = commentUser.profileImageUrl || userProfileImg;
+  const profileImageUrl = commentUser.profileImageUrl || profileImage;
 
   async function clickDeleteBtn() {
     await deleteFeedComment(commentId);

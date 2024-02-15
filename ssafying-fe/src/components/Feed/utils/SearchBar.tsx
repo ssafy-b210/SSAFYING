@@ -6,19 +6,16 @@ import { Link } from "react-router-dom";
 
 interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder: string;
 }
 
-function SearchBar({ onChange }: Props) {
+function SearchBar({ onChange, placeholder }: Props) {
   return (
     <SearchBarWrapper>
       <Link to="/feedhome" className="back">
         <ImgBtn src={backArrow} size="21px" />
       </Link>
-      <input
-        type="text"
-        onChange={onChange}
-        placeholder="검색어를 입력해주세요."
-      />
+      <input type="text" onChange={onChange} placeholder={placeholder} />
     </SearchBarWrapper>
   );
 }
