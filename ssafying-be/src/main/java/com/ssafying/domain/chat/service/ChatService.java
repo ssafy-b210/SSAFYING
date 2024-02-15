@@ -198,6 +198,8 @@ public class ChatService {
 
     private ChatMessageDto convertToMessageDto(ChatMessage chatMessage) {
         return ChatMessageDto.builder()
+                .id(chatMessage.getId())
+                .chatRoomId(chatMessage.getChatRoom().getId())
                 .userInfo(SimpleUserDto.builder()
                         .id(chatMessage.getUser().getId())
                         .nickname(chatMessage.getUser().getNickname())
