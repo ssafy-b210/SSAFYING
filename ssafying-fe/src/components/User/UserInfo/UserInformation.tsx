@@ -74,18 +74,18 @@ function UserInformation(props: { profileDownloadUrl: string | null }) {
       bioLink
     );
 
-    dispatch(
-      saveUserInfo({
-        isLoggedIn: true,
-        userId: user.userId,
-        username: user.username,
-        email: user.email,
-        password: password || user.password,
-        nickname: nickname || user.nickname,
-        campus: user.campus,
-        profileImgUrl: profileDownloadUrl || user.profileImgUrl,
-      })
-    );
+    // dispatch(
+    //   saveUserInfo({
+    //     isLoggedIn: true,
+    //     userId: user.userId,
+    //     username: user.username,
+    //     email: user.email,
+    //     password: password || user.password,
+    //     nickname: nickname || user.nickname,
+    //     campus: user.campus,
+    //     profileImgUrl: profileDownloadUrl || user.profileImgUrl,
+    //   })
+    //);
 
     setIsEditMode(false);
     setUserInfo(editedUserInfo);
