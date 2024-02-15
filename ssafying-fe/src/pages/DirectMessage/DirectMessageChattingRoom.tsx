@@ -4,7 +4,11 @@ import styled from "styled-components";
 import ExitBtn from "../../components/Common/ExitBtn";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
-import { selecctChatList, selectChattingRoomDetail } from "../../apis/api/Chat";
+import {
+  exitChattingRoom,
+  selecctChatList,
+  selectChattingRoomDetail,
+} from "../../apis/api/Chat";
 import ChatHeaderProfile from "../../components/DirectMessage/ChatHeaderProfile";
 import { getChattingRoomName } from "../../components/DirectMessage/util";
 import { useAppSelector } from "../../store/hooks";
@@ -140,7 +144,7 @@ function DirectMessageChattingRoom() {
 
   // 메시지 전송
   function sendMessage() {
-    if (stompClient && stompClient.current?.connected) {
+    if (stompClient && stompClient.current?.connected && inputValue) {
       const sendMessage: SendMessage = {
         userId: user.userId,
         message: inputValue,
@@ -188,6 +192,8 @@ function DirectMessageChattingRoom() {
   // 채팅방 나가기 버튼 Click event handler
   async function handleClickExitButton() {
     alert("채팅방을 나갑니다.");
+    // const res = await exitChattingRoom()
+
     // confirm 띄우고
     // 채팅방 상세 조회 후
     // id로 삭제 API 실행
