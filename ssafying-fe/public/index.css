@@ -21,7 +21,6 @@ html {
 
 body {
   margin: 0;
-  height: 100%;
   font-family: "Noto Sans KR", "Noto Sans", sans-serif;
   background: linear-gradient(70deg, #e9feff, #b5e7ef, #ffc6fc);
   background-size: 200% 200%;
