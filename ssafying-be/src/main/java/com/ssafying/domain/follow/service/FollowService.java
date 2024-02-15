@@ -162,17 +162,18 @@ public class FollowService {
             return -2;
         }
 
-        Follow follow = Follow.addFollow(fromUser, toUser);
+        Follow follow = Follow.addFollow(fromUser, toUser); //sender, receiver
 
         followRepository.save(follow);
 
         //sse 추가
         SseResponse sseResponse = SseResponse.builder()
-                .receiverId(fromUser.getId())
+                .senderId(fromUser.getId())
                 .nickname(fromUser.getNickname())
                 .imgUrl(fromUser.getProfileImageUrl())
                 .feedId(null)
                 .createdAt(follow.getCreatedAt())
+                .type(NotificationTypeStatus.FOLLOW)
                 .build();
 
         notificationService.customNotify(toUser.getId(), sseResponse, "새로운 팔로우가 생겼습니다.", "follow");
