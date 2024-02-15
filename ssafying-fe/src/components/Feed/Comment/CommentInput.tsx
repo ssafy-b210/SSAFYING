@@ -41,7 +41,7 @@ const CommentInput: React.FC<CommentInputProps> = ({
           }
         } else if (target === "crew") {
           if (highlighted === null) {
-            await createCrewComment(id, user.userId, comment, -1);
+            await createCrewComment(id, user.userId, comment);
           } else {
             await createCrewComment(id, user.userId, comment, highlighted);
           }

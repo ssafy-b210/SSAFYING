@@ -2,6 +2,7 @@ import styled from "styled-components";
 import RoundImg from "../utils/RoundImg";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import FeedDetail from "../../../pages/Feed/FeedDetail";
 
 interface userProps {
   userId: number;
