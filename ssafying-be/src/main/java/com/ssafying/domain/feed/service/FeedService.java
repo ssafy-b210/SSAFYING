@@ -5,6 +5,7 @@ import com.ssafying.domain.alert.entity.Notification;
 import com.ssafying.domain.alert.entity.NotificationTypeStatus;
 import com.ssafying.domain.alert.repository.NotificationRepository;
 import com.ssafying.domain.alert.service.NotificationService;
+import com.ssafying.domain.board.dto.request.FeedScrapExistRequest;
 import com.ssafying.domain.feed.dto.FeedDto;
 import com.ssafying.domain.feed.dto.FeedHashtagDto;
 import com.ssafying.domain.feed.dto.FeedImageDto;
@@ -263,10 +264,6 @@ public class FeedService {
     public List<GetFeedLikesResponse> findFeedLike(int feedId) {
         List<FeedLike> feedLikeList = feedLikeRepository.findByFeed(getFeed(feedId));
 
-        if (feedLikeList.isEmpty()) {
-            throw new RuntimeException("해당 " +feedId + "번 피드 id로 좋아요 목록을 찾지 못했습니다");
-        }
-
         return feedLikeList.stream()
                 .map(feedLike -> {
                     User user = getUser(feedLike.getUser().getId());
@@ -482,6 +479,18 @@ public class FeedService {
         feedCommentLikeRepository.delete(existingCommentLike);
         return request.getCommentId();
     }
+
+    /**
+     * 피드 스크랩여부
+     * 
+     */
+    public boolean isScrapFeed(int userId, int feedId) {
+        User user = getUser(userId);
+        Feed feed = getFeed(feedId);
+
+        return feedScrapRepository.findByFeedAndUser(feed, user).isPresent();
+    }
+
 
 
     private Hashtag createAndSaveTag(String tag) {
