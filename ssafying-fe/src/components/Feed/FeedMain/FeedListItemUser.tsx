@@ -43,6 +43,7 @@ function FeedListItemUser({
 
   const deleteFeed = async () => {
     await deleteFeedItem(feedId);
+    window.location.reload();
   };
 
   function calcTimeDiff() {
