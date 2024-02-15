@@ -53,7 +53,7 @@ public class FeedController {
      *
      */
     @GetMapping("/feeds/{userId}/list")
-    @Operation(summary = "팔로잉한 유저 피드 조회")
+    @Operation(summary = "팔로잉한 유저 피드 조회, 본인피드 조회")
     public ResponseEntity<ResultResponse<List<FeedDto>>> feedList(@PathVariable(name = "userId") int userId) {
         List<FeedDto> feeds =  feedService.findFeed(userId);
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), feeds));

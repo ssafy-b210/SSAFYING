@@ -3,7 +3,6 @@ package com.ssafying.domain.alert.repository;
 import com.ssafying.domain.alert.entity.Notification;
 import com.ssafying.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -15,5 +14,5 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
 //            from notifications n
 //            where
 //            """)
-    List<Notification> findByReceiverId(User receiverUser);
+List<Notification> findByReceiverUserOrderByCreatedAtDesc(User receiverUser);
 }

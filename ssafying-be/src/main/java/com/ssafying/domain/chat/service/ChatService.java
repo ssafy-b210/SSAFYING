@@ -1,6 +1,7 @@
 package com.ssafying.domain.chat.service;
 
 import com.ssafying.domain.chat.dto.*;
+import com.ssafying.domain.chat.dto.request.ChatRoomExitRequest;
 import com.ssafying.domain.chat.entity.ChatMessage;
 import com.ssafying.domain.chat.entity.ChatRoom;
 import com.ssafying.domain.chat.entity.ChatRoomUser;
@@ -122,11 +123,13 @@ public class ChatService {
 
     // 방 나가기 (남은유저 0명이면 삭제)
     @Transactional
-    public Integer exitChatRoom(int joinRoomId) {
+    public Integer exitChatRoom(ChatRoomExitRequest request) {
 
-        ChatRoomUser chatRoomUser = chatRoomUserRepository.findById(joinRoomId)
+        ChatRoom chatRoom = getChatRoom(request.getChatRoomId());
+        User user = getUser(request.getUserId());
+
+        ChatRoomUser chatRoomUser = chatRoomUserRepository.findByUserAndChatRoom(user, chatRoom)
                 .orElseThrow(() -> new RuntimeException("해당하는 참여 채팅방이 없습니다"));
-        ChatRoom chatRoom = chatRoomUser.getChatRoom();
 
         List<ChatRoomUser> chatRoomUsers = chatRoom.getChatRoomUserList();
 
@@ -139,7 +142,7 @@ public class ChatService {
             chatRoomRepository.deleteById(chatRoom.getId());
         }
 
-        return joinRoomId;
+        return chatRoomUser.getId();
     }
 
 
@@ -198,6 +201,8 @@ public class ChatService {
 
     private ChatMessageDto convertToMessageDto(ChatMessage chatMessage) {
         return ChatMessageDto.builder()
+                .id(chatMessage.getId())
+                .chatRoomId(chatMessage.getChatRoom().getId())
                 .userInfo(SimpleUserDto.builder()
                         .id(chatMessage.getUser().getId())
                         .nickname(chatMessage.getUser().getNickname())
