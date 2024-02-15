@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import RoundImg from "../../Feed/utils/RoundImg";
 import { Link } from "react-router-dom";
+import profileImage from "../../../assets/img/userIcons/profileImage.jpg";
 
 type FollowProfileProps = {
   id: number;
@@ -21,11 +22,13 @@ function FollowProfileListItem(props: FollowProfileProps) {
       props.onClickUnfollowButton(props.id, props.nickname);
   }
 
+  const profile = props.userImageUrl || profileImage;
+
   return (
     <Wrapper>
       <div className="profile-container">
         <Link to={`/profile/${props.id}`}>
-          <RoundImg src={props.userImageUrl} size="45" />
+          <RoundImg src={profile} size="45" />
         </Link>
         <div className="text">
           <Link to={`/profile/${props.id}`}>{props.nickname}</Link>
