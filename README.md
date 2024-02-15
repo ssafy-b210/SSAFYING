@@ -82,3 +82,300 @@ NGiNX, aws, Jenkins, Docker
 
 ## 아키텍처
 ![image](/uploads/fb2a899a29b42ef05ebe9a7322dfa549/image.png)
+
+## 📂 프로젝트 구성도
+```jsx
+📦public
+ ┣ 📜favicon.ico
+ ┣ 📜index.css
+ ┣ 📜index.html
+ ┣ 📜manifest.json
+ ┗ 📜robots.txt
+📦src
+ ┣ 📂apis
+ ┃ ┣ 📂api
+ ┃ ┃ ┣ 📂recruitment
+ ┃ ┃ ┃ ┗ 📜saramin.ts
+ ┃ ┃ ┣ 📂shuttle
+ ┃ ┃ ┃ ┗ 📜tmap.ts
+ ┃ ┃ ┣ 📜Alarm.ts
+ ┃ ┃ ┣ 📜Auth.ts
+ ┃ ┃ ┣ 📜Board.ts
+ ┃ ┃ ┣ 📜Bus.ts
+ ┃ ┃ ┣ 📜Chat.ts
+ ┃ ┃ ┣ 📜Crew.ts
+ ┃ ┃ ┣ 📜Feed.ts
+ ┃ ┃ ┣ 📜Follow.ts
+ ┃ ┃ ┣ 📜Forest.ts
+ ┃ ┃ ┣ 📜Market.ts
+ ┃ ┃ ┣ 📜Meal.ts
+ ┃ ┃ ┣ 📜Profile.ts
+ ┃ ┃ ┣ 📜Recommend.ts
+ ┃ ┃ ┣ 📜Recruit.ts
+ ┃ ┃ ┗ 📜User.ts
+ ┃ ┣ 📂constants
+ ┃ ┃ ┣ 📜api.ts
+ ┃ ┃ ┣ 📜index.ts
+ ┃ ┃ ┗ 📜token.ts
+ ┃ ┣ 📂utils
+ ┃ ┃ ┣ 📜axios.ts
+ ┃ ┃ ┗ 📜saramin.ts
+ ┃ ┗ 📜firebase.ts
+ ┣ 📂assets
+ ┃ ┗ 📂img
+ ┃ ┃ ┣ 📂Btn
+ ┃ ┃ ┣ 📂imgBtn
+ ┃ ┃ ┣ 📂logoImg
+ ┃ ┃ ┣ 📂MenuIcon
+ ┃ ┃ ┣ 📂ProfileIcons
+ ┃ ┃ ┣ 📂socialLoginIcons
+ ┃ ┃ ┣ 📂TabBar
+ ┃ ┃ ┣ 📂testImg
+ ┃ ┃ ┣ 📂userIcons
+ ┃ ┃ ┣ 📂userLoginIcons
+ ┣ 📂components
+ ┃ ┣ 📂All
+ ┃ ┃ ┣ 📂Board
+ ┃ ┃ ┃ ┣ 📂BoardCreate
+ ┃ ┃ ┃ ┃ ┣ 📜CheckAnonymous.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜CreateContent.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜CreateTitle.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜SelectCategory.tsx
+ ┃ ┃ ┃ ┣ 📂BoardList
+ ┃ ┃ ┃ ┃ ┣ 📜BoardCardList.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜BoardCardListItem.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜BoardCommentItem.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜BoardCommentList.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜BoardCreateModal.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜BoardMoreModal.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜BoardRecommentItem.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜BoardRecommentList.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜BoardSortTab.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜BoardUpdateModal.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜SearchBarOnly.tsx
+ ┃ ┃ ┃ ┣ 📂BoardMenu
+ ┃ ┃ ┃ ┃ ┣ 📜MenuBar.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜MenuHeader.tsx
+ ┃ ┃ ┃ ┗ 📜BoardBtn.tsx
+ ┃ ┃ ┣ 📂Crew
+ ┃ ┃ ┃ ┣ 📂CrewList
+ ┃ ┃ ┃ ┃ ┣ 📜CrewCardList.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜CrewCardListItem.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜CrewCommentItem.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜CrewCommentList.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜CrewCreateModal.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜CrewMoreModal.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜CrewRecommentItem.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜CrewRecommentList.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜CrewSortTab.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜SearchBar.tsx
+ ┃ ┃ ┃ ┗ 📜ToggleBtn.tsx
+ ┃ ┃ ┗ 📂Recruitment
+ ┃ ┃ ┃ ┣ 📜FlipCard.tsx
+ ┃ ┃ ┃ ┣ 📜FlipCardList.tsx
+ ┃ ┃ ┃ ┣ 📜RecruitmentSaramin.tsx
+ ┃ ┃ ┃ ┗ 📜RecruitSortTab.tsx
+ ┃ ┣ 📂BambooForest
+ ┃ ┃ ┣ 📂comment
+ ┃ ┃ ┃ ┣ 📜BambooComment.tsx
+ ┃ ┃ ┃ ┣ 📜BambooCommentItem.tsx
+ ┃ ┃ ┃ ┗ 📜BambooCommentList.tsx
+ ┃ ┃ ┣ 📜BambooForestBack.tsx
+ ┃ ┃ ┣ 📜BambooForestContent.tsx
+ ┃ ┃ ┣ 📜BambooForestInfo.tsx
+ ┃ ┃ ┣ 📜BambooForestList.tsx
+ ┃ ┃ ┣ 📜BambooForestListItem.tsx
+ ┃ ┃ ┣ 📜BambooMoreModal.tsx
+ ┃ ┃ ┗ 📜BambooWriteModal.tsx
+ ┃ ┣ 📂Common
+ ┃ ┃ ┣ 📜BackBtn.tsx
+ ┃ ┃ ┣ 📜BackBtnHeader.tsx
+ ┃ ┃ ┣ 📜BottomNavBar.tsx
+ ┃ ┃ ┣ 📜CenterHeader.tsx
+ ┃ ┃ ┣ 📜ExitBtn.tsx
+ ┃ ┃ ┣ 📜Footer.tsx
+ ┃ ┃ ┣ 📜Modal.tsx
+ ┃ ┃ ┣ 📜PlusBtn.tsx
+ ┃ ┃ ┗ 📜SubmitBtn.tsx
+ ┃ ┣ 📂DirectMessage
+ ┃ ┃ ┣ 📜Chat.tsx
+ ┃ ┃ ┣ 📜ChatHeaderProfile.tsx
+ ┃ ┃ ┣ 📜ChattingRoomListItem.tsx
+ ┃ ┃ ┣ 📜SpeechBubble.tsx
+ ┃ ┃ ┗ 📜util.ts
+ ┃ ┣ 📂Feed
+ ┃ ┃ ┣ 📂Alarm
+ ┃ ┃ ┃ ┣ 📜AlarmItem.tsx
+ ┃ ┃ ┃ ┣ 📜AlarmItemList.tsx
+ ┃ ┃ ┃ ┗ 📜Notification.tsx
+ ┃ ┃ ┣ 📂Comment
+ ┃ ┃ ┃ ┣ 📜CommentInput.tsx
+ ┃ ┃ ┃ ┣ 📜CommentItem.tsx
+ ┃ ┃ ┃ ┣ 📜CommentList.tsx
+ ┃ ┃ ┃ ┣ 📜CommentModal.tsx
+ ┃ ┃ ┃ ┣ 📜RecommentItem.tsx
+ ┃ ┃ ┃ ┗ 📜RecommentList.tsx
+ ┃ ┃ ┣ 📂FeedCreate
+ ┃ ┃ ┃ ┣ 📜FeedContentInput.tsx
+ ┃ ┃ ┃ ┣ 📜ImgCropper.tsx
+ ┃ ┃ ┃ ┣ 📜ImgEdit.tsx
+ ┃ ┃ ┃ ┣ 📜ImgUploader.tsx
+ ┃ ┃ ┃ ┣ 📜SelectHashtag.tsx
+ ┃ ┃ ┃ ┗ 📜TextArea.tsx
+ ┃ ┃ ┣ 📂FeedDetail
+ ┃ ┃ ┃ ┗ 📜FeedDetailContent.tsx
+ ┃ ┃ ┣ 📂FeedMain
+ ┃ ┃ ┃ ┣ 📜FeedContent.tsx
+ ┃ ┃ ┃ ┣ 📜FeedHeader.tsx
+ ┃ ┃ ┃ ┣ 📜FeedLikeCnt.tsx
+ ┃ ┃ ┃ ┣ 📜FeedList.tsx
+ ┃ ┃ ┃ ┣ 📜FeedListItem.tsx
+ ┃ ┃ ┃ ┣ 📜FeedListItemBtn.tsx
+ ┃ ┃ ┃ ┣ 📜FeedListItemImg.tsx
+ ┃ ┃ ┃ ┗ 📜FeedListItemUser.tsx
+ ┃ ┃ ┣ 📂Search
+ ┃ ┃ ┃ ┣ 📜HashSearchItem.tsx
+ ┃ ┃ ┃ ┣ 📜HashSearchList.tsx
+ ┃ ┃ ┃ ┣ 📜SearchResult.tsx
+ ┃ ┃ ┃ ┗ 📜UserItemList.tsx
+ ┃ ┃ ┣ 📂UserRecommend
+ ┃ ┃ ┃ ┣ 📜UserRecommendList.tsx
+ ┃ ┃ ┃ ┗ 📜UserRecommendListItem.tsx
+ ┃ ┃ ┗ 📂utils
+ ┃ ┃ ┃ ┣ 📜FollowBtn.tsx
+ ┃ ┃ ┃ ┣ 📜ImgBtn.tsx
+ ┃ ┃ ┃ ┣ 📜RoundImg.tsx
+ ┃ ┃ ┃ ┣ 📜SearchBar.tsx
+ ┃ ┃ ┃ ┣ 📜SignupHashTag.tsx
+ ┃ ┃ ┃ ┗ 📜UserItem.tsx
+ ┃ ┣ 📂ImgHandle
+ ┃ ┃ ┣ 📜DataToFile.ts
+ ┃ ┃ ┗ 📜ImgCompress.tsx
+ ┃ ┣ 📂Now
+ ┃ ┃ ┣ 📂BoardMenu
+ ┃ ┃ ┃ ┗ 📜MenuBar.tsx
+ ┃ ┃ ┣ 📂BusRealTime
+ ┃ ┃ ┣ 📂Market
+ ┃ ┃ ┃ ┣ 📜AddPhoto.tsx
+ ┃ ┃ ┃ ┣ 📜MarketCardList.tsx
+ ┃ ┃ ┃ ┣ 📜MarketCardListItem.tsx
+ ┃ ┃ ┃ ┣ 📜MarketCreateModal.tsx
+ ┃ ┃ ┃ ┣ 📜MarketMoreModal.tsx
+ ┃ ┃ ┃ ┣ 📜MarketPriceInput.tsx
+ ┃ ┃ ┃ ┣ 📜MarketSortTab.tsx
+ ┃ ┃ ┃ ┗ 📜ToggleBtn.tsx
+ ┃ ┃ ┗ 📂MealPlanner
+ ┃ ┃ ┃ ┣ 📜BarChart.tsx
+ ┃ ┃ ┃ ┣ 📜ImgToText.tsx
+ ┃ ┃ ┃ ┣ 📜MealPlan.tsx
+ ┃ ┃ ┃ ┣ 📜MealPlannerComp.tsx
+ ┃ ┃ ┃ ┣ 📜NoMealPlannerComp.tsx
+ ┃ ┃ ┃ ┣ 📜SelectCampus.tsx
+ ┃ ┃ ┃ ┗ 📜TodayDate.tsx
+ ┃ ┣ 📂Profile
+ ┃ ┃ ┣ 📂Follow
+ ┃ ┃ ┃ ┣ 📜FollowProfileList.tsx
+ ┃ ┃ ┃ ┗ 📜FollowProfileListItem.tsx
+ ┃ ┃ ┣ 📂MyContents
+ ┃ ┃ ┃ ┣ 📜ContentFeedSection.tsx
+ ┃ ┃ ┃ ┣ 📜ContentPortfolioSection.tsx
+ ┃ ┃ ┃ ┣ 📜ContentSavedSection.tsx
+ ┃ ┃ ┃ ┣ 📜ContentTabBar.tsx
+ ┃ ┃ ┃ ┗ 📜MyContentsContainer.tsx
+ ┃ ┃ ┣ 📂ProfileMain
+ ┃ ┃ ┃ ┣ 📜FollowButton.tsx
+ ┃ ┃ ┃ ┣ 📜ProfileContainer.tsx
+ ┃ ┃ ┃ ┣ 📜ProfileHeader.tsx
+ ┃ ┃ ┃ ┣ 📜ProfileImageContainer.tsx
+ ┃ ┃ ┃ ┣ 📜ProfileIntroduction.tsx
+ ┃ ┃ ┃ ┣ 📜ProfileLinkList.tsx
+ ┃ ┃ ┃ ┣ 📜ProfileSection.tsx
+ ┃ ┃ ┃ ┗ 📜ProfileSetting.tsx
+ ┃ ┃ ┗ 📂Saved
+ ┃ ┃ ┃ ┣ 📜SavedBoardList.tsx
+ ┃ ┃ ┃ ┣ 📜SavedFeedList.tsx
+ ┃ ┃ ┃ ┗ 📜SavedRecruitmentList.tsx
+ ┃ ┗ 📂User
+ ┃ ┃ ┣ 📂Login
+ ┃ ┃ ┃ ┣ 📜Forgotpw.tsx
+ ┃ ┃ ┃ ┣ 📜LoginBtn.tsx
+ ┃ ┃ ┃ ┣ 📜LoginForm.tsx
+ ┃ ┃ ┃ ┣ 📜LoginHeader.tsx
+ ┃ ┃ ┃ ┗ 📜SignupBtn.tsx
+ ┃ ┃ ┣ 📂Signup
+ ┃ ┃ ┃ ┣ 📜LifeBtn.tsx
+ ┃ ┃ ┃ ┣ 📜NickNameData.json
+ ┃ ┃ ┃ ┣ 📜ProgressBar.tsx
+ ┃ ┃ ┃ ┣ 📜RandomNicknameGenerator.tsx
+ ┃ ┃ ┃ ┣ 📜SelectTagForm.tsx
+ ┃ ┃ ┃ ┣ 📜SignupForm.tsx
+ ┃ ┃ ┃ ┗ 📜WorkBtn.tsx
+ ┃ ┃ ┣ 📂UserInfo
+ ┃ ┃ ┃ ┣ 📜ImageCropper.tsx
+ ┃ ┃ ┃ ┣ 📜ProfileImage.tsx
+ ┃ ┃ ┃ ┣ 📜UserInformation.tsx
+ ┃ ┃ ┃ ┗ 📜UserProfile.tsx
+ ┃ ┃ ┣ 📂UserUpdate
+ ┃ ┃ ┃ ┣ 📜UserUpdateForm.tsx
+ ┃ ┃ ┃ ┗ 📜UserUpdateHeader.tsx
+ ┃ ┃ ┣ 📜SsafyAuth.tsx
+ ┃ ┃ ┗ 📜UserLeave.tsx
+ ┣ 📂firebase
+ ┃ ┗ 📜UploadImage.tsx
+ ┣ 📂pages
+ ┃ ┣ 📂All
+ ┃ ┃ ┣ 📂Board
+ ┃ ┃ ┃ ┗ 📜BoardList.tsx
+ ┃ ┃ ┣ 📂Crew
+ ┃ ┃ ┃ ┗ 📜CrewList.tsx
+ ┃ ┃ ┣ 📂Recruitment
+ ┃ ┃ ┃ ┗ 📜RecruitementList.tsx
+ ┃ ┃ ┗ 📜AllMenu.tsx
+ ┃ ┣ 📂BambooForest
+ ┃ ┃ ┗ 📜BambooForest.tsx
+ ┃ ┣ 📂DirectMessage
+ ┃ ┃ ┣ 📜DirectMessageChats.tsx
+ ┃ ┃ ┣ 📜DirectMessageChattingRoom.tsx
+ ┃ ┃ ┗ 📜DirectMessageCreate.tsx
+ ┃ ┣ 📂Feed
+ ┃ ┃ ┣ 📜AlarmDetail.tsx
+ ┃ ┃ ┣ 📜FeedCreate.tsx
+ ┃ ┃ ┣ 📜FeedDetail.tsx
+ ┃ ┃ ┣ 📜FeedMain.tsx
+ ┃ ┃ ┣ 📜FeedSearch.tsx
+ ┃ ┃ ┗ 📜FeedUpdate.tsx
+ ┃ ┣ 📂Now
+ ┃ ┃ ┣ 📂BusRealTime
+ ┃ ┃ ┃ ┣ 📜BusRealTimeMap.tsx
+ ┃ ┃ ┃ ┣ 📜BusRealTimeSelect.tsx
+ ┃ ┃ ┃ ┗ 📜Tmap.tsx
+ ┃ ┃ ┣ 📂Market
+ ┃ ┃ ┃ ┗ 📜MarketList.tsx
+ ┃ ┃ ┣ 📂MealPlanner
+ ┃ ┃ ┃ ┣ 📜MealPlannerCreate.tsx
+ ┃ ┃ ┃ ┣ 📜MealPlannerView.tsx
+ ┃ ┃ ┃ ┗ 📜SelectCampusMeal.tsx
+ ┃ ┃ ┗ 📜NowMenu.tsx
+ ┃ ┣ 📂Profile
+ ┃ ┃ ┣ 📜FollowerList.tsx
+ ┃ ┃ ┣ 📜FollowingList.tsx
+ ┃ ┃ ┗ 📜ProfileMain.tsx
+ ┃ ┗ 📂User
+ ┃ ┃ ┣ 📜UserAuth.tsx
+ ┃ ┃ ┣ 📜UserDetail.tsx
+ ┃ ┃ ┣ 📜UserLeave.tsx
+ ┃ ┃ ┣ 📜UserLogin.tsx
+ ┃ ┃ ┣ 📜UserSelectTag.tsx
+ ┃ ┃ ┣ 📜UserSignup.tsx
+ ┃ ┃ ┗ 📜UserUpdate.tsx
+ ┣ 📂store
+ ┃ ┣ 📂reducers
+ ┃ ┃ ┗ 📜user.ts
+ ┃ ┣ 📜hooks.ts
+ ┃ ┣ 📜rootReducer.ts
+ ┃ ┗ 📜slice.ts
+ ┣ 📜App.tsx
+ ┣ 📜index.tsx
+ ┣ 📜react-app-env.d.ts
+ ┗ 📜store.ts
+```
