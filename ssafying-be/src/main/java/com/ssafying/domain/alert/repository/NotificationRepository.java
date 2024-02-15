@@ -14,5 +14,5 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
 //            from notifications n
 //            where
 //            """)
-List<Notification> findByReceiverUser(User receiverUser);
+List<Notification> findByReceiverUserOrderByCreatedAtDesc(User receiverUser);
 }
