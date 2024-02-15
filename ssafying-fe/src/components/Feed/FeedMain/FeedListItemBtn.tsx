@@ -8,10 +8,12 @@ import CommentModal from "../Comment/CommentModal";
 import React, { useState, useEffect } from "react";
 import saveBtnBlack from "../../../assets/img/imgBtn/saveBtnBlack.svg";
 import saveBtnWhite from "../../../assets/img/imgBtn/saveBtnWhite.svg";
-import { scrapFeed } from "../../../apis/api/Feed";
-import { cancelscrapFeed } from "../../../apis/api/Feed";
-import { likeFeed } from "../../../apis/api/Feed";
-import { cancelLikeFeed } from "../../../apis/api/Feed";
+import {
+  scrapFeed,
+  cancelscrapFeed,
+  likeFeed,
+  cancelLikeFeed,
+} from "../../../apis/api/Feed";
 import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
 
