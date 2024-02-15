@@ -236,13 +236,26 @@ function DirectMessageChattingRoom() {
     );
   }
 
+  function getChatHeaderImg(): string {
+    const info = chattingRoomDetail.joinUserInfo;
+
+    for (let i = 0; i < info.length; i++) {
+      if (info[i].id === user.userId) continue;
+      return info[i].profileImageUrl;
+    }
+
+    return "";
+  }
+
   return (
     <Wrapper>
       <CenterHeader />
       <BackBtnHeader
         backLink="/chat"
         isCenter={false}
-        htext={<ChatHeaderProfile imageUrl="" name={roomName} />}
+        htext={
+          <ChatHeaderProfile imageUrl={getChatHeaderImg()} name={roomName} />
+        }
         extraBtn={<ExitBtn onClick={handleClickExitButton} />}
       />
       <ChatContainer ref={scrollRef}>

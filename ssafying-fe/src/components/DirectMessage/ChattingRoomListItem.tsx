@@ -31,14 +31,22 @@ function ChattingRoomListItem(room: ChattingRoom) {
     setRoomName(getChattingRoomName(room.roomInfo.joinUserInfo, user.nickname));
   }, []);
 
+  function getChatHeaderImg(): string {
+    const info = room.roomInfo.joinUserInfo;
+
+    for (let i = 0; i < info.length; i++) {
+      if (info[i].id === user.userId) continue;
+      return info[i].profileImageUrl;
+    }
+
+    return "";
+  }
+
   return (
     <Wrapper>
       <Link to={`${room.roomInfo.id}`}>
         <ProfileImg>
-          <RoundImg
-            size="54"
-            src={room.roomInfo.joinUserInfo[0].profileImageUrl}
-          />
+          <RoundImg size="54" src={getChatHeaderImg()} />
         </ProfileImg>
         <TextWrapper>
           <div className="room-name">{roomName}</div>
