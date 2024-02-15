@@ -45,6 +45,5 @@ function CrewCommentList({ crewId, parent, commentList }: Props) {
 export default CrewCommentList;
 
 const CommentWrapper = styled.div`
-  padding-bottom: 30px;
-  overflow-y: auto;
+  padding-bottom: 10px;
 `;

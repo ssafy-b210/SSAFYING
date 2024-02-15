@@ -149,15 +149,18 @@ const CrewCreateModal: React.FC<CrewCreateModalProps> = ({
 export default CrewCreateModal;
 
 const ModalWrapper = styled.div<{ visible: boolean }>`
-  background-color: transparent;
-  padding: 20px;
-  display: ${(props) => (props.visible ? "block" : "none")};
+  overflow: hidden;
+  overflow-y: auto; /* 세로 스크롤이 필요한 경우에만 스크롤바를 표시합니다. */
+  width: 350px;
 `;
 
 const ButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  background-color: #fff;
+  border-radius: 10px;
+  width: 350px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
   button {
     margin: 0 auto;
     border: none;

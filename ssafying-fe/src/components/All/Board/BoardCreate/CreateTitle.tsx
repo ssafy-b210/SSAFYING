@@ -13,7 +13,7 @@ function CreateTitle({ onTitleChange }: CreateTitleProps) {
 
   return (
     <Title>
-      <h4>제목</h4>
+      <span>제목</span>
       <TitleContainer>
         <input type="text" onChange={handleInputChange} />
       </TitleContainer>
@@ -24,15 +24,18 @@ function CreateTitle({ onTitleChange }: CreateTitleProps) {
 export default CreateTitle;
 
 const Title = styled.div`
-  h4 {
-    margin-left: 20px;
+  width: 300px;
+  margin-top: 20px;
+  span {
+    margin-left: 15px;
+    font-weight: bold;
   }
 `;
 const TitleContainer = styled.div`
   display: flex;
   justify-content: center;
   input {
-    width: 500px;
+    width: 100%;
     height: 32px;
     font-size: 15px;
     border: 0;

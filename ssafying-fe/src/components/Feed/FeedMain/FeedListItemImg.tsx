@@ -26,8 +26,12 @@ function FeedListItemImg({ imageUrls }: Props) {
           src={imageUrls[currentImage].imageUrl}
           alt={`User ${imageUrls[currentImage].id}`}
         />
-        <ButtonLeft onClick={handlePrev}>◀</ButtonLeft>
-        <ButtonRight onClick={handleNext}>▶</ButtonRight>
+        {imageUrls.length > 1 && (
+          <>
+            <ButtonLeft onClick={handlePrev}>◀</ButtonLeft>
+            <ButtonRight onClick={handleNext}>▶</ButtonRight>
+          </>
+        )}
       </ImgWrapper>
     </Wrapper>
   );
