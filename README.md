@@ -84,7 +84,7 @@ NGiNX, aws, Jenkins, Docker
 ![image](/uploads/fb2a899a29b42ef05ebe9a7322dfa549/image.png)
 
 ## 📂 프로젝트 구성도
-```jsx
+```
 📦public
  ┣ 📜favicon.ico
  ┣ 📜index.css
