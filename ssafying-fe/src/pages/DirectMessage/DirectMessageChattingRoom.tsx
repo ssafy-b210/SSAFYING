@@ -91,7 +91,7 @@ function DirectMessageChattingRoom() {
 
     return () => {
       if (stompClient && stompClient.current?.connected) {
-        stompClient.current.deactivate();
+        stompClient.current?.disconnect();
         console.log("연결을 끊습니다.");
       }
     };
@@ -107,16 +107,12 @@ function DirectMessageChattingRoom() {
 
     const socket = new SockJS(SOCKET_SERVER_URL);
     stompClient.current = Stomp.over(socket);
-    stompClient.current.reconnectDelay = 5000;
-    stompClient.current.heartbeatIncoming = 4000;
-    stompClient.current.heartbeatOutgoing = 4000;
     // stompClient.debug = () => {}; // 이벤트마다 콘솔 로깅 기록 방지
 
     console.log("WebSocket 연결이 열렸습니다.");
     console.log(`소켓 연결을 시도합니다. 서버 주소: ${SOCKET_SERVER_URL}`);
 
     stompClient.current.connect({}, onConnected, onError);
-    stompClient.current.activate();
   }
 
   // 소켓 통신 시작
