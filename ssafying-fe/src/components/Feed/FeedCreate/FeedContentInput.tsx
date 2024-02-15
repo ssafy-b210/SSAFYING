@@ -78,6 +78,7 @@ export default FeedContentInput;
 
 const InputWrapper = styled.div`
   width: 100%;
+  padding-bottom: 20px;
 `;
 
 const TextWrapper = styled.div`
