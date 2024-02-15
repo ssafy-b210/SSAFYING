@@ -21,9 +21,6 @@ public class FindMealPlannerResponse {
     //menu
     private String menu;
 
-//    //campus
-//    private Campus campus;
-
-//    //date
-//    private LocalDate mealPlannerDate;
+    //투표 여부
+    Boolean isVoted;
 }
