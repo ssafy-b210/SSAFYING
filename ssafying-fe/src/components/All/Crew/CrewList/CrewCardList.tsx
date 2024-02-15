@@ -5,7 +5,7 @@ import { selectCrewList } from "../../../../apis/api/Crew";
 
 interface CrewCardListProps {
   selectedCategory: string;
-  // selectedLocation: string;
+  selectedLocation: string;
 }
 
 const Container = styled.div`
@@ -22,7 +22,7 @@ const Container = styled.div`
 
 const CrewCardList: React.FC<CrewCardListProps> = ({
   selectedCategory,
-  // selectedLocation,
+  selectedLocation,
 }) => {
   const [cards, setCards] = useState<
     {
@@ -41,7 +41,7 @@ const CrewCardList: React.FC<CrewCardListProps> = ({
         const crewData = await selectCrewList({
           title: "",
           category: selectedCategory,
-          region: "",
+          region: selectedLocation,
         });
         if (crewData && crewData.resultData) {
           setCards(crewData.resultData);
@@ -52,7 +52,7 @@ const CrewCardList: React.FC<CrewCardListProps> = ({
       }
     };
     fetchData();
-  }, [selectedCategory]);
+  }, [selectedCategory, selectedLocation]);
   return (
     <>
       {cards.length > 0 ? (
