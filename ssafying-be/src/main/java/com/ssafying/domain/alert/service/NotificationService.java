@@ -2,6 +2,7 @@ package com.ssafying.domain.alert.service;
 
 import com.ssafying.domain.alert.dto.response.FindListNotificationResponse;
 import com.ssafying.domain.alert.entity.Notification;
+import com.ssafying.domain.alert.entity.NotificationTypeStatus;
 import com.ssafying.domain.alert.repository.EmitterRepository;
 import com.ssafying.domain.alert.repository.NotificationRepository;
 import com.ssafying.domain.user.entity.User;
@@ -93,12 +94,12 @@ public class NotificationService {
         return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("일치하는 사용자가 없습니다."));
     }
 
-    public List<FindListNotificationResponse> findListNotification(int userId) {
+    public List<FindListNotificationResponse> findListNotification(int userId) { //userId(Receiver)에게 온 알림을 모두 검색함
         // 유저가 존재하는지 확인
         User receiverUser = validUser(userId);
 
         // 저장되어있던 알림 조회
-        List<Notification> notificationList = notificationRepository.findByReceiverId(receiverUser);
+        List<Notification> notificationList = notificationRepository.findByReceiverUser(receiverUser);
 
         // Notification 에서 FindListNotificationResponse 로 convert 해줌
         List<FindListNotificationResponse> notificationResponseList = new ArrayList<>();
@@ -107,12 +108,27 @@ public class NotificationService {
             System.out.println("notification.getId() = " + notification.getId());
 
             FindListNotificationResponse build = FindListNotificationResponse.builder()
-                    .receiverId(receiverUser.getId())
-                    .nickname(receiverUser.getNickname())
-                    .imgUrl(receiverUser.getProfileImageUrl())
+                    .senderId(notification.getSenderUser().getId())
+                    .nickname(notification.getSenderUser().getNickname())
+                    .imgUrl(notification.getSenderUser().getProfileImageUrl())
                     .createdAt(notification.getCreatedAt())
-                    .feedId(notification.getFeedId().getId())
+                    .type(notification.getNotificationType())
                     .build();
+
+            // FOLLOW 일 경우 getFeedId() 가 null 이기 때문에 아닌 경우에만 feed 값을 넣어줌
+            if (notification.getNotificationType() != NotificationTypeStatus.FOLLOW) {
+                build.modifyType(notification.getFeedId().getId());
+            }
+
+//            FindListNotificationResponse build = FindListNotificationResponse.builder()
+//                    .senderId(notification.getSenderUser().getId())
+//                    .nickname(notification.getSenderUser().getNickname())
+//                    .imgUrl(notification.getSenderUser().getProfileImageUrl())
+//                    .createdAt(notification.getCreatedAt())
+//                    .feedId(notification.getFeedId().getId())
+//                    .type(notification.getNotificationType())
+//                    .build();
+
 
             notificationResponseList.add(build);
         }

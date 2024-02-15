@@ -18,11 +18,11 @@ public class Notification extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sender_id")
-    private User senderId; // 알림 보내는 사람 id
+    private User senderUser; // 알림 보내는 사람 id
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receiver_id")
-    private User receiverId; // 알림 받는 사람 id
+    private User receiverUser; // 알림 받는 사람 id
 
     @Enumerated(EnumType.STRING)
     @Column(name = "notification_type")
@@ -40,15 +40,15 @@ public class Notification extends BaseTimeEntity {
 
 
     public static Notification createNotification(
-            User senderId,
-            User receiverId,
+            User senderUser,
+            User receiverUser,
             NotificationTypeStatus notificationType,
             Feed feedId
     ) {
         Notification notification = new Notification();
 
-        notification.senderId = senderId;
-        notification.receiverId = receiverId;
+        notification.senderUser = senderUser;
+        notification.receiverUser = receiverUser;
         notification.notificationType = notificationType;
         notification.feedId = feedId;
 

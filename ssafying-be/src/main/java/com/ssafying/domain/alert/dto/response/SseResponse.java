@@ -1,5 +1,6 @@
 package com.ssafying.domain.alert.dto.response;
 
+import com.ssafying.domain.alert.entity.NotificationTypeStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 public class SseResponse {
-    int receiverId;
+    int senderId;
 
     String nickname;
 
@@ -22,4 +23,5 @@ public class SseResponse {
 
     Long feedId;
 
+    NotificationTypeStatus type;
 }

@@ -1,5 +1,6 @@
 package com.ssafying.domain.alert.dto.response;
 
+import com.ssafying.domain.alert.entity.NotificationTypeStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 public class FindListNotificationResponse {
-    int receiverId;
+    int senderId;
 
     String nickname;
 
@@ -21,4 +22,14 @@ public class FindListNotificationResponse {
     LocalDateTime createdAt;
 
     Long feedId;
+
+    NotificationTypeStatus type;
+
+    public void modifyType(
+            Long feedId
+    ) {
+        this.feedId = feedId;
+    }
+
+
 }
