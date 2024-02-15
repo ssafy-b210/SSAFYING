@@ -99,7 +99,7 @@ public class NotificationService {
         User receiverUser = validUser(userId);
 
         // 저장되어있던 알림 조회
-        List<Notification> notificationList = notificationRepository.findByReceiverUser(receiverUser);
+        List<Notification> notificationList = notificationRepository.findByReceiverUserOrderByCreatedAtDesc(receiverUser);
 
         // Notification 에서 FindListNotificationResponse 로 convert 해줌
         List<FindListNotificationResponse> notificationResponseList = new ArrayList<>();
