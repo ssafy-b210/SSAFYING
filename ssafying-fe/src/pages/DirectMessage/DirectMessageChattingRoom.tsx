@@ -252,10 +252,10 @@ function DirectMessageChattingRoom() {
 
           return (
             <Chat
-              // key={message.id}
-              key={index}
+              key={message.id}
               userId={message.userInfo.id}
               message={message.message}
+              profileImageUrl={message.userInfo.profileImageUrl}
               isContinuous={isContinuous}
             />
           );
