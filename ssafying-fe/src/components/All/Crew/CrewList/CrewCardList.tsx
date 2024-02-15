@@ -4,7 +4,7 @@ import CrewCardListItem from "./CrewCardListItem";
 import { selectCrewList } from "../../../../apis/api/Crew";
 
 interface CrewCardListProps {
-  selectedCategory: string | null;
+  selectedCategory: string;
   // selectedLocation: string;
 }
 
@@ -27,7 +27,7 @@ const CrewCardList: React.FC<CrewCardListProps> = ({
   const [cards, setCards] = useState<
     {
       title: string;
-      writer: string;
+      nickname: string;
       isRecruit: boolean;
       category: string;
       region: string;
@@ -38,18 +38,13 @@ const CrewCardList: React.FC<CrewCardListProps> = ({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const crewData = await selectCrewList(selectedCategory ?? undefined);
-        console.log(selectedCategory);
+        const crewData = await selectCrewList({
+          title: "",
+          category: selectedCategory,
+          region: "",
+        });
         if (crewData && crewData.resultData) {
-          const newCards = await crewData.resultData.map((res: any) => ({
-            title: res.title,
-            writer: res.nickname,
-            isRecruit: res.isRecruit,
-            category: res.category,
-            region: res.region,
-            content: res.content,
-          }));
-          setCards(newCards);
+          setCards(crewData.resultData);
         }
       } catch (error) {
         console.error(error);
@@ -62,9 +57,10 @@ const CrewCardList: React.FC<CrewCardListProps> = ({
     <>
       {cards.length > 0 ? (
         <Container>
-          {cards.map((card, index) => (
-            <CrewCardListItem key={index} card={card} index={index} />
-          ))}
+          {cards.map((card, index) => {
+            console.log("card", card);
+            return <CrewCardListItem key={index} card={card} index={index} />;
+          })}
         </Container>
       ) : (
         <NoResultsMessage>검색 결과가 없습니다.</NoResultsMessage>

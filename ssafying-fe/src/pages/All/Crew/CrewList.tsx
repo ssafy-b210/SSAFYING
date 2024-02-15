@@ -11,7 +11,7 @@ import CenterHeader from "../../../components/Common/CenterHeader";
 import Footer from "../../../components/Common/Footer";
 
 function CrewList() {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedLocation, setSelectedLocation] = useState<string>("지역");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 

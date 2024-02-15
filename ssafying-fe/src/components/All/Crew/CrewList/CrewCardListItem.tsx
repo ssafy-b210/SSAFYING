@@ -8,7 +8,7 @@ import isNotRecruiting from "../../../../assets/img/imgBtn/isNotRecruiting.svg";
 interface CrewItemProps {
   card: {
     title: string;
-    writer: string;
+    nickname: string;
     isRecruit: boolean;
     category: string;
     region: string;
@@ -37,7 +37,7 @@ function CrewCardListItem({ card, index }: CrewItemProps) {
             </Title>
             <hr />
             <SmallContainer>
-              <Writer>{card.writer}</Writer>
+              <Writer>{card.nickname}</Writer>
               {card.isRecruit ? (
                 <img src={isRecruiting} alt="isRecruiting" />
               ) : (
