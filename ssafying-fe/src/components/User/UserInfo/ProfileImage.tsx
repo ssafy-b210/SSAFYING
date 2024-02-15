@@ -37,29 +37,6 @@ function ProfileImage({ onDownloadUrlChange }: ProfileImageProps) {
     const imageUrl = URL.createObjectURL(compressedImage);
     setCompressedImage(imageUrl);
 
-    updateUserInfo(
-      user.userId,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      imageUrl,
-      undefined
-    );
-
-    dispatch(
-      saveUserInfo({
-        isLoggedIn: true,
-        userId: user.userId,
-        username: user.username,
-        email: user.email,
-        password: user.password,
-        nickname: user.nickname,
-        campus: user.campus,
-        profileImgUrl: imageUrl,
-      })
-    );
-
     const reader = new FileReader();
     reader.readAsDataURL(compressedImage);
     reader.onloadend = async () => {
@@ -71,8 +48,30 @@ function ProfileImage({ onDownloadUrlChange }: ProfileImageProps) {
       const fileRef = ref(fstorage, `${user.nickname}/${fileName}`);
       await uploadString(fileRef, imageUrl, "data_url");
       const downloadURL = await getDownloadURL(fileRef);
-      console.log(downloadURL);
       onDownloadUrlChange(downloadURL);
+
+      updateUserInfo(
+        user.userId,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        downloadURL,
+        undefined
+      );
+
+      dispatch(
+        saveUserInfo({
+          isLoggedIn: true,
+          userId: user.userId,
+          username: user.username,
+          email: user.email,
+          password: user.password,
+          nickname: user.nickname,
+          campus: user.campus,
+          profileImgUrl: downloadURL,
+        })
+      );
     };
   };
 

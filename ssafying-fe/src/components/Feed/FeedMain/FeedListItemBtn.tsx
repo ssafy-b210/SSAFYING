@@ -61,19 +61,25 @@ const FeedListItemBtn: React.FC<Props> = ({
     }
   };
 
-  const toggleLiked = () => {
+  const toggleLiked = async () => {
     const newLikedStatus = !isLiked;
     setIsLiked(newLikedStatus);
 
     localStorage.setItem(`likedStatus_${feedId}`, String(newLikedStatus));
-    if (!newLikedStatus) {
-      setLikeCount((prevCount) => prevCount - 1);
-      likeFeed(user.userId, feedId);
-    } else {
-      setLikeCount((prevCount) => prevCount + 1);
-      cancelLikeFeed(user.userId, feedId);
+
+    try {
+      if (!newLikedStatus) {
+        await cancelLikeFeed(user.userId, feedId);
+        setLikeCount((prevCount) => prevCount - 1);
+      } else {
+        await likeFeed(user.userId, feedId);
+        setLikeCount((prevCount) => prevCount + 1);
+      }
+    } catch (error) {
+      console.error("Error toggling like:", error);
     }
   };
+
   console.log(likeCount);
 
   return (
