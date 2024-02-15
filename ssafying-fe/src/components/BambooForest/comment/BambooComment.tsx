@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import BambooCommentList from "./BambooCommentList";
 import CommentInput from "../../Feed/Comment/CommentInput";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { selectOneBamboo } from "../../../apis/api/Forest";
 
 interface Props {

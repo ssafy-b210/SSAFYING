@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import CrewCommentItem from "./CrewCommentItem";
-import { comment } from "@uiw/react-md-editor";
 import styled from "styled-components";
 
 interface Props {
@@ -47,4 +46,5 @@ export default CrewCommentList;
 
 const CommentWrapper = styled.div`
   padding-bottom: 30px;
+  overflow-y: auto;
 `;

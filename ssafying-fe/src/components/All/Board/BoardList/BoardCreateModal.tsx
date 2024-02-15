@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import CreateTitle from "../BoardCreate/CreateTitle";
 import CreateContent from "../BoardCreate/CreateContent";

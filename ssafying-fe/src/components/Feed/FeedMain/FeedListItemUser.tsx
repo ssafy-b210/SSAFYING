@@ -7,6 +7,7 @@ import Modal from "react-modal";
 import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
 import { deleteFeedItem } from "../../../apis/api/Feed";
+import { Link } from "react-router-dom";
 
 interface userProps {
   userImg: string;
@@ -73,13 +74,18 @@ function FeedListItemUser({
   return (
     <UserWrapper>
       <div>
-        <RoundImg src={userImg} size="30px" />
-        <UserId>{nickname}</UserId>
+        <Link to={`/profile/${userId}`} className="home">
+          <RoundImg src={userImg} size="30px" />
+        </Link>
+        <Link to={`/profile/${userId}`} className="home">
+          <UserId>{nickname}</UserId>
+        </Link>
       </div>
       {user.userId === userId && (
         <>
           <div>
             <span>{timeDiff}</span>
+
             <ImgBtn src={more} onClick={clickMoreBtn} size="20px" />
           </div>
           <Modal
@@ -114,6 +120,11 @@ const UserWrapper = styled.div`
     margin-right: 5px;
     font-size: 10px;
     color: gray;
+  }
+
+  a {
+    text-decoration-line: none;
+    color: black;
   }
 `;
 

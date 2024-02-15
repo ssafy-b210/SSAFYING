@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import styled from "styled-components";
 import ImgBtn from "../../../Feed/utils/ImgBtn";
 import deleteBtn from "../../../../assets/img/imgBtn/deleteBtn.svg";

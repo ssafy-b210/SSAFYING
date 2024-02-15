@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import UserProfile from "../../components/User/UserInfo/UserProfile";
-import UserUpdateForm from "../../components/User/UserUpdate/UserUpdateForm";
 import BackBtnHeader from "../../components/Common/BackBtnHeader";
 import { selectOneUserInfo } from "../../apis/api/User";
 import { useAppSelector } from "../../store/hooks";

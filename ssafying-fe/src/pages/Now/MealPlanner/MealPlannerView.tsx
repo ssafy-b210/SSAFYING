@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import CustomDate from "../../../components/Now/MealPlanner/TodayDate";
 import styled from "styled-components";
-import ChartComponent, {
-  ChartComponentProps,
-} from "../../../components/Now/MealPlanner/BarChart";
+import ChartComponent from "../../../components/Now/MealPlanner/BarChart";
 import MealPlannerComp from "../../../components/Now/MealPlanner/MealPlannerComp";
-import CenterHeader from "../../../components/Common/CenterHeader";
 import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
 

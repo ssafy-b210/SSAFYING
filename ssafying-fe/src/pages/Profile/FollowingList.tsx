@@ -51,10 +51,12 @@ function FollowingList() {
     targetUserNickname: string
   ) {
     if (window.confirm(`${targetUserNickname}님을 언팔로우 하시겠습니까?`)) {
-      const res = await unfollowUser(targetUserId).then(() =>
-        selectFollowingList(profileUserId)
-      );
-      if (res !== undefined) setFollowings(res.data);
+      // 언팔로우
+      await unfollowUser(targetUserId);
+
+      // 팔로잉 리스트 갱신
+      const res2 = await selectFollowingList(profileUserId);
+      if (res2 !== undefined) setFollowings(res2.data);
     }
   }
 

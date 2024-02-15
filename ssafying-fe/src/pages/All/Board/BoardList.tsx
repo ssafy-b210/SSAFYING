@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import { useState } from "react";
 import BoardSortTab from "../../../components/All/Board/BoardList/BoardSortTab";
 import BoardCardList from "../../../components/All/Board/BoardList/BoardCardList";
 import SearchBarOnly from "../../../components/All/Board/BoardList/SearchBarOnly";
 import BackBtnHeader from "../../../components/Common/BackBtnHeader";
-import PlusBtn from "../../../components/Common/PlusBtn";
 import Modal from "../../../components/Common/Modal";
 import BoardCreateModal from "../../../components/All/Board/BoardList/BoardCreateModal";
 import CenterHeader from "../../../components/Common/CenterHeader";
@@ -30,10 +29,6 @@ function BoardList() {
     content: string;
   }) => {
     console.log("New", newCardInfo);
-  };
-
-  const handleOpenModal = () => {
-    setIsModalOpen(true); // 모달 열기
   };
 
   const handleCloseModal = () => {

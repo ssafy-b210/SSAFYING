@@ -51,11 +51,10 @@ export async function searchFollowerList(userId: number, nickname: string) {
 // 팔로우하기
 export async function followUser(fromUserId: number, toUserId: number) {
   try {
-    await axios.post("http://localhost:8081/api/users/follow", {
+    return await axios.post(`${REST_USERS_API}/follow`, {
       fromUserId: fromUserId,
       toUserId: toUserId,
     });
-    return "팔로우했습니다.";
   } catch (e: any) {
     return e.response.data.resultMsg;
   }
@@ -64,12 +63,11 @@ export async function followUser(fromUserId: number, toUserId: number) {
 // 언팔로우하기
 export async function unfollowUser(targetUserId: number) {
   try {
-    await axios.delete(`${REST_USERS_API}/unfollow/${targetUserId}`, {
+    return await axios.delete(`${REST_USERS_API}/unfollow/${targetUserId}`, {
       headers: {
         refreshToken: localStorage.getItem("refresh-token"),
       },
     });
-    return "언팔로우했습니다.";
   } catch (e: any) {
     console.log(e);
   }

@@ -13,7 +13,6 @@ interface BambooItemProps {
 }
 
 const BambooForestListItem: React.FC<BambooItemProps> = ({ card }) => {
-  const [isVisible, setIsVisible] = useState(true);
   const [timeDiff, setTimediff] = useState("");
 
   useEffect(() => {

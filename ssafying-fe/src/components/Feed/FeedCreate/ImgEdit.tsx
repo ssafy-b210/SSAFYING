@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import ImageCropper from "./ImgCropper";
 import ImgCompress from "../../ImgHandle/ImgCompress";
-import { dataURItoFile } from "../../ImgHandle/DataToFile";
 import styled from "styled-components";
 
 interface ImgEditProps {

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CommentItem from "./CommentItem";
-import { getFeedComment } from "../../../apis/api/Feed";
 import styled from "styled-components";
 
 interface Props {

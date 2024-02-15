@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import { useState } from "react";
 import CrewCardList from "../../../components/All/Crew/CrewList/CrewCardList";
 import CrewSortTab from "../../../components/All/Crew/CrewList/CrewSortTab";
 import SearchBar from "../../../components/All/Crew/CrewList/SearchBar";
 import BackBtnHeader from "../../../components/Common/BackBtnHeader";
-import PlusBtn from "../../../components/Common/PlusBtn";
 import Modal from "../../../components/Common/Modal";
 import CrewCreateModal from "../../../components/All/Crew/CrewList/CrewCreateModal";
 import CenterHeader from "../../../components/Common/CenterHeader";
@@ -32,10 +31,6 @@ function CrewList() {
     content: string;
   }) => {
     console.log("New Crew:", newCardInfo);
-  };
-
-  const handleOpenModal = () => {
-    setIsModalOpen(true); // 모달 열기
   };
 
   const handleCloseModal = () => {

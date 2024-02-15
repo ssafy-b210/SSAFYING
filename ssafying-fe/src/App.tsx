@@ -1,11 +1,6 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
-import styled, { keyframes } from "styled-components";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import styled from "styled-components";
 
 import UserSignup from "./pages/User/UserSignup";
 import ProfileMain from "./pages/Profile/ProfileMain";
@@ -21,12 +16,10 @@ import AllMenu from "./pages/All/AllMenu";
 import CrewList from "./pages/All/Crew/CrewList";
 import MarketList from "./pages/Now/Market/MarketList";
 import BoardList from "./pages/All/Board/BoardList";
-import SsafyAuth from "./pages/User/UserAuth";
 import ContentFeedSection from "./components/Profile/MyContents/ContentFeedSection";
 import ContentPortfolioSection from "./components/Profile/MyContents/ContentPortfolioSection";
 import ContentSavedSection from "./components/Profile/MyContents/ContentSavedSection";
 import BottomNavBar from "./components/Common/BottomNavBar";
-import FeedHeader from "./components/Feed/FeedMain/FeedHeader";
 import AlarmDetail from "./pages/Feed/AlarmDetail";
 import FollowingList from "./pages/Profile/FollowingList";
 import FollowerList from "./pages/Profile/FollowerList";
@@ -54,69 +47,61 @@ function App() {
   );
 
   return (
-    <AppWrapper>
-      <Wrapper>
-        {!isLoggedIn ? (
-          <Routes>
-            <Route path="*" element={<UserLogin />} />
-            <Route path="/signup" element={<UserSignup />} />
-            <Route path="/tagselect" element={<UserSelectTag />} />
-            <Route path="/auth" element={<UserAuth />} />
-          </Routes>
-        ) : (
-          <Routes>
-            <Route path="/user/detail" element={<UserDetail />} />
-            <Route path="/user/leave" element={<UserLeave />} />
-            <Route path="/user/update" element={<UserUpdate />} />
+    <Wrapper>
+      {!isLoggedIn ? (
+        <Routes>
+          <Route path="*" element={<UserLogin />} />
+          <Route path="/signup" element={<UserSignup />} />
+          <Route path="/tagselect" element={<UserSelectTag />} />
+          <Route path="/auth" element={<UserAuth />} />
+        </Routes>
+      ) : (
+        <Routes>
+          <Route path="/user/detail" element={<UserDetail />} />
+          <Route path="/user/leave" element={<UserLeave />} />
+          <Route path="/user/update" element={<UserUpdate />} />
 
-            <Route path="/all" element={<AllMenu />} />
-            <Route path="/board" element={<BoardList />} />
-            <Route path="/crew" element={<CrewList />} />
-            <Route path="/recruit" element={<RecruitmentList />} />
+          <Route path="/all" element={<AllMenu />} />
+          <Route path="/board" element={<BoardList />} />
+          <Route path="/crew" element={<CrewList />} />
+          <Route path="/recruit" element={<RecruitmentList />} />
 
-            <Route path="/now" element={<NowMenu />} />
-            <Route path="/market" element={<MarketList />} />
-            <Route path="/mealplan" element={<SelectCampusMeal />} />
-            <Route path="/shuttle" element={<BusRealTimeSelect />} />
-            <Route path="/shuttle/:shuttleId" element={<BusRealTimeMap />} />
+          <Route path="/now" element={<NowMenu />} />
+          <Route path="/market" element={<MarketList />} />
+          <Route path="/mealplan" element={<SelectCampusMeal />} />
+          <Route path="/shuttle" element={<BusRealTimeSelect />} />
+          <Route path="/shuttle/:shuttleId" element={<BusRealTimeMap />} />
 
-            <Route path="/" element={<FeedMain />} />
-            <Route path="/feedhome" element={<FeedMain />} />
-            <Route path="/search" element={<FeedSearch />} />
-            <Route path="/feedwrite" element={<FeedCreate />} />
-            <Route path="/alarmdetail" element={<AlarmDetail />} />
-            <Route path="/forest" element={<BambooForest />} />
-            <Route path="/feed/:feedId" element={<FeedDetail />} />
+          <Route path="/" element={<FeedMain />} />
+          <Route path="/feedhome" element={<FeedMain />} />
+          <Route path="/search" element={<FeedSearch />} />
+          <Route path="/feedwrite" element={<FeedCreate />} />
+          <Route path="/alarmdetail" element={<AlarmDetail />} />
+          <Route path="/forest" element={<BambooForest />} />
+          <Route path="/feed/:feedId" element={<FeedDetail />} />
 
-            <Route path="/profile/:userId" element={<ProfileMain />}>
-              <Route path="" element={<ContentFeedSection />} />
-              <Route path="portfolio" element={<ContentPortfolioSection />} />
-              <Route path="saved" element={<ContentSavedSection />}>
-                <Route path="" element={<SavedFeedList />} />
-                <Route path="board" element={<SavedBoardList />} />
-                <Route path="recruiting" element={<SavedRecruitmentList />} />
-              </Route>
+          <Route path="/profile/:userId" element={<ProfileMain />}>
+            <Route path="" element={<ContentFeedSection />} />
+            <Route path="portfolio" element={<ContentPortfolioSection />} />
+            <Route path="saved" element={<ContentSavedSection />}>
+              <Route path="" element={<SavedFeedList />} />
+              <Route path="board" element={<SavedBoardList />} />
+              <Route path="recruiting" element={<SavedRecruitmentList />} />
             </Route>
-            <Route
-              path="/profile/:userId/following"
-              element={<FollowingList />}
-            />
-            <Route
-              path="/profile/:userId/follower"
-              element={<FollowerList />}
-            />
-            <Route path="/chat" element={<DirectMessageChats />} />
-            <Route
-              path="/chat/:roomId"
-              element={<DirectMessageChattingRoom />}
-            />
-            <Route path="/chat/create" element={<DirectMessageCreate />} />
-            <Route path="/meal/create" element={<MealPlannerCreate />} />
-          </Routes>
-        )}
-        {isLoggedIn && <BottomNavBar />}
-      </Wrapper>
-    </AppWrapper>
+          </Route>
+          <Route
+            path="/profile/:userId/following"
+            element={<FollowingList />}
+          />
+          <Route path="/profile/:userId/follower" element={<FollowerList />} />
+          <Route path="/chat" element={<DirectMessageChats />} />
+          <Route path="/chat/:roomId" element={<DirectMessageChattingRoom />} />
+          <Route path="/chat/create" element={<DirectMessageCreate />} />
+          <Route path="/meal/create" element={<MealPlannerCreate />} />
+        </Routes>
+      )}
+      {isLoggedIn && <BottomNavBar />}
+    </Wrapper>
   );
 }
 
@@ -132,27 +117,4 @@ const Wrapper = styled.div`
     height: -webkit-fill-available;
   }
   padding-bottom: 50px;
-`;
-
-const MoveGrad = keyframes`
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-`;
-
-// const AppWrapper = styled.div`
-//   background: linear-gradient(70deg, #e9feff, #b5e7ef, #ffc6fc);
-//   background-size: 200% 200%;
-//   animation: ${MoveGrad} 5s ease infinite;
-//   -webkit-animation: ${MoveGrad} 5s ease infinite;
-//   height: 100%;
-//   width: 100%;
-// `;
-
-const AppWrapper = styled.div`
-  background: linear-gradient(70deg, #e9feff, #b5e7ef, #ffc6fc);
-  background-size: 200% 200%;
-  animation: ${MoveGrad} 5s ease infinite;
-  -webkit-animation: ${MoveGrad} 5s ease infinite;
-  min-height: -webkit-fill-available; /* iOS에서 뷰포트 전체의 높이로 설정 */
 `;

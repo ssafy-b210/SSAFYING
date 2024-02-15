@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ImgBtn from "../../Feed/utils/ImgBtn";
 import saveBtnBlack from "../../../assets/img/imgBtn/saveBtnBlack.svg";
