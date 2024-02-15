@@ -148,25 +148,31 @@ public class FeedService {
                 .stream()
                 .map(interestTag -> interestTag.getTag().getId())
                 .collect(Collectors.toList());
-        /**
-         * 본인 관심사태그와 일치하는 게시글 - 본인 글 제외
-         * 팔로워 많은 유저의 최근 게시글
-         * 
-         */
-        if (!interestTags.isEmpty()) {
-            List<Feed> interestFeed = feedRepository.findInterestFeedList(interestTags, userId);
-            allFeeds.addAll(interestFeed);
-        }
+
 
         List<Integer> excludeUserList = followService.followingList(userId)
                 .stream()
                 .map(followingUser -> followingUser.getId())
                 .collect(Collectors.toList());
-        
+
         // 본인이 작성한 글도 제외조건 추가
         excludeUserList.add(userId);
+
+        /**
+         * 본인 관심사태그와 일치하는 게시글
+         * 팔로워 많은 유저의 최근 게시글
+         * 
+         * 모두 본인 글 제외, 팔로잉 유저 글 제외
+         * 
+         */
+        if (!interestTags.isEmpty()) {
+            List<Feed> interestFeed = feedRepository.findInterestFeedList(interestTags, excludeUserList);
+            allFeeds.addAll(interestFeed);
+        }
+
         List<Feed> hotFeeds = feedRepository.findFeedsExcludeFollowingOrderByFollowersDesc(excludeUserList);
         allFeeds.addAll(hotFeeds);
+        allFeeds = allFeeds.stream().distinct().collect(Collectors.toList());
 
         return  allFeeds.stream()
                 .map(this::convertToFeedDto)

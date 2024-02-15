@@ -44,19 +44,22 @@ public interface FeedRepository extends JpaRepository<Feed, Integer>, JpaSpecifi
     @Query("""
     SELECT DISTINCT f
     FROM Feed f
-    JOIN f.feedTags ft
-    WHERE ft.hashtag.id IN (:tagIds) AND f.user.id != :userId
+    JOIN fetch f.feedTags ft
+    WHERE ft.hashtag.id IN (:tagIds) AND f.user.id NOT IN :excludeUserList
     """)
-    List<Feed> findInterestFeedList(@Param("tagIds") List<Integer> tagIds, @Param("userId") int userId);
+    List<Feed> findInterestFeedList(
+            @Param("tagIds") List<Integer> tagIds,
+            @Param("excludeUserList") List<Integer> excludeUserList
+    );
 
     //팔로워 많은순으로 - 이미 팔로잉유저가 작성한 피드를 제공해줬기때문에 이 쿼리에선 제거
     @Query("""
         SELECT f
         FROM Feed f
-        WHERE f.user.id NOT IN :userIds
+        WHERE f.user.id NOT IN :excludeUserList
         ORDER BY SIZE(f.user.followers) DESC
     """)
     List<Feed> findFeedsExcludeFollowingOrderByFollowersDesc(
-            @Param("userIds") List<Integer> userIds
+            @Param("excludeUserList") List<Integer> excludeUserList
     );
 }
