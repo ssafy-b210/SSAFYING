@@ -94,6 +94,17 @@ export async function cancelLikeFeed(userId: number, feedId: number) {
 }
 
 //피드 좋아요 리스트
+export async function getFeedLikeList(feedId: number, userId: number) {
+  try {
+    console.log(feedId);
+    const response = await axios.get(`/api/feeds/${feedId}/like`);
+
+    return response.data.resultData.some((like: any) => like.userId === userId);
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+}
 
 //피드 해시태그 검색
 export async function getFeedSearchHashtag(hashtag: string) {
