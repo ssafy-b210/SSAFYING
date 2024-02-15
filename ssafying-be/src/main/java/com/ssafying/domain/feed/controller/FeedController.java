@@ -1,5 +1,6 @@
 package com.ssafying.domain.feed.controller;
 
+import com.ssafying.domain.board.dto.request.FeedScrapExistRequest;
 import com.ssafying.domain.feed.dto.FeedDto;
 import com.ssafying.domain.feed.dto.request.*;
 import com.ssafying.domain.feed.dto.response.GetFeedLikesResponse;
@@ -212,4 +213,18 @@ public class FeedController {
         int result = feedService.removeFeedCommentLike(request);
         return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
     }
+
+    /**
+     * 3.13 피드 스크랩조회여부
+     *
+     */
+    @GetMapping("feeds/scrap/{userId}/{feedId}")
+    @Operation(summary = "피드 스크랩여부")
+    public ResponseEntity<ResultResponse<Boolean>> isFeedScrapExist(
+            @PathVariable(name = "userId") int userId,
+            @PathVariable(name = "feedId") int feedId) {
+        boolean result = feedService.isScrapFeed(userId, feedId);
+        return ResponseEntity.ok(ResultResponse.res(HttpStatus.OK, HttpStatus.OK.toString(), result));
+    }
+
 }
