@@ -142,6 +142,7 @@ public class MarketService {
                 .price(market.getPrice())
                 .content(market.getContent())
                 .imageUrl(market.getMarketImages())
+                .userId(market.getUser().getId())
                 .build();
 
         return response;
