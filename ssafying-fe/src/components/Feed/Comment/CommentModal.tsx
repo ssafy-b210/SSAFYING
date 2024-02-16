@@ -101,6 +101,7 @@ const CommentInputContainer = styled.div`
   width: 100%;
   max-width: 560px;
   background-color: white;
+  padding-bottom: 10px;
 `;
 
 const CommentWrapper = styled.div`
