@@ -20,16 +20,18 @@ function UserRecommendList() {
   };
 
   return (
-    <RecommendWrapper>
-      <Title>회원님을 위한 추천</Title>
+    <>
       {recommendList.length > 0 && (
-        <RecommendList>
-          {recommendList.map((item, index) => {
-            return <UserRecommendListItem key={index} recommendItem={item} />;
-          })}
-        </RecommendList>
+        <RecommendWrapper>
+          <Title>회원님을 위한 추천</Title>
+          <RecommendList>
+            {recommendList.map((item, index) => {
+              return <UserRecommendListItem key={index} recommendItem={item} />;
+            })}
+          </RecommendList>
+        </RecommendWrapper>
       )}
-    </RecommendWrapper>
+    </>
   );
 }
 export default UserRecommendList;

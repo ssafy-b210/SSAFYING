@@ -4,7 +4,7 @@ interface userProps {
   alarmList: {
     senderId: number;
     nickname: string;
-    imageUrl: string;
+    imgUrl: string;
     type: string;
     createdAt: string;
     feedId: number;
@@ -19,7 +19,7 @@ function AlarmItemList({ alarmList }: userProps) {
           key={index}
           senderId={alarm.senderId}
           nickname={alarm.nickname}
-          imageUrl={alarm.imageUrl}
+          imageUrl={alarm.imgUrl}
           time={alarm.createdAt}
           type={alarm.type}
           feedId={alarm.feedId}

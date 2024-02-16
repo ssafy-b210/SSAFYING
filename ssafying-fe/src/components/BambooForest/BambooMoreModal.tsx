@@ -139,5 +139,6 @@ const CommentContainer = styled.div`
   bottom: 0;
   padding: 20px 0;
   display: flex;
-  flex-direction: column-reverse;
+  align-content: flex-end;
+  flex-direction: column;
 `;
