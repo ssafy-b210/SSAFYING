@@ -16,7 +16,7 @@ import {
 } from "../../../apis/api/Feed";
 import { useAppSelector } from "../../../store/hooks";
 import { selectUser } from "../../../store/reducers/user";
-import { getFeedLikeList } from "../../../apis/api/Feed";
+import { getFeedLikeList, getIsScrapped } from "../../../apis/api/Feed";
 
 interface Props {
   likeCount: number;
@@ -41,14 +41,21 @@ const FeedListItemBtn: React.FC<Props> = ({
     setModalIsOpen(false);
   }
 
-  useEffect(() => {
-    toggleLiked();
-  }, []);
-
   const toggleLiked = async () => {
     const b = await getFeedLikeList(feedId, user.userId);
     setIsLiked(b);
   };
+
+  const toggleSaved = async () => {
+    const s = await getIsScrapped(user.userId, feedId);
+    console.log(s);
+    setIsSaved(s);
+  };
+
+  useEffect(() => {
+    toggleLiked();
+    toggleSaved();
+  }, []);
 
   useEffect(() => {
     const saveSaveStatus = localStorage.getItem(`savedStatus_${feedId}`);
@@ -75,6 +82,24 @@ const FeedListItemBtn: React.FC<Props> = ({
     }
   };
 
+  const saveFeed = async () => {
+    try {
+      await scrapFeed(user.userId, feedId);
+      setIsSaved(true);
+    } catch (error) {
+      console.error("Error toggling save:", error);
+    }
+  };
+
+  const saveCancel = async () => {
+    try {
+      await cancelscrapFeed(user.userId, feedId);
+      setIsSaved(false);
+    } catch (error) {
+      console.error("Error toggling save:", error);
+    }
+  };
+
   return (
     <>
       <BtnWrapper>
@@ -89,11 +114,11 @@ const FeedListItemBtn: React.FC<Props> = ({
             {/* <div>{likeCount}</div> */}
           </LikeWrapper>
           <ImgBtn src={commentBtn} onClick={openComment} size="20px" />
-          {/* <ImgBtn
-            src={isSaved ? saveBtnBlack : saveBtnWhite}
-            onClick={toggleSaved}
-            size="20px"
-          /> */}
+          {isSaved ? (
+            <ImgBtn src={saveBtnBlack} onClick={saveCancel} size="20px" />
+          ) : (
+            <ImgBtn src={saveBtnWhite} onClick={saveFeed} size="20px" />
+          )}
         </div>
         <FeedLikeCnt likeCount={likeCount} />
       </BtnWrapper>
