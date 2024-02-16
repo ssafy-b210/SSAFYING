@@ -78,8 +78,9 @@ function App() {
           <Route path="/feedwrite" element={<FeedCreate />} />
           <Route path="/alarmdetail" element={<AlarmDetail />} />
           <Route path="/forest" element={<BambooForest />} />
-          <Route path="/feed/:feedId" element={<FeedDetail />} />
+          <Route path="/feedhome/:feedId" element={<FeedDetail />} />
 
+          <Route path="/profile" element={<ContentFeedSection />} />
           <Route path="/profile/:userId" element={<ProfileMain />}>
             <Route path="" element={<ContentFeedSection />} />
             <Route path="portfolio" element={<ContentPortfolioSection />} />
@@ -89,6 +90,7 @@ function App() {
               <Route path="recruiting" element={<SavedRecruitmentList />} />
             </Route>
           </Route>
+
           <Route
             path="/profile/:userId/following"
             element={<FollowingList />}

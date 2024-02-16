@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getFeedDetail, deleteFeedComment } from "../../apis/api/Feed";
 import styled from "styled-components";
+import CenterHeader from "../../components/Common/CenterHeader";
 
 function FeedDetail() {
   const feedId = Number(useParams().feedId); // 현재 프로필 유저 아이디
@@ -33,6 +34,7 @@ function FeedDetail() {
 
   return (
     <FeedWrapper>
+      <CenterHeader />
       {feed && <FeedDetailContent feed={feed} onDelete={handleDeleteComment} />}
     </FeedWrapper>
   );

@@ -142,8 +142,6 @@ export async function getIsScrapped(
     // API 호출하여 스크랩 여부를 받아옴
     const response = await axios.get(`api/feeds/scrap/${userId}/${feedId}`);
 
-    // 받아온 데이터를 리턴
-    console.log("스크랩여부", response.data.resultData);
     return response.data.resultData;
   } catch (error) {
     // 에러 발생 시 에러 로그 출력 후 false 리턴

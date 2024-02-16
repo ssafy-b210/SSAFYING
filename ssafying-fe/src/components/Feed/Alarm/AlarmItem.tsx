@@ -23,6 +23,8 @@ function AlarmItem({
 }: userProps) {
   const [timediff, setTimediff] = useState("");
 
+  console.log(imageUrl);
+
   const profileImg = imageUrl || profileImage;
 
   useEffect(() => {
@@ -60,7 +62,7 @@ function AlarmItem({
       {
         {
           LIKE: (
-            <Link to={`/feed/${feedId}`} className="home">
+            <Link to={`/feedhome/${feedId}`} className="home">
               <RoundImg src={profileImg} size="30px" />
               <UserDiv>{nickname}</UserDiv>님이 &nbsp;회원님의 게시글을
               좋아합니다.
@@ -73,7 +75,7 @@ function AlarmItem({
             </Link>
           ),
           COMMENT: (
-            <Link to={`/feed/${feedId}`} className="home">
+            <Link to={`/feedhome/${feedId}`} className="home">
               <RoundImg src={profileImg} size="30px" />
               <UserDiv>{nickname}</UserDiv>님이 &nbsp;회원님의 게시글에 댓글을
               남겼습니다.

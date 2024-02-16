@@ -27,8 +27,7 @@ function UserRecommendListItem({ recommendItem }: RecommendProps) {
 
 const UserItem = styled.div`
   border-radius: 10px;
-  width: 120px;
-  display: inline-block;
+  width: 80px;
   padding: 10px;
   margin: 5px;
   text-align: center;
