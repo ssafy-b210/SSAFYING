@@ -80,14 +80,6 @@ const Card = styled.div`
     0 16px 16px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: all 0.2s linear;
-
-  hr {
-    width: 90%;
-    margin: 10px 0;
-    height: 1px;
-    border: none;
-    background-color: #ccc;
-  }
 `;
 
 const Content = styled.div`
@@ -134,7 +126,7 @@ const Copy = styled.div`
 `;
 
 const Separator = styled.hr`
-  width: 100%;
+  width: 90%;
   margin: 10px 0;
   height: 1px;
   border: none;
@@ -142,8 +134,9 @@ const Separator = styled.hr`
 `;
 
 const CommentContainer = styled.div`
-  width: 80%;
+  width: 90%;
+  height: 200px;
   background-color: white;
-  overflow-y: auto;
-  overflow-x: hidden;
+  bottom: 0;
+  padding: 20px 0;
 `;
