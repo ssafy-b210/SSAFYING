@@ -78,12 +78,14 @@ export default BambooComment;
 const CommentInputContainer = styled.div`
   width: 100%;
   background-color: white;
+  padding-bottom: 20px;
 `;
 
 const CommentWrapper = styled.div`
   display: block;
   position: relative;
   width: 100%;
-  padding: 10px 20px;
+  max-height: 100%;
   margin-bottom: 10px;
+  overflow-y: auto;
 `;
