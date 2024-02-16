@@ -69,7 +69,7 @@ const Card = styled.div`
   display: flex;
   overflow: hidden;
   padding: 20px 10px;
-  width: 200px;
+  width: 220px;
   text-align: center;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.5);

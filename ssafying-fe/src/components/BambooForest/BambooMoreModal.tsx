@@ -71,7 +71,7 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 320px;
+  width: 350px;
   height: 500px;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.5);
@@ -82,7 +82,7 @@ const Card = styled.div`
   transition: all 0.2s linear;
 
   hr {
-    width: 100%;
+    width: 90%;
     margin: 10px 0;
     height: 1px;
     border: none;
@@ -142,6 +142,8 @@ const Separator = styled.hr`
 `;
 
 const CommentContainer = styled.div`
-  width: 90%;
+  width: 80%;
   background-color: white;
+  overflow-y: auto;
+  overflow-x: hidden;
 `;

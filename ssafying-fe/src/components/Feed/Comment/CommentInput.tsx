@@ -45,8 +45,8 @@ const CommentInput: React.FC<CommentInputProps> = ({
 const CommentInputContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 10px;
   background-color: white;
+  width: 100%;
 `;
 
 const Input = styled.input`
