@@ -58,7 +58,6 @@ export async function getRecommendFeedList(userId: number) {
 //피드상세
 export async function getFeedDetail(feedId: number) {
   try {
-    console.log(feedId);
     const response = await axios.get(`/api/feeds/${feedId}`);
     console.log(response.data.resultData);
     return response.data.resultData;
@@ -86,23 +85,9 @@ export async function cancelLikeFeed(userId: number, feedId: number) {
         feedId: feedId,
       },
     });
-    console.log(response.data);
     return response.data;
   } catch (e) {
     console.log(e);
-  }
-}
-
-//피드 좋아요 리스트
-export async function getFeedLikeList(feedId: number, userId: number) {
-  try {
-    console.log(feedId);
-    const response = await axios.get(`/api/feeds/${feedId}/like`);
-
-    return response.data.resultData.some((like: any) => like.userId === userId);
-  } catch (e) {
-    console.log(e);
-    return false;
   }
 }
 
@@ -133,6 +118,37 @@ export async function getFeedSearchNickname(nickname: string) {
     return response.data.resultData;
   } catch (e) {
     console.log(e);
+  }
+}
+
+//피드 좋아요 리스트
+export async function getFeedLikeList(feedId: number, userId: number) {
+  try {
+    const response = await axios.get(`/api/feeds/${feedId}/like`);
+
+    return response.data.resultData.some((like: any) => like.userId === userId);
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+}
+
+//피드 스크랩여부
+export async function getIsScrapped(
+  userId: number,
+  feedId: number
+): Promise<boolean> {
+  try {
+    // API 호출하여 스크랩 여부를 받아옴
+    const response = await axios.get(`api/feeds/scrap/${userId}/${feedId}`);
+
+    // 받아온 데이터를 리턴
+    console.log("스크랩여부", response.data.resultData);
+    return response.data.resultData;
+  } catch (error) {
+    // 에러 발생 시 에러 로그 출력 후 false 리턴
+    console.error("Error fetching feed scrap status:", error);
+    return false;
   }
 }
 
