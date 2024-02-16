@@ -12,6 +12,7 @@ type BoardInfo = {
     writer: string;
     category: string;
     isAnonymous: boolean;
+    scrap: boolean;
   };
   index: number;
 };
@@ -23,6 +24,7 @@ function SavedBoardList() {
 
   async function getSavedBoardList() {
     const res = await selectSavedBoardList(user.userId);
+    console.log(res);
     if (res !== undefined) setSavedBoardList(res);
   }
 
@@ -43,17 +45,12 @@ function SavedBoardList() {
                 category: item.category,
                 isAnonymous: item.anonymous,
                 boardId: item.boardId,
+                scrap: item.scrap,
               },
               index: index,
             };
 
-            return (
-              <BoardCardListItem
-                key={data.index}
-                card={data.card}
-                index={data.index}
-              />
-            );
+            return <BoardCardListItem key={data.index} card={data.card} />;
           })}
         </CardWrapper>
       ) : (

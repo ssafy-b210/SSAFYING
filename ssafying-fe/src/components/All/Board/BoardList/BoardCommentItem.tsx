@@ -50,9 +50,7 @@ function BoardCommentItem({
           )}
         </ButtonsWrapper>
       </UserWrapper>
-      {replies.length > 0 && (
-        <BoardRecommentList replies={replies} onDelete={onDelete} />
-      )}
+      {replies && <BoardRecommentList replies={replies} onDelete={onDelete} />}
     </>
   );
 }
