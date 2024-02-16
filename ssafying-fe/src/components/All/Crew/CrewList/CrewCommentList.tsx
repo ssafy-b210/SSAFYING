@@ -48,4 +48,7 @@ export default CrewCommentList;
 
 const CommentWrapper = styled.div`
   padding-bottom: 10px;
+  overflow-y: auto;
+  height: 120%;
+  margin-top: 10px;
 `;

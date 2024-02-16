@@ -116,19 +116,18 @@ function CrewMoreModal({ card }: moreProps) {
             )}
             <hr />
           </Content>
-          <div>댓글</div>
           <CommentContainer>
+            <MoreCommentInput
+              onSubmit={handleCommentSubmit}
+              id={card.crewId}
+              highlighted={highlighted}
+            ></MoreCommentInput>
             <CrewCommentList
               crewId={card.crewId}
               parent={(id) => setHighlighted(id)}
               commentList={crewData.parentCommentList}
               onDelete={handleDeleteComment}
             />
-            <MoreCommentInput
-              onSubmit={handleCommentSubmit}
-              id={card.crewId}
-              highlighted={highlighted}
-            ></MoreCommentInput>
           </CommentContainer>
         </Card>
       )}
@@ -141,7 +140,6 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
   max-width: 500px;
   height: 500px;
   text-align: center;
@@ -166,14 +164,15 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 350px;
   padding: 5px;
   z-index: 1;
   hr {
-    width: 90%;
+    width: 280px;
     margin-top: 30px;
   }
   div {
+    width: 300px;
     margin-top: 5px;
   }
 `;
@@ -183,7 +182,6 @@ const Title = styled.div`
 `;
 const Copy = styled.div`
   font-size: 13px;
-  width: 90%;
   margin-top: 0 10px;
 `;
 
@@ -194,10 +192,8 @@ const Text = styled.div`
 `;
 
 const CommentContainer = styled.div`
-  width: 100%;
   height: 40%;
   background-color: white;
-  overflow-y: auto;
 `;
 
 const Flex = styled.div`
