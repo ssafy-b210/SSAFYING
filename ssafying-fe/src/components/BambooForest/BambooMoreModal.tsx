@@ -130,7 +130,6 @@ const Separator = styled.hr`
   margin: 10px 0;
   height: 1px;
   border: none;
-  background-color: #ccc;
 `;
 
 const CommentContainer = styled.div`
@@ -138,7 +137,4 @@ const CommentContainer = styled.div`
   background-color: white;
   bottom: 0;
   padding: 20px 0;
-  display: flex;
-  align-content: flex-end;
-  flex-direction: column;
 `;

@@ -57,7 +57,9 @@ function BambooComment({ bambooList, bambooId }: Props) {
 
   return (
     <>
-      <div>댓글</div>
+      <CommentInputContainer>
+        <CommentInput onSubmit={handleCommentSubmit} id={bambooId} />
+      </CommentInputContainer>
       <CommentWrapper>
         {bambooData && (
           <BambooCommentList
@@ -66,9 +68,6 @@ function BambooComment({ bambooList, bambooId }: Props) {
           />
         )}
       </CommentWrapper>
-      <CommentInputContainer>
-        <CommentInput onSubmit={handleCommentSubmit} id={bambooId} />
-      </CommentInputContainer>
     </>
   );
 }
@@ -85,7 +84,7 @@ const CommentWrapper = styled.div`
   display: block;
   position: relative;
   width: 100%;
-  max-height: 100%;
+  height: 70%;
   margin-bottom: 10px;
   overflow-y: auto;
 `;
