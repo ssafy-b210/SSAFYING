@@ -1,11 +1,17 @@
 import FeedHeader from "../../components/Feed/FeedMain/FeedHeader";
 import FeedList from "../../components/Feed/FeedMain/FeedList";
+import styled from "styled-components";
+
 function FeedMain() {
   return (
-    <div>
+    <Wrapper>
       <FeedHeader />
       <FeedList />
-    </div>
+    </Wrapper>
   );
 }
 export default FeedMain;
+
+const Wrapper = styled.div`
+  padding: 12px;
+`;

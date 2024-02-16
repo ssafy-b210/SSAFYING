@@ -36,9 +36,9 @@ function FeedList() {
             ))}
           </div>
         )}
-        <UserRecommendList />
         {recommendFeedList.length > 0 && (
           <RecommendWrapper>
+            <UserRecommendList />
             <p>추천 게시물</p>
             {recommendFeedList.map((item, index) => (
               <FeedListItem key={index} feed={item} />
