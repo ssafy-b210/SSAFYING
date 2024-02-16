@@ -4,8 +4,6 @@ import MoreCommentInput from "../../../Feed/Comment/CommentInput";
 import saveBtnBlack from "../../../../assets/img/imgBtn/saveBtnBlack.svg";
 import saveBtnWhite from "../../../../assets/img/imgBtn/saveBtnWhite.svg";
 import ImgBtn from "../../../Feed/utils/ImgBtn";
-import { scrapBoard } from "../../../../apis/api/Board";
-import { cancelscrapBoard } from "../../../../apis/api/Board";
 import BoardCommentList from "./BoardCommentList";
 import BoardBtn from "../BoardBtn";
 import { useAppSelector } from "../../../../store/hooks";
@@ -15,6 +13,8 @@ import {
   selectOneBoard,
   createBoardComment,
   deleteBoardComment,
+  cancelscrapBoard,
+  scrapBoard,
 } from "../../../../apis/api/Board";
 
 // 카드눌렀을 때 detail 보이게 하기
@@ -26,41 +26,51 @@ interface moreProps {
     category: string;
     isAnonymous: boolean;
     boardId: number;
+    scrap: boolean;
   };
-  onDelete: () => void;
+  onDelete?: () => void;
 }
 
 function BoardMoreModal({ card, onDelete }: moreProps) {
   const user = useAppSelector(selectUser);
-  const [isSaved, setIsSaved] = useState(false);
+  const [isSaved, setIsSaved] = useState(card.scrap);
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [boardData, setBoardData] = useState<any>(null);
   const [highlighted, setHighlighted] = useState<Number | null>(null);
 
-  useEffect(() => {
-    const savedStatus = localStorage.getItem(`savedStatus_${card.boardId}`);
-    setIsSaved(savedStatus === "true");
-  }, []);
+  const saveCancel = () => {
+    cancelscrapBoard(user.userId, card.boardId);
+    setIsSaved(false);
+  };
 
-  //스크랩api 호출
-  const toggleSaved = () => {
-    const newSavedStatus = !isSaved;
-    setIsSaved(newSavedStatus);
-    localStorage.setItem(`savedStatus_${card.boardId}`, String(newSavedStatus));
-    if (!newSavedStatus) {
-      //scrapBoard(userId, boardId)
-      scrapBoard(user.userId, 1);
-    } else {
-      cancelscrapBoard(user.userId, 1);
+  const saveBoard = () => {
+    scrapBoard(user.userId, card.boardId);
+    setIsSaved(true);
+  };
+
+  const fetchBoardData = async () => {
+    try {
+      const data = await selectOneBoard(card.boardId, user.userId);
+      console.log("data", data);
+      setBoardData(data.resultData);
+      setIsSaved(data.resultData.scrap);
+    } catch (error) {
+      console.error(error);
     }
   };
+  if (isModalOpen) {
+    fetchBoardData();
+  }
+
+  useEffect(() => {
+    fetchBoardData();
+  }, []);
 
   //deleteBoard api 호출
   const handleDeleteBoard = () => {
     deleteBoard(card.boardId)
       .then((response: any) => {
         console.log("board deleted successfully", response);
-        onDelete();
         setIsModalOpen(false);
         window.location.reload();
       })
@@ -71,18 +81,7 @@ function BoardMoreModal({ card, onDelete }: moreProps) {
 
   //상세조회 api 호출
   useEffect(() => {
-    const fetchBoardData = async () => {
-      try {
-        const data = await selectOneBoard(card.boardId, user.userId);
-        console.log("data", data);
-        setBoardData(data.resultData);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    if (isModalOpen) {
-      fetchBoardData();
-    }
+    fetchBoardData();
   }, [card.boardId, isModalOpen]);
 
   const handleCommentSubmit = async (comment: string) => {
@@ -99,6 +98,7 @@ function BoardMoreModal({ card, onDelete }: moreProps) {
       }
       const data = await selectOneBoard(card.boardId, user.userId);
       setBoardData(data.resultData);
+      setIsSaved(data.resultData.scrap);
     } catch (error) {
       console.error("Error submitting comment", error);
     }
@@ -121,11 +121,12 @@ function BoardMoreModal({ card, onDelete }: moreProps) {
       {isModalOpen && boardData && (
         <Card>
           <Content>
-            <ImgBtn
-              src={isSaved ? saveBtnBlack : saveBtnWhite}
-              size="30px"
-              onClick={toggleSaved}
-            />
+            {isSaved ? (
+              <ImgBtn src={saveBtnBlack} size="30px" onClick={saveCancel} />
+            ) : (
+              <ImgBtn src={saveBtnWhite} size="30px" onClick={saveBoard} />
+            )}
+
             <Title>{boardData.title}</Title>
             <Writer>
               <div className="small-title">By.</div>

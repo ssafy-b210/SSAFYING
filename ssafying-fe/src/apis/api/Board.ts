@@ -52,8 +52,15 @@ export async function selectAllBoard(
 
 //게시판 게시글 스크랩
 export async function scrapBoard(userId: number, boardId: number) {
+  const data = {
+    userId: userId,
+    boardId: boardId,
+  };
+
+  console.log(data);
+
   try {
-    const response = await axios.post("/api/boards/scrap", { userId, boardId });
+    const response = await axios.post("/api/boards/scrap", data);
     console.log(response.data);
   } catch (e) {
     console.log(e);
@@ -69,6 +76,7 @@ export async function cancelscrapBoard(userId: number, boardId: number) {
         boardId: boardId,
       },
     });
+
     console.log(response.data);
     return response.data;
   } catch (e) {

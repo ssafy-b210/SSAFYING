@@ -5,9 +5,17 @@ import { selectOneBoard } from "../../../../apis/api/Board";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectUser } from "../../../../store/reducers/user";
+import BoardCardListItem from "./BoardCardListItem";
 
 interface BoardItemProps {
-  card: {
+  boardId: number;
+}
+
+function GetBoardItem({ boardId }: BoardItemProps) {
+  const user = useAppSelector(selectUser);
+
+  const [boardItem, setBoardItem] = useState<any>([]);
+  const [card, setCard] = useState<{
     title: string;
     writer: string;
     content: string;
@@ -15,35 +23,51 @@ interface BoardItemProps {
     isAnonymous: boolean;
     boardId: number;
     scrap: boolean;
-  };
-}
+  }>({
+    title: boardItem.title,
+    writer: boardItem.nickname,
+    content: boardItem.content,
+    category: boardItem.category,
+    isAnonymous: boardItem.anonymous,
+    boardId: boardId,
+    scrap: boardItem.boolean,
+  });
 
-function BoardCardListItem({ card }: BoardItemProps) {
-  console.log(card);
+  const fetchData = async () => {
+    try {
+      const boardData = await selectOneBoard(boardId, user.userId);
+      console.log(boardData);
+      if (boardData && boardData.resultData) {
+        setBoardItem(boardData.resultData);
+
+        setCard({
+          title: boardData.resultData.title,
+          writer: boardData.resultData.nickname,
+          content: boardData.resultData.content,
+          category: boardData.resultData.category,
+          isAnonymous: boardData.resultData.anonymous,
+          boardId: boardId,
+          scrap: boardData.resultData.scrap,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      setBoardItem([]);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div>
-      <Card>
-        <Wrapper>
-          <Front>
-            <Title>{card && card.title}</Title>
-            <hr />
-            <Writer>{card.isAnonymous ? "익명" : card.writer}</Writer>
-          </Front>
-          <Back>
-            <Content>{card && card.content}</Content>
-            <Button>
-              <Modal btnTxt="더보기">
-                <BoardMoreModal card={card} />
-              </Modal>
-            </Button>
-          </Back>
-        </Wrapper>
-      </Card>
+      <BoardCardListItem card={card}></BoardCardListItem>
     </div>
   );
 }
 
-export default BoardCardListItem;
+export default GetBoardItem;
 
 const Wrapper = styled.div`
   width: 100%;
@@ -101,27 +125,16 @@ const Back = styled.div`
   word-wrap: break-word;
 `;
 
-const Title = styled.div`
+const Title = styled.h3`
   height: 30%;
   display: flex;
   text-align: start;
   justify-content: center;
   padding: 0 12px;
-
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
 `;
 const Writer = styled.p``;
-const Content = styled.div`
+const Content = styled.p`
   padding: 0 10px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
 `;
 
 const Button = styled.div``;

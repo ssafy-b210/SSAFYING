@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import BoardCardListItem from "./BoardCardListItem";
 import { selectAllBoard } from "../../../../apis/api/Board";
+import GetBoardItem from "./GetBoardItem";
 
 interface BoardCardListProps {
   selectedCategory?: string | null;
@@ -20,6 +21,7 @@ const BoardCardList: React.FC<BoardCardListProps> = ({
       category: string;
       isAnonymous: boolean;
       boardId: number;
+      scrap: boolean;
     }[]
   >([]);
 
@@ -31,6 +33,7 @@ const BoardCardList: React.FC<BoardCardListProps> = ({
       category: string;
       isAnonymous: boolean;
       boardId: number;
+      scrap: boolean;
     }[]
   >([]);
   const [lastIdx, setLastIdx] = useState(0);
@@ -49,6 +52,7 @@ const BoardCardList: React.FC<BoardCardListProps> = ({
             category: res.category,
             isAnonymous: res.anonymous,
             boardId: res.boardId,
+            scrap: res.scrap,
           }));
           setCards(newCards);
 
@@ -82,7 +86,7 @@ const BoardCardList: React.FC<BoardCardListProps> = ({
       {filteredCards.length > 0 ? (
         <Container>
           {filteredCards.map((card, index) => (
-            <BoardCardListItem key={index} card={card} index={index} />
+            <GetBoardItem key={index} boardId={card.boardId} />
           ))}
         </Container>
       ) : (

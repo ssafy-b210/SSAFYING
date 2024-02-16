@@ -41,7 +41,7 @@ function SearchResult() {
     <div>
       <SearchBar
         onChange={handleSearchChange}
-        placeholder="해시태그와 사용자 닉네임을 검색해보세요 ex) #싸핑, 애옹"
+        placeholder="해시태그 또는 사용자 닉네임을 검색해보세요 ex) #싸핑, 애옹"
       />
       {hashtagList.length > 0 && (
         <div className="feed-list">
