@@ -5,6 +5,7 @@ import ProflieSetting from "./ProfileSetting";
 import { selectMyPageDetail } from "../../../apis/api/Profile";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import UserRecommendList from "../../Feed/UserRecommend/UserRecommendList";
 
 type ProfileDetailType = {
   nickname: string;

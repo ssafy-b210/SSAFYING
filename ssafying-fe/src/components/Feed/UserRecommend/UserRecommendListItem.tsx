@@ -17,23 +17,32 @@ function UserRecommendListItem({ recommendItem }: RecommendProps) {
       <Link to={`/profile/${recommendItem.userId}`} className="home">
         <RoundImg src={profileImg} size="50px" />
       </Link>
-      <div>{recommendItem.nickname}</div>
-      <FollowBtn userId={recommendItem.userId} />
+      <Nickname>{recommendItem.nickname}</Nickname>
+      <BottomContent>
+        <FollowBtn userId={recommendItem.userId} />
+      </BottomContent>
     </UserItem>
   );
 }
 
 const UserItem = styled.div`
   border-radius: 10px;
-  width: 80px;
-  min-height: 100px;
+  width: 120px;
   display: inline-block;
   padding: 10px;
   margin: 5px;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.5);
   color: #4b4b4b;
-  font-size: 13px;
+`;
+
+const Nickname = styled.div`
+  font-size: 12px;
+  font-weight: 600;
+`;
+
+const BottomContent = styled.div`
+  bottom: 10px;
 `;
 
 export default UserRecommendListItem;

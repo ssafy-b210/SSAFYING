@@ -33,6 +33,6 @@ const FeedListItemWrapper = styled.div`
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 10px;
   padding: 15px;
-  margin: 10px;
+  margin: 10px 0;
   box-sizing: border-box;
 `;

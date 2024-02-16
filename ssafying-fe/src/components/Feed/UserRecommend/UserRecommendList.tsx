@@ -36,7 +36,12 @@ export default UserRecommendList;
 
 const RecommendWrapper = styled.div`
   padding: 5px;
-  margin: 5px 0;
+  margin: 10px 0;
+
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  padding: 5px 10px;
+  margin-top: 10px;
 
   div {
     -ms-overflow-style: none; /* IE and Edge */

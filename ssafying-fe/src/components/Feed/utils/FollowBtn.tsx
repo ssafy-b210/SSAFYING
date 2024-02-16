@@ -26,9 +26,10 @@ const BtnWrapper = styled.button`
   border-radius: 5px;
   padding: 3px 10px;
   text-align: center;
-  min-width: 40px;
+  width: 100%;
   margin-top: 5px;
   font-size: 12px;
+  font-weight: 600;
   cursor: pointer;
   color: gray;
 `;

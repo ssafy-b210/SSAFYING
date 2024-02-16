@@ -135,8 +135,9 @@ const Separator = styled.hr`
 
 const CommentContainer = styled.div`
   width: 90%;
-  height: 200px;
   background-color: white;
   bottom: 0;
   padding: 20px 0;
+  display: flex;
+  flex-direction: column-reverse;
 `;
