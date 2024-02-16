@@ -84,13 +84,15 @@ function FeedListItemUser({
           <UserId>{nickname}</UserId>
         </Link>
       </div>
-      {user.userId === userId && (
-        <>
-          <div>
-            <span>{timeDiff}</span>
 
+      <>
+        <div>
+          <span>{timeDiff}</span>
+          {user.userId === userId && (
             <ImgBtn src={more} onClick={clickMoreBtn} size="20px" />
-          </div>
+          )}
+        </div>
+        {user.userId === userId && (
           <Modal
             isOpen={modalIsOpen}
             onRequestClose={closeModal}
@@ -100,8 +102,8 @@ function FeedListItemUser({
               <Button onClick={deleteFeed}>삭제</Button>
             </ButtonWrapper>
           </Modal>
-        </>
-      )}
+        )}
+      </>
     </UserWrapper>
   );
 }
