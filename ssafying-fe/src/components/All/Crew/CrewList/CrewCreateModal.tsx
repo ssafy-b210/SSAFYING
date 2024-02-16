@@ -94,9 +94,9 @@ const CrewCreateModal: React.FC<CrewCreateModalProps> = ({
       alert("빈칸을 채워주세요.");
       return;
     }
-    //Redux userId에 따라 바꾸기
+
     createCrew(
-      1,
+      user.userId,
       title,
       content,
       selectedRegion.value,

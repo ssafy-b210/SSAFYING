@@ -45,15 +45,12 @@ export default BambooCommentItem;
 const UserWrapper = styled.div`
   display: flex;
   align-items: center;
-  width: 100%;
+  width: 90%;
   padding: 8px;
-  margin-top: 5px;
-  border-radius: 8px;
+  border-bottom: 1px solid lightgray;
 `;
 
-const CommentContent = styled.div`
-  margin-left: 8px;
-`;
+const CommentContent = styled.div``;
 
 const Content = styled.div`
   font-size: 14px;

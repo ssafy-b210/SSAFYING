@@ -36,6 +36,7 @@ function FeedList() {
             ))}
           </div>
         )}
+        <UserRecommendList />
         {recommendFeedList.length > 0 && (
           <RecommendWrapper>
             <p>추천 게시물</p>
