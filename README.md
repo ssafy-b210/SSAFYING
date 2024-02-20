@@ -79,6 +79,20 @@ NGINX, AWS, Jenkins, Docker
 | 식단표            | 싸피 점심시간 식단표를 저장, 공유할 수 있고 메뉴 투표 기능이 있습니다.                                           |
 | 채용공고            | 취업이 목표인 싸피인들에게 사람인 API를 이용한 취업 정보를 제공합니다.
 <br />
+### 피드
+![Animation6](/uploads/1de51493b8c76fb452d08dea191fe8f3/Animation6.gif)
+
+### 중고거래
+![Animation2](/uploads/b4daf7f56563e3484daafad5cc5ebd30/Animation2.gif)
+
+### 대나무숲
+![Animation3](/uploads/939af65cb5e0d05b3d6fb207345465f3/Animation3.gif)
+
+### 셔틀
+![Animation](/uploads/072a11244b03e9845867fb78814a4e0f/Animation.gif)
+
+### 채용공고
+![Animation4](/uploads/79da2c2e881ad294bcfd9efa0a2ed6a3/Animation4.gif)
 
 ## 아키텍처
 ![image](/uploads/fb2a899a29b42ef05ebe9a7322dfa549/image.png)
