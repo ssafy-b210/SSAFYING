@@ -58,7 +58,7 @@ Postman, Swagger
 
 ### ☑ Frontend
 
-HTML5, CSS3, TypeScript
+HTML5, TypeScript, Styled-component
 
 React, Redux, MUI
 
