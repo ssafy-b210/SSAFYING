@@ -99,7 +99,7 @@ NGINX, AWS, Jenkins, Docker
 ![리드미](/uploads/8da83c06b2367d5632c07496a90a2cf7/리드미.gif)
 
 ### 중고거래
-![Animation2](/uploads/b4daf7f56563e3484daafad5cc5ebd30/Animation2.gif)
+![Animation2_1](/uploads/907e2562c4c5f022c90bf5d52223f74e/Animation2_1.gif){: width="100%"}
 
 ### 대나무숲
 ![Animation3](/uploads/939af65cb5e0d05b3d6fb207345465f3/Animation3.gif)
