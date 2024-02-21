@@ -80,8 +80,23 @@ NGINX, AWS, Jenkins, Docker
 | 채용공고            | 취업이 목표인 싸피인들에게 사람인 API를 이용한 취업 정보를 제공합니다.
 <br />
 
-### 피드
+### 싸피 인증
+![회원가입](/uploads/afcc9e42adb6e141e04d4a6e10864f03/회원가입.gif)
+
+### 피드 작성
 ![Animation6](/uploads/1de51493b8c76fb452d08dea191fe8f3/Animation6.gif)
+
+### 추천 친구, 추천 게시물 - 콜드 스타트 문제 개선
+![추천](/uploads/9d5088a9127a490490dbe9da4ce350fa/추천.gif)
+
+### 검색 - 해시태그, 닉네임
+![검색_팔로우](/uploads/e3a398a1d6ca66c2e041249159c010d7/검색_팔로우.gif)
+
+### 알림
+![알림](/uploads/faf9600d2459aeb6fbaecb144f361729/알림.gif)
+
+### 마이페이지 - 포트폴리오
+![리드미](/uploads/8da83c06b2367d5632c07496a90a2cf7/리드미.gif)
 
 ### 중고거래
 ![Animation2](/uploads/b4daf7f56563e3484daafad5cc5ebd30/Animation2.gif)
@@ -92,7 +107,7 @@ NGINX, AWS, Jenkins, Docker
 ### 셔틀
 ![Animation](/uploads/072a11244b03e9845867fb78814a4e0f/Animation.gif)
 
-### 채용공고
+### 채용공고 - 사람인 API
 ![Animation4](/uploads/79da2c2e881ad294bcfd9efa0a2ed6a3/Animation4.gif)
 
 ## 아키텍처
