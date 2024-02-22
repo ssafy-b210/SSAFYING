@@ -107,6 +107,9 @@ NGINX, AWS, Jenkins, Docker
 ### 셔틀
 ![Animation](/uploads/072a11244b03e9845867fb78814a4e0f/Animation.gif)
 
+### 식단표
+![식단표](/uploads/b780a2ecef9c08cf053a17d19c967453/식단표.gif)
+
 ### 채용공고 - 사람인 API
 ![Animation4](/uploads/79da2c2e881ad294bcfd9efa0a2ed6a3/Animation4.gif)
 
