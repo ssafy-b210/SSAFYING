@@ -68,6 +68,14 @@ NGINX, AWS, Jenkins, Docker
 
 <br />
 
+## 💎 API Docs
+
+### [SSAFYING Swagger](https://i10b210.p.ssafy.io/api/swagger-ui/index.html)
+<br />
+
+## ✨ ERD
+<br />
+
 ## 💡 주요 기능
 
 | 기능                      | 내용                                                                                                                                |
