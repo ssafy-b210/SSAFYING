@@ -74,6 +74,7 @@ NGINX, AWS, Jenkins, Docker
 <br />
 
 ## ✨ ERD
+![ssafying_erd](/uploads/ee405e9db9bc2cc6eca9fcbde1b98577/ssafying_erd.png)
 <br />
 
 ## 💡 주요 기능
