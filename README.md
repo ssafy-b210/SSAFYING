@@ -1,6 +1,6 @@
 # SSAFYING - 싸피 모든 기수와 현재 기수 통합 SNS
 
-![image](/uploads/9543c7e584c288890d91253b431ef986/main.png)
+<img src="/assets/main.png">
 
 <br />
 
@@ -33,13 +33,13 @@ SSAFYING(싸핑)은 삼성 청년 SW 아카데미 교육생과 수료생들이 �
 
 |이예원(팀장)|김수은|노현석|
 |:-:|:-:|:-:|
-|<img src="/uploads/053155b42bdd0d7af9fdd831755d17bc/yewon.jpg" width="150px" />|<img src="/uploads/1c5557badc85cfcb257186081b9e6d5a/sooeun.jpg" width="150px" />|<img src="/uploads/7b326b5e9536c7704ef1b4cf7d9c5538/hyunseok.jpg" width="150px" />|
+|<img src="/assets/yewon.jpg" width="150px" />|<img src="/assets/sooeun.jpg" width="150px" />|<img src="/assets/hyunseok.jpg" width="150px" />|
 
 ### Frontend
 
 |김혜진|이수민|임지은|
 |:-:|:-:|:-:|
-|<img src="/uploads/23f17881f097cc68e4fc64eb765ac673/hyejin.jpg" width="150px" />|<img src="/uploads/648c95dfdb019f266c408d8cd8e76b29/sumin.jpg" width="150px" />|<img src="/uploads/1b3eb66140d819ddcaa7a0ba8a8a2b26/jieun.jpg" width="150px" />|
+|<img src="/assets/hyejin.jpg" width="150px" />|<img src="/assets/sumin.jpg" width="150px" />|<img src="/assets/jieun.jpg" width="150px" />|
 
 ### Infra
 
@@ -74,7 +74,7 @@ NGINX, AWS, Jenkins, Docker
 <br />
 
 ## ✨ ERD
-![ssafying_erd](/uploads/6b6cb511889482be954d5e3939232b48/ssafying_erd.png)
+<img src="/assets/ssafying_erd.png">
 <br />
 
 ## 💡 주요 기능
@@ -90,40 +90,40 @@ NGINX, AWS, Jenkins, Docker
 <br />
 
 ### 싸피 인증
-![회원가입](/uploads/1ffaa8e9d8b91082f2acd2d0f4637aac/회원가입.gif)
+<img src="/assets/회원가입.gif">
 
 ### 피드 작성
-![피드작성](/uploads/3793d3cf2f4672709a073398c962b078/피드작성.gif)
+<img src="/assets/피드작성.gif">
 
 ### 추천 친구, 추천 게시물 - 콜드 스타트 문제 개선
-![추천친구](/uploads/990e97b91e31cb757cc0d1ac4cf4154d/추천친구.gif)
+<img src="/assets/추천친구.gif">
 
 ### 검색 - 해시태그, 닉네임
-![검색_팔로우](/uploads/bed5ef1a371f37503cc5cfebd3a7091a/검색_팔로우.gif)
+<img src="/assets/검색_팔로우.gif">
 
 ### 알림
-![알림](/uploads/d38c9b4d5c783663f85683a861073ac2/알림.gif)
+<img src="/assets/알림.gif">
 
 ### 마이페이지 - 포트폴리오
-![마이페이지_포트폴리오](/uploads/3ead91e1d99ada496217fec8cc561f56/마이페이지_포트폴리오.gif)
+<img src="/assets/마이페이지_포트폴리오.gif">
 
 ### 중고거래
-![중고거래](/uploads/55beebd4555e595507cdcdf76cf137b5/중고거래.gif){: width="100%"}
+<img src="/assets/중고거래.gif">{: width="100%"}
 
 ### 대나무숲
-![대나무숲](/uploads/2aab0c323f056db0100b44adae971eaa/대나무숲.gif)
+<img src="/assets/대나무숲.gif">
 
 ### 셔틀버스 위치 공유
-![셔틀](/uploads/36cb7ef420ec3f06e2a7188b9d9592ff/셔틀.gif)
+<img src="/assets/셔틀.gif">
 
 ### 식단표
-![식단표](/uploads/fa5ea4bd82f7bc61c7ef5e07c60e1965/식단표.gif)
+<img src="/assets/식단표.gif">
 
 ### 채용공고 - 사람인 API
-![채용공고](/uploads/03156c405c056c1234c3b40508740748/채용공고.gif)
+<img src="/assets/채용공고.gif">
 
 ## 아키텍처
-![시스템아키텍처](/uploads/d501e2c9252f79ec78b6ae8979bdfc95/시스템아키텍처.png)
+<img src="/assets/시스템아키텍처.png">
 
 ## 📂 프로젝트 구성도
 
