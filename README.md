@@ -1,6 +1,6 @@
 # SSAFYING - 싸피 모든 기수와 현재 기수 통합 SNS
 
-![image](/uploads/8387339f724d8da0e1f6e231754bb2dc/image.png)
+![image](/uploads/9543c7e584c288890d91253b431ef986/main.png)
 
 <br />
 
@@ -33,13 +33,13 @@ SSAFYING(싸핑)은 삼성 청년 SW 아카데미 교육생과 수료생들이 �
 
 |이예원(팀장)|김수은|노현석|
 |:-:|:-:|:-:|
-|<img src="/uploads/e9adcadb9d1e58c8392bd135159b9d3e/71091FF3-C654-4C9E-AC3B-F7482B731884.jpg" width="150px" />|<img src="/uploads/0d9a8216aa4b1ad62fb703a32b35e95e/29F89686-CFDE-4CE6-A131-2EF407EA1DC6.jpg" width="150px" />|<img src="/uploads/682aa2a8705de19faa08c47d07234098/FDAC6E38-4CE8-48FE-AEB6-63E892F7D1FF-9625-000005567C07EEAE.jpg" width="150px" />|
+|<img src="/uploads/053155b42bdd0d7af9fdd831755d17bc/yewon.jpg" width="150px" />|<img src="/uploads/1c5557badc85cfcb257186081b9e6d5a/sooeun.jpg" width="150px" />|<img src="/uploads/7b326b5e9536c7704ef1b4cf7d9c5538/hyunseok.jpg" width="150px" />|
 
 ### Frontend
 
 |김혜진|이수민|임지은|
 |:-:|:-:|:-:|
-|<img src="/uploads/25672dfad4508c25b8f463a2079a429d/EABE8D55-A235-4B47-9D9D-724120841A90.jpg" width="150px" />|<img src="/uploads/ae86a7b9b165f2f43db0c902971fb188/0FF09694-B124-4E19-AA31-9DB4CD789304.jpg" width="150px" />|<img src="/uploads/afbc73618f2c69c2920c209a1ef2ad45/4B9B39BA-773C-4201-A7BF-D50618001DC6.jpg" width="150px" />|
+|<img src="/uploads/23f17881f097cc68e4fc64eb765ac673/hyejin.jpg" width="150px" />|<img src="/uploads/648c95dfdb019f266c408d8cd8e76b29/sumin.jpg" width="150px" />|<img src="/uploads/1b3eb66140d819ddcaa7a0ba8a8a2b26/jieun.jpg" width="150px" />|
 
 ### Infra
 
@@ -74,7 +74,7 @@ NGINX, AWS, Jenkins, Docker
 <br />
 
 ## ✨ ERD
-![ssafying_erd](/uploads/ee405e9db9bc2cc6eca9fcbde1b98577/ssafying_erd.png)
+![ssafying_erd](/uploads/6b6cb511889482be954d5e3939232b48/ssafying_erd.png)
 <br />
 
 ## 💡 주요 기능
@@ -84,46 +84,46 @@ NGINX, AWS, Jenkins, Docker
 | 피드(메인페이지)                   | 일상 생활을 싸피인들과 공유할 수 있습니다. 자유로운 소통을 위한 Direct Message와 나와 관련된 활동에 대한 알림 기능이 있습니다. |
 | 게시판               | 자유롭게 정보를 공유할 수 있는 전체 게시판, 같은 취미와 관심사를 공유하는 싸피인을 찾는 구인 게시판, 같은 캠퍼스 내에서 중고거래, 나눔을 할 수 있는 중고거래 게시판이 있습니다.            |
 | 대나무숲 | 누구에게 말 못할 고민이나 걱정거리를 털어놓을 수 있는 대나무 숲입니다. 24시간이 지나면 사라집니다.                  |
-| 셔틀   | 싸피에서 제공해주는 셔틀 버스의 위치를 알 수 있도록 지도에 표시해주는 기능입니다.              |
+| 셔틀   | 싸피에서 운행하는 셔틀 버스의 위치를 알 수 있도록 지도에 표시해주는 기능입니다.              |
 | 식단표            | 싸피 점심시간 식단표를 저장, 공유할 수 있고 메뉴 투표 기능이 있습니다.                                           |
 | 채용공고            | 취업이 목표인 싸피인들에게 사람인 API를 이용한 취업 정보를 제공합니다.
 <br />
 
 ### 싸피 인증
-![회원가입](/uploads/afcc9e42adb6e141e04d4a6e10864f03/회원가입.gif)
+![회원가입](/uploads/1ffaa8e9d8b91082f2acd2d0f4637aac/회원가입.gif)
 
 ### 피드 작성
-![Animation6](/uploads/1de51493b8c76fb452d08dea191fe8f3/Animation6.gif)
+![피드작성](/uploads/3793d3cf2f4672709a073398c962b078/피드작성.gif)
 
 ### 추천 친구, 추천 게시물 - 콜드 스타트 문제 개선
-![추천](/uploads/9d5088a9127a490490dbe9da4ce350fa/추천.gif)
+![추천친구](/uploads/990e97b91e31cb757cc0d1ac4cf4154d/추천친구.gif)
 
 ### 검색 - 해시태그, 닉네임
-![검색_팔로우](/uploads/e3a398a1d6ca66c2e041249159c010d7/검색_팔로우.gif)
+![검색_팔로우](/uploads/bed5ef1a371f37503cc5cfebd3a7091a/검색_팔로우.gif)
 
 ### 알림
-![알림](/uploads/faf9600d2459aeb6fbaecb144f361729/알림.gif)
+![알림](/uploads/d38c9b4d5c783663f85683a861073ac2/알림.gif)
 
 ### 마이페이지 - 포트폴리오
-![리드미](/uploads/8da83c06b2367d5632c07496a90a2cf7/리드미.gif)
+![마이페이지_포트폴리오](/uploads/3ead91e1d99ada496217fec8cc561f56/마이페이지_포트폴리오.gif)
 
 ### 중고거래
-![Animation2_1](/uploads/907e2562c4c5f022c90bf5d52223f74e/Animation2_1.gif){: width="100%"}
+![중고거래](/uploads/55beebd4555e595507cdcdf76cf137b5/중고거래.gif){: width="100%"}
 
 ### 대나무숲
-![Animation3](/uploads/939af65cb5e0d05b3d6fb207345465f3/Animation3.gif)
+![대나무숲](/uploads/2aab0c323f056db0100b44adae971eaa/대나무숲.gif)
 
-### 셔틀
-![Animation](/uploads/072a11244b03e9845867fb78814a4e0f/Animation.gif)
+### 셔틀버스 위치 공유
+![셔틀](/uploads/36cb7ef420ec3f06e2a7188b9d9592ff/셔틀.gif)
 
 ### 식단표
-![식단표](/uploads/b780a2ecef9c08cf053a17d19c967453/식단표.gif)
+![식단표](/uploads/fa5ea4bd82f7bc61c7ef5e07c60e1965/식단표.gif)
 
 ### 채용공고 - 사람인 API
-![Animation4](/uploads/79da2c2e881ad294bcfd9efa0a2ed6a3/Animation4.gif)
+![채용공고](/uploads/03156c405c056c1234c3b40508740748/채용공고.gif)
 
 ## 아키텍처
-![image](/uploads/fb2a899a29b42ef05ebe9a7322dfa549/image.png)
+![시스템아키텍처](/uploads/d501e2c9252f79ec78b6ae8979bdfc95/시스템아키텍처.png)
 
 ## 📂 프로젝트 구성도
 
