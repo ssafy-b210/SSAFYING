@@ -7,6 +7,8 @@ import com.ssafying.domain.board.entity.CategoryStatus;
 import com.ssafying.domain.board.service.BoardService;
 import com.ssafying.domain.board.service.command.AddBoardCommentCommand;
 import com.ssafying.global.result.ResultResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/boards")
+@Tag(name = "전체기수를 위한 게시판")
 @CrossOrigin("*")
 public class BoardController {
 
@@ -28,6 +31,7 @@ public class BoardController {
      * 5.1 게시판 게시글 작성
      */
     @PostMapping
+    @Operation(summary = "게시판 게시글 작성")
     public ResponseEntity<ResultResponse<Integer>> boardAdd(
             @RequestBody @Valid AddBoardRequest request) {
 
@@ -40,6 +44,7 @@ public class BoardController {
      * 5.2 게시판 게시글 조회
      */
     @GetMapping
+    @Operation(summary = "게시판 게시글 조회")
     public ResponseEntity<ResultResponse<List<FindListBoardResponse>>> boardList(
             /* @RequestParam(defaultValue = "1") int pageNo, //몇번째 페이지인지 */
             @RequestParam(name = "searchCategory", required = false) CategoryStatus searchCategory, //게시글 중 어떤 카테고리인지
@@ -58,6 +63,7 @@ public class BoardController {
      * 5.3 게시판 게시글 스크랩
      */
     @PostMapping("/scrap")
+    @Operation(summary = "게시판 게시글 스크랩")
     public ResponseEntity<ResultResponse<Integer>> boardScrap(
             @RequestBody @Valid ScrapBoardRequest request
     ) {
@@ -71,6 +77,7 @@ public class BoardController {
      * 5.3.1 게시판 게시글 스크랩 취소
      */
     @DeleteMapping("/scrap")
+    @Operation(summary = "게시판 게시글 스크랩 취소")
     public ResponseEntity<ResultResponse<Integer>> boardUnScrap(
             @RequestBody @Valid ScrapBoardRequest request
     ) {
@@ -84,6 +91,7 @@ public class BoardController {
      * 5.4 게시판 게시글 상세 조회
      */
     @GetMapping("/{boardId}")
+    @Operation(summary = "게시판 게시글 상세 조회")
     public ResponseEntity<ResultResponse<FindDetailBoardResponse>> boardDetails(
             @PathVariable(name = "boardId") int boardId,
             @RequestParam(name = "userId") int userId) {
@@ -98,6 +106,7 @@ public class BoardController {
      * 5.5 게시판 게시글 삭제
      */
     @DeleteMapping("/{boardId}")
+    @Operation(summary = "게시판 게시글 삭제")
     public ResponseEntity<ResultResponse<Integer>> boardRemove(
             @PathVariable(name = "boardId") int boardId) {
 
@@ -110,6 +119,7 @@ public class BoardController {
      * 5.6 게시판 게시글 수정
      */
     @PatchMapping("/{boardId}")
+    @Operation(summary = "게시판 게시글 수정")
     public ResponseEntity<ResultResponse<Integer>> boardModify(
             @PathVariable(name = "boardId") int boardId,
             @RequestBody ModifyBoardRequest request){
@@ -122,6 +132,7 @@ public class BoardController {
      * 5.7 게시판 게시글 댓글 작성
      */
     @PostMapping("/comments/{boardId}")
+    @Operation(summary = "게시판 게시글 댓글 작성")
     public ResponseEntity<ResultResponse<Integer>> boardCommentAdd(
             @PathVariable(name = "boardId") int boardId,
             @RequestBody AddBoardCommentRequest request
@@ -145,6 +156,7 @@ public class BoardController {
      * 5.8 게시판 게시글 댓글 삭제
      */
     @DeleteMapping("/comments/{boardCommentId}")
+    @Operation(summary = "게시판 게시글 댓글 삭제")
     public ResponseEntity<ResultResponse<String>> boardCommentRemove(
             @PathVariable(name = "boardCommentId") int boardCommentId
     ){
@@ -158,6 +170,7 @@ public class BoardController {
      * 5.9 게시판 게시글 댓글 수정
      */
     @PatchMapping("/comments/{boardCommentId}")
+    @Operation(summary = "게시판 게시글 댓글 수정")
     public ResponseEntity<ResultResponse<Integer>> boardCommentModify(
             @PathVariable(name = "boardCommentId") int boardCommentId,
             @RequestBody ModifyBoardCommentRequest request

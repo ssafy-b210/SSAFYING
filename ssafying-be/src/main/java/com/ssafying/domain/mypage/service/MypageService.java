@@ -153,13 +153,11 @@ public class MypageService {
         List<Board> boardList = boardRepository.findByUser(user);
 
         // 보드리스트 조회,,,
-        if(boardList.isEmpty()) {
-            throw new RuntimeException("작성한 게시판이 존재하지 않습니다");
-        }
 
         List<FindListBoardResponse> response = new ArrayList<>();
         for (Board board : boardList) {
             FindListBoardResponse build = FindListBoardResponse.builder()
+                    .boardId(board.getId())
                     .userName(board.getUser().getName())
                     .isAnonymous(board.isAnonymous())
                     .title(board.getTitle())
@@ -206,13 +204,10 @@ public class MypageService {
 
         List<Board> scrapBoardList = boardRepository.findScrapBoardList(user.getId());
 
-        if(scrapBoardList.isEmpty()){
-            throw new RuntimeException("해당 유저가 스크랩한 게시판이 없습니다");
-        }
-
         List<FindListBoardResponse> response = new ArrayList<>();
         for (Board board : scrapBoardList) {
             FindListBoardResponse build = FindListBoardResponse.builder()
+                    .boardId(board.getId())
                     .userName(board.getUser().getName())
                     .isAnonymous(board.isAnonymous())
                     .title(board.getTitle())
