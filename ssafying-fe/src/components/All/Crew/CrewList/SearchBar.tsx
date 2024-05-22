@@ -1,29 +1,45 @@
 import styled from "styled-components";
+import React, { useState } from "react";
 
-function SearchBar() {
+interface SearchBarProps {
+  onLocationChange: (location: string) => void;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ onLocationChange }) => {
+  const [selectedLocation, setSelectedLocation] = useState<string>("");
+
+  const handleLocationChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const newSelectedLocation = event.target.value;
+    setSelectedLocation(newSelectedLocation);
+    onLocationChange(newSelectedLocation);
+    console.log(newSelectedLocation);
+  };
+
   return (
     <LocationContainer>
-      <DropdownContent>
-        <Option selected>지역</Option>
-        <Option value="전국">전국</Option>
-        <Option value="서울">서울</Option>
-        <Option value="경기">경기</Option>
-        <Option value="인천">인천</Option>
-        <Option value="부산">부산</Option>
-        <Option value="광주">광주</Option>
-        <Option value="대전">대전</Option>
-        <Option value="대구">대구</Option>
-        <Option value="울산">울산</Option>
-        <Option value="강원">강원</Option>
-        <Option value="경상">경상</Option>
-        <Option value="전라">전라</Option>
-        <Option value="충청">충청</Option>
-        <Option value="제주">제주</Option>
+      <DropdownContent onChange={handleLocationChange} defaultValue="">
+        <Option value="">지역</Option>
+        <Option value="ALL">전국</Option>
+        <Option value="SEOUL">서울</Option>
+        <Option value="GYEONGGI">경기</Option>
+        <Option value="INCHEON">인천</Option>
+        <Option value="BUSAN">부산</Option>
+        <Option value="GWANGJU">광주</Option>
+        <Option value="DAEJEON">대전</Option>
+        <Option value="DAEGU">대구</Option>
+        <Option value="ULSAN">울산</Option>
+        <Option value="GANGWON">강원</Option>
+        <Option value="GYEONGSANG">경상</Option>
+        <Option value="JEOLLA">전라</Option>
+        <Option value="CHUNGCHEONG">충청</Option>
+        <Option value="JEJU">제주</Option>
       </DropdownContent>
       <SearchBox type="text" placeholder="검색어를 입력해주세요"></SearchBox>
     </LocationContainer>
   );
-}
+};
 
 export default SearchBar;
 

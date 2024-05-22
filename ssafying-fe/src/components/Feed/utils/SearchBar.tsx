@@ -1,28 +1,21 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import backArrow from "../../../assets/img/imgBtn/backBtn.svg";
 import ImgBtn from "./ImgBtn";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-function SearchBar() {
-  function clickBackBtn() {
-    console.log("back");
-  }
+interface Props {
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder: string;
+}
 
-  function changeSearchInput(e: ChangeEvent<HTMLInputElement>) {
-    console.log(e.target.value);
-  }
-
+function SearchBar({ onChange, placeholder }: Props) {
   return (
     <SearchBarWrapper>
       <Link to="/feedhome" className="back">
-        <ImgBtn src={backArrow} size="21px" onClick={clickBackBtn} />
+        <ImgBtn src={backArrow} size="21px" />
       </Link>
-      <input
-        type="text"
-        placeholder="검색어를 입력해주세요."
-        onChange={changeSearchInput}
-      />
+      <input type="text" onChange={onChange} placeholder={placeholder} />
     </SearchBarWrapper>
   );
 }
@@ -40,7 +33,6 @@ const SearchBarWrapper = styled.div`
   input {
     flex: 1;
     width: 100%;
-    background-color: lightgray;
     border-radius: 10px;
     padding: 10px;
     border: none;

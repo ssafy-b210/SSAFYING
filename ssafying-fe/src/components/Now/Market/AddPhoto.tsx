@@ -3,8 +3,9 @@ import styled from "styled-components";
 
 function AddPhoto() {
   const imagePreviewRef = useRef<HTMLUListElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleUploadImage = (e: ChangeEvent<HTMLInputElement>) => {
     const uploadFiles = Array.from(e.currentTarget.files as FileList);
 
     if (
@@ -42,15 +43,17 @@ function AddPhoto() {
 
   return (
     <PhotoAddForm>
-      <h5>사진</h5>
+      <h4>사진</h4>
+      <UploadButton onClick={() => imagePreviewRef.current?.click()}>
+        📷 Upload Images
+      </UploadButton>
       <PhotoInputContainer>
-        <PhotoRealInput
+        <input
           type="file"
-          className="real-upload"
-          accept="image/*"
-          required
+          ref={inputRef}
+          style={{ display: "none" }}
+          onChange={handleUploadImage}
           multiple
-          onChange={handleImageChange}
         />
         <PhotoInput>
           <ul ref={imagePreviewRef}></ul>
@@ -63,20 +66,23 @@ function AddPhoto() {
 export default AddPhoto;
 
 const PhotoAddForm = styled.div`
-  h5 {
+  h4 {
     margin-left: 20px;
   }
 `;
-
+const UploadButton = styled.button`
+  background-color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+`;
 const PhotoInputContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: left;
   margin-left: 20px;
-`;
-
-const PhotoRealInput = styled.input`
-  display: none;
 `;
 
 const PhotoInput = styled.div`

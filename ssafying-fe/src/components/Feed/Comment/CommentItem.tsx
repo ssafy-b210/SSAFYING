@@ -1,53 +1,61 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import userImage from "../../../assets/img/testImg/user.svg";
 import deleteBtn from "../../../assets/img/imgBtn/deleteBtn.svg";
+import profileImage from "../../../assets/img/userIcons/profileImage.jpg";
 import RoundImg from "../utils/RoundImg";
 import ImgBtn from "../utils/ImgBtn";
 import RecommentList from "./RecommentList";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
+import { deleteFeedComment } from "../../../apis/api/Feed";
 
 interface CommentProps {
-  commentId: string;
+  commentId: number;
+  commentUser: {
+    id: Number;
+    nickname: string;
+    profileImageUrl?: string;
+  };
   content: string;
   isHighlighted: boolean;
   onClick: () => void;
-  replies: {
-    replyId: number;
-    commentId: string;
-    content: string;
-  }[];
+  replies: any[];
+  onDelete: (id: number) => void;
 }
 
 function CommentItem({
   commentId,
+  commentUser,
   content,
   isHighlighted,
   onClick,
   replies,
+  onDelete,
 }: CommentProps) {
-  const userId = "aeong";
+  const user = useAppSelector(selectUser);
+  const profileImageUrl = commentUser.profileImageUrl || profileImage;
 
-  function clickDeleteBtn() {
-    console.log("delete comment");
+  async function clickDeleteBtn() {
+    onDelete(commentId);
   }
 
   return (
     <>
       <UserWrapper isHighlighted={isHighlighted} onClick={onClick}>
-        <RoundImg src={userImage} size="32px" />
+        <RoundImg src={profileImageUrl} size="28px" />
         <CommentContent>
-          <UserId>{commentId}</UserId>
+          <UserId>{commentUser.nickname}</UserId>
           <Content>{content}</Content>
         </CommentContent>
         <ButtonsWrapper>
           <TextBtn onClick={onClick}>답글달기</TextBtn>
-          {commentId === userId && (
+          {commentUser.id === user.userId && (
             <ImgBtn src={deleteBtn} onClick={clickDeleteBtn} size="15px" />
           )}
         </ButtonsWrapper>
       </UserWrapper>
       {replies.length > 0 && (
-        <RecommentList onClick={clickDeleteBtn} replies={replies} />
+        <RecommentList replies={replies} onDelete={onDelete} />
       )}
     </>
   );
@@ -62,7 +70,7 @@ const UserWrapper = styled.div<{ isHighlighted: boolean }>`
   margin-top: 5px;
   border-radius: 8px;
   background-color: ${(props) =>
-    props.isHighlighted ? "#f2f9f1" : "transparent"};
+    props.isHighlighted ? "#e9feff" : "transparent"};
 `;
 
 const CommentContent = styled.div`

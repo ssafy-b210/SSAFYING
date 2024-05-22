@@ -1,16 +1,25 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-
-// 수정하기, 삭제하기 버튼...!
 
 interface BoardBtnProps {
   btnmsg: string;
+  link?: string;
+  onClick?: () => void;
 }
 
 function BoardBtn(props: BoardBtnProps) {
   const btnmsg = props.btnmsg;
   return (
     <ButtonContainer>
-      <Button>{btnmsg}</Button>
+      <div>
+        {props.link ? (
+          <Link to={props.link}>
+            <Button onClick={props.onClick}>{btnmsg}</Button>
+          </Link>
+        ) : (
+          <Button onClick={props.onClick}>{btnmsg}</Button>
+        )}
+      </div>
     </ButtonContainer>
   );
 }

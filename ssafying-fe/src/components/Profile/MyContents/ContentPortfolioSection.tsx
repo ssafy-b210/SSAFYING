@@ -1,72 +1,136 @@
 import MDEditor from "@uiw/react-md-editor";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import {
+  modifyPortfolioReadMe,
+  selectPortfolioReadMe,
+} from "../../../apis/api/Profile";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
+import { useParams } from "react-router-dom";
 
 function ContentPortfolioSection() {
-  const [value, setValue] = useState<string | undefined>(
-    "# **Hello world!!!**"
-  );
+  const [mdValue, setMdValue] = useState<string | undefined>("");
   const [isModified, setIsModified] = useState<Boolean | undefined>(false);
+  const [isPreview, setIsPreview] = useState(false);
+
+  const user = useAppSelector(selectUser);
+  const profileUserId = Number(useParams().userId);
+
+  // 리드미 수정하기
+  function modifyReadme() {
+    modifyPortfolioReadMe(user.userId, mdValue);
+    setIsModified(false);
+  }
+
+  // 리드미 조회
+  async function getReadme() {
+    const res = await selectPortfolioReadMe(profileUserId);
+    setMdValue(res.readme);
+  }
+
+  function handleClickModifyButton() {
+    if (user.userId === profileUserId) setIsModified(true);
+    else alert("수정할 권한이 없습니다.");
+  }
+
+  useEffect(() => {
+    getReadme();
+  }, []);
 
   return (
-    <MarkdownContainer>
-      <MarkdownButtonContainer>
+    <div>
+      <Info>나만의 포트폴리오를 작성해봅시다!</Info>
+      <ButtonWrapper className="reverse">
         {isModified ? (
-          <div className="modifyButtons">
+          <div>
             <Button
               className="danger"
               onClick={() => {
-                alert("포트폴리오 작성 취소");
-                setIsModified(false);
+                if (window.confirm("글 작성을 취소하시겠습니까?")) {
+                  setIsModified(false);
+                }
               }}
             >
               취소
             </Button>
-            <Button
-              className="success"
-              onClick={() => {
-                alert("포트폴리오 작성 완료");
-                setValue(value);
-                setIsModified(false);
-              }}
-            >
+            <Button className="success" onClick={modifyReadme}>
               완료
             </Button>
           </div>
         ) : (
-          <Button onClick={() => setIsModified(true)}>글 수정</Button>
+          <>
+            {user.userId === profileUserId && (
+              <Button onClick={handleClickModifyButton}>글 수정</Button>
+            )}
+          </>
         )}
-      </MarkdownButtonContainer>
-      {isModified ? (
-        <div>
-          <MDEditor value={value} onChange={setValue} preview="edit" />
-        </div>
-      ) : (
-        <div className="markdownDiv" data-color-mode="light">
-          <MDEditor.Markdown style={{ padding: 30 }} source={value} />
-        </div>
-      )}
-    </MarkdownContainer>
+      </ButtonWrapper>
+      <MarkdownContainer>
+        {isModified ? (
+          <div>
+            <ButtonWrapper>
+              <ToggleButton
+                className={isPreview ? "" : "inactive"}
+                onClick={() => setIsPreview(false)}
+              >
+                Edit
+              </ToggleButton>
+              <ToggleButton
+                className={isPreview ? "inactive" : ""}
+                onClick={() => setIsPreview(true)}
+              >
+                Preview
+              </ToggleButton>
+            </ButtonWrapper>
+            <MDEditor
+              value={mdValue}
+              onChange={setMdValue}
+              preview={isPreview ? "preview" : "edit"}
+              height={400}
+              visibleDragbar={false}
+              hideToolbar={true}
+            />
+          </div>
+        ) : (
+          <MDEditor.Markdown source={mdValue} className="viewer" />
+        )}
+      </MarkdownContainer>
+    </div>
   );
 }
 
 export default ContentPortfolioSection;
 
-const MarkdownContainer = styled.div`
-  margin: 10px;
-  border: 1px solid #e8e8e8;
-  border-radius: 4px;
+const Info = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
-const MarkdownButtonContainer = styled.div`
+const ButtonWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
-  padding: 8px 0;
-  border-bottom: 1px solid #e8e8e8;
+  padding-bottom: 10px;
+
+  &.reverse {
+    justify-content: flex-end;
+  }
+`;
+
+const MarkdownContainer = styled.div`
+  padding: 20px 26px;
+  border: 1px solid #d0d7de;
+  border-radius: 4px;
+  background-color: #fff;
+  white-space: break-spaces;
+  word-wrap: break-word;
+
+  .viewer {
+    height: 400px;
+  }
 `;
 
 const Button = styled.button`
-  margin: 0 16px;
+  margin-left: 16px;
   padding: 8px 24px;
   font-size: 14px;
   color: #000;
@@ -74,6 +138,7 @@ const Button = styled.button`
   border-radius: 6px;
   background-color: #fff;
   cursor: pointer;
+  font-family: "Noto Sans KR", "Noto Sans", sans-serif;
 
   &.danger {
     color: #fff;
@@ -85,5 +150,29 @@ const Button = styled.button`
     color: #fff;
     border: none;
     background-color: #8aae92;
+  }
+`;
+const ToggleButton = styled(Button)`
+  margin: 0;
+  padding: 8px 16px;
+
+  &:first-child {
+    border-radius: 4px 0 0 4px;
+  }
+
+  &:last-child {
+    border-radius: 0 4px 4px 0;
+  }
+
+  &.inactive {
+    color: #000;
+    border: 1px solid #d8d8d8;
+    background-color: #fff;
+  }
+
+  & {
+    color: #262626;
+    border: 1px solid #d8d8d8;
+    background-color: #d8d8d8;
   }
 `;

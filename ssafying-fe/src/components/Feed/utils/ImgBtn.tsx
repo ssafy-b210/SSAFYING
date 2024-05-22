@@ -1,9 +1,8 @@
-import React from "react";
 import styled from "styled-components";
 
 interface ImgBtnProps {
   src: string;
-  onClick: () => void;
+  onClick?: () => void;
   size: string;
 }
 

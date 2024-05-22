@@ -1,21 +1,38 @@
 import styled from "styled-components";
+import ProfileImage from "./ProfileImage";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
+import { selectOneUserInfo } from "../../../apis/api/User";
+import { useState, useEffect } from "react";
 
-import UserDefaultImg from "../../../assets/img/userIcons/userProfileImg.svg";
 function UserProfile() {
+  const user = useAppSelector(selectUser);
+  const [userInfo, setUserInfo] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userData = await selectOneUserInfo(user.userId);
+        setUserInfo(userData.resultData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [user.userId]);
+
+  useEffect(() => {
+    console.log(userInfo);
+  }, [userInfo]);
+
   return (
-    <div>
-      <Profile>
-        <ProfileImg>
-          <div className="img-container">
-            <img src={UserDefaultImg} alt="user-profile-img"></img>
-          </div>
-        </ProfileImg>
-        <MyIntroduction>
-          <h3>이예원</h3>
-          <p>youremail@domain.com</p>
-        </MyIntroduction>
-      </Profile>
-    </div>
+    <Profile>
+      <MyIntroduction>
+        <h3>{user.username}</h3>
+        <p>{user.email}</p>
+      </MyIntroduction>
+    </Profile>
   );
 }
 export default UserProfile;
@@ -24,29 +41,11 @@ const Profile = styled.div`
   margin-top: 15px;
   position: relative;
 `;
-const ProfileImg = styled.div`
-  display: flex;
-  justify-content: center;
-  .img-container {
-    border: none;
-    border-radius: 50%;
-    height: 100px;
-    width: 100px;
-    background-color: #d9d9d9;
-    position: absolute;
-  }
-  img {
-    position: relative;
-    z-index: 1;
-    left: 16px;
-    top: 4px;
-    object-fit: cover;
-  }
-`;
+
 const MyIntroduction = styled.div`
   text-align: center;
-  margin-top: 120px;
-  h5 {
+  margin-top: 10px;
+  h3 {
     margin-top: 0;
   }
 `;

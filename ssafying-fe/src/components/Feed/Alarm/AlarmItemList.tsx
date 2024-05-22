@@ -1,23 +1,28 @@
-import styled from "styled-components";
 import AlarmItem from "./AlarmItem";
 
 interface userProps {
   alarmList: {
-    userId: string;
-    userImage: string;
+    senderId: number;
+    nickname: string;
+    imgUrl: string;
     type: string;
+    createdAt: string;
+    feedId: number;
   }[];
 }
 
 function AlarmItemList({ alarmList }: userProps) {
   return (
     <>
-      {alarmList.map((alarm) => (
+      {alarmList.map((alarm, index) => (
         <AlarmItem
-          key={alarm.userId}
-          userId={alarm.userId}
-          userImage={alarm.userImage}
+          key={index}
+          senderId={alarm.senderId}
+          nickname={alarm.nickname}
+          imageUrl={alarm.imgUrl}
+          time={alarm.createdAt}
           type={alarm.type}
+          feedId={alarm.feedId}
         />
       ))}
     </>

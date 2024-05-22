@@ -1,18 +1,23 @@
-import React from "react";
 import styled from "styled-components";
-import Hashtag from "../utils/HashTag";
+import Hashtag from "../utils/SignupHashTag";
 
-function FeedContent() {
+interface Props {
+  content: string;
+  hashtag: {
+    id: number;
+    tagName: string;
+  }[];
+}
+
+function FeedContent({ content, hashtag }: Props) {
+  console.log(hashtag);
   return (
     <ContentWrapper>
-      <Content>
-        오늘은 우리 팀제주도를 위해 기획 잘 하는 법을 배웠다.. 기획 나만
-        힘들어여?
-      </Content>
+      <Content>{content}</Content>
       <div>
-        <Hashtag text="기획" />
-        <Hashtag text="웹개발" />
-        <Hashtag text="공통프로젝트" />
+        {hashtag.map((item) => (
+          <Hashtag key={item.id} text={item.tagName} />
+        ))}
       </div>
     </ContentWrapper>
   );

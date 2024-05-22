@@ -1,31 +1,46 @@
 import styled from "styled-components";
-import userImage from "../../../assets/img/testImg/user.svg";
 import RoundImg from "../utils/RoundImg";
 import ImgBtn from "../utils/ImgBtn";
 import deleteBtn from "../../../assets/img/imgBtn/deleteBtn.svg";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
+import { deleteFeedComment } from "../../../apis/api/Feed";
+import userProfileImg from "../../../assets/img/userIcons/profileImage.jpg";
 
 interface RecommentProps {
-  userId: string;
-  commentId: string;
+  commentId: number;
+  commentUser: {
+    id: number;
+    nickname: string;
+    profileImageUrl?: string;
+  };
   content: string;
-  onClickDelete: () => void;
+  onDelete: (id: number) => void;
 }
 
 function RecommentItem({
-  userId,
   commentId,
+  commentUser,
   content,
-  onClickDelete,
+  onDelete,
 }: RecommentProps) {
+  const user = useAppSelector(selectUser);
+
+  const profileImageUrl = commentUser.profileImageUrl || userProfileImg;
+
+  const onClickDelete = () => {
+    onDelete(commentId);
+  };
+
   return (
     <RecommentWrapper>
-      <RoundImg src={userImage} size="28px" />
+      <RoundImg src={profileImageUrl} size="28px" />
       <RecommentContent>
-        <UserId>{commentId}</UserId>
+        <UserId>{commentUser.nickname}</UserId>
         <Content>{content}</Content>
       </RecommentContent>
       <ButtonsWrapper>
-        {commentId === userId && (
+        {commentUser.id === user.userId && (
           <ImgBtn src={deleteBtn} onClick={onClickDelete} size="12px" />
         )}
       </ButtonsWrapper>

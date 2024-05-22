@@ -1,46 +1,59 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router";
 
-interface BoardSortTab {}
+interface BoardSortTabProps {
+  onCategoryChange: (category: string) => void;
+}
 
-function BoardSortTab({}: BoardSortTab) {
+const tabButtons: { value: string; label: string }[] = [
+  { value: "FREEDOM", label: "자유" },
+  { value: "EMPLOYMENT", label: "취업" },
+  { value: "INFO", label: "정보" },
+  { value: "DEVELOPMENT", label: "개발" },
+  { value: "TIP", label: "싸피꿀팁" },
+  { value: "LIVING", label: "생활" },
+  { value: "PROMOTION", label: "홍보" },
+];
+
+const BoardSortTab: React.FC<BoardSortTabProps> = ({ onCategoryChange }) => {
+  const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState<number | null>(null);
 
   const handleButtonClick = (index: number) => {
     setActiveButton(index);
+    const selectedCategory = tabButtons[index].value;
+    onCategoryChange(selectedCategory);
+
+    //카테고리에 대한 쿼리스트링 추가
+    navigate(`?searchCategory=${selectedCategory}`);
   };
 
   return (
     <StyledTab>
-      {tabButtons.map((label, index) => (
+      {tabButtons.map(({ label }, index) => (
         <SortTabButton
           key={index}
-          active={index === activeButton}
+          $active={index === activeButton}
           onClick={() => handleButtonClick(index)}
         >
-          <span>{label}</span>
+          {label}
         </SortTabButton>
       ))}
     </StyledTab>
   );
-}
+};
 
 export default BoardSortTab;
 
-const tabButtons = ["자유", "취업", "정보", "개발", "싸피꿀팁", "생활", "홍보"];
-
-interface SortTabButtonProps {
-  active: boolean;
-}
-
-const SortTabButton = styled.a<SortTabButtonProps>`
+const SortTabButton = styled.a<{ $active: boolean }>`
   display: inline-block;
   margin: 0 16px;
   padding: 10px 16px;
   border-radius: 30px;
   text-decoration: none;
-  background-color: ${({ active }) => (active ? "#616161" : "#fff")};
-  color: ${({ active }) => (active ? "#fff" : "#262626")};
+  background-color: ${({ $active }) => ($active ? "#616161" : "#fff")};
+  color: ${({ $active }) => ($active ? "#fff" : "#262626")};
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 `;
 

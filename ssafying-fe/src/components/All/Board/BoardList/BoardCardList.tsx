@@ -1,101 +1,119 @@
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import React from "react";
+import BoardCardListItem from "./BoardCardListItem";
+import { selectAllBoard } from "../../../../apis/api/Board";
+import GetBoardItem from "./GetBoardItem";
 
-interface BoardCardList {
-  title: string;
-  nickname: string;
+interface BoardCardListProps {
+  selectedCategory?: string | null;
+  searchWord?: string;
 }
 
-interface CardsProps {
-  info: BoardCardList;
-}
+const BoardCardList: React.FC<BoardCardListProps> = ({
+  selectedCategory,
+  searchWord,
+}) => {
+  const [cards, setCards] = useState<
+    {
+      title: string;
+      writer: string;
+      content: string;
+      category: string;
+      isAnonymous: boolean;
+      boardId: number;
+      scrap: boolean;
+    }[]
+  >([]);
 
-interface BackProps {
-  description: string;
-}
+  const [filteredCards, setFilteredCards] = useState<
+    {
+      title: string;
+      writer: string;
+      content: string;
+      category: string;
+      isAnonymous: boolean;
+      boardId: number;
+      scrap: boolean;
+    }[]
+  >([]);
+  const [lastIdx, setLastIdx] = useState(0);
 
-const Cards: React.FC<CardsProps> = ({ info }) => (
-  <StyledCards>
-    <h2 className="title">{info.title}</h2>
-    <hr></hr>
-    <div className="small-container">
-      <p className="nickname">{info.nickname}</p>
-    </div>
-  </StyledCards>
-);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const boardData = await selectAllBoard(selectedCategory ?? undefined);
+        console.log(boardData);
+        if (boardData && boardData.resultData) {
+          setLastIdx(lastIdx + 1);
+          const newCards = boardData.resultData.map((res: any) => ({
+            title: res.title,
+            writer: res.nickname,
+            content: res.content,
+            category: res.category,
+            isAnonymous: res.anonymous,
+            boardId: res.boardId,
+            scrap: res.scrap,
+          }));
+          setCards(newCards);
 
-const Back: React.FC<BackProps> = ({ description }) => (
-  <div className="back">
-    <h4>{description}</h4>
-  </div>
-);
-
-function BoardCardList() {
-  const [cardInfo, setCardInfo] = React.useState<BoardCardList[]>([
-    { title: "유온역 맛집 추천받아요", nickname: "su00" },
-  ]);
+          if (typeof searchWord === "string" && searchWord.trim() !== "") {
+            const filtered = newCards.filter((card: any) => {
+              return card.title
+                .replace(" ", "")
+                .toLocaleLowerCase()
+                .includes(
+                  searchWord.trim().toLocaleLowerCase().replace(" ", "")
+                );
+            });
+            console.log(filtered);
+            setFilteredCards(filtered);
+            console.log("필터링", filteredCards);
+          } else {
+            setFilteredCards(newCards);
+          }
+        }
+      } catch (error) {
+        console.error(error);
+        setCards([]);
+        setFilteredCards([]);
+      }
+    };
+    fetchData();
+  }, [selectedCategory, searchWord]);
 
   return (
-    <BoardCardContainer className="flip-inner">
-      {cardInfo.map((info, idx) => (
-        <React.Fragment key={idx}>
-          <Cards info={info} />
-          <Back description="대전캠퍼스 봉명동 맛집 제발요..." />
-        </React.Fragment>
-      ))}
-    </BoardCardContainer>
+    <>
+      {filteredCards.length > 0 ? (
+        <Container>
+          {filteredCards.map((card, index) => (
+            <GetBoardItem key={index} boardId={card.boardId} />
+          ))}
+        </Container>
+      ) : (
+        <NoResultsMessage>검색 결과가 없습니다.</NoResultsMessage>
+      )}
+    </>
   );
-}
+};
 
 export default BoardCardList;
 
-const BoardCardContainer = styled.div`
+const NoResultsMessage = styled.div`
+  padding-top: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  position: relative;
-  transition: transform 1s;
-  transform-style: preserve-3d;
-  &:hover {
-    transform: rotateY(180deg);
-  }
-  .back {
-    position: absolute;
-    text-align: center;
-    transform: rotateY(180deg);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 200px;
-    height: 200px;
-    border: 3px solid #c4c4c4;
-    border-radius: 20px;
-    backface-visibility: hidden;
-    margin: 20px;
-  }
-`;
-
-const StyledCards = styled.div`
-  width: 200px;
-  height: 200px;
-  border: 3px solid #c4c4c4;
-  border-radius: 20px;
-  margin: 20px;
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  backface-visibility: hidden;
-  z-index: 1;
-  hr {
-    width: 80%;
-  }
-  .title {
-    text-align: left;
-    margin-left: 15px;
-  }
-  .small-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+  // padding: 0 30px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;

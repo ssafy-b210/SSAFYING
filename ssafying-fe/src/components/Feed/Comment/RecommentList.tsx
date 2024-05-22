@@ -2,25 +2,30 @@ import styled from "styled-components";
 import RecommentItem from "./RecommentItem";
 
 interface RepliesProps {
-  onClick: () => void;
   replies: {
-    replyId: number;
-    commentId: string;
+    id: number;
+    user: {
+      id: number;
+      nickname: string;
+      profileImageUrl: string;
+    };
     content: string;
+    likeCounts: number;
+    deleted: boolean;
   }[];
+  onDelete: (id: number) => void;
 }
 
-function RecommentList({ onClick, replies }: RepliesProps) {
-  const userId = "aeong";
+function RecommentList({ replies, onDelete }: RepliesProps) {
   return (
     <RecommentListWrapper>
       {replies.map((reply) => (
         <RecommentItem
-          key={reply.replyId}
-          commentId={reply.commentId}
-          userId={userId}
+          key={reply.id}
+          commentId={reply.id}
+          commentUser={reply.user}
           content={reply.content}
-          onClickDelete={() => onClick}
+          onDelete={onDelete}
         />
       ))}
     </RecommentListWrapper>

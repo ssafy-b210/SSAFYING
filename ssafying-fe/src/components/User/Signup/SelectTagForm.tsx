@@ -1,17 +1,52 @@
+import React, { useState } from "react";
 import styled from "styled-components";
-import Btn from "./OptionsBtn";
+import WorkBtn from "./WorkBtn";
+import LifeBtn from "./LifeBtn";
+import SubmitBtn from "../../Common/SubmitBtn";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
+import { selectTag } from "../../../apis/api/User";
+
 function SelectTagForm() {
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const user = useAppSelector(selectUser);
+
+  const handleSubmit = async () => {
+    try {
+      const userId = user.userId;
+      console.log(selectedTags);
+      await selectTag(userId, selectedTags);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <TagMsg>
         <h3>당신의 관심사를 태그로 선택해주세요</h3>
       </TagMsg>
-      <Selected>
-        <p>나의 관심사</p>
-      </Selected>
-      <Btn></Btn>
+      {/* 워크 */}
+      <TagContainer>
+        <WorkBtn
+          setSelectedTags={setSelectedTags}
+          selectedTags={selectedTags}
+        />
+      </TagContainer>
+      <hr></hr>
+      {/* 라이프 */}
+      <TagContainer>
+        <LifeBtn
+          setSelectedTags={setSelectedTags}
+          selectedTags={selectedTags}
+        />
+      </TagContainer>
       <BtnContainer>
-        <SubmitButton>싸피 인증하러 가기</SubmitButton>
+        <SubmitBtn
+          link="/"
+          text="로그인하러가기"
+          onClick={handleSubmit}
+        ></SubmitBtn>
       </BtnContainer>
     </div>
   );
@@ -23,27 +58,8 @@ const TagMsg = styled.div`
   justify-content: center;
 `;
 
-const Selected = styled.div`
-  height: 100px;
-  border: 1px solid gray;
-  border-radius: 10px;
-  margin-right: 15px;
-  margin-left: 15px;
-  p {
-    margin-left: 15px;
-  }
-`;
-const SubmitButton = styled.button`
-  width: 300px;
-  height: 30px;
-  border-radius: 20px;
-  background-color: #b6cdbd;
-  border: none;
-  color: white;
-  margin-top: 80%;
-  color: black;
-`;
 const BtnContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
+const TagContainer = styled.div``;

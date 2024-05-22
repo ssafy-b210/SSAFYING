@@ -1,12 +1,57 @@
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { selectOneUserInfo } from "../../../apis/api/User";
+import { logout } from "../../../store/reducers/user";
+import { selectUser } from "../../../store/reducers/user";
+import FollowButton from "./FollowButton";
 
 function ProflieSetting() {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
+  const profileUserId = Number(useParams().userId);
+  const isMyProfile = useParams().userId === user.userId.toString();
+
+  const callLogout = () => {
+    if (window.confirm("로그아웃하시겠습니까?")) {
+      window.location.href = "/";
+      try {
+        // logout(1)안에는 loginId로 나중에 바꾸기
+        dispatch(logout()); // logout() 함수를 dispatch 합니다.
+        navigate("/");
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
+
+  const callUserInfo = () => {
+    try {
+      // logout(1)안에는 loginId로 나중에 바꾸기
+      selectOneUserInfo(1);
+      navigate("/user/detail");
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <StyledProfileSetting>
-      <Button onClick={() => alert("회원정보 페이지로 이동")}>회원정보</Button>
-      <Button className="danger" onClick={() => alert("로그아웃")}>
-        로그아웃
-      </Button>
+      {isMyProfile ? (
+        <div>
+          <Link to="/user/detail">
+            <Button>회원정보</Button>
+          </Link>
+          <Link to="/">
+            <Button className="danger" onClick={callLogout}>
+              로그아웃
+            </Button>
+          </Link>
+        </div>
+      ) : (
+        <FollowButton toUserId={profileUserId} />
+      )}
     </StyledProfileSetting>
   );
 }
@@ -28,6 +73,7 @@ const Button = styled.button`
   border-radius: 6px;
   background-color: #fff;
   cursor: pointer;
+  font-family: "Noto Sans KR", "Noto Sans", sans-serif;
 
   &.danger {
     color: #fff;

@@ -1,84 +1,99 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import CommentList from "./CommentList";
 import CommentInput from "./CommentInput";
+import {
+  getFeedComment,
+  createFeedComment,
+  deleteFeedComment,
+} from "../../../apis/api/Feed";
+import Modal from "react-modal";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/reducers/user";
 
 interface CommentModalProps {
   onClose: () => void;
+  feedId: number;
 }
 
-const CommentModal: React.FC<CommentModalProps> = ({ onClose }) => {
-  const [modalClosed, setModalClosed] = useState(false);
+const CommentModal: React.FC<CommentModalProps> = ({ onClose, feedId }) => {
+  const [commentList, setCommentList] = useState<any[]>([]);
+  const [highlighted, setHighlighted] = useState<number | null>(null);
+  const user = useAppSelector(selectUser);
 
-  const handleCommentSubmit = (comment: string) => {
+  useEffect(() => {
+    fetchComments();
+  }, []);
+
+  const fetchComments = async () => {
+    const list = await getFeedComment(feedId);
+    setCommentList(list || []);
+  };
+
+  const handleCommentSubmit = async (comment: string) => {
     console.log("Comment submitted:", comment);
-    setModalClosed(true);
+    try {
+      if (highlighted === null) {
+        await createFeedComment(feedId, user.userId, comment);
+      } else {
+        await createFeedComment(feedId, user.userId, comment, highlighted);
+      }
+      await fetchComments();
+    } catch (error) {
+      console.error("Error submitting comment", error);
+    }
+  };
 
-    onClose();
+  //삭제 api 호출
+  const handleDeleteComment = async (commentId: number) => {
+    try {
+      await deleteFeedComment(commentId);
+
+      await fetchComments();
+    } catch (error) {
+      console.error("Error deleting comment", error);
+    }
   };
 
   return (
-    <ModalOverlay>
-      <ModalContent closed={modalClosed}>
-        <CloseButtonContainer>
-          <CloseButton onClick={() => handleCommentSubmit("")}>
-            &times;
-          </CloseButton>
-        </CloseButtonContainer>
-        <CommentList />
-      </ModalContent>
+    <Modal isOpen={true} onRequestClose={onClose} style={customStyles}>
+      <CommentWrapper>
+        <CommentList
+          feedId={feedId}
+          parent={(id) => setHighlighted(id)}
+          commentList={commentList}
+          onDelete={handleDeleteComment}
+        />
+      </CommentWrapper>
       <CommentInputContainer>
-        <CommentInput onSubmit={handleCommentSubmit} />
+        <CommentInput
+          onSubmit={handleCommentSubmit}
+          id={feedId}
+          highlighted={highlighted}
+        />
       </CommentInputContainer>
-    </ModalOverlay>
+    </Modal>
   );
 };
 
 export default CommentModal;
 
-const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  margin: 0 auto;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-`;
-
-const ModalContent = styled.div<{ closed: boolean }>`
-  background: white;
-  height: 90%;
-  padding: 10px;
-  border-radius: 10px;
-  width: 100%;
-  max-width: 560px;
-  overflow-y: scroll;
-  padding-bottom: 55px;
-  transition: transform 0.7s ease-in-out;
-  transform: translateY(${(props) => (props.closed ? "100%" : "0")});
-  &::-webkit-scrollbar {
-    width: 0;
-    background: transparent; /* Optional: just make scrollbar invisible */
-  }
-`;
-
-const CloseButtonContainer = styled.div`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-`;
-
-const CloseButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 30px;
-  cursor: pointer;
-  color: #555;
-`;
+// 모달 스타일을 위한 설정
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "90%",
+    maxWidth: "560px",
+    height: "80%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: "10px",
+    overflow: "hidden",
+  },
+};
 
 const CommentInputContainer = styled.div`
   position: fixed;
@@ -86,4 +101,15 @@ const CommentInputContainer = styled.div`
   width: 100%;
   max-width: 560px;
   background-color: white;
+  padding-bottom: 10px;
+`;
+
+const CommentWrapper = styled.div`
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 10px 20px;
+  overflow-y: scroll;
+  margin-bottom: 10px;
 `;

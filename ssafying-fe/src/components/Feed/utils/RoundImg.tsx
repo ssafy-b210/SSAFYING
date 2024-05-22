@@ -15,4 +15,5 @@ const Img = styled.img`
   margin: 0 5px;
   border-radius: 50%;
   border: 1px solid lightgray;
+  box-sizing: border-box;
 `;

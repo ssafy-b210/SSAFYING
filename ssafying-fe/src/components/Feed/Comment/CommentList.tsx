@@ -1,56 +1,51 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CommentItem from "./CommentItem";
+import styled from "styled-components";
 
-function CommentList() {
+interface Props {
+  feedId: number;
+  parent: (id: number | null) => void; // 부모 컴포넌트로부터 전달된 함수
+  commentList: any[]; // 댓글 리스트를 상태로 받음
+  onDelete: (id: number) => void;
+}
+
+function CommentList({ feedId, parent, commentList, onDelete }: Props) {
   const [highlightedCommentId, setHighlightedCommentId] = useState<
-    string | null
+    number | null
   >(null);
 
-  const comments = [
-    {
-      commentId: "aeong",
-      content: "ㅋㅋㅋㅋㅋ",
-      replies: [
-        { replyId: 1, commentId: "aeong", content: "ㅎㅎㅎㅎ" },
-        { replyId: 2, commentId: "yes", content: "뭐야" },
-        { replyId: 2, commentId: "yes", content: "뭐야" },
-        { replyId: 2, commentId: "yes", content: "뭐야" },
-        { replyId: 2, commentId: "yes", content: "뭐야" },
-      ],
-    },
-    {
-      commentId: "yes",
-      content: "ㅋㅋㅋㅋㅋ",
-      replies: [
-        { replyId: 1, commentId: "yes.hh", content: "안녕" },
-        { replyId: 2, commentId: "yes", content: "뭐야" },
-        { replyId: 2, commentId: "yes", content: "뭐야" },
-        { replyId: 2, commentId: "yes", content: "뭐야" },
-      ],
-    },
-    { commentId: "yes.hh", content: "안녕ㅎㅎ", replies: [] },
-  ];
+  useEffect(() => {
+    // 댓글 리스트가 업데이트될 때마다 효과적으로 동작하도록 설정
+    console.log("Comment list updated:", commentList);
+  }, [commentList]);
 
-  const handleCommentClick = (commentId: string) => {
+  const handleCommentClick = (commentId: number) => {
+    parent(commentId === highlightedCommentId ? null : commentId);
     setHighlightedCommentId(
       commentId === highlightedCommentId ? null : commentId
     );
   };
 
   return (
-    <div>
-      {comments.map((comment) => (
+    <CommentWrapper>
+      {commentList.map((comment) => (
         <CommentItem
-          key={comment.commentId}
-          commentId={comment.commentId}
+          key={comment.id}
+          commentId={comment.id}
+          commentUser={comment.user}
           content={comment.content}
-          isHighlighted={comment.commentId === highlightedCommentId}
-          onClick={() => handleCommentClick(comment.commentId)}
-          replies={comment.replies}
+          isHighlighted={comment.id === highlightedCommentId}
+          onClick={() => handleCommentClick(comment.id)}
+          replies={comment.childComments}
+          onDelete={onDelete}
         />
       ))}
-    </div>
+    </CommentWrapper>
   );
 }
 
 export default CommentList;
+
+const CommentWrapper = styled.div`
+  padding-bottom: 30px;
+`;

@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
-function ToggleBtn() {
+interface ToggleBtnProps {
+  isRecruit: boolean;
+  onToggle: (value: boolean) => void;
+}
+
+function ToggleBtn({ isRecruit, onToggle }: ToggleBtnProps) {
   const [isRecruiting, setIsRecruiting] = useState<boolean>(false);
 
   const handleToggle = () => {
-    setIsRecruiting(!isRecruiting);
+    const updatedValue = !isRecruit;
+    setIsRecruiting(updatedValue);
+    onToggle(updatedValue);
   };
 
   return (
     <ToggleContainer>
-      <h5>모집여부</h5>
+      <span>모집여부</span>
       <Toggle>
         <input
           role="switch"
@@ -27,8 +34,10 @@ function ToggleBtn() {
 export default ToggleBtn;
 
 const ToggleContainer = styled.div`
-  h5 {
-    margin-left: 20px;
+  margin-top: 20px;
+  span {
+    margin-left: 15px;
+    font-weight: bold;
   }
   display: flex;
 `;

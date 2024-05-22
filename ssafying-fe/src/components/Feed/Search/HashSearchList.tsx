@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import HashSearchItem from "./HashSearchItem";
 
 interface userProps {

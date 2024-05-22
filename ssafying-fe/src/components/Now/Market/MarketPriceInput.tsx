@@ -1,11 +1,20 @@
 import styled from "styled-components";
 
-function MarketPriceInput() {
+interface CreatePriceProps {
+  onPriceChange: (newPrice: number) => void;
+  disabled: boolean;
+}
+
+function MarketPriceInput({ onPriceChange }: CreatePriceProps) {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newPrice = parseInt(event.target.value);
+    onPriceChange(newPrice);
+  };
   return (
     <PriceInput>
-      <h5>금 액</h5>
+      <h4>금 액</h4>
       <PriceContainer>
-        <input type="number" />원
+        <input type="number" onChange={handleInputChange} />원
       </PriceContainer>
     </PriceInput>
   );
@@ -16,7 +25,7 @@ export default MarketPriceInput;
 const PriceInput = styled.div`
   display: flex;
   align-items: center;
-  h5 {
+  h4 {
     margin-left: 20px;
   }
 `;
@@ -33,7 +42,7 @@ const PriceContainer = styled.div`
     border-radius: 15px;
     outline: none;
     padding-left: 10px;
-    background-color: #f4f9f4;
+    background-color: #d9d9d9;
     margin: 5px;
   }
 `;

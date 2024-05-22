@@ -1,16 +1,19 @@
 import styled from "styled-components";
 import RoundImg from "../utils/RoundImg";
+import profileImage from "../../../assets/img/userIcons/profileImage.jpg";
 
 interface userProps {
-  userId: string;
+  userId: number;
+  userNickname: string;
   userImage: string;
 }
 
-function UserItem({ userId, userImage }: userProps) {
+function UserItem({ userId, userNickname, userImage }: userProps) {
+  const profile = userImage || profileImage;
   return (
     <UserWrapper>
-      <RoundImg src={userImage} size="30px" />
-      <UserId>{userId}</UserId>
+      <RoundImg src={profile} size="30px" />
+      <UserId>{userNickname}</UserId>
     </UserWrapper>
   );
 }

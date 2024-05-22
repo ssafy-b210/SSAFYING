@@ -1,11 +1,21 @@
 import styled from "styled-components";
 
-function CreateContent() {
+interface CreateContentProps {
+  onContentChange: (newContent: string) => void;
+  initialContent?: string;
+}
+
+function CreateContent({ onContentChange }: CreateContentProps) {
+  const handleContentChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    onContentChange(event.target.value);
+  };
   return (
     <Content>
-      <h5>내용</h5>
+      <span>내용</span>
       <ContentContainer>
-        <StyledInput />
+        <StyledInput onChange={handleContentChange} />
       </ContentContainer>
     </Content>
   );
@@ -14,8 +24,11 @@ function CreateContent() {
 export default CreateContent;
 
 const Content = styled.div`
-  h5 {
-    margin-left: 20px;
+  width: 300px;
+  margin-top: 20px;
+  span {
+    margin-left: 15px;
+    font-weight: bold;
   }
 `;
 const ContentContainer = styled.div`
@@ -24,13 +37,15 @@ const ContentContainer = styled.div`
   align-items: center;
 `;
 const StyledInput = styled.textarea`
-  width: 500px;
+  width: 95%;
   height: 300px;
   border: 0;
   border-radius: 15px;
   outline: none;
   padding: 10px;
-  background-color: #f4f9f4;
+  background-color: #d9d9d9;
   line-height: 1.5;
   resize: none;
+  margin-bottom: 20px;
+  font-size: 16px;
 `;

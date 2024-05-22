@@ -1,11 +1,21 @@
 import styled from "styled-components";
 
-function CreateTitle() {
+interface CreateTitleProps {
+  onTitleChange: (newTitle: string) => void;
+  initialTitle?: string;
+}
+
+function CreateTitle({ onTitleChange }: CreateTitleProps) {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newTitle = event.target.value;
+    onTitleChange(newTitle);
+  };
+
   return (
     <Title>
-      <h5>제목</h5>
+      <span>제목</span>
       <TitleContainer>
-        <input type="text" />
+        <input type="text" onChange={handleInputChange} />
       </TitleContainer>
     </Title>
   );
@@ -14,21 +24,24 @@ function CreateTitle() {
 export default CreateTitle;
 
 const Title = styled.div`
-  h5 {
-    margin-left: 20px;
+  width: 300px;
+  margin-top: 20px;
+  span {
+    margin-left: 15px;
+    font-weight: bold;
   }
 `;
 const TitleContainer = styled.div`
   display: flex;
   justify-content: center;
   input {
-    width: 500px;
+    width: 100%;
     height: 32px;
     font-size: 15px;
     border: 0;
     border-radius: 15px;
     outline: none;
     padding-left: 10px;
-    background-color: #f4f9f4;
+    background-color: #d9d9d9;
   }
 `;

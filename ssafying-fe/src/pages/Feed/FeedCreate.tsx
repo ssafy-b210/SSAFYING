@@ -1,17 +1,16 @@
-import React from "react";
-import ImgUploader from "../../components/Feed/FeedCreate/ImgUploader";
+import BackBtnHeader from "../../components/Common/BackBtnHeader";
+import FeedContentInput from "../../components/Feed/FeedCreate/FeedContentInput";
 
 function FeedCreate() {
-  const handleImageUpload = (croppedImages: string[]) => {
-    // Perform actions with the uploaded and cropped images
-    console.log("Cropped images:", croppedImages);
-  };
-
   return (
-    <div>
-      <h1>Image Uploader Example</h1>
-      <ImgUploader onUpload={handleImageUpload} />
-    </div>
+    <>
+      <BackBtnHeader
+        backLink="/feedhome"
+        text="게시글 작성하기"
+        isCenter={true}
+      />
+      <FeedContentInput />
+    </>
   );
 }
 

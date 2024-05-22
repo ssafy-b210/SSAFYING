@@ -10,25 +10,33 @@ interface SelectCategoryProps {
   options: Option[];
   defaultValue: string;
   category: string;
+  onCategoryChange: (newCategory: Option) => void;
 }
 
 const SelectCategory: React.FC<SelectCategoryProps> = ({
   options,
   defaultValue,
   category,
+  onCategoryChange,
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string>(defaultValue);
+  const [selectedOption, setSelectedOption] = useState<Option>(
+    options.find((option) => option.value === defaultValue) || options[0]
+  );
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOption(event.target.value);
+    const selectedValue = event.target.value;
+    const newCategory =
+      options.find((option) => option.value === selectedValue) || options[0];
+    setSelectedOption(newCategory);
+    onCategoryChange(newCategory);
   };
 
   return (
     <Category>
-      <h5>{category}</h5>
+      <span>{category}</span>
       <CategoryContainer
         className="select-box"
-        value={selectedOption}
+        value={selectedOption.value}
         onChange={handleOptionChange}
       >
         {options.map((option) => (
@@ -44,8 +52,10 @@ const SelectCategory: React.FC<SelectCategoryProps> = ({
 export default SelectCategory;
 
 const Category = styled.div`
-  h5 {
-    margin-left: 20px;
+  margin-top: 20px;
+  span {
+    margin-left: 15px;
+    font-weight: bold;
   }
   display: flex;
 `;
@@ -56,5 +66,4 @@ const CategoryContainer = styled.select`
   height: 25px;
   border: 1px solid gray;
   border-radius: 10px;
-  margin-top: 20px;
 `;
